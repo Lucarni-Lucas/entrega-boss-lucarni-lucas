@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://fm4dys2j78qx" path="res://scenes/camara.tscn" id="1_e05a3"]
 [ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="1_wl4x5"]
+[ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -40,9 +41,13 @@ shape = SubResource("RectangleShape2D_13qdw")
 [node name="Entidades" type="Node2D" parent="." unique_id=272458442]
 y_sort_enabled = true
 
-[node name="Camara" parent="." unique_id=1696517493 instance=ExtResource("1_e05a3")]
+[node name="Player" parent="Entidades" unique_id=666075403 instance=ExtResource("2_olpmc")]
+position = Vector2(1000, 750)
+
+[node name="Camara" parent="." unique_id=1696517493 node_paths=PackedStringArray("objetivo") instance=ExtResource("1_e05a3")]
 limit_left = -370
 limit_top = -370
 limit_right = 2370
 limit_bottom = 1870
 limit_smoothed = true
+objetivo = NodePath("../Entidades/Player")

@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_pk6jb")
+anim_estiramiento_max = 1.15
+anim_aterrizaje_vuelta = 0.37
 metadata/_custom_type_script = "uid://bpnf8ftr7uhrk"

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cox3t741yfdhq"]
+
+[ext_resource type="Script" uid="uid://dpgsch6uikgxl" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="Script" uid="uid://cryk37ync3cfi" path="res://scenes/player/walk.gd" id="2_gmlin"]
+[ext_resource type="Resource" uid="uid://dq4faj2ot85b1" path="res://resources/player_params.tres" id="2_lvxji"]
+[ext_resource type="Script" uid="uid://0ou67viw842l" path="res://scenes/player/shadow.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://bsiclvrdaskx7" path="res://scenes/player/sprite.gd" id="4_75vfm"]
+[ext_resource type="Script" uid="uid://0k1mbhbc0do7" path="res://scenes/player/jump.gd" id="5_p47bc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 1.0
+
+[sub_resource type="Gradient" id="Gradient_gmlin"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.82287824, 0.92619926)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_13qdw"]
+gradient = SubResource("Gradient_gmlin")
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_lvxji"]
+offsets = PackedFloat32Array(0, 0.95625, 1)
+colors = PackedColorArray(0.4443136, 0.62112236, 1, 1, 0.25459045, 0.47366184, 0.99997634, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
+gradient = SubResource("Gradient_lvxji")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Player" type="CharacterBody2D" unique_id=666075403]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_dovo2")
+params = ExtResource("2_lvxji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651236493]
+shape = SubResource("CircleShape2D_xrivr")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1542911438]
+texture = SubResource("GradientTexture2D_13qdw")
+script = ExtResource("3_lvxji")
+
+[node name="Sprite" type="Node2D" parent="." unique_id=1338394626]
+script = ExtResource("4_75vfm")
+
+[node name="Estiramiento" type="Node2D" parent="Sprite" unique_id=958097106]
+position = Vector2(0, -32)
+
+[node name="Visual" type="Sprite2D" parent="Sprite/Estiramiento" unique_id=198621459]
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="Walk" type="Node" parent="." unique_id=1032320984]
+script = ExtResource("2_gmlin")
+
+[node name="Jump" type="Node" parent="." unique_id=1766960256]
+script = ExtResource("5_p47bc")
