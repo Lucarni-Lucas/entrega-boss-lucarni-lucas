@@ -1,5 +1,5 @@
-class_name Player
 extends CharacterBody2D
+class_name Player
 
 signal aterrizo
 
@@ -9,11 +9,13 @@ var ultima_direccion := Vector2.DOWN
 var z := 0.0
 ## Positiva sube, negativa baja.
 var velocidad_z := 0.0
+var tiene_boomerang := true
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
 @onready var _shadow := $Shadow
 @onready var _jump := $Jump
+@onready var _slash := $Slash
 
 
 func _ready() -> void:
@@ -27,6 +29,7 @@ func _physics_process(delta: float) -> void:
 
 	_actualizar_altura(delta)
 	_sprite.position.y = -z
+	_slash.procesar_fisica(self, delta)
 	_shadow.actualizar(z, params)
 	_sprite.estirar_segun_velocidad(_velocidad_en_pantalla(), params)
 

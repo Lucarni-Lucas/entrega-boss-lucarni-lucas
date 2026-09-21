@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://fm4dys2j78qx" path="res://scenes/camara.tscn" id="1_e05a3"]
 [ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="1_wl4x5"]
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
+[ext_resource type="PackedScene" uid="uid://b5gw4oy67dqyj" path="res://scenes/pruebas/blanco.tscn" id="3_xdvfk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -13,6 +14,7 @@ size = Vector2(40, 1580)
 [node name="Arena" type="Node2D" unique_id=2095639661]
 
 [node name="Suelo" type="TextureRect" parent="." unique_id=2118570816]
+z_index = -10
 texture_filter = 1
 offset_right = 2000.0
 offset_bottom = 1500.0
@@ -43,6 +45,15 @@ y_sort_enabled = true
 
 [node name="Player" parent="Entidades" unique_id=666075403 instance=ExtResource("2_olpmc")]
 position = Vector2(1000, 750)
+
+[node name="Blanco" parent="Entidades" unique_id=1361025690 instance=ExtResource("3_xdvfk")]
+position = Vector2(1299, 646)
+
+[node name="Blanco2" parent="Entidades" unique_id=17094972 instance=ExtResource("3_xdvfk")]
+position = Vector2(934, 1019)
+
+[node name="Blanco3" parent="Entidades" unique_id=384906812 instance=ExtResource("3_xdvfk")]
+position = Vector2(797, 571)
 
 [node name="Camara" parent="." unique_id=1696517493 node_paths=PackedStringArray("objetivo") instance=ExtResource("1_e05a3")]
 limit_left = -370

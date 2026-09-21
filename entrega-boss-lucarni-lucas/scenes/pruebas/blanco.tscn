@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b5gw4oy67dqyj"]
+
+[ext_resource type="Script" uid="uid://du1ekhnp1qr7s" path="res://scenes/pruebas/blanco.gd" id="1_6ib2t"]
+[ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="1_behyx"]
+
+[sub_resource type="Gradient" id="Gradient_6ib2t"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.82287824, 0.92619926)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4ubok"]
+gradient = SubResource("Gradient_6ib2t")
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 18.0
+
+[node name="Blanco" type="Node2D" unique_id=1361025690]
+script = ExtResource("1_6ib2t")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=657509886]
+modulate = Color(0, 0, 0, 0.65000004)
+texture = SubResource("GradientTexture2D_4ubok")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1599059922]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hurtbox" parent="." unique_id=1222409529 instance=ExtResource("1_behyx")]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=149456646]
+shape = SubResource("CircleShape2D_xrivr")
