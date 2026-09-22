@@ -21,6 +21,7 @@ var escala_gravedad := 1.0
 @onready var _jump := $Jump
 @onready var _slash := $Slash
 @onready var _ground_pound := $GroundPound
+@onready var _dive := $Dive
 
 
 func _ready() -> void:
@@ -33,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	_walk.procesar_fisica(self, delta)
 	_jump.procesar_fisica(self, delta)
 	_ground_pound.procesar_fisica(self, delta)
+	_dive.procesar_fisica(self, delta)
 	move_and_slide()
 
 	_actualizar_altura(delta)

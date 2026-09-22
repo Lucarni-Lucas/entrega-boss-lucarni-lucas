@@ -53,7 +53,10 @@ class_name PlayerParams
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.05  
 
 @export_group("Dive")
-@export var dive_cargas_max: int = 1          
+@export_range(0, 3000, 5, "suffix:px/s") var dive_velocidad: float = 900.0
+@export_range(0, 2000, 5, "suffix:px/s") var dive_impulso_vertical: float = 500.0
+@export_range(0, 1, 0.05) var dive_escala_gravedad: float = 1.0
+@export var dive_cargas_max: int = 1         
 
 @export_group("Boomerang")
 @export_range(0, 5, 0.1, "suffix:s") var boomerang_duracion: float = 1.2

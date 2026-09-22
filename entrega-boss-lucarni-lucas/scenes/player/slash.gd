@@ -4,7 +4,7 @@ signal slasheo
 
 const _SEGMENTOS_ARCO := 8
 
-const _ESTADOS_VALIDOS := [Player.Estado.EN_SUELO, Player.Estado.EN_AIRE, Player.Estado.DIVE]
+const _ESTADOS_VALIDOS := [Player.Estado.EN_SUELO, Player.Estado.EN_AIRE]
 
 var _tiempo_activo := 0.0
 var _tiempo_cooldown := 0.0

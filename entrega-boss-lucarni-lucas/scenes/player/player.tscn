@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://bfwby6p3g0g2b" path="res://scenes/player/ground_pound.gd" id="7_5gtgg"]
 [ext_resource type="Script" uid="uid://k8n1pu7q2iwu" path="res://scenes/player/slash.gd" id="7_qek5x"]
+[ext_resource type="Script" uid="uid://15u2qppeefqe" path="res://scenes/player/dive.gd" id="9_h17s1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -92,6 +93,9 @@ collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundPound/Hitbox" unique_id=1392616015]
 polygon = PackedVector2Array(0, 32, 0, 32, 0, 32)
+
+[node name="Dive" type="Node" parent="." unique_id=1097185342]
+script = ExtResource("9_h17s1")
 
 [node name="Slash" type="Node2D" parent="." unique_id=216322306]
 script = ExtResource("7_qek5x")
