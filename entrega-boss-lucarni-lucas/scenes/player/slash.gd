@@ -4,6 +4,8 @@ signal slasheo
 
 const _SEGMENTOS_ARCO := 8
 
+const _ESTADOS_VALIDOS := [Player.Estado.EN_SUELO, Player.Estado.EN_AIRE, Player.Estado.DIVE]
+
 var _tiempo_activo := 0.0
 var _tiempo_cooldown := 0.0
 var _angulo_centro := 0.0
@@ -33,7 +35,7 @@ func procesar_fisica(player: Player, delta: float) -> void:
 
 
 func esta_disponible(player: Player) -> bool:
-	return player.tiene_boomerang and _tiempo_cooldown <= 0.0
+	return player.estado_actual() in _ESTADOS_VALIDOS and player.tiene_boomerang and _tiempo_cooldown <= 0.0
 
 
 func _iniciar(player: Player) -> void:

@@ -2,12 +2,20 @@ extends Resource
 class_name PlayerParams
 
 @export_group("Animación")
+#JUMP
 @export var anim_estiramiento_factor: float = 0.0004
 @export_range(1, 2, 0.05) var anim_estiramiento_max: float = 1.15
 @export var anim_aterrizaje_escala := Vector2(1.3, 0.75)
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_aterrizaje_ida: float = 0.06
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_aterrizaje_vuelta: float = 0.37
+#SLASH
 @export_range(0.1, 1, 0.05) var anim_perspectiva: float = 0.45
+#GP
+@export var anim_gp_anticipo_escala := Vector2(1.25, 0.8)
+@export_range(0, 0.5, 0.01, "suffix:s") var anim_gp_anticipo_vuelta: float = 0.05
+@export var anim_gp_impacto_escala := Vector2(1.6, 0.55)
+@export_range(0, 0.5, 0.01, "suffix:s") var anim_gp_impacto_ida: float = 0.05
+@export_range(0, 1.2, 0.01, "suffix:s") var anim_gp_impacto_vuelta: float = 0.3
 
 @export_group("Caminar")
 @export_range(0, 1000, 10, "suffix:px/s") var velocidad: float = 420.0
@@ -24,7 +32,7 @@ class_name PlayerParams
 @export_range(0, 1, 0.05) var sombra_alpha_min: float = 0.4
 
 @export_group("Cuerpo")
-@export_range(0, 200, 5, "suffix:px") var alto_cuerpo: float = 20.0
+@export_range(0, 200, 1, "suffix:px") var alto_cuerpo: float = 20.0
 
 @export_group("Slash")
 @export var slash_dano: int = 1
@@ -36,7 +44,13 @@ class_name PlayerParams
 @export_range(0, 0.5, 0.01, "suffix:s") var slash_estela_desvanecer: float = 0.12
 
 @export_group("Ground pound")
-@export var gp_radio_explosion: float = 0.0   
+@export_range(0, 300, 5, "suffix:px") var gp_altura_minima: float = 40.0
+@export_range(0, 0.5, 0.01, "suffix:s") var gp_anticipacion: float = 0.12
+@export_range(0, 5000, 50, "suffix:px/s") var gp_velocidad: float = 1500.0
+@export var gp_dano: int = 1
+@export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 50.0
+@export var gp_radio_explosion: float = 0.0
+@export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.05  
 
 @export_group("Dive")
 @export var dive_cargas_max: int = 1          
