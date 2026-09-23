@@ -22,7 +22,7 @@ class_name PlayerParams
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_rebote_vuelta: float = 0.2
 
 @export_group("Caminar")
-@export_range(0, 1000, 10, "suffix:px/s") var velocidad: float = 420.0
+@export_range(0, 1000, 1, "suffix:px/s") var velocidad: float = 449.0
 
 @export_group("Salto")
 @export_range(0, 3000, 10, "suffix:px/s") var fuerza_salto: float = 1300.0
@@ -54,20 +54,20 @@ class_name PlayerParams
 @export var gp_dano: int = 1
 @export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 50.0
 @export var gp_radio_explosion: float = 0.0
-@export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.07  
+@export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.07
 
 @export_group("Dive")
 @export_range(0, 3000, 5, "suffix:px/s") var dive_velocidad: float = 950.0
 @export_range(0, 2000, 5, "suffix:px/s") var dive_impulso_vertical: float = 550.0
 @export_range(0, 1, 0.05) var dive_escala_gravedad: float = 1.0
-@export var dive_cargas_max: int = 1         
+@export var dive_cargas_max: int = 1
 
 @export_group("Boomerang")
 @export_range(0, 3000, 10, "suffix:px/s") var boomerang_velocidad: float = 1200.0
 @export_range(0, 1000, 10, "suffix:px") var boomerang_distancia: float = 190.0
 @export_range(0, 5, 0.1, "suffix:s") var boomerang_duracion: float = 1.2
 @export_range(0, 3000, 10, "suffix:px/s") var boomerang_velocidad_vuelta: float = 1400.0
-@export_range(0, 1, 0.01, "suffix:s") var throw_duracion: float = 0.15
+@export_range(0, 1, 0.01, "suffix:s") var throw_duracion: float = 0.23
 @export_range(0, 1, 0.05) var throw_factor_velocidad: float = 0.2
 @export_range(0, 1, 0.05) var throw_escala_gravedad: float = 0.0
 @export_range(0, 200, 5, "suffix:px") var boomerang_alto: float = 24.0

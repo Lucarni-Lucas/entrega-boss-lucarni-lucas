@@ -1,11 +1,14 @@
-extends Node
+extends VerboExclusivo
 
 signal termino(posicion: Vector2)
 
-const estado := Player.Estado.DIVE
 const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.THROW]
 
 var _direccion := Vector2.ZERO
+
+
+func estado() -> Player.Estado:
+	return Player.Estado.DIVE
 
 
 func procesar_fisica(player: Player, _delta: float) -> void:
@@ -19,12 +22,8 @@ func estados_validos() -> Array:
 	return [Player.Estado.EN_AIRE, Player.Estado.GROUND_POUND, Player.Estado.THROW]
 
 
-func esta_disponible(_player: Player) -> bool:
-	return true
-
-
-func puede_interrumpir(otro: Node) -> bool:
-	return otro.estado in _INTERRUMPIBLES
+func puede_interrumpir(otro: VerboExclusivo) -> bool:
+	return otro.estado() in _INTERRUMPIBLES
 
 
 func activar(player: Player) -> void:

@@ -6,7 +6,7 @@ extends Camera2D
 func _ready() -> void:
 	if objetivo == null:
 		return
-	
+
 	global_position = objetivo.global_position
 	reset_smoothing()
 

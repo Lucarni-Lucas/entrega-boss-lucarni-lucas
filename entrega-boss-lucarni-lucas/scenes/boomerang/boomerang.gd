@@ -27,23 +27,7 @@ var _armado := false
 @onready var _destello: Sprite2D = $Sprite/Destello
 @onready var _destello2: Sprite2D = $Sprite/Destello2
 @onready var _detector: Area2D = $DetectorJugador
-
-
-func _ready() -> void:
-	body_entered.connect(_on_body_entered)
-
-
-func _on_body_entered(cuerpo: Node2D) -> void:
-	if _fase == Fase.IDA:
-		_cambiar_fase(Fase.FLOTANDO)
-
-
-func lanzar(duenio: Player, direccion: Vector2) -> void:
-	_duenio = duenio
-	params = duenio.params
-	_direccion = direccion
-	z = duenio.z
-	global_position = duenio.global_position
+@onready var _offset_sprite: Vector2 = _sprite.position
 
 
 func _physics_process(delta: float) -> void:
@@ -55,11 +39,23 @@ func _physics_process(delta: float) -> void:
 		Fase.VUELTA:
 			_volver(delta)
 	_angulo += giro * delta
-	_destello.z_index = -1 if sin(_angulo) < 0.0 else 1
 	_ubicar_destello(_destello, _angulo)
 	_ubicar_destello(_destello2, _angulo + PI)
-	_sprite.position.y = -z - 16
+	_sprite.position.y = _offset_sprite.y - z
 	_shadow.actualizar(z, params)
+
+
+func _on_body_entered(_cuerpo: Node2D) -> void:
+	if _fase == Fase.IDA:
+		_cambiar_fase(Fase.FLOTANDO)
+
+
+func lanzar(duenio: Player, direccion: Vector2) -> void:
+	_duenio = duenio
+	params = duenio.params
+	_direccion = direccion
+	z = duenio.z
+	global_position = duenio.global_position
 
 
 func _avanzar(delta: float) -> void:

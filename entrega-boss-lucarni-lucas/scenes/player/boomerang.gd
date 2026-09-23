@@ -1,13 +1,18 @@
-extends Node
+extends VerboExclusivo
 
 signal lanzo
 
-const estado := Player.Estado.THROW
-const _ESCENA := preload("res://scenes/boomerang/boomerang.tscn")
+
 const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
+
+@export var _ESCENA: PackedScene
 
 var _tiempo_recuperacion := 0.0
 var _proyectil: Boomerang
+
+
+func estado() -> Player.Estado:
+	return Player.Estado.THROW
 
 
 func procesar_fisica(player: Player, delta: float) -> void:
@@ -29,8 +34,8 @@ func esta_disponible(player: Player) -> bool:
 	return player.tiene_boomerang
 
 
-func puede_interrumpir(otro: Node) -> bool:
-	return otro.estado in _INTERRUMPIBLES
+func puede_interrumpir(otro: VerboExclusivo) -> bool:
+	return otro.estado() in _INTERRUMPIBLES
 
 
 func activar(player: Player) -> void:

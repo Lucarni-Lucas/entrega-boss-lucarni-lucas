@@ -1,9 +1,7 @@
-extends Node2D
+extends VerboExclusivo
 
 signal anticipo
 signal impacto(posicion: Vector2, altura_inicial: float)
-
-const estado := Player.Estado.GROUND_POUND
 
 var _tiempo_anticipacion := 0.0
 var _tiempo_hitbox := 0.0
@@ -11,6 +9,10 @@ var _altura_inicial := 0.0
 
 @onready var _hitbox: Hitbox = $Hitbox
 @onready var _poligono: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
+
+
+func estado() -> Player.Estado:
+	return Player.Estado.GROUND_POUND
 
 
 func procesar_fisica(player: Player, delta: float) -> void:
@@ -27,10 +29,6 @@ func estados_validos() -> Array:
 
 func esta_disponible(player: Player) -> bool:
 	return player.z >= player.params.gp_altura_minima
-
-
-func puede_interrumpir(_otro: Node) -> bool:
-	return false
 
 
 func activar(player: Player) -> void:

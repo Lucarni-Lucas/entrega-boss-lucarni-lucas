@@ -90,6 +90,7 @@ texture = SubResource("GradientTexture2D_tave6")
 script = ExtResource("2_38jis")
 
 [node name="Sprite" type="Node2D" parent="." unique_id=1640168229]
+position = Vector2(0, -16)
 
 [node name="Chispas" type="GPUParticles2D" parent="Sprite" unique_id=1518386694]
 position = Vector2(0, -6)
@@ -113,3 +114,5 @@ texture = SubResource("GradientTexture2D_xrivr")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox" unique_id=394508236]
 polygon = PackedVector2Array(0, 24, 0, 24, 0, 24)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

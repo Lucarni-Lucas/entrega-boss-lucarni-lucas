@@ -13,7 +13,7 @@ var z := 0.0
 ## Positiva sube, negativa baja.
 var velocidad_z := 0.0
 var tiene_boomerang := true
-var verbo_activo: Node = null
+var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 
 @onready var _walk := $Walk
@@ -27,10 +27,8 @@ var escala_gravedad := 1.0
 
 
 func _ready() -> void:
-	aterrizo.connect(_on_aterrizo)
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
-	reboto.connect(_on_reboto)
 
 
 func _physics_process(delta: float) -> void:
@@ -72,11 +70,11 @@ func rebotar(fuerza: float) -> void:
 
 func estado_actual() -> Estado:
 	if verbo_activo != null:
-		return verbo_activo.estado
+		return verbo_activo.estado()
 	return Estado.EN_SUELO if esta_en_suelo() else Estado.EN_AIRE
 
 
-func intentar_activar(verbo: Node) -> bool:
+func intentar_activar(verbo: VerboExclusivo) -> bool:
 	if not verbo.estados_validos().has(estado_actual()):
 		return false
 	if not verbo.esta_disponible(self):
@@ -90,7 +88,7 @@ func intentar_activar(verbo: Node) -> bool:
 	return true
 
 
-func liberar_verbo(verbo: Node) -> void:
+func liberar_verbo(verbo: VerboExclusivo) -> void:
 	if verbo_activo == verbo:
 		verbo_activo = null
 

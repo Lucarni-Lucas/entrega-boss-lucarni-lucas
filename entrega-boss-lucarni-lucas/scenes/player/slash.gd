@@ -86,7 +86,7 @@ func _barrer(player: Player) -> void:
 	var direccion_punto := Vector2.from_angle(angulo)
 	_filo.position = direccion_punto * player.params.slash_radio_efecto
 	_filo.rotation = angulo
-	_estela.add_point(direccion_punto * (player.params.slash_radio_efecto + _mitad_filo - (_estela.get_width()/2) ))
+	_estela.add_point(direccion_punto * (player.params.slash_radio_efecto + _mitad_filo - _estela.width / 2.0))
 	## Mitad de atrás del arco: se dibuja detrás del blob.
 	_efecto.z_index = 0 if direccion_punto.y >= 0.0 else -1
 
