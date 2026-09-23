@@ -59,4 +59,10 @@ class_name PlayerParams
 @export var dive_cargas_max: int = 1         
 
 @export_group("Boomerang")
+@export_range(0, 3000, 10, "suffix:px/s") var boomerang_velocidad: float = 1200.0
+@export_range(0, 1000, 10, "suffix:px") var boomerang_distancia: float = 350.0
 @export_range(0, 5, 0.1, "suffix:s") var boomerang_duracion: float = 1.2
+@export_range(0, 3000, 10, "suffix:px/s") var boomerang_velocidad_vuelta: float = 1400.0
+@export_range(0, 1, 0.01, "suffix:s") var throw_duracion: float = 0.15
+@export_range(0, 1, 0.05) var throw_factor_velocidad: float = 0.2
+@export_range(0, 1, 0.05) var throw_escala_gravedad: float = 0.0

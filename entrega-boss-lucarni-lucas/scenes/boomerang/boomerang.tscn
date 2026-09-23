@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://miq6aanimbvg"]
+
+[ext_resource type="Script" uid="uid://cr5lcpbaims2p" path="res://scenes/boomerang/boomerang.gd" id="1_08vve"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="1_8yxac"]
+[ext_resource type="Script" uid="uid://0ou67viw842l" path="res://scenes/player/shadow.gd" id="2_38jis"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_38jis"]
+radius = 13.0
+
+[sub_resource type="Gradient" id="Gradient_7jrsh"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.49425286, 0.5862069, 0.7586207, 0.8237548)
+colors = PackedColorArray(1, 1, 1, 0, 0.00047452384, 0.0004745239, 0.0004745236, 0.9667597, 0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tave6"]
+gradient = SubResource("Gradient_7jrsh")
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_38jis"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.21072797, 0.6934866)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
+gradient = SubResource("Gradient_38jis")
+width = 6
+height = 6
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_b1lj4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_13qdw"]
+curve = SubResource("Curve_b1lj4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xrivr"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 10.0
+emission_ring_inner_radius = 9.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 80, 0)
+scale_min = 0.39999998
+scale_max = 0.79999995
+alpha_curve = SubResource("CurveTexture_13qdw")
+
+[sub_resource type="Gradient" id="Gradient_tave6"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.1724138, 0.42528737, 0.50574714, 0.62068963, 0.68582374)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 0.49231848, 0.22935726, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_13qdw"]
+gradient = SubResource("Gradient_tave6")
+width = 54
+height = 18
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Boomerang" type="Area2D" unique_id=1278144397]
+collision_layer = 0
+script = ExtResource("1_08vve")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1453083831]
+shape = SubResource("CircleShape2D_38jis")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=586589681]
+modulate = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_tave6")
+script = ExtResource("2_38jis")
+
+[node name="Sprite" type="Node2D" parent="." unique_id=1640168229]
+
+[node name="Chispas" type="GPUParticles2D" parent="Sprite" unique_id=1518386694]
+position = Vector2(0, -6)
+scale = Vector2(2.3893464, 0.6271121)
+emitting = false
+texture = SubResource("GradientTexture2D_xrivr")
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_xrivr")
+
+[node name="Visual" type="Sprite2D" parent="Sprite" unique_id=639908634]
+position = Vector2(0, -5.9999995)
+texture = SubResource("GradientTexture2D_13qdw")
+
+[node name="Destello" type="Sprite2D" parent="Sprite" unique_id=2074469599]
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="Destello2" type="Sprite2D" parent="Sprite" unique_id=561034599]
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="Hitbox" parent="." unique_id=1321716141 instance=ExtResource("1_8yxac")]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox" unique_id=394508236]
+polygon = PackedVector2Array(0, 24, 0, 24, 0, 24)

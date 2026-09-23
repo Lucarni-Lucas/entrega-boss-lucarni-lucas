@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bfwby6p3g0g2b" path="res://scenes/player/ground_pound.gd" id="7_5gtgg"]
 [ext_resource type="Script" uid="uid://k8n1pu7q2iwu" path="res://scenes/player/slash.gd" id="7_qek5x"]
 [ext_resource type="Script" uid="uid://15u2qppeefqe" path="res://scenes/player/dive.gd" id="9_h17s1"]
+[ext_resource type="Script" uid="uid://bsiwgjcw1wblq" path="res://scenes/player/boomerang.gd" id="10_je7p5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -44,12 +45,12 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_qek5x"]
 colors = PackedColorArray(1, 1, 1, 0.5058824, 1, 1, 1, 1)
 
-[sub_resource type="Gradient" id="Gradient_5gtgg"]
+[sub_resource type="Gradient" id="Gradient_je7p5"]
 offsets = PackedFloat32Array(0.29464287, 0.32142857, 0.3794643, 0.5089286, 0.56696427, 0.625)
 colors = PackedColorArray(1, 1, 1, 0, 0.5137255, 0.23137255, 0, 0, 0.515625, 0.22961426, 0, 1, 0.5137255, 0.23137255, 0, 1, 0.5137255, 0.23137255, 0, 0.12156863, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_qek5x"]
-gradient = SubResource("Gradient_5gtgg")
+gradient = SubResource("Gradient_je7p5")
 width = 54
 height = 23
 fill = 1
@@ -96,6 +97,9 @@ polygon = PackedVector2Array(0, 32, 0, 32, 0, 32)
 
 [node name="Dive" type="Node" parent="." unique_id=1097185342]
 script = ExtResource("9_h17s1")
+
+[node name="Boomerang" type="Node" parent="." unique_id=1852323145]
+script = ExtResource("10_je7p5")
 
 [node name="Slash" type="Node2D" parent="." unique_id=216322306]
 script = ExtResource("7_qek5x")

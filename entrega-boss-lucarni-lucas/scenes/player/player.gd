@@ -3,7 +3,7 @@ class_name Player
 
 signal aterrizo
 
-enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT }
+enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
 @export var params: PlayerParams
 
@@ -22,6 +22,7 @@ var escala_gravedad := 1.0
 @onready var _slash := $Slash
 @onready var _ground_pound := $GroundPound
 @onready var _dive := $Dive
+@onready var _boomerang := $Boomerang
 
 
 func _ready() -> void:
@@ -35,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	_jump.procesar_fisica(self, delta)
 	_ground_pound.procesar_fisica(self, delta)
 	_dive.procesar_fisica(self, delta)
+	_boomerang.procesar_fisica(self, delta)
 	move_and_slide()
 
 	_actualizar_altura(delta)
@@ -80,6 +82,10 @@ func intentar_activar(verbo: Node) -> bool:
 func liberar_verbo(verbo: Node) -> void:
 	if verbo_activo == verbo:
 		verbo_activo = null
+
+
+func agregar_al_mundo(nodo: Node) -> void:
+	get_parent().add_child(nodo)
 
 
 func _velocidad_en_pantalla() -> Vector2:
