@@ -4,15 +4,4 @@
 
 [resource]
 script = ExtResource("1_pk6jb")
-alto_cuerpo = 64.0
-slash_duracion = 0.15
-slash_alcance = 90.0
-slash_radio_efecto = 60.0
-gp_altura_minima = 80.0
-gp_anticipacion = 0.22
-gp_velocidad = 2000.0
-gp_impacto_duracion = 0.07
-dive_velocidad = 950.0
-dive_impulso_vertical = 550.0
-boomerang_distancia = 190.0
 metadata/_custom_type_script = "uid://bpnf8ftr7uhrk"
