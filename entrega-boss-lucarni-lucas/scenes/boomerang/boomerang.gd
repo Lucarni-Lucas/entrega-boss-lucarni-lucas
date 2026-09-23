@@ -7,7 +7,7 @@ enum Fase { IDA, FLOTANDO, VUELTA }
 
 @export var destello_radio := 22.0
 @export var destello_achatado := 0.45
-@export var giro := 12.0
+@export var giro := 9.0
 
 var params: PlayerParams
 var z := 0.0

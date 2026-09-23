@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource("1_pk6jb")
+dive_velocidad = 700.0
+dive_impulso_vertical = 400.0
+throw_factor_velocidad = 0.15
 metadata/_custom_type_script = "uid://bpnf8ftr7uhrk"

@@ -126,7 +126,7 @@ script = ExtResource("9_h17s1")
 
 [node name="Boomerang" type="Node2D" parent="." unique_id=1852323145]
 script = ExtResource("10_je7p5")
-_ESCENA = ExtResource("12_fm80t")
+escena_boomerang = ExtResource("12_fm80t")
 
 [connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
 [connection signal="reboto" from="." to="." method="_on_reboto"]

@@ -51,9 +51,9 @@ emission_ring_radius = 10.0
 emission_ring_inner_radius = 9.0
 emission_ring_cone_angle = 90.0
 direction = Vector3(0, 1, 0)
-initial_velocity_min = 10.0
-initial_velocity_max = 30.0
-gravity = Vector3(0, 80, 0)
+initial_velocity_min = 7.5
+initial_velocity_max = 22.5
+gravity = Vector3(0, 45, 0)
 scale_min = 0.39999998
 scale_max = 0.79999995
 alpha_curve = SubResource("CurveTexture_13qdw")
@@ -97,7 +97,7 @@ position = Vector2(0, -6)
 scale = Vector2(2.3893464, 0.6271121)
 emitting = false
 texture = SubResource("GradientTexture2D_xrivr")
-lifetime = 0.6
+lifetime = 0.8
 process_material = SubResource("ParticleProcessMaterial_xrivr")
 
 [node name="Visual" type="Sprite2D" parent="Sprite" unique_id=639908634]

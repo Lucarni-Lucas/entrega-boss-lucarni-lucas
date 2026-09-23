@@ -5,4 +5,5 @@
 [node name="Camara" type="Camera2D" unique_id=1696517493]
 process_callback = 0
 position_smoothing_enabled = true
+position_smoothing_speed = 3.75
 script = ExtResource("1_g5i2v")

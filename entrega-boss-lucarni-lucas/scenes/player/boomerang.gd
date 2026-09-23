@@ -5,7 +5,7 @@ signal lanzo
 
 const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
 
-@export var _ESCENA: PackedScene
+@export var escena_boomerang: PackedScene
 
 var _tiempo_recuperacion := 0.0
 var _proyectil: Boomerang
@@ -39,7 +39,7 @@ func puede_interrumpir(otro: VerboExclusivo) -> bool:
 
 
 func activar(player: Player) -> void:
-	_proyectil = _ESCENA.instantiate()
+	_proyectil = escena_boomerang.instantiate()
 	player.agregar_al_mundo(_proyectil)
 	_proyectil.lanzar(player, player.ultima_direccion)
 	player.tiene_boomerang = false

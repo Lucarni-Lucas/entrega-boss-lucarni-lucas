@@ -10,5 +10,5 @@ func _ready() -> void:
 func _on_golpeado(hitbox: Hitbox) -> void:
 	print("%s recibió %d de daño" % [name, hitbox.dano])
 	modulate = Color.RED if modulate == Color.WHITE else Color.WHITE
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.2).timeout
 	modulate = Color.WHITE
