@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 signal aterrizo
+signal reboto
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -29,6 +30,7 @@ func _ready() -> void:
 	aterrizo.connect(_on_aterrizo)
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
+	reboto.connect(_on_reboto)
 
 
 func _physics_process(delta: float) -> void:
@@ -57,6 +59,15 @@ func esta_en_suelo() -> bool:
 
 func aplicar_impulso_vertical(fuerza: float) -> void:
 	velocidad_z = fuerza
+
+
+func rebotar(fuerza: float) -> void:
+	if verbo_activo != null:
+		verbo_activo.cancelar(self)
+		verbo_activo = null
+	escala_gravedad = 1.0
+	aplicar_impulso_vertical(fuerza)
+	reboto.emit()
 
 
 func estado_actual() -> Estado:
@@ -115,3 +126,7 @@ func _on_anticipo_gp() -> void:
 
 func _on_impacto_gp(_posicion: Vector2, _altura_inicial: float) -> void:
 	_sprite.deformar(params.anim_gp_impacto_escala, params.anim_gp_impacto_ida, params.anim_gp_impacto_vuelta)
+
+
+func _on_reboto() -> void:
+	_sprite.deformar(params.anim_rebote_escala, params.anim_rebote_ida, params.anim_rebote_vuelta)

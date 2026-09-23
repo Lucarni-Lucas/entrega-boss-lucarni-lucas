@@ -16,6 +16,10 @@ class_name PlayerParams
 @export var anim_gp_impacto_escala := Vector2(1.6, 0.55)
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_gp_impacto_ida: float = 0.05
 @export_range(0, 1.2, 0.01, "suffix:s") var anim_gp_impacto_vuelta: float = 0.3
+#BOOVAULT
+@export var anim_rebote_escala := Vector2(0.7, 1.4)
+@export_range(0, 0.5, 0.01, "suffix:s") var anim_rebote_ida: float = 0.05
+@export_range(0, 0.5, 0.01, "suffix:s") var anim_rebote_vuelta: float = 0.2
 
 @export_group("Caminar")
 @export_range(0, 1000, 10, "suffix:px/s") var velocidad: float = 420.0
@@ -66,3 +70,8 @@ class_name PlayerParams
 @export_range(0, 1, 0.01, "suffix:s") var throw_duracion: float = 0.15
 @export_range(0, 1, 0.05) var throw_factor_velocidad: float = 0.2
 @export_range(0, 1, 0.05) var throw_escala_gravedad: float = 0.0
+@export_range(0, 200, 5, "suffix:px") var boomerang_alto: float = 24.0
+@export var boomerang_rebotes_max: int = 1
+
+@export_group("Rebote")
+@export_range(0, 4000, 10, "suffix:px/s") var vault_fuerza: float = 1300.0

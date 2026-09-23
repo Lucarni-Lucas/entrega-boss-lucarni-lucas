@@ -5,7 +5,10 @@
 [ext_resource type="Script" uid="uid://0ou67viw842l" path="res://scenes/player/shadow.gd" id="2_38jis"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_38jis"]
-radius = 13.0
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 25.0
 
 [sub_resource type="Gradient" id="Gradient_7jrsh"]
 interpolation_mode = 2
@@ -73,6 +76,13 @@ script = ExtResource("1_08vve")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1453083831]
 shape = SubResource("CircleShape2D_38jis")
+
+[node name="DetectorJugador" type="Area2D" parent="." unique_id=224764182]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorJugador" unique_id=1884126964]
+shape = SubResource("CircleShape2D_xrivr")
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=586589681]
 modulate = Color(0, 0, 0, 1)

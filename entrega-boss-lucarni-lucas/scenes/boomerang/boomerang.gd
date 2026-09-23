@@ -18,18 +18,22 @@ var _recorrido := 0.0
 var _tiempo_flotando := 0.0
 var _duenio: Player
 var _angulo := 0.0
+var _rebotes := 0
+var _armado := false
 
 @onready var _sprite := $Sprite
 @onready var _shadow := $Shadow
 @onready var _chispas: GPUParticles2D = $Sprite/Chispas
 @onready var _destello: Sprite2D = $Sprite/Destello
 @onready var _destello2: Sprite2D = $Sprite/Destello2
+@onready var _detector: Area2D = $DetectorJugador
+
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 
-func _on_body_entered(_body: Node2D) -> void:
+func _on_body_entered(cuerpo: Node2D) -> void:
 	if _fase == Fase.IDA:
 		_cambiar_fase(Fase.FLOTANDO)
 
@@ -67,6 +71,7 @@ func _avanzar(delta: float) -> void:
 
 
 func _flotar(delta: float) -> void:
+	_revisar_rebote()
 	_tiempo_flotando += delta
 	if _tiempo_flotando >= params.boomerang_duracion:
 		_cambiar_fase(Fase.VUELTA)
@@ -89,3 +94,30 @@ func _cambiar_fase(nueva: Fase) -> void:
 func _ubicar_destello(destello: Sprite2D, angulo: float) -> void:
 	destello.position = Vector2(cos(angulo), sin(angulo) * destello_achatado) * destello_radio
 	destello.z_index = -1 if sin(angulo) < 0.0 else 1
+
+
+func _revisar_rebote() -> void:
+	var cuerpos := _detector.get_overlapping_bodies()
+	if not _armado:
+		_armado = cuerpos.is_empty()
+		return
+	for cuerpo in cuerpos:
+		if cuerpo is Player and _puede_rebotar(cuerpo):
+			_rebotar_en(cuerpo)
+			return
+
+
+func _puede_rebotar(player: Player) -> bool:
+	return Altura.rangos_se_tocan(z, z + params.boomerang_alto, player.z, player.z + params.alto_cuerpo)
+
+
+func _rebotar_en(player: Player) -> void:
+	## Desde el suelo es un salto que además devuelve el boomerang a la mano.
+	if player.esta_en_suelo():
+		player.rebotar(params.fuerza_salto)
+		queue_free()
+		return
+	player.rebotar(params.vault_fuerza)
+	_rebotes += 1
+	if _rebotes >= params.boomerang_rebotes_max:
+		_cambiar_fase(Fase.VUELTA)
