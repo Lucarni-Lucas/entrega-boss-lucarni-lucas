@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CameraParams" format=3 uid="uid://juj8w6pqin0e"]
+
+[ext_resource type="Script" uid="uid://dfp6vv16lir4w" path="res://scripts/camara_params.gd" id="1_tbqqu"]
+
+[resource]
+script = ExtResource("1_tbqqu")
+banda_muerta = 300.0
+seguimiento_vertical = 0.25
+metadata/_custom_type_script = "uid://dfp6vv16lir4w"

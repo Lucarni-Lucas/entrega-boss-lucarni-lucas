@@ -55,6 +55,12 @@ func esta_en_suelo() -> bool:
 	return z <= suelo_actual() + 0.01
 
 
+## x es el punto más alto (el blob), y el más bajo (la sombra).
+func extremos_verticales() -> Vector2:
+	var abajo := global_position.y
+	return Vector2(abajo - z - params.alto_cuerpo, abajo)
+
+
 func aplicar_impulso_vertical(fuerza: float) -> void:
 	velocidad_z = fuerza
 
