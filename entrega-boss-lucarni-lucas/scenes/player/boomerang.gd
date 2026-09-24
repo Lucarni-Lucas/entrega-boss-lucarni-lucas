@@ -16,6 +16,8 @@ func estado() -> Player.Estado:
 
 
 func procesar_fisica(player: Player, delta: float) -> void:
+	if _proyectil == null:
+		_crear_proyectil(player)
 	_actualizar_disponibilidad(player)
 	if player.verbo_activo == self:
 		_tiempo_recuperacion -= delta
@@ -39,8 +41,6 @@ func puede_interrumpir(otro: VerboExclusivo) -> bool:
 
 
 func activar(player: Player) -> void:
-	_proyectil = escena_boomerang.instantiate()
-	player.agregar_al_mundo(_proyectil)
 	_proyectil.lanzar(player, player.ultima_direccion)
 	player.tiene_boomerang = false
 	_tiempo_recuperacion = player.params.throw_duracion
@@ -54,8 +54,13 @@ func cancelar(player: Player) -> void:
 
 
 func _actualizar_disponibilidad(player: Player) -> void:
-	if is_instance_valid(_proyectil):
+	if _proyectil.en_vuelo:
 		return
-	_proyectil = null
 	if player.esta_en_suelo():
 		player.tiene_boomerang = true
+
+
+func _crear_proyectil(player: Player) -> void:
+	_proyectil = escena_boomerang.instantiate()
+	player.agregar_al_mundo(_proyectil)
+	_proyectil.precalentar()

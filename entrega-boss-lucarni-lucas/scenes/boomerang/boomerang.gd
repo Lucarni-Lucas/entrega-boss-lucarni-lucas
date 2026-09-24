@@ -20,6 +20,7 @@ var _duenio: Player
 var _angulo := 0.0
 var _rebotes := 0
 var _armado := false
+var en_vuelo := false
 
 @onready var _sprite := $Sprite
 @onready var _shadow := $Shadow
@@ -46,6 +47,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(_cuerpo: Node2D) -> void:
+	if not en_vuelo:
+		return
 	if _fase == Fase.IDA:
 		_cambiar_fase(Fase.FLOTANDO)
 
@@ -56,6 +59,15 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	_direccion = direccion
 	z = duenio.z
 	global_position = duenio.global_position
+	_recorrido = 0.0
+	_tiempo_flotando = 0.0
+	_rebotes = 0
+	_armado = false
+	_angulo = 0.0
+	en_vuelo = true
+	visible = true
+	set_physics_process(true)
+	_cambiar_fase(Fase.IDA)
 
 
 func _avanzar(delta: float) -> void:
@@ -78,8 +90,7 @@ func _volver(delta: float) -> void:
 	global_position = global_position.move_toward(_duenio.global_position, paso)
 	z = move_toward(z, _duenio.z, paso)
 	if global_position.distance_to(_duenio.global_position) < paso:
-		guardado.emit()
-		queue_free()
+		guardar()
 
 
 func _cambiar_fase(nueva: Fase) -> void:
@@ -111,9 +122,31 @@ func _rebotar_en(player: Player) -> void:
 	## Desde el suelo es un salto que además devuelve el boomerang a la mano.
 	if player.esta_en_suelo():
 		player.rebotar(params.fuerza_salto)
-		queue_free()
+		guardar()
 		return
 	player.rebotar(params.vault_fuerza)
 	_rebotes += 1
 	if _rebotes >= params.boomerang_rebotes_max:
 		_cambiar_fase(Fase.VUELTA)
+
+
+func guardar() -> void:
+	en_vuelo = false
+	_desactivar()
+	guardado.emit()
+
+
+func _desactivar() -> void:
+	visible = false
+	set_physics_process(false)
+	_chispas.emitting = false
+
+
+func precalentar() -> void:
+	_desactivar()
+	visible = true
+	modulate.a = 0.0
+	_chispas.emitting = true
+	await get_tree().create_timer(0.5).timeout
+	modulate.a = 1.0
+	_desactivar()
