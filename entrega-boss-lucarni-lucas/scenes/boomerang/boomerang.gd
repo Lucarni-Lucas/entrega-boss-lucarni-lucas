@@ -139,6 +139,7 @@ func guardar() -> void:
 func _desactivar() -> void:
 	visible = false
 	set_physics_process(false)
+	_chispas.restart()
 	_chispas.emitting = false
 
 
