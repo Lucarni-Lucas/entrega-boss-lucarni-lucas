@@ -97,3 +97,7 @@ func _terminar(player: Player) -> void:
 	_tween_estela = create_tween()
 	_tween_estela.tween_property(_estela, "modulate:a", 0.0, player.params.slash_estela_desvanecer)
 	_tween_estela.tween_callback(_efecto.hide)
+
+
+func esta_activo() -> bool:
+	return _tiempo_activo > 0.0

@@ -55,6 +55,10 @@ func esta_en_suelo() -> bool:
 	return z <= suelo_actual() + 0.01
 
 
+func esta_slasheando() -> bool:
+	return _slash.esta_activo()
+
+
 ## x es el punto más alto (el blob), y el más bajo (la sombra).
 func extremos_verticales() -> Vector2:
 	var abajo := global_position.y

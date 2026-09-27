@@ -34,8 +34,9 @@ point_count = 2
 colors = PackedColorArray(1, 1, 1, 0.5058824, 1, 1, 1, 1)
 
 [sub_resource type="Gradient" id="Gradient_je7p5"]
-offsets = PackedFloat32Array(0.29464287, 0.32142857, 0.3794643, 0.5089286, 0.56696427, 0.625)
-colors = PackedColorArray(1, 1, 1, 0, 0.5137255, 0.23137255, 0, 0, 0.515625, 0.22961426, 0, 1, 0.5137255, 0.23137255, 0, 1, 0.5137255, 0.23137255, 0, 0.12156863, 1, 1, 1, 0)
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.29464287, 0.32142857, 0.35249043, 0.3794643, 0.5089286, 0.5363985, 0.56696427, 0.625)
+colors = PackedColorArray(1, 1, 1, 0, 0.5137255, 0.23137255, 0, 0, 0, 0, 0, 1, 0.515625, 0.22961426, 0, 1, 0.5137255, 0.23137255, 0, 1, 0, 0, 0, 1, 0.5137255, 0.23137255, 0, 0.12156863, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_qek5x"]
 gradient = SubResource("Gradient_je7p5")
@@ -44,6 +45,19 @@ height = 23
 fill = 1
 fill_from = Vector2(0.5, 0.1)
 fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_fm80t"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.6436782, 0.7126437, 0.743295, 0.9425287, 0.97318006, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 0.5372549, 0.2509804, 0, 1, 0.5372549, 0.2509804, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7f2x3"]
+gradient = SubResource("Gradient_fm80t")
+width = 32
+height = 32
+fill = 2
+fill_from = Vector2(0.25, 0.75)
 
 [node name="Player" type="CharacterBody2D" unique_id=666075403]
 collision_layer = 2
@@ -111,6 +125,13 @@ script = ExtResource("9_h17s1")
 [node name="Boomerang" type="Node2D" parent="." unique_id=1852323145]
 script = ExtResource("10_je7p5")
 escena_boomerang = ExtResource("12_fm80t")
+perfil_minimo = 0.2
+
+[node name="EnMano" type="Node2D" parent="Boomerang" unique_id=1825224933]
+position = Vector2(0, -32)
+
+[node name="Visual" type="Sprite2D" parent="Boomerang/EnMano" unique_id=1182111535]
+texture = SubResource("GradientTexture2D_7f2x3")
 
 [connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
 [connection signal="reboto" from="." to="." method="_on_reboto"]
