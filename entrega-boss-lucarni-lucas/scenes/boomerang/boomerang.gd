@@ -23,7 +23,7 @@ var _armado := false
 var en_vuelo := false
 
 @onready var _sprite := $Sprite
-@onready var _shadow := $Shadow
+@onready var _shadow := $Sombra
 @onready var _chispas: GPUParticles2D = $Sprite/Chispas
 @onready var _destello: Sprite2D = $Sprite/Destello
 @onready var _destello2: Sprite2D = $Sprite/Destello2
@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 	_ubicar_destello(_destello, _angulo)
 	_ubicar_destello(_destello2, _angulo + PI)
 	_sprite.position.y = _offset_sprite.y - z
-	_shadow.actualizar(z, params)
+	_shadow.actualizar(z)
 
 
 func _on_body_entered(_cuerpo: Node2D) -> void:

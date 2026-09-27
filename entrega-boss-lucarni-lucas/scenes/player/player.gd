@@ -18,7 +18,7 @@ var escala_gravedad := 1.0
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
-@onready var _shadow := $Shadow
+@onready var _shadow := $Sombra
 @onready var _jump := $Jump
 @onready var _slash := $Slash
 @onready var _ground_pound := $GroundPound
@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 	_actualizar_altura(delta)
 	_sprite.position.y = -z
 	_slash.procesar_fisica(self, delta)
-	_shadow.actualizar(z, params)
+	_shadow.actualizar(z)
 	_sprite.estirar_segun_velocidad(_velocidad_en_pantalla(), params)
 
 

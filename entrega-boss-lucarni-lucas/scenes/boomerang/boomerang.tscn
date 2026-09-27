@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr5lcpbaims2p" path="res://scenes/boomerang/boomerang.gd" id="1_08vve"]
 [ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="1_8yxac"]
-[ext_resource type="Script" uid="uid://0ou67viw842l" path="res://scenes/player/shadow.gd" id="2_38jis"]
+[ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="2_7jrsh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_38jis"]
 radius = 1.0
@@ -10,14 +10,14 @@ radius = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 25.0
 
-[sub_resource type="Gradient" id="Gradient_7jrsh"]
+[sub_resource type="Gradient" id="Gradient_6hwh4"]
 interpolation_mode = 2
 interpolation_color_space = 2
 offsets = PackedFloat32Array(0.49425286, 0.5862069, 0.7586207, 0.8237548)
 colors = PackedColorArray(1, 1, 1, 0, 0.00047452384, 0.0004745239, 0.0004745236, 0.9667597, 0, 0, 0, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tave6"]
-gradient = SubResource("Gradient_7jrsh")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j5hg6"]
+gradient = SubResource("Gradient_6hwh4")
 height = 24
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -84,10 +84,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorJugador" unique_id=1884126964]
 shape = SubResource("CircleShape2D_xrivr")
 
-[node name="Shadow" type="Sprite2D" parent="." unique_id=586589681]
-modulate = Color(0, 0, 0, 1)
-texture = SubResource("GradientTexture2D_tave6")
-script = ExtResource("2_38jis")
+[node name="Sombra" parent="." unique_id=1825432861 instance=ExtResource("2_7jrsh")]
+texture = SubResource("GradientTexture2D_j5hg6")
 
 [node name="Sprite" type="Node2D" parent="." unique_id=1640168229]
 position = Vector2(0, -16)

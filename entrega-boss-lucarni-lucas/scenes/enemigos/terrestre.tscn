@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://yw1jsfp12t2q"]
+
+[ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_crrjn"]
+[ext_resource type="Resource" uid="uid://bauovwlt6r0be" path="res://resources/enemigo_terrestre.tres" id="2_30hq7"]
+
+[node name="Terrestre" unique_id=794546459 instance=ExtResource("1_crrjn")]
+params = ExtResource("2_30hq7")

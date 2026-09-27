@@ -29,12 +29,6 @@ class_name PlayerParams
 @export_range(0, 10000, 0.5, "suffix:px/s²") var gravedad: float = 2812.5
 @export_range(0, 0.3, 0.01, "suffix:s") var salto_buffer: float = 0.13
 
-@export_group("Sombra")
-@export_range(10, 1000, 10, "suffix:px") var sombra_altura_max: float = 600.0
-@export_range(0, 1, 0.05) var sombra_escala_min: float = 0.65
-@export_range(0, 1, 0.05) var sombra_alpha_max: float = 0.65
-@export_range(0, 1, 0.05) var sombra_alpha_min: float = 0.4
-
 @export_group("Cuerpo")
 @export_range(0, 200, 1, "suffix:px") var alto_cuerpo: float = 64.0
 

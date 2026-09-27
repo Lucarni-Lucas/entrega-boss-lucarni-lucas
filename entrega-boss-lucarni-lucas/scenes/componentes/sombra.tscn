@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bfl3i6qt58bgu"]
+
+[ext_resource type="Script" uid="uid://brf5bmb34pw4f" path="res://scenes/componentes/sombra.gd" id="1_uud6y"]
+[ext_resource type="Resource" uid="uid://dt3afhff23ddt" path="res://resources/sombra_params.tres" id="2_8gupb"]
+
+[sub_resource type="Gradient" id="Gradient_pkmxr"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.82287824, 0.92619926)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uud6y"]
+gradient = SubResource("Gradient_pkmxr")
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Sombra" type="Sprite2D" unique_id=1825432861]
+modulate = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_uud6y")
+script = ExtResource("1_uud6y")
+params = ExtResource("2_8gupb")
