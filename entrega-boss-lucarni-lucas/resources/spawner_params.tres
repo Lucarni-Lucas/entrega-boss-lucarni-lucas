@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SpawnerParams" format=3 uid="uid://c0napswgoa21n"]
+
+[ext_resource type="Script" uid="uid://jtfyndpaudrq" path="res://scripts/params/spawner_params.gd" id="1_6eo2x"]
+
+[resource]
+script = ExtResource("1_6eo2x")
+intervalo = 1.0
+metadata/_custom_type_script = "uid://jtfyndpaudrq"

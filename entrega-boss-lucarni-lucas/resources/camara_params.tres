@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CameraParams" format=3 uid="uid://juj8w6pqin0e"]
 
-[ext_resource type="Script" uid="uid://dfp6vv16lir4w" path="res://scripts/camara_params.gd" id="1_tbqqu"]
+[ext_resource type="Script" uid="uid://dfp6vv16lir4w" path="res://scripts/params/camara_params.gd" id="1_tbqqu"]
 
 [resource]
 script = ExtResource("1_tbqqu")

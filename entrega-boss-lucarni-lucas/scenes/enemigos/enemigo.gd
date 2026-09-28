@@ -2,14 +2,16 @@ extends CharacterBody2D
 class_name Enemigo
 
 signal murio(posicion: Vector2)
+signal termino(enemigo: Enemigo)
 
 @export var params: EnemyParams
 
 var z := 0.0
 var vida: int
 var jugador: Player
-var _empuje := Vector2.ZERO
 var muerto := false
+var _empuje := Vector2.ZERO
+var _capa: int
 
 @onready var _sombra: Sombra = $Sombra
 @onready var _sprite := $Sprite
@@ -20,19 +22,38 @@ var muerto := false
 
 
 func _ready() -> void:
+	_capa = collision_layer
 	_visual.modulate = params.color
-	vida = params.vida_max
 	z = params.altura_vuelo
 	_hurtbox.z_min = z
 	_hurtbox.z_max = z + params.alto
 	_hurtbox.golpeado.connect(_on_golpeado)
-	jugador = get_tree().get_first_node_in_group("jugador") as Player
 	_hitbox.dano = params.dano_contacto
 	_hitbox.z_min = z
 	_hitbox.z_max = z + params.alto
 	_hitbox.continua = true
-	_hitbox.activar()
 	_hitbox.intervalo = params.intervalo_contacto
+	jugador = get_tree().get_first_node_in_group(Player.GRUPO) as Player
+	activar_en(global_position)
+
+
+func activar_en(posicion: Vector2) -> void:
+	global_position = posicion
+	vida = params.vida_max
+	muerto = false
+	_empuje = Vector2.ZERO
+	modulate = Color.WHITE
+	collision_layer = _capa
+	_hurtbox.monitorable = true
+	_hitbox.activar()
+	visible = true
+	process_mode = Node.PROCESS_MODE_INHERIT
+
+
+func desactivar() -> void:
+	visible = false
+	process_mode = Node.PROCESS_MODE_DISABLED
+	_hitbox.desactivar()
 
 
 func _physics_process(delta: float) -> void:
@@ -55,9 +76,16 @@ func morir() -> void:
 	_hitbox.desactivar()
 	_hurtbox.set_deferred("monitorable", false)
 	set_deferred("collision_layer", 0)
-	var tween := create_tween().set_parallel()
+	var tween := create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, params.duracion_muerte)
-	tween.chain().tween_callback(queue_free)
+	tween.tween_callback(_terminar_muerte)
+
+
+func _terminar_muerte() -> void:
+	if termino.get_connections().is_empty():
+		queue_free()
+	else:
+		termino.emit(self)
 
 
 func _on_golpeado(hitbox: Hitbox) -> void:

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://fm4dys2j78qx" path="res://scenes/camara.tscn" id="1_e05a3"]
 [ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="1_wl4x5"]
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
-[ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="4_7ft05"]
+[ext_resource type="PackedScene" uid="uid://bff3bfq0dtcvp" path="res://scenes/spawner/spawner.tscn" id="4_xdvfk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -46,15 +46,6 @@ y_sort_enabled = true
 [node name="Player" parent="Entidades" unique_id=666075403 instance=ExtResource("2_olpmc")]
 position = Vector2(1000, 750)
 
-[node name="Terrestre" parent="Entidades" unique_id=794546459 instance=ExtResource("4_7ft05")]
-position = Vector2(1025, 989)
-
-[node name="Terrestre2" parent="Entidades" unique_id=734364178 instance=ExtResource("4_7ft05")]
-position = Vector2(1388, 593)
-
-[node name="Terrestre3" parent="Entidades" unique_id=401203132 instance=ExtResource("4_7ft05")]
-position = Vector2(883, 512)
-
 [node name="Camara" parent="." unique_id=1696517493 node_paths=PackedStringArray("objetivo") instance=ExtResource("1_e05a3")]
 limit_left = -370
 limit_top = -370
@@ -62,3 +53,6 @@ limit_right = 2370
 limit_bottom = 1870
 limit_smoothed = true
 objetivo = NodePath("../Entidades/Player")
+
+[node name="Spawner" parent="." unique_id=555608513 node_paths=PackedStringArray("contenedor") instance=ExtResource("4_xdvfk")]
+contenedor = NodePath("../Entidades")

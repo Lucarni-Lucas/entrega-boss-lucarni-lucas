@@ -8,6 +8,8 @@ signal murio
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
+const GRUPO := &"jugador"
+
 @export var params: PlayerParams
 
 var ultima_direccion := Vector2.DOWN

@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="EnemyParams" format=3 uid="uid://bauovwlt6r0be"]
 
-[ext_resource type="Script" uid="uid://bogkc7efq10ps" path="res://scripts/enemy_params.gd" id="1_oqnwy"]
+[ext_resource type="Script" uid="uid://bogkc7efq10ps" path="res://scripts/params/enemy_params.gd" id="1_oqnwy"]
 
 [resource]
 script = ExtResource("1_oqnwy")
 vida_max = 2
+velocidad = 350.0
 alto = 60.0
 fuerza_separacion = 60.0
 metadata/_custom_type_script = "uid://bogkc7efq10ps"
