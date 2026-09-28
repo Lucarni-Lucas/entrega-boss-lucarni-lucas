@@ -8,6 +8,7 @@ signal golpeo(hurtbox: Hurtbox)
 @export var z_max := 20.0
 @export var continua := false
 @export_range(0.05, 2, 0.05, "suffix:s") var intervalo := 0.4
+@export var empuje := 0.0
 
 var _tiempo := 0.0
 var activa := false

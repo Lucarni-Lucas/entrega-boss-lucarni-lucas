@@ -57,11 +57,13 @@ func _procesar_caida(player: Player, delta: float) -> void:
 
 func _impactar(player: Player) -> void:
 	player.liberar_verbo(self)
+	player.proteger(player.params.gp_proteccion)
 	var radio := player.params.gp_radio_impacto + player.params.gp_radio_explosion
 	_poligono.polygon = Formas.elipse(radio, player.params.anim_perspectiva)
 	_hitbox.dano = player.params.gp_dano
 	_hitbox.z_min = player.z
 	_hitbox.z_max = player.z + player.params.alto_cuerpo
+	_hitbox.empuje = player.params.gp_empuje
 	_hitbox.activar()
 	_tiempo_hitbox = player.params.gp_impacto_duracion
 	impacto.emit(player.global_position, _altura_inicial)
@@ -73,3 +75,7 @@ func _actualizar_hitbox(delta: float) -> void:
 	_tiempo_hitbox -= delta
 	if _tiempo_hitbox <= 0.0:
 		_hitbox.desactivar()
+
+
+func es_invulnerable() -> bool:
+	return true

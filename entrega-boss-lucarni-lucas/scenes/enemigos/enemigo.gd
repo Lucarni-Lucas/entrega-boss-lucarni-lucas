@@ -8,6 +8,8 @@ signal murio(posicion: Vector2)
 var z := 0.0
 var vida: int
 var jugador: Player
+var _empuje := Vector2.ZERO
+var muerto := false
 
 @onready var _sombra: Sombra = $Sombra
 @onready var _sprite := $Sprite
@@ -33,7 +35,8 @@ func _ready() -> void:
 	_hitbox.intervalo = params.intervalo_contacto
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	_empuje = _empuje.move_toward(Vector2.ZERO, params.frenado_empuje * delta)
 	_sprite.position.y = -z
 	_sombra.actualizar(z)
 
@@ -45,11 +48,20 @@ func recibir_dano(cantidad: int) -> void:
 
 
 func morir() -> void:
+	if muerto:
+		return
+	muerto = true
 	murio.emit(global_position)
-	queue_free()
+	_hitbox.desactivar()
+	_hurtbox.set_deferred("monitorable", false)
+	set_deferred("collision_layer", 0)
+	var tween := create_tween().set_parallel()
+	tween.tween_property(self, "modulate:a", 0.0, params.duracion_muerte)
+	tween.chain().tween_callback(queue_free)
 
 
 func _on_golpeado(hitbox: Hitbox) -> void:
+	_empuje += hitbox.global_position.direction_to(global_position) * hitbox.empuje
 	recibir_dano(hitbox.dano)
 	if vida <= 0:
 		return
@@ -63,3 +75,9 @@ func empuje_separacion() -> Vector2:
 		if otro != self:
 			empuje += otro.global_position.direction_to(global_position)
 	return empuje * params.fuerza_separacion
+
+
+func velocidad_externa() -> Vector2:
+	if muerto:
+		return _empuje
+	return empuje_separacion() + _empuje

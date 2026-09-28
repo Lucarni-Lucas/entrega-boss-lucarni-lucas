@@ -29,3 +29,7 @@ func esta_disponible(_player: Player) -> bool:
 
 func puede_interrumpir(_otro: VerboExclusivo) -> bool:
 	return false
+
+
+func es_invulnerable() -> bool:
+	return false

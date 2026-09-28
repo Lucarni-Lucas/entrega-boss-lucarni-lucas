@@ -43,6 +43,7 @@ class_name PlayerParams
 @export_range(0, 360, 5, "suffix:°") var slash_arco: float = 120.0
 @export_range(0, 200, 5, "suffix:px") var slash_radio_efecto: float = 60.0
 @export_range(0, 0.5, 0.01, "suffix:s") var slash_estela_desvanecer: float = 0.16
+@export_range(0, 2000, 10, "suffix:px/s") var slash_empuje: float = 450.0
 
 @export_group("Ground pound")
 @export_range(0, 300, 5, "suffix:px") var gp_altura_minima: float = 80.0
@@ -52,6 +53,8 @@ class_name PlayerParams
 @export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 50.0
 @export var gp_radio_explosion: float = 0.0
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09
+@export_range(0, 1, 0.01, "suffix:s") var gp_proteccion: float = 0.2
+@export_range(0, 2000, 10, "suffix:px/s") var gp_empuje: float = 700.0
 
 @export_group("Dive")
 @export_range(0, 3000, 1, "suffix:px/s") var dive_velocidad: float = 700.0

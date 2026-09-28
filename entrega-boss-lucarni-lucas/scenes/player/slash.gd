@@ -44,6 +44,7 @@ func _iniciar(player: Player) -> void:
 	_sentido = -_sentido
 
 	_construir_hitbox(player.params)
+	_hitbox.empuje = player.params.slash_empuje
 	_hitbox.dano = player.params.slash_dano
 	_hitbox.activar()
 

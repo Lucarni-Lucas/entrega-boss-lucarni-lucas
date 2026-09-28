@@ -19,6 +19,7 @@ var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
 var _tiempo_invulnerable := 0.0
+var _tiempo_protegido := 0.0
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -151,7 +152,7 @@ func _on_reboto() -> void:
 
 
 func recibir_dano(cantidad: int) -> void:
-	if _tiempo_invulnerable > 0.0:
+	if es_invulnerable():
 		return
 	vida = maxi(vida - cantidad, 0)
 	vida_cambio.emit(vida, params.vida_max)
@@ -165,6 +166,7 @@ func recibir_dano(cantidad: int) -> void:
 
 
 func _actualizar_invulnerabilidad(delta: float) -> void:
+	_tiempo_protegido = maxf(_tiempo_protegido - delta, 0.0)
 	if _tiempo_invulnerable <= 0.0:
 		return
 	_tiempo_invulnerable = maxf(_tiempo_invulnerable - delta, 0.0)
@@ -173,3 +175,13 @@ func _actualizar_invulnerabilidad(delta: float) -> void:
 
 func _on_golpeado(hitbox: Hitbox) -> void:
 	recibir_dano(hitbox.dano)
+
+
+func proteger(segundos: float) -> void:
+	_tiempo_protegido = maxf(_tiempo_protegido, segundos)
+
+
+func es_invulnerable() -> bool:
+	if _tiempo_invulnerable > 0.0 or _tiempo_protegido > 0.0:
+		return true
+	return verbo_activo != null and verbo_activo.es_invulnerable()
