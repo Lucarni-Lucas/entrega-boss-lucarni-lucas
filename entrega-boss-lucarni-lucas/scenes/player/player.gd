@@ -3,6 +3,8 @@ class_name Player
 
 signal aterrizo
 signal reboto
+signal vida_cambio(actual: int, maximo: int)
+signal murio
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -15,6 +17,8 @@ var velocidad_z := 0.0
 var tiene_boomerang := true
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
+var vida: int
+var _tiempo_invulnerable := 0.0
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -24,14 +28,18 @@ var escala_gravedad := 1.0
 @onready var _ground_pound := $GroundPound
 @onready var _dive := $Dive
 @onready var _boomerang := $Boomerang
+@onready var _hurtbox: Hurtbox = $Hurtbox
 
 
 func _ready() -> void:
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
+	vida = params.vida_max
+	_hurtbox.golpeado.connect(_on_golpeado)
 
 
 func _physics_process(delta: float) -> void:
+	_actualizar_invulnerabilidad(delta)
 	_walk.procesar_fisica(self, delta)
 	_jump.procesar_fisica(self, delta)
 	_ground_pound.procesar_fisica(self, delta)
@@ -40,6 +48,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	_actualizar_altura(delta)
+	_hurtbox.z_min = z
+	_hurtbox.z_max = z + params.alto_cuerpo
 	_sprite.position.y = -z
 	_slash.procesar_fisica(self, delta)
 	_shadow.actualizar(z)
@@ -138,3 +148,28 @@ func _on_impacto_gp(_posicion: Vector2, _altura_inicial: float) -> void:
 
 func _on_reboto() -> void:
 	_sprite.deformar(params.anim_rebote_escala, params.anim_rebote_ida, params.anim_rebote_vuelta)
+
+
+func recibir_dano(cantidad: int) -> void:
+	if _tiempo_invulnerable > 0.0:
+		return
+	vida = maxi(vida - cantidad, 0)
+	vida_cambio.emit(vida, params.vida_max)
+	if vida == 0:
+		murio.emit()
+		set_physics_process(false)
+		return
+	_tiempo_invulnerable = params.invulnerabilidad
+	_sprite.modulate = Color.RED
+	create_tween().tween_property(_sprite, "modulate", Color.WHITE, 0.2)
+
+
+func _actualizar_invulnerabilidad(delta: float) -> void:
+	if _tiempo_invulnerable <= 0.0:
+		return
+	_tiempo_invulnerable = maxf(_tiempo_invulnerable - delta, 0.0)
+	_sprite.visible = _tiempo_invulnerable == 0.0 or int(_tiempo_invulnerable * params.parpadeo_frecuencia) % 2 == 0
+
+
+func _on_golpeado(hitbox: Hitbox) -> void:
+	recibir_dano(hitbox.dano)

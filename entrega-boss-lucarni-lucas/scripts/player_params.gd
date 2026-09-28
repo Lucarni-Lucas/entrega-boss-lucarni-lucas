@@ -31,6 +31,9 @@ class_name PlayerParams
 
 @export_group("Cuerpo")
 @export_range(0, 200, 1, "suffix:px") var alto_cuerpo: float = 64.0
+@export var vida_max: int = 20
+@export_range(0, 3, 0.05, "suffix:s") var invulnerabilidad: float = 1.0
+@export_range(1, 30, 1, "suffix:Hz") var parpadeo_frecuencia: float = 12.0
 
 @export_group("Slash")
 @export var slash_dano: int = 1

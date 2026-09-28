@@ -6,7 +6,10 @@ signal golpeo(hurtbox: Hurtbox)
 @export var dano := 1
 @export var z_min := 0.0
 @export var z_max := 20.0
+@export var continua := false
+@export_range(0.05, 2, 0.05, "suffix:s") var intervalo := 0.4
 
+var _tiempo := 0.0
 var activa := false
 var _ya_golpeados: Array[Hurtbox] = []
 var _esperando_fisica := false
@@ -23,13 +26,18 @@ func desactivar() -> void:
 	_ya_golpeados.clear()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not activa:
 		return
 	## Las superposiciones de este frame todavía son de la forma anterior.
 	if _esperando_fisica:
 		_esperando_fisica = false
 		return
+	if continua:
+		_tiempo += delta
+		if _tiempo >= intervalo:
+			_tiempo = 0.0
+			_ya_golpeados.clear()
 	for area in get_overlapping_areas():
 		if area is Hurtbox and _puede_golpear(area):
 			_ya_golpeados.append(area)

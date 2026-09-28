@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_crrjn"]
 [ext_resource type="Resource" uid="uid://bauovwlt6r0be" path="res://resources/enemigo_terrestre.tres" id="2_30hq7"]
+[ext_resource type="Script" uid="uid://bvq6klc348nhk" path="res://scenes/enemigos/terrestre.gd" id="2_qx8v0"]
 
 [node name="Terrestre" unique_id=794546459 instance=ExtResource("1_crrjn")]
+script = ExtResource("2_qx8v0")
 params = ExtResource("2_30hq7")

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d131o8ultmlpr" path="res://scenes/enemigos/enemigo.gd" id="1_6sr6t"]
 [ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="1_8uhct"]
 [ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="2_6sr6t"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="4_gtmhs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gtmhs"]
 radius = 1.0
@@ -22,7 +23,13 @@ fill_from = Vector2(0.5, 0.5)
 radius = 18.0
 height = 42.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_13qdw"]
+radius = 20.0
+
 [node name="Enemigo" type="CharacterBody2D" unique_id=794546459]
+collision_layer = 4
 script = ExtResource("1_6sr6t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=658689249]
@@ -43,3 +50,17 @@ z_max = 60.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1220264362]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ldkxj")
+
+[node name="Hitbox" parent="." unique_id=1321716141 instance=ExtResource("4_gtmhs")]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2026929855]
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_xrivr")
+
+[node name="Separacion" type="Area2D" parent="." unique_id=1990458487]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Separacion" unique_id=1993446038]
+shape = SubResource("CircleShape2D_13qdw")

@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_oqnwy")
+alto = 60.0
+fuerza_separacion = 5.0
 metadata/_custom_type_script = "uid://bogkc7efq10ps"

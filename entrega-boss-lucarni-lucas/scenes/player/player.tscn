@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://15u2qppeefqe" path="res://scenes/player/dive.gd" id="9_h17s1"]
 [ext_resource type="Script" uid="uid://bsiwgjcw1wblq" path="res://scenes/player/boomerang.gd" id="10_je7p5"]
 [ext_resource type="PackedScene" uid="uid://miq6aanimbvg" path="res://scenes/boomerang/boomerang.tscn" id="12_fm80t"]
+[ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="13_gx1jg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -59,7 +60,10 @@ height = 32
 fill = 2
 fill_from = Vector2(0.25, 0.75)
 
-[node name="Player" type="CharacterBody2D" unique_id=666075403]
+[sub_resource type="CircleShape2D" id="CircleShape2D_13qdw"]
+radius = 20.0
+
+[node name="Player" type="CharacterBody2D" unique_id=666075403 groups=["jugador"]]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_dovo2")
@@ -132,6 +136,12 @@ position = Vector2(0, -32)
 
 [node name="Visual" type="Sprite2D" parent="Boomerang/EnMano" unique_id=1182111535]
 texture = SubResource("GradientTexture2D_7f2x3")
+
+[node name="Hurtbox" parent="." unique_id=1222409529 instance=ExtResource("13_gx1jg")]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1845187846]
+shape = SubResource("CircleShape2D_13qdw")
 
 [connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
 [connection signal="reboto" from="." to="." method="_on_reboto"]
