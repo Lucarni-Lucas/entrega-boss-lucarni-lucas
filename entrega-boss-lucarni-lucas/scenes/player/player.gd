@@ -192,7 +192,19 @@ func recibir_dano(cantidad: int) -> void:
 		set_physics_process(false)
 		return
 	_tiempo_invulnerable = params.invulnerabilidad
-	_sprite.modulate = Color.RED
+	_colorear(Color.RED)
+
+
+func curar(cantidad: int) -> void:
+	if vida == 0:
+		return
+	vida = mini(vida + cantidad, params.vida_max)
+	vida_cambio.emit(vida, params.vida_max)
+	_colorear(Color.GREEN)
+
+
+func _colorear(color: Color) -> void:
+	_sprite.modulate = color
 	create_tween().tween_property(_sprite, "modulate", Color.WHITE, 0.2)
 
 

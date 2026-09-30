@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Enemigo
 
-signal murio(posicion: Vector2)
+signal murio(posicion: Vector2, origen: Hitbox.Origen)
 signal termino(enemigo: Enemigo)
 
 @export var params: EnemyParams
@@ -61,17 +61,17 @@ func _physics_process(delta: float) -> void:
 	_sombra.actualizar(z)
 
 
-func recibir_dano(cantidad: int) -> void:
+func recibir_dano(cantidad: int, origen := Hitbox.Origen.NINGUNO) -> void:
 	vida -= cantidad
 	if vida <= 0:
-		morir()
+		morir(origen)
 
 
-func morir() -> void:
+func morir(origen := Hitbox.Origen.NINGUNO) -> void:
 	if muerto:
 		return
 	muerto = true
-	murio.emit(global_position)
+	murio.emit(global_position, origen)
 	_hitbox.desactivar()
 	_hurtbox.set_deferred("monitorable", false)
 	set_deferred("collision_layer", 0)
@@ -89,7 +89,7 @@ func _terminar_muerte() -> void:
 
 func _on_golpeado(hitbox: Hitbox) -> void:
 	_empuje += hitbox.global_position.direction_to(global_position) * hitbox.empuje
-	recibir_dano(hitbox.dano)
+	recibir_dano(hitbox.dano, hitbox.origen)
 	if vida <= 0:
 		return
 	modulate = Color.RED

@@ -18,8 +18,8 @@
 radius = 1.0
 
 [sub_resource type="Gradient" id="Gradient_lvxji"]
-offsets = PackedFloat32Array(0, 0.95625, 1)
-colors = PackedColorArray(0.4443136, 0.62112236, 1, 1, 0.25459045, 0.47366184, 0.99997634, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.95625, 0.98467433)
+colors = PackedColorArray(0.4443136, 0.62112236, 1, 1, 0.1640625, 0.41044408, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
 gradient = SubResource("Gradient_lvxji")
@@ -81,7 +81,7 @@ script = ExtResource("4_75vfm")
 position = Vector2(0, -32)
 
 [node name="Visual" type="Sprite2D" parent="Sprite/Estiramiento" unique_id=198621459]
-self_modulate = Color(1, 1, 1, 0.90000004)
+self_modulate = Color(1, 1, 1, 0.9019608)
 texture = SubResource("GradientTexture2D_xrivr")
 
 [node name="Walk" type="Node" parent="." unique_id=1032320984]
@@ -95,6 +95,7 @@ script = ExtResource("7_qek5x")
 
 [node name="Hitbox" parent="Slash" unique_id=1786912693 instance=ExtResource("7_0owmy")]
 collision_mask = 4
+origen = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Slash/Hitbox" unique_id=56868021]
 polygon = PackedVector2Array(0, 16, 0, 16, 0, 16)
@@ -120,6 +121,7 @@ script = ExtResource("7_5gtgg")
 
 [node name="Hitbox" parent="GroundPound" unique_id=1321716141 instance=ExtResource("7_0owmy")]
 collision_mask = 4
+origen = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundPound/Hitbox" unique_id=1392616015]
 polygon = PackedVector2Array(0, 32, 0, 32, 0, 32)

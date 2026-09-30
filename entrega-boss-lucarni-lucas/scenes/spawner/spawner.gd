@@ -1,6 +1,8 @@
 extends Node
 class_name Spawner
 
+signal enemigo_murio(posicion: Vector2, origen: Hitbox.Origen)
+
 @export var params: SpawnerParams
 @export var escena_enemigo: PackedScene
 @export var escena_marca: PackedScene
@@ -62,6 +64,7 @@ func _on_marca_lista(marca: MarcaSpawn) -> void:
 
 func _preparar_enemigo(enemigo: Enemigo) -> void:
 	enemigo.termino.connect(_pool_enemigos.devolver)
+	enemigo.murio.connect(enemigo_murio.emit)
 
 
 func _preparar_marca(marca: MarcaSpawn) -> void:

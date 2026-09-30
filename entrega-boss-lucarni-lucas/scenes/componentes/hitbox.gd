@@ -3,12 +3,15 @@ class_name Hitbox
 
 signal golpeo(hurtbox: Hurtbox)
 
+enum Origen { NINGUNO, SLASH, GROUND_POUND }
+
 @export var dano := 1
 @export var z_min := 0.0
 @export var z_max := 20.0
 @export var continua := false
 @export_range(0.05, 2, 0.05, "suffix:s") var intervalo := 0.4
 @export var empuje := 0.0
+@export var origen: Origen = Origen.NINGUNO
 
 var _tiempo := 0.0
 var activa := false

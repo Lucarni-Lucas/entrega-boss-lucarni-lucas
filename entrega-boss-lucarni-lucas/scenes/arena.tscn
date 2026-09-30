@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="1_wl4x5"]
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
 [ext_resource type="PackedScene" uid="uid://bff3bfq0dtcvp" path="res://scenes/spawner/spawner.tscn" id="4_xdvfk"]
+[ext_resource type="Script" uid="uid://c885wopt2l0s7" path="res://scenes/partida/curacion_por_muertes.gd" id="5_7ft05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -56,3 +57,9 @@ objetivo = NodePath("../Entidades/Player")
 
 [node name="Spawner" parent="." unique_id=555608513 node_paths=PackedStringArray("contenedor") instance=ExtResource("4_xdvfk")]
 contenedor = NodePath("../Entidades")
+
+[node name="CuracionPorMuertes" type="Node" parent="." unique_id=1436814135 node_paths=PackedStringArray("jugador")]
+script = ExtResource("5_7ft05")
+jugador = NodePath("../Entidades/Player")
+
+[connection signal="enemigo_murio" from="Spawner" to="CuracionPorMuertes" method="_on_spawner_enemigo_murio"]

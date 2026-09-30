@@ -9,6 +9,9 @@ class_name PlayerParams
 @export var vida_max: int = 20
 @export_range(0, 3, 0.05, "suffix:s") var invulnerabilidad: float = 1.0
 @export_range(1, 30, 1, "suffix:Hz") var parpadeo_frecuencia: float = 12.0
+@export_subgroup("Curación")
+@export var curacion_cada_muertes: int = 20
+@export var curacion_cantidad: int = 5
 @export_subgroup("Tamaño")
 @export_range(0, 200, 1, "suffix:px") var alto_cuerpo: float = 64.0
 @export_subgroup("Deformación")
