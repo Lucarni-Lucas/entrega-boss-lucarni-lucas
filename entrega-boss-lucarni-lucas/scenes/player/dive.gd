@@ -38,6 +38,7 @@ func activar(player: Player) -> void:
 	_direccion = player.ultima_direccion
 	player.escala_gravedad = player.params.dive_escala_gravedad
 	player.aplicar_impulso_vertical(player.params.dive_impulso_vertical)
+	player.recargar_energia_gp(player.params.gp_recarga_dive)
 
 
 func cancelar(player: Player) -> void:

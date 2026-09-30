@@ -81,6 +81,7 @@ script = ExtResource("4_75vfm")
 position = Vector2(0, -32)
 
 [node name="Visual" type="Sprite2D" parent="Sprite/Estiramiento" unique_id=198621459]
+self_modulate = Color(1, 1, 1, 0.90000004)
 texture = SubResource("GradientTexture2D_xrivr")
 
 [node name="Walk" type="Node" parent="." unique_id=1032320984]
@@ -144,4 +145,5 @@ collision_layer = 2
 shape = SubResource("CircleShape2D_13qdw")
 
 [connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
+[connection signal="fuerza_gp_recuperada" from="." to="." method="_on_fuerza_gp_recuperada"]
 [connection signal="reboto" from="." to="." method="_on_reboto"]

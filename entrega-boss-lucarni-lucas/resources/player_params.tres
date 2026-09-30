@@ -4,4 +4,12 @@
 
 [resource]
 script = ExtResource("1_pk6jb")
+gp_radio_impacto = 150.0
+gp_proteccion = 0.4
+gp_recarga_aire = 100.0
+gp_recarga_dive = 50.0
+gp_recarga_rebote = 150.0
+gp_empuje_min = 0.5
+gp_radio_min = 0.3
+anim_gp_fatiga_color = Color(1.353256, 1.353256, 0.9280188, 1)
 metadata/_custom_type_script = "uid://bpnf8ftr7uhrk"

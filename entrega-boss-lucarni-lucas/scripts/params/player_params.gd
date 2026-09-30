@@ -51,12 +51,23 @@ class_name PlayerParams
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09
 @export_range(0, 1, 0.01, "suffix:s") var gp_proteccion: float = 0.2
 @export_range(0, 2000, 10, "suffix:px/s") var gp_empuje: float = 850.0
+@export_subgroup("Energía")
+@export_range(1, 500, 1) var gp_energia_max: float = 300.0
+@export_range(0, 500, 1) var gp_energia_min: float = 250.0
+@export_range(0, 1, 0.05) var gp_costo: float = 1.0
+@export_range(0, 500, 1, "suffix:/s") var gp_recarga_aire: float = 50.0
+@export_range(0, 500, 1) var gp_recarga_dive: float = 25.0
+@export_range(0, 500, 1) var gp_recarga_rebote: float = 100.0
+@export_range(0, 1, 0.05) var gp_empuje_min: float = 0.1
+@export_range(0, 1, 0.05) var gp_radio_min: float = 0.1
 @export_subgroup("Animación")
 @export var anim_gp_anticipo_escala := Vector2(1.25, 0.8)
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_gp_anticipo_vuelta: float = 0.07
 @export var anim_gp_impacto_escala := Vector2(1.6, 0.55)
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_gp_impacto_ida: float = 0.07
 @export_range(0, 1.2, 0.01, "suffix:s") var anim_gp_impacto_vuelta: float = 0.4
+@export var anim_gp_fatiga_color := Color(1.6, 1.6, 1.6)
+@export_range(0, 1, 0.01, "suffix:s") var anim_gp_destello: float = 0.2
 
 @export_group("Dive")
 @export_range(0, 3000, 1, "suffix:px/s") var dive_velocidad: float = 700.0

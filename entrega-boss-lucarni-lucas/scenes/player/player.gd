@@ -5,6 +5,7 @@ signal aterrizo
 signal reboto
 signal vida_cambio(actual: int, maximo: int)
 signal murio
+signal fuerza_gp_recuperada
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -20,6 +21,7 @@ var tiene_boomerang := true
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
+var energia_gp: float
 var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
 
@@ -39,6 +41,7 @@ func _ready() -> void:
 	_ground_pound.impacto.connect(_on_impacto_gp)
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)
+	energia_gp = params.gp_energia_max
 
 
 func _physics_process(delta: float) -> void:
@@ -51,6 +54,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	_actualizar_altura(delta)
+	if not esta_en_suelo() and estado_actual() != Estado.GROUND_POUND:
+		recargar_energia_gp(params.gp_recarga_aire * delta)
+	_sprite.mostrar_fatiga(fuerza_gp(), params.anim_gp_fatiga_color)
 	_hurtbox.z_min = z
 	_hurtbox.z_max = z + params.alto_cuerpo
 	_sprite.position.y = -z
@@ -78,6 +84,23 @@ func extremos_verticales() -> Vector2:
 	return Vector2(abajo - z - params.alto_cuerpo, abajo)
 
 
+func fuerza_gp() -> float:
+	if params.gp_energia_min <= 0.0:
+		return 1.0
+	return clampf(energia_gp / params.gp_energia_min, 0.0, 1.0)
+
+
+func recargar_energia_gp(cantidad: float) -> void:
+	var estaba_debil := fuerza_gp() < 1.0
+	energia_gp = minf(energia_gp + cantidad, params.gp_energia_max)
+	if estaba_debil and fuerza_gp() >= 1.0:
+		fuerza_gp_recuperada.emit()
+
+
+func gastar_energia_gp() -> void:
+	energia_gp = maxf(energia_gp - params.gp_costo * params.gp_energia_max, 0.0)
+
+
 func aplicar_impulso_vertical(fuerza: float) -> void:
 	velocidad_z = fuerza
 
@@ -87,6 +110,8 @@ func rebotar(fuerza: float) -> void:
 		verbo_activo.cancelar(self)
 		verbo_activo = null
 	escala_gravedad = 1.0
+	if not esta_en_suelo():
+		recargar_energia_gp(params.gp_recarga_rebote)
 	aplicar_impulso_vertical(fuerza)
 	reboto.emit()
 
@@ -151,6 +176,10 @@ func _on_impacto_gp(_posicion: Vector2, _altura_inicial: float) -> void:
 
 func _on_reboto() -> void:
 	_sprite.deformar(params.anim_rebote_escala, params.anim_rebote_ida, params.anim_rebote_vuelta)
+
+
+func _on_fuerza_gp_recuperada() -> void:
+	_sprite.destellar(params.anim_gp_destello)
 
 
 func recibir_dano(cantidad: int) -> void:
