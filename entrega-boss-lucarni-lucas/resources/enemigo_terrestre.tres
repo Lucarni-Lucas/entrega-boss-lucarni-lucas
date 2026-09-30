@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_oqnwy")
 vida_max = 2
-velocidad = 350.0
+velocidad = 250.0
 alto = 60.0
-fuerza_separacion = 60.0
+dano_contacto = 0
 metadata/_custom_type_script = "uid://bogkc7efq10ps"

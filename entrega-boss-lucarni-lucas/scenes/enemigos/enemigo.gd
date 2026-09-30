@@ -18,7 +18,6 @@ var _capa: int
 @onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _visual: Sprite2D = $Sprite/Visual
 @onready var _hitbox: Hitbox = $Hitbox
-@onready var _separacion: Area2D = $Separacion
 
 
 func _ready() -> void:
@@ -97,15 +96,5 @@ func _on_golpeado(hitbox: Hitbox) -> void:
 	create_tween().tween_property(self, "modulate", Color.WHITE, 0.2)
 
 
-func empuje_separacion() -> Vector2:
-	var empuje := Vector2.ZERO
-	for otro in _separacion.get_overlapping_bodies():
-		if otro != self:
-			empuje += otro.global_position.direction_to(global_position)
-	return empuje * params.fuerza_separacion
-
-
 func velocidad_externa() -> Vector2:
-	if muerto:
-		return _empuje
-	return empuje_separacion() + _empuje
+	return _empuje

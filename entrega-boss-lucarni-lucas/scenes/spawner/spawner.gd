@@ -7,6 +7,9 @@ class_name Spawner
 @export var contenedor: Node2D
 @export var area := Rect2(0, 0, 2000, 1500)
 
+const _INTERVALO_MINIMO := 0.05
+
+var _tiempo_partida := 0.0
 var _pool_enemigos: Pool
 var _pool_marcas: Pool
 var _jugador: Player
@@ -22,9 +25,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_tiempo_partida += delta
 	_tiempo += delta
-	if _tiempo >= params.intervalo:
-		_tiempo -= params.intervalo
+	var intervalo := _intervalo_actual()
+	while _tiempo >= intervalo:
+		_tiempo -= intervalo
 		_marcar_spawn()
 
 
@@ -52,8 +57,7 @@ func _punto_al_azar() -> Vector2:
 func _on_marca_lista(marca: MarcaSpawn) -> void:
 	var posicion := marca.global_position
 	_pool_marcas.devolver(marca)
-	var enemigo: Enemigo = _pool_enemigos.tomar()
-	enemigo.activar_en(posicion)
+	_elegir_enemigo().activar_en(posicion)
 
 
 func _preparar_enemigo(enemigo: Enemigo) -> void:
@@ -62,3 +66,25 @@ func _preparar_enemigo(enemigo: Enemigo) -> void:
 
 func _preparar_marca(marca: MarcaSpawn) -> void:
 	marca.lista.connect(_on_marca_lista)
+
+
+func _elegir_enemigo() -> Enemigo:
+	if _pool_enemigos.en_uso().size() >= params.max_enemigos:
+		var viejo := _mas_viejo_vivo()
+		if viejo != null:
+			_pool_enemigos.devolver(viejo)
+	return _pool_enemigos.tomar()
+
+
+func _mas_viejo_vivo() -> Enemigo:
+	for nodo in _pool_enemigos.en_uso():
+		var enemigo := nodo as Enemigo
+		if not enemigo.muerto:
+			return enemigo
+	return null
+
+
+func _intervalo_actual() -> float:
+	if params.curva_intervalo == null:
+		return params.intervalo
+	return maxf(params.curva_intervalo.sample(_tiempo_partida), _INTERVALO_MINIMO)

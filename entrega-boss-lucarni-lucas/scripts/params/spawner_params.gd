@@ -1,8 +1,10 @@
 extends Resource
 class_name SpawnerParams
 
-@export_range(0.1, 10, 0.1, "suffix:s") var intervalo: float = 1.5
+@export_range(0.05, 10, 0.05, "suffix:s") var intervalo: float = 0.5
+@export var curva_intervalo: Curve
 @export var precalentar: int = 20
+@export var max_enemigos: int = 99
 @export_range(0, 200, 5, "suffix:px") var margen: float = 40.0
 @export_range(0, 1000, 10, "suffix:px") var distancia_minima: float = 400.0
 @export var intentos: int = 10
