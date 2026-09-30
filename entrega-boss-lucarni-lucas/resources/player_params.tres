@@ -4,9 +4,4 @@
 
 [resource]
 script = ExtResource("1_pk6jb")
-slash_empuje = 850.0
-gp_dano = 2
-gp_radio_impacto = 100.0
-gp_empuje = 850.0
-dive_cargas_max = 4
 metadata/_custom_type_script = "uid://bpnf8ftr7uhrk"
