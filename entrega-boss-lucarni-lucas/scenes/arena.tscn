@@ -72,6 +72,8 @@ params = ExtResource("7_naajo")
 [node name="Hud" parent="." unique_id=246180097 instance=ExtResource("8_41jku")]
 
 [connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
+[connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
 [connection signal="enemigo_murio" from="Spawner" to="CuracionPorMuertes" method="_on_spawner_enemigo_murio"]
+[connection signal="progreso_cambio" from="CuracionPorMuertes" to="Hud" method="_on_curacion_por_muertes_progreso_cambio"]
 [connection signal="finalizo" from="Partida" to="Hud" method="_on_partida_finalizo"]
 [connection signal="tiempo_cambio" from="Partida" to="Hud" method="_on_partida_tiempo_cambio"]

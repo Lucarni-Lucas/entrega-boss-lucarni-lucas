@@ -2,6 +2,34 @@
 
 [ext_resource type="Script" uid="uid://cioisylynclp1" path="res://scenes/ui/hud.gd" id="1_rbyyf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0.13335153, 0.13335153, 0.13335153, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13qdw"]
+bg_color = Color(0.827451, 0.2, 0.2, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1lj4"]
+bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.8)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njqwk"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [node name="Hud" type="CanvasLayer" unique_id=246180097]
 script = ExtResource("1_rbyyf")
 
@@ -42,3 +70,38 @@ theme_override_constants/outline_size = 24
 theme_override_constants/shadow_outline_size = 24
 theme_override_font_sizes/font_size = 128
 horizontal_alignment = 1
+
+[node name="Vida" type="ProgressBar" parent="." unique_id=275754006]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 430.0
+offset_bottom = 70.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xrivr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_13qdw")
+show_percentage = false
+
+[node name="Texto" type="Label" parent="Vida" unique_id=1715849863]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgresoCuracion" type="ProgressBar" parent="." unique_id=511318984]
+offset_left = 30.0
+offset_top = 74.0
+offset_right = 430.0
+offset_bottom = 80.0
+theme_override_styles/background = SubResource("StyleBoxFlat_b1lj4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_njqwk")
+max_value = 1.0
+show_percentage = false

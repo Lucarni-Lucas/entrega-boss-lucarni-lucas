@@ -42,6 +42,7 @@ func _ready() -> void:
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)
 	energia_gp = params.gp_energia_max
+	vida_cambio.emit.call_deferred(vida, params.vida_max)
 
 
 func _physics_process(delta: float) -> void:
