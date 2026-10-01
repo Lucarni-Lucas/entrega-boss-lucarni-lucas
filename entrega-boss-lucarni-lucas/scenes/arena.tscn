@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
 [ext_resource type="PackedScene" uid="uid://bff3bfq0dtcvp" path="res://scenes/spawner/spawner.tscn" id="4_xdvfk"]
 [ext_resource type="Script" uid="uid://c885wopt2l0s7" path="res://scenes/partida/curacion_por_muertes.gd" id="5_7ft05"]
+[ext_resource type="Script" uid="uid://d34w53kyaoxa3" path="res://scenes/partida/partida.gd" id="6_oexds"]
+[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/ronda_params.tres" id="7_naajo"]
+[ext_resource type="PackedScene" uid="uid://cybvp4mm6gmxw" path="res://scenes/ui/hud.tscn" id="8_41jku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -62,4 +65,13 @@ contenedor = NodePath("../Entidades")
 script = ExtResource("5_7ft05")
 jugador = NodePath("../Entidades/Player")
 
+[node name="Partida" type="Node" parent="." unique_id=400762550]
+script = ExtResource("6_oexds")
+params = ExtResource("7_naajo")
+
+[node name="Hud" parent="." unique_id=246180097 instance=ExtResource("8_41jku")]
+
+[connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
 [connection signal="enemigo_murio" from="Spawner" to="CuracionPorMuertes" method="_on_spawner_enemigo_murio"]
+[connection signal="finalizo" from="Partida" to="Hud" method="_on_partida_finalizo"]
+[connection signal="tiempo_cambio" from="Partida" to="Hud" method="_on_partida_tiempo_cambio"]
