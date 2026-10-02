@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dmco1vffocddq"]
+
+[ext_resource type="Script" uid="uid://certh7s4brs0a" path="res://scenes/ui/menu_partida.gd" id="1_eetqr"]
+[ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_yskbd"]
+
+[node name="MenuPartida" type="CanvasLayer" unique_id=105893207]
+process_mode = 3
+visible = false
+script = ExtResource("1_eetqr")
+
+[node name="Contenido" type="Control" parent="." unique_id=2087623833]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fondo" type="ColorRect" parent="Contenido" unique_id=2095749098]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Opciones" type="VBoxContainer" parent="Contenido" unique_id=1434346244]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Contenido/Opciones" unique_id=1841490414]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_constants/shadow_outline_size = 24
+theme_override_font_sizes/font_size = 128
+horizontal_alignment = 1
+
+[node name="Reintentar" parent="Contenido/Opciones" unique_id=2028608480 instance=ExtResource("1_yskbd")]
+layout_mode = 2
+text = "Reintentar"

@@ -6,7 +6,6 @@ var _progreso_mostrado := 0.0
 var _tween_progreso: Tween
 
 @onready var _tiempo: Label = $Tiempo
-@onready var _resultado: Label = $Resultado
 @onready var _vida: ProgressBar = $Vida
 @onready var _vida_texto: Label = $Vida/Texto
 @onready var _progreso_curacion: ProgressBar = $ProgresoCuracion
@@ -16,11 +15,6 @@ func _on_partida_tiempo_cambio(restante: float) -> void:
 	var segundos := ceili(restante)
 	@warning_ignore("integer_division")
 	_tiempo.text = "%d:%02d" % [segundos / 60, segundos % 60]
-
-
-func _on_partida_finalizo(gano: bool) -> void:
-	_resultado.text = "¡YOU WON!" if gano else "YOU DIED"
-	_resultado.visible = true
 
 
 func _on_player_vida_cambio(actual: int, maximo: int) -> void:
