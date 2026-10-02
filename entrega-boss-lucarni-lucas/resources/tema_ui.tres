@@ -1,5 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://bj1y4xiluh7pr"]
 
+[ext_resource type="FontFile" uid="uid://1nxnisckfsvi" path="res://assets/fonts/OpenSans-SemiBold.ttf" id="1_724pn"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nymci"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1o7oj"]
@@ -13,6 +15,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bvudg"]
 
 [resource]
+default_font = ExtResource("1_724pn")
 Button/styles/disabled = SubResource("StyleBoxEmpty_nymci")
 Button/styles/focus = SubResource("StyleBoxEmpty_1o7oj")
 Button/styles/hover = SubResource("StyleBoxEmpty_ov1kc")

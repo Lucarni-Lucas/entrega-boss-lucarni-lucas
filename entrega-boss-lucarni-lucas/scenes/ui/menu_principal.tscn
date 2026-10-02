@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cmnvistqvmth6" path="res://scenes/ui/menu_principal.gd" id="1_guvrm"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_tu06j"]
 [ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="2_fh6ra"]
+[ext_resource type="PackedScene" uid="uid://cqmaiveha1uwg" path="res://scenes/ui/controles.tscn" id="4_g2cyh"]
 
 [node name="MenuPrincipal" type="Control" unique_id=896847840]
 layout_mode = 3
@@ -62,3 +63,10 @@ horizontal_alignment = 1
 [node name="Jugar" parent="Opciones" unique_id=2028608480 instance=ExtResource("1_tu06j")]
 layout_mode = 2
 text = "Jugar"
+
+[node name="Controles" parent="Opciones" unique_id=1926817305 instance=ExtResource("1_tu06j")]
+layout_mode = 2
+text = "Controles"
+
+[node name="Controles" parent="." unique_id=700216410 instance=ExtResource("4_g2cyh")]
+layout_mode = 1

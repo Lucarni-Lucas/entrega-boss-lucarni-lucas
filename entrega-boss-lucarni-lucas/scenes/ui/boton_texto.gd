@@ -6,17 +6,22 @@ extends Button
 
 
 func _ready() -> void:
-	_etiqueta.text = text
+	poner_texto(text)
 	text = ""
-	custom_minimum_size = _etiqueta.get_minimum_size()
 	focus_entered.connect(_actualizar_estilo)
 	focus_exited.connect(_actualizar_estilo)
-	mouse_entered.connect(grab_focus)
+	if focus_mode != FOCUS_NONE:
+		mouse_entered.connect(grab_focus)
 	_actualizar_estilo()
 
 
+func poner_texto(nuevo: String) -> void:
+	_etiqueta.text = nuevo
+	custom_minimum_size = _etiqueta.get_minimum_size()
+
+
 func _actualizar_estilo() -> void:
-	if has_focus():
+	if has_focus() or focus_mode == FOCUS_NONE:
 		_etiqueta.remove_theme_color_override("font_color")
 		_etiqueta.remove_theme_color_override("font_shadow_color")
 	else:

@@ -1,0 +1,432 @@
+[gd_scene format=3 uid="uid://cqmaiveha1uwg"]
+
+[ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_0lq82"]
+[ext_resource type="Script" uid="uid://c1001wymf14ax" path="res://scenes/ui/controles.gd" id="1_poiqi"]
+
+[node name="Controles" type="Control" unique_id=700216410]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_poiqi")
+
+[node name="Contenido" type="VBoxContainer" parent="." unique_id=795487869]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -36.0
+offset_right = 111.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Recomendado" type="Label" parent="Contenido" unique_id=2015932078]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5168811, 0.5168811, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "Recomendado"
+horizontal_alignment = 1
+
+[node name="Selector" type="HBoxContainer" parent="Contenido" unique_id=1028265477]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Izquierda" parent="Contenido/Selector" unique_id=2028608480 instance=ExtResource("1_0lq82")]
+layout_mode = 2
+focus_mode = 0
+text = "‹"
+
+[node name="Nombre" type="Label" parent="Contenido/Selector" unique_id=1052599733]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_font_sizes/font_size = 72
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Derecha" parent="Contenido/Selector" unique_id=590805077 instance=ExtResource("1_0lq82")]
+layout_mode = 2
+focus_mode = 0
+text = "›"
+
+[node name="Puntos" type="HBoxContainer" parent="Contenido" unique_id=852958361]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="Contenido/Puntos" unique_id=1909791245]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 28
+text = "●"
+
+[node name="Label2" type="Label" parent="Contenido/Puntos" unique_id=875515883]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 28
+text = "●"
+
+[node name="Label3" type="Label" parent="Contenido/Puntos" unique_id=6893798]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 28
+text = "●"
+
+[node name="Paginas" type="VBoxContainer" parent="Contenido" unique_id=1055100676]
+layout_mode = 2
+
+[node name="TecladoMouse" type="GridContainer" parent="Contenido/Paginas" unique_id=1653584758]
+layout_mode = 2
+theme_override_constants/h_separation = 48
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="Moverse" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=926660551]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Moverse"
+horizontal_alignment = 2
+
+[node name="W _ A _ S _ D" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=1371783055]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "W / A / S / D"
+
+[node name="Saltar" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=1186295912]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Saltar"
+horizontal_alignment = 2
+
+[node name="Espacio" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=466858196]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Espacio"
+
+[node name="Ground pound" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=1880989805]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Ground pound"
+horizontal_alignment = 2
+
+[node name="Espacio2" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=326214710]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Espacio"
+
+[node name="Slash" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=420302398]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Slash"
+horizontal_alignment = 2
+
+[node name="Clic izq" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=984790880]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Clic izq"
+
+[node name="Dive" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=212840318]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Dive"
+horizontal_alignment = 2
+
+[node name="Clic der" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=757115962]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Clic der"
+
+[node name="Boomerang" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=1286732431]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Boomerang"
+horizontal_alignment = 2
+
+[node name="Shift" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=1730375525]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Shift"
+
+[node name="Pausa" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=1414334846]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Pausa"
+horizontal_alignment = 2
+
+[node name="Esc _ P" type="Label" parent="Contenido/Paginas/TecladoMouse" unique_id=65557908]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Esc / P"
+
+[node name="Teclado" type="GridContainer" parent="Contenido/Paginas" unique_id=946930253]
+layout_mode = 2
+theme_override_constants/h_separation = 48
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="Moverse" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1797875150]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Moverse"
+horizontal_alignment = 2
+
+[node name="← _ ↑ _ ↓ _ →" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1512285734]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "← / ↑ / ↓ / →"
+
+[node name="Saltar" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1601430688]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Saltar"
+horizontal_alignment = 2
+
+[node name="V" type="Label" parent="Contenido/Paginas/Teclado" unique_id=406434406]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "V"
+
+[node name="Ground pound" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1940570982]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Ground pound"
+horizontal_alignment = 2
+
+[node name="V2" type="Label" parent="Contenido/Paginas/Teclado" unique_id=2137658505]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "V"
+
+[node name="Slash" type="Label" parent="Contenido/Paginas/Teclado" unique_id=147411451]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Slash"
+horizontal_alignment = 2
+
+[node name="C" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1880186068]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "C"
+
+[node name="Dive" type="Label" parent="Contenido/Paginas/Teclado" unique_id=113203580]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Dive"
+horizontal_alignment = 2
+
+[node name="X" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1807893890]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "X"
+
+[node name="Boomerang" type="Label" parent="Contenido/Paginas/Teclado" unique_id=825298079]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Boomerang"
+horizontal_alignment = 2
+
+[node name="Z" type="Label" parent="Contenido/Paginas/Teclado" unique_id=937875488]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Z"
+
+[node name="Pausa" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1092323056]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Pausa"
+horizontal_alignment = 2
+
+[node name="Esc _ P" type="Label" parent="Contenido/Paginas/Teclado" unique_id=1933017508]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Esc / P"
+
+[node name="Joystick" type="GridContainer" parent="Contenido/Paginas" unique_id=397376116]
+layout_mode = 2
+theme_override_constants/h_separation = 48
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="Moverse" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1039477230]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Moverse"
+horizontal_alignment = 2
+
+[node name="Stick izq" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1979801219]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Stick izq"
+
+[node name="Saltar" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1643468612]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Saltar"
+horizontal_alignment = 2
+
+[node name="✕" type="Label" parent="Contenido/Paginas/Joystick" unique_id=202110117]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "✕"
+
+[node name="Ground pound" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1602717322]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Ground pound"
+horizontal_alignment = 2
+
+[node name="✕2" type="Label" parent="Contenido/Paginas/Joystick" unique_id=503738987]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "✕"
+
+[node name="Slash" type="Label" parent="Contenido/Paginas/Joystick" unique_id=871583125]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Slash"
+horizontal_alignment = 2
+
+[node name="□" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1978702908]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "□"
+
+[node name="Dive" type="Label" parent="Contenido/Paginas/Joystick" unique_id=857808885]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Dive"
+horizontal_alignment = 2
+
+[node name="△" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1320879958]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "△"
+
+[node name="Boomerang" type="Label" parent="Contenido/Paginas/Joystick" unique_id=457124114]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Boomerang"
+horizontal_alignment = 2
+
+[node name="○" type="Label" parent="Contenido/Paginas/Joystick" unique_id=845454608]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "○"
+
+[node name="Pausa" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1468033715]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Pausa"
+horizontal_alignment = 2
+
+[node name="Start" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1586834875]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Start"
+
+[node name="Boton" parent="Contenido" unique_id=2077913631 instance=ExtResource("1_0lq82")]
+layout_mode = 2
+text = "Empezar"
