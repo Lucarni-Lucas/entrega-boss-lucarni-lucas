@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RondaParams" format=3 uid="uid://bdjb5a2imnkgu"]
+
+[ext_resource type="Script" uid="uid://bsmnpgwdipnu3" path="res://scripts/params/ronda_params.gd" id="1_qlryx"]
+
+[resource]
+script = ExtResource("1_qlryx")
+metadata/_custom_type_script = "uid://bsmnpgwdipnu3"

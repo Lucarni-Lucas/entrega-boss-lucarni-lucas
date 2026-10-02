@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cv777jrmhvrqr"]
+
+[ext_resource type="Script" uid="uid://d131o8ultmlpr" path="res://scenes/enemigos/enemigo.gd" id="1_6sr6t"]
+[ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="1_8uhct"]
+[ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="2_6sr6t"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="4_gtmhs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gtmhs"]
+radius = 1.0
+
+[sub_resource type="Gradient" id="Gradient_17cpx"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0.56640625, 0.56640625, 0.56640625, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
+gradient = SubResource("Gradient_17cpx")
+width = 40
+height = 60
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ldkxj"]
+radius = 18.0
+height = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+
+[node name="Enemigo" type="CharacterBody2D" unique_id=794546459]
+collision_layer = 4
+script = ExtResource("1_6sr6t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=658689249]
+shape = SubResource("CircleShape2D_gtmhs")
+
+[node name="Sombra" parent="." unique_id=1825432861 instance=ExtResource("1_8uhct")]
+
+[node name="Sprite" type="Node2D" parent="." unique_id=466197661]
+
+[node name="Visual" type="Sprite2D" parent="Sprite" unique_id=1769203076]
+position = Vector2(0, -30)
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="Hurtbox" parent="." unique_id=1222409529 instance=ExtResource("2_6sr6t")]
+collision_layer = 4
+z_max = 60.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1220264362]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ldkxj")
+
+[node name="Hitbox" parent="." unique_id=1321716141 instance=ExtResource("4_gtmhs")]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2026929855]
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_xrivr")

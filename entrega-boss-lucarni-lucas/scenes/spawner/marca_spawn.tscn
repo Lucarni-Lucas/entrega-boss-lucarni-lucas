@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bw8ldgjp7bfwk"]
+
+[ext_resource type="Script" uid="uid://nly1owbjxioy" path="res://scenes/spawner/marca_spawn.gd" id="1_8e6is"]
+
+[node name="MarcaSpawn" type="Node2D" unique_id=264302940]
+z_index = -5
+script = ExtResource("1_8e6is")
+
+[node name="Visual" type="Node2D" parent="." unique_id=569300530]
+scale = Vector2(1, 0.45)
+
+[node name="Linea3" type="Line2D" parent="Visual" unique_id=1895214986]
+points = PackedVector2Array(-30, -30, 30, 30)
+width = 15.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Linea4" type="Line2D" parent="Visual" unique_id=1611994298]
+points = PackedVector2Array(-30, 30, 30, -30)
+width = 15.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Linea1" type="Line2D" parent="Visual" unique_id=886954459]
+points = PackedVector2Array(-28, -28, 28, 28)
+default_color = Color(0.875, 0.16748047, 0.16748047, 1)
+
+[node name="Linea2" type="Line2D" parent="Visual" unique_id=504163575]
+points = PackedVector2Array(-28, 28, 28, -28)
+default_color = Color(0.8745098, 0.16862746, 0.16862746, 1)

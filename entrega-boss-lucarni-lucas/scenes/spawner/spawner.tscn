@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bff3bfq0dtcvp"]
+
+[ext_resource type="Script" uid="uid://bd1ahlvlj5jya" path="res://scenes/spawner/spawner.gd" id="1_eoeca"]
+[ext_resource type="Resource" uid="uid://c0napswgoa21n" path="res://resources/spawner_params.tres" id="2_byvvi"]
+[ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="3_t4i6e"]
+[ext_resource type="PackedScene" uid="uid://bw8ldgjp7bfwk" path="res://scenes/spawner/marca_spawn.tscn" id="4_4t4hp"]
+
+[node name="Spawner" type="Node" unique_id=555608513]
+script = ExtResource("1_eoeca")
+params = ExtResource("2_byvvi")
+escena_enemigo = ExtResource("3_t4i6e")
+escena_marca = ExtResource("4_4t4hp")

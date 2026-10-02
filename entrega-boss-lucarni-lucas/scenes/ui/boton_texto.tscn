@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dmm0bnb0mc5sc"]
+
+[ext_resource type="Script" uid="uid://d08woop7u20j4" path="res://scenes/ui/boton_texto.gd" id="1_db26l"]
+
+[node name="BotonTexto" type="Button" unique_id=2028608480]
+size_flags_horizontal = 4
+script = ExtResource("1_db26l")
+
+[node name="Texto" type="Label" parent="." unique_id=1080795663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+horizontal_alignment = 1
+vertical_alignment = 1

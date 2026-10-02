@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://cox3t741yfdhq"]
+
+[ext_resource type="Script" uid="uid://dpgsch6uikgxl" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="Script" uid="uid://cryk37ync3cfi" path="res://scenes/player/walk.gd" id="2_gmlin"]
+[ext_resource type="Resource" uid="uid://dq4faj2ot85b1" path="res://resources/player_params.tres" id="2_lvxji"]
+[ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="3_fm80t"]
+[ext_resource type="Script" uid="uid://bsiclvrdaskx7" path="res://scenes/player/sprite.gd" id="4_75vfm"]
+[ext_resource type="Script" uid="uid://0k1mbhbc0do7" path="res://scenes/player/jump.gd" id="5_p47bc"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="7_0owmy"]
+[ext_resource type="Script" uid="uid://bfwby6p3g0g2b" path="res://scenes/player/ground_pound.gd" id="7_5gtgg"]
+[ext_resource type="Script" uid="uid://k8n1pu7q2iwu" path="res://scenes/player/slash.gd" id="7_qek5x"]
+[ext_resource type="Script" uid="uid://15u2qppeefqe" path="res://scenes/player/dive.gd" id="9_h17s1"]
+[ext_resource type="Script" uid="uid://bsiwgjcw1wblq" path="res://scenes/player/boomerang.gd" id="10_je7p5"]
+[ext_resource type="PackedScene" uid="uid://miq6aanimbvg" path="res://scenes/boomerang/boomerang.tscn" id="12_fm80t"]
+[ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="13_gx1jg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 1.0
+
+[sub_resource type="Gradient" id="Gradient_lvxji"]
+offsets = PackedFloat32Array(0, 0.95625, 0.98467433)
+colors = PackedColorArray(0.4443136, 0.62112236, 1, 1, 0.1640625, 0.41044408, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
+gradient = SubResource("Gradient_lvxji")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_xrivr"]
+_data = [Vector2(0, 0), 1.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_qek5x"]
+colors = PackedColorArray(1, 1, 1, 0.5058824, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_je7p5"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.29464287, 0.32142857, 0.35249043, 0.3794643, 0.5089286, 0.5363985, 0.56696427, 0.625)
+colors = PackedColorArray(1, 1, 1, 0, 0.5137255, 0.23137255, 0, 0, 0, 0, 0, 1, 0.515625, 0.22961426, 0, 1, 0.5137255, 0.23137255, 0, 1, 0, 0, 0, 1, 0.5137255, 0.23137255, 0, 0.12156863, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qek5x"]
+gradient = SubResource("Gradient_je7p5")
+width = 54
+height = 23
+fill = 1
+fill_from = Vector2(0.5, 0.1)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_fm80t"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.6436782, 0.7126437, 0.743295, 0.9425287, 0.97318006, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 0.5372549, 0.2509804, 0, 1, 0.5372549, 0.2509804, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7f2x3"]
+gradient = SubResource("Gradient_fm80t")
+width = 32
+height = 32
+fill = 2
+fill_from = Vector2(0.25, 0.75)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_13qdw"]
+radius = 20.0
+
+[node name="Player" type="CharacterBody2D" unique_id=666075403 groups=["jugador"]]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_dovo2")
+params = ExtResource("2_lvxji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651236493]
+shape = SubResource("CircleShape2D_xrivr")
+
+[node name="Sombra" parent="." unique_id=1825432861 instance=ExtResource("3_fm80t")]
+
+[node name="Sprite" type="Node2D" parent="." unique_id=1338394626]
+script = ExtResource("4_75vfm")
+
+[node name="Estiramiento" type="Node2D" parent="Sprite" unique_id=958097106]
+position = Vector2(0, -32)
+
+[node name="Visual" type="Sprite2D" parent="Sprite/Estiramiento" unique_id=198621459]
+self_modulate = Color(1, 1, 1, 0.9019608)
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="Walk" type="Node" parent="." unique_id=1032320984]
+script = ExtResource("2_gmlin")
+
+[node name="Jump" type="Node" parent="." unique_id=1766960256]
+script = ExtResource("5_p47bc")
+
+[node name="Slash" type="Node2D" parent="." unique_id=216322306]
+script = ExtResource("7_qek5x")
+
+[node name="Hitbox" parent="Slash" unique_id=1786912693 instance=ExtResource("7_0owmy")]
+collision_mask = 4
+origen = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Slash/Hitbox" unique_id=56868021]
+polygon = PackedVector2Array(0, 16, 0, 16, 0, 16)
+
+[node name="Efecto" type="Node2D" parent="Slash" unique_id=2037535085]
+visible = false
+position = Vector2(0, -32)
+
+[node name="Estela" type="Line2D" parent="Slash/Efecto" unique_id=1556936525]
+width = 35.0
+width_curve = SubResource("Curve_xrivr")
+gradient = SubResource("Gradient_qek5x")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="Filo" type="Sprite2D" parent="Slash/Efecto" unique_id=1752235786]
+texture = SubResource("GradientTexture2D_qek5x")
+
+[node name="GroundPound" type="Node2D" parent="." unique_id=851043009]
+script = ExtResource("7_5gtgg")
+
+[node name="Hitbox" parent="GroundPound" unique_id=1321716141 instance=ExtResource("7_0owmy")]
+collision_mask = 4
+origen = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundPound/Hitbox" unique_id=1392616015]
+polygon = PackedVector2Array(0, 32, 0, 32, 0, 32)
+
+[node name="Dive" type="Node2D" parent="." unique_id=1097185342]
+script = ExtResource("9_h17s1")
+
+[node name="Boomerang" type="Node2D" parent="." unique_id=1852323145]
+script = ExtResource("10_je7p5")
+escena_boomerang = ExtResource("12_fm80t")
+perfil_minimo = 0.2
+
+[node name="EnMano" type="Node2D" parent="Boomerang" unique_id=1825224933]
+position = Vector2(0, -32)
+
+[node name="Visual" type="Sprite2D" parent="Boomerang/EnMano" unique_id=1182111535]
+texture = SubResource("GradientTexture2D_7f2x3")
+
+[node name="Hurtbox" parent="." unique_id=1222409529 instance=ExtResource("13_gx1jg")]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1845187846]
+shape = SubResource("CircleShape2D_13qdw")
+
+[connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
+[connection signal="fuerza_gp_recuperada" from="." to="." method="_on_fuerza_gp_recuperada"]
+[connection signal="reboto" from="." to="." method="_on_reboto"]

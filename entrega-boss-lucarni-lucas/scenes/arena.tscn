@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://cfff452o8hyd1"]
+
+[ext_resource type="PackedScene" uid="uid://fm4dys2j78qx" path="res://scenes/camara.tscn" id="1_e05a3"]
+[ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="1_wl4x5"]
+[ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
+[ext_resource type="PackedScene" uid="uid://bff3bfq0dtcvp" path="res://scenes/spawner/spawner.tscn" id="4_xdvfk"]
+[ext_resource type="Script" uid="uid://c885wopt2l0s7" path="res://scenes/partida/curacion_por_muertes.gd" id="5_7ft05"]
+[ext_resource type="Script" uid="uid://d34w53kyaoxa3" path="res://scenes/partida/partida.gd" id="6_oexds"]
+[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/ronda_params.tres" id="7_naajo"]
+[ext_resource type="PackedScene" uid="uid://cybvp4mm6gmxw" path="res://scenes/ui/hud.tscn" id="8_41jku"]
+[ext_resource type="PackedScene" uid="uid://dmco1vffocddq" path="res://scenes/ui/menu_partida.tscn" id="9_naajo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(2080, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(40, 1580)
+
+[node name="Arena" type="Node2D" unique_id=2095639661]
+
+[node name="Suelo" type="TextureRect" parent="." unique_id=2118570816]
+z_index = -10
+texture_filter = 1
+offset_right = 2000.0
+offset_bottom = 1500.0
+texture = ExtResource("1_wl4x5")
+stretch_mode = 1
+
+[node name="Paredes" type="StaticBody2D" parent="." unique_id=2028124523]
+collision_mask = 0
+
+[node name="ParedSuperior" type="CollisionShape2D" parent="Paredes" unique_id=149473835]
+position = Vector2(1000, -20)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="ParedInferior" type="CollisionShape2D" parent="Paredes" unique_id=229609215]
+position = Vector2(1000, 1520)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="ParedIzquierda" type="CollisionShape2D" parent="Paredes" unique_id=190633850]
+position = Vector2(-20, 750)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="ParedDerecha" type="CollisionShape2D" parent="Paredes" unique_id=953071154]
+position = Vector2(2020, 750)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="Entidades" type="Node2D" parent="." unique_id=272458442]
+y_sort_enabled = true
+
+[node name="Player" parent="Entidades" unique_id=666075403 instance=ExtResource("2_olpmc")]
+position = Vector2(1000, 750)
+
+[node name="Camara" parent="." unique_id=1696517493 node_paths=PackedStringArray("objetivo") instance=ExtResource("1_e05a3")]
+limit_left = -370
+limit_top = -370
+limit_right = 2370
+limit_bottom = 1870
+limit_smoothed = true
+objetivo = NodePath("../Entidades/Player")
+
+[node name="Spawner" parent="." unique_id=555608513 node_paths=PackedStringArray("contenedor") instance=ExtResource("4_xdvfk")]
+contenedor = NodePath("../Entidades")
+
+[node name="CuracionPorMuertes" type="Node" parent="." unique_id=1436814135 node_paths=PackedStringArray("jugador")]
+script = ExtResource("5_7ft05")
+jugador = NodePath("../Entidades/Player")
+
+[node name="Partida" type="Node" parent="." unique_id=400762550]
+script = ExtResource("6_oexds")
+params = ExtResource("7_naajo")
+
+[node name="Hud" parent="." unique_id=246180097 instance=ExtResource("8_41jku")]
+
+[node name="MenuPartida" parent="." unique_id=105893207 instance=ExtResource("9_naajo")]
+
+[connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
+[connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
+[connection signal="enemigo_murio" from="Spawner" to="CuracionPorMuertes" method="_on_spawner_enemigo_murio"]
+[connection signal="progreso_cambio" from="CuracionPorMuertes" to="Hud" method="_on_curacion_por_muertes_progreso_cambio"]
+[connection signal="finalizo" from="Partida" to="MenuPartida" method="_on_partida_finalizo"]
+[connection signal="tiempo_cambio" from="Partida" to="Hud" method="_on_partida_tiempo_cambio"]
