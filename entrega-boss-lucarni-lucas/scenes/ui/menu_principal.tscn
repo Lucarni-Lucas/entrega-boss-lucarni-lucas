@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://c0rkujp15f28n"]
+
+[ext_resource type="Script" uid="uid://cmnvistqvmth6" path="res://scenes/ui/menu_principal.gd" id="1_guvrm"]
+[ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_tu06j"]
+[ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="2_fh6ra"]
+
+[node name="MenuPrincipal" type="Control" unique_id=896847840]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_guvrm")
+escena_partida = "uid://cfff452o8hyd1"
+
+[node name="Suelo" type="TextureRect" parent="." unique_id=1334703041]
+z_index = -10
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fh6ra")
+stretch_mode = 1
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=977739793]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Opciones" type="VBoxContainer" parent="." unique_id=280997432]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Opciones" unique_id=2067785312]
+layout_mode = 2
+theme_override_constants/outline_size = 32
+theme_override_constants/shadow_outline_size = 36
+theme_override_font_sizes/font_size = 160
+text = "CADENTIA"
+horizontal_alignment = 1
+
+[node name="Jugar" parent="Opciones" unique_id=2028608480 instance=ExtResource("1_tu06j")]
+layout_mode = 2
+text = "Jugar"

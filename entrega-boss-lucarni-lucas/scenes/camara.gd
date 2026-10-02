@@ -9,6 +9,7 @@ func _ready() -> void:
 		return
 	zoom = Vector2.ONE * _zoom_necesario(_seguir())
 	reset_smoothing()
+	force_update_scroll()
 
 
 func _physics_process(delta: float) -> void:

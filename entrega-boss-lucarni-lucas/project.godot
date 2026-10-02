@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="entrega-boss-lucarni-lucas"
-run/main_scene="uid://cfff452o8hyd1"
+run/main_scene="uid://c0rkujp15f28n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
