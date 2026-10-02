@@ -27,3 +27,8 @@ func _actualizar_estilo() -> void:
 	else:
 		_etiqueta.add_theme_color_override("font_color", color_inactivo)
 		_etiqueta.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action("ui_left") or event.is_action("ui_right"):
+		accept_event()
