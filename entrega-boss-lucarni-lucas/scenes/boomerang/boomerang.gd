@@ -143,11 +143,14 @@ func _desactivar() -> void:
 	_chispas.emitting = false
 
 
-func precalentar() -> void:
+func precalentar(posicion: Vector2) -> void:
 	_desactivar()
+	global_position = posicion
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = true
-	modulate.a = 0.0
+	modulate.a = 0.01
 	_chispas.emitting = true
 	await get_tree().create_timer(0.5).timeout
 	modulate.a = 1.0
+	process_mode = Node.PROCESS_MODE_INHERIT
 	_desactivar()
