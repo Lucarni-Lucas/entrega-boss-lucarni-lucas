@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/ronda_params.tres" id="7_naajo"]
 [ext_resource type="PackedScene" uid="uid://cybvp4mm6gmxw" path="res://scenes/ui/hud.tscn" id="8_41jku"]
 [ext_resource type="PackedScene" uid="uid://dmco1vffocddq" path="res://scenes/ui/menu_partida.tscn" id="9_naajo"]
+[ext_resource type="PackedScene" uid="uid://pmxug0atept3" path="res://scenes/ui/cuenta_regresiva.tscn" id="10_41jku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -73,6 +74,10 @@ params = ExtResource("7_naajo")
 [node name="Hud" parent="." unique_id=246180097 instance=ExtResource("8_41jku")]
 
 [node name="MenuPartida" parent="." unique_id=105893207 instance=ExtResource("9_naajo")]
+params = ExtResource("7_naajo")
+
+[node name="CuentaRegresiva" parent="." unique_id=643027304 instance=ExtResource("10_41jku")]
+params = ExtResource("7_naajo")
 
 [connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
 [connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
@@ -80,3 +85,5 @@ params = ExtResource("7_naajo")
 [connection signal="progreso_cambio" from="CuracionPorMuertes" to="Hud" method="_on_curacion_por_muertes_progreso_cambio"]
 [connection signal="finalizo" from="Partida" to="MenuPartida" method="_on_partida_finalizo"]
 [connection signal="tiempo_cambio" from="Partida" to="Hud" method="_on_partida_tiempo_cambio"]
+[connection signal="pauso" from="MenuPartida" to="CuentaRegresiva" method="cancelar"]
+[connection signal="reanudo" from="MenuPartida" to="CuentaRegresiva" method="iniciar"]

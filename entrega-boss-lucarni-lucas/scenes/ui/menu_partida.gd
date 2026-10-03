@@ -1,9 +1,15 @@
 extends CanvasLayer
 
+signal pauso
+signal reanudo
+
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_file("*.tscn") var escena_menu: String
+@export var params: RondaParams
+@export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
 
 var _en_pausa := false
+var _bloqueado := false
 var _finalizada := false
 
 @onready var _contenido: Control = $Contenido
@@ -48,13 +54,14 @@ func _on_partida_finalizo(gano: bool) -> void:
 func _pausar() -> void:
 	_en_pausa = true
 	get_tree().paused = true
+	pauso.emit()
 	_mostrar("PAUSA", true)
 
 
 func _reanudar_partida() -> void:
 	_en_pausa = false
 	visible = false
-	get_tree().paused = false
+	reanudo.emit()
 
 
 func _mostrar(titulo: String, en_pausa: bool) -> void:
@@ -65,7 +72,29 @@ func _mostrar(titulo: String, en_pausa: bool) -> void:
 	visible = true
 	_contenido.modulate.a = 0.0
 	create_tween().tween_property(_contenido, "modulate:a", 1.0, duracion_entrada)
-	(_reanudar if en_pausa else _reintentar).grab_focus()
+	if en_pausa:
+		_reanudar.grab_focus()
+	else:
+		_bloquear_botones()
+
+
+func _input(event: InputEvent) -> void:
+	if _bloqueado:
+		get_viewport().set_input_as_handled()
+
+
+func _bloquear_botones() -> void:
+	_bloqueado = true
+	_atenuar_botones(alpha_bloqueado)
+	await get_tree().create_timer(params.bloqueo_final).timeout
+	_bloqueado = false
+	_atenuar_botones(1.0)
+	_reintentar.grab_focus()
+
+
+func _atenuar_botones(alpha: float) -> void:
+	_reintentar.modulate.a = alpha
+	_menu_principal.modulate.a = alpha
 
 
 func _abrir_controles() -> void:
