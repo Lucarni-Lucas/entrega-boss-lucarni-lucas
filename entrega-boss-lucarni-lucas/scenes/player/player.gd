@@ -186,7 +186,10 @@ func _on_fuerza_gp_recuperada() -> void:
 func recibir_dano(cantidad: int) -> void:
 	if es_invulnerable():
 		return
-	vida = maxi(vida - cantidad, 0)
+	if vida > params.piedad_vida:
+		vida = maxi(vida - cantidad, params.piedad_vida)
+	else:
+		vida = maxi(vida - params.piedad_dano, 0)
 	vida_cambio.emit(vida, params.vida_max)
 	if vida == 0:
 		murio.emit()
