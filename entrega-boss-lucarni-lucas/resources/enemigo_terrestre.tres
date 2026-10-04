@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_oqnwy")
 alto = 60.0
-velocidad = 220.0
-dano_contacto = 4
+velocidad = 240.0
 intervalo_contacto = 0.6000000000000001
 metadata/_custom_type_script = "uid://bogkc7efq10ps"
