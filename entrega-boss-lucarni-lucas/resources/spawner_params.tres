@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://jtfyndpaudrq" path="res://scripts/params/spawner_params.gd" id="1_6eo2x"]
 
 [sub_resource type="Curve" id="Curve_17cpx"]
-_limits = [0.15, 1.5, 0.0, 70.0]
-_data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(40, 0.8), -0.030322952, -0.030322952, 0, 0, Vector2(70, 0.15), 0.0, 0.0, 0, 0]
-point_count = 3
+_limits = [0.1, 1.5, 0.0, 90.0]
+_data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(30, 0.8), -0.048160005, -0.016967492, 0, 0, Vector2(45, 0.15), -0.07027702, 0.0, 0, 0, Vector2(75, 0.1), 0.0, 0.10319985, 0, 0, Vector2(90, 0.8), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [resource]
 script = ExtResource("1_6eo2x")
 curva_intervalo = SubResource("Curve_17cpx")
 precalentar_marcas = 10
+distancia_minima = 300.0
 metadata/_custom_type_script = "uid://jtfyndpaudrq"

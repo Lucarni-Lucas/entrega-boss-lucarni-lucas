@@ -7,6 +7,7 @@ signal reanudo
 @export_file("*.tscn") var escena_menu: String
 @export var params: RondaParams
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
+@export var abrir_con_tecla := true
 
 var _en_pausa := false
 var _bloqueado := false
@@ -36,14 +37,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pausa"):
 		if _en_pausa:
 			_reanudar_partida()
+		elif abrir_con_tecla:
+			pausar()
 		else:
-			_pausar()
+			return
 		get_viewport().set_input_as_handled()
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not _finalizada and not _en_pausa:
-		_pausar()
+		pausar()
 
 
 func _on_partida_finalizo(gano: bool) -> void:
@@ -51,7 +54,7 @@ func _on_partida_finalizo(gano: bool) -> void:
 	_mostrar("¡GANASTE!" if gano else "MORISTE", false)
 
 
-func _pausar() -> void:
+func pausar() -> void:
 	_en_pausa = true
 	get_tree().paused = true
 	pauso.emit()

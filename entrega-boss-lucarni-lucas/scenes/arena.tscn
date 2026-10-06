@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cybvp4mm6gmxw" path="res://scenes/ui/hud.tscn" id="8_41jku"]
 [ext_resource type="PackedScene" uid="uid://dmco1vffocddq" path="res://scenes/ui/menu_partida.tscn" id="9_naajo"]
 [ext_resource type="PackedScene" uid="uid://pmxug0atept3" path="res://scenes/ui/cuenta_regresiva.tscn" id="10_41jku"]
+[ext_resource type="AudioStream" uid="uid://doq3awtuqon2m" path="res://assets/audio/another_round_felolk.ogg" id="11_mus01"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -78,6 +79,12 @@ params = ExtResource("7_naajo")
 
 [node name="CuentaRegresiva" parent="." unique_id=643027304 instance=ExtResource("10_41jku")]
 params = ExtResource("7_naajo")
+
+[node name="Musica" type="AudioStreamPlayer" parent="." unique_id=1873402519]
+stream = ExtResource("11_mus01")
+volume_db = -13.0
+pitch_scale = 0.99
+autoplay = true
 
 [connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
 [connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="TutorialParams" format=3 uid="uid://blushg6hcpuui"]
+
+[ext_resource type="Script" path="res://scripts/params/tutorial_params.gd" id="1_tutp"]
+
+[resource]
+script = ExtResource("1_tutp")

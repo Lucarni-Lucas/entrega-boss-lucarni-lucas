@@ -13,7 +13,8 @@ class_name SpawnerParams
 @export_group("Posición")
 @export_range(0, 200, 5, "suffix:px") var margen: float = 40.0
 @export_range(0, 1000, 10, "suffix:px") var distancia_minima: float = 400.0
-@export var intentos: int = 10
+@export_range(0, 3000, 10, "suffix:px") var distancia_maxima: float = 1200.0
+@export var intentos: int = 30
 
 @export_group("Marca")
 @export var parpadeos: int = 3

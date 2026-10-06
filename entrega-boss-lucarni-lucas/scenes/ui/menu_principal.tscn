@@ -13,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_guvrm")
-escena_partida = "uid://cfff452o8hyd1"
+escena_partida = "uid://vs40drbmk6ry"
 
 [node name="Suelo" type="TextureRect" parent="." unique_id=1334703041]
 z_index = -10

@@ -46,7 +46,10 @@ func _marcar_spawn() -> void:
 func _buscar_posicion() -> Vector2:
 	for i in params.intentos:
 		var punto := _punto_al_azar()
-		if _jugador == null or punto.distance_to(_jugador.global_position) >= params.distancia_minima:
+		if _jugador == null:
+			return punto
+		var distancia := punto.distance_to(_jugador.global_position)
+		if distancia >= params.distancia_minima and distancia <= params.distancia_maxima:
 			return punto
 	return Vector2.INF
 

@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_pk6jb")
 piedad_dano = 2
-curacion_cada_muertes = 8
-curacion_cantidad = 2
+curacion_cada_muertes = 6
+curacion_cantidad = 1
 curacion_umbral_vida_baja = 0.2
 gp_radio_impacto = 150.0
 gp_proteccion = 0.4
