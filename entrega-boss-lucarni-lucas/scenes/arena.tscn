@@ -82,7 +82,7 @@ params = ExtResource("7_naajo")
 
 [node name="Musica" type="AudioStreamPlayer" parent="." unique_id=1873402519]
 stream = ExtResource("11_mus01")
-volume_db = -13.0
+volume_db = -14.0
 pitch_scale = 0.99
 autoplay = true
 

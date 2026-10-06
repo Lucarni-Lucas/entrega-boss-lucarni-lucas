@@ -5,13 +5,16 @@ signal pausa_pedida
 enum Accion { SALTO, LANZAMIENTO, DIVE, REBOTE, GROUND_POUND }
 enum Fase { VERBOS, CADENA, CONSEJOS }
 
+const _BOTON_CRUZ := preload("res://assets/ui/botones/cruz.svg")
+const _BOTON_CIRCULO := preload("res://assets/ui/botones/circulo.svg")
+const _BOTON_TRIANGULO := preload("res://assets/ui/botones/triangulo.svg")
 const _PASOS := [Accion.SALTO, Accion.LANZAMIENTO, Accion.DIVE, Accion.REBOTE, Accion.GROUND_POUND]
 const _INSTRUCCIONES := {
-	Accion.SALTO: ["Saltá", "Espacio / V / ✕"],
-	Accion.LANZAMIENTO: ["En el aire, tirá el boomerang", "Shift / Z / ○"],
-	Accion.DIVE: ["En el aire, hacé dive", "Clic der / X / △"],
-	Accion.REBOTE: ["Rebotá en el boomerang", "Saltá, tiralo y hacé dive hacia él para tocarlo en el aire"],
-	Accion.GROUND_POUND: ["Desde arriba, hacé ground pound", "En el aire, apretá saltar otra vez"],
+	Accion.SALTO: ["Saltá", "Espacio / V /", _BOTON_CRUZ],
+	Accion.LANZAMIENTO: ["En el aire, tirá el boomerang", "Shift / Z /", _BOTON_CIRCULO],
+	Accion.DIVE: ["En el aire, hacé dive", "Clic der / X /", _BOTON_TRIANGULO],
+	Accion.REBOTE: ["Rebotá en el boomerang", "Saltá, tiralo y hacé dive hacia él para tocarlo en el aire", null],
+	Accion.GROUND_POUND: ["Desde arriba, hacé ground pound", "En el aire, apretá saltar otra vez", null],
 }
 const _DETALLE_CADENA := "Ahora todo seguido, sin tocar el suelo"
 const _TITULO_REINTENTO := "UNA CADENA MÁS"
@@ -39,7 +42,9 @@ var _bloqueado := false
 
 @onready var _pasos: Control = $Pasos
 @onready var _instruccion: Label = $Pasos/Instruccion
-@onready var _detalle: Label = $Pasos/Detalle
+@onready var _linea_detalle: HBoxContainer = $Pasos/LineaDetalle
+@onready var _detalle: Label = $Pasos/LineaDetalle/Detalle
+@onready var _boton_joystick: TextureRect = $Pasos/LineaDetalle/BotonJoystick
 @onready var _fila_puntos: HBoxContainer = $Pasos/Puntos
 @onready var _puntos := _fila_puntos.get_children()
 @onready var _cadena: HBoxContainer = $Pasos/Cadena
@@ -99,9 +104,16 @@ func _on_player_reboto() -> void:
 		_registrar(Accion.REBOTE)
 
 
+func _on_menu_partida_pauso() -> void:
+	visible = false
+
+
 func _on_menu_partida_reanudo() -> void:
+	visible = true
 	get_tree().paused = false
 	_esperar_soltar = true
+	if _fase == Fase.CONSEJOS and not _bloqueado:
+		_empezar.grab_focus()
 
 
 func _escuchando() -> bool:
@@ -141,7 +153,7 @@ func _completar_verbo() -> void:
 
 func _mostrar_verbo() -> void:
 	var textos: Array = _INSTRUCCIONES[_PASOS[_paso]]
-	_mostrar_texto(textos[0], textos[1])
+	_mostrar_texto(textos[0], textos[1], textos[2])
 
 
 func _empezar_cadena() -> void:
@@ -184,10 +196,12 @@ func _celebrar(titulo: String, detalle: String, duracion: float, despues: Callab
 	_al_terminar_espera = despues
 
 
-func _mostrar_texto(titulo: String, detalle: String) -> void:
+func _mostrar_texto(titulo: String, detalle: String, boton: Texture2D = null) -> void:
 	_instruccion.text = titulo
 	_detalle.text = detalle
-	_detalle.visible = detalle != ""
+	_linea_detalle.visible = detalle != ""
+	_boton_joystick.texture = boton
+	_boton_joystick.visible = boton != null
 
 
 func _avisar(texto: String) -> void:

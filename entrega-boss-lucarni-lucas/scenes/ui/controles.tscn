@@ -2,6 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_0lq82"]
 [ext_resource type="Script" uid="uid://c1001wymf14ax" path="res://scenes/ui/controles.gd" id="1_poiqi"]
+[ext_resource type="Texture2D" uid="uid://bu8u0hqo3c38m" path="res://assets/ui/botones/cruz.svg" id="3_cruz"]
+[ext_resource type="Texture2D" uid="uid://7qf7qp0enyul" path="res://assets/ui/botones/circulo.svg" id="4_circulo"]
+[ext_resource type="Texture2D" uid="uid://bpcoobu1rxx6t" path="res://assets/ui/botones/cuadrado.svg" id="5_cuadrado"]
+[ext_resource type="Texture2D" uid="uid://e21n5n5hyjp5" path="res://assets/ui/botones/triangulo.svg" id="6_triangulo"]
 
 [node name="Controles" type="Control" unique_id=700216410]
 visible = false
@@ -345,12 +349,14 @@ theme_override_font_sizes/font_size = 44
 text = "Saltar"
 horizontal_alignment = 2
 
-[node name="✕" type="Label" parent="Contenido/Paginas/Joystick" unique_id=202110117]
+[node name="Cruz" type="TextureRect" parent="Contenido/Paginas/Joystick" unique_id=202110117]
+texture_filter = 4
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 44
-text = "✕"
+size_flags_horizontal = 0
+texture = ExtResource("3_cruz")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Ground pound" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1602717322]
 layout_mode = 2
@@ -360,12 +366,14 @@ theme_override_font_sizes/font_size = 44
 text = "Ground pound"
 horizontal_alignment = 2
 
-[node name="✕2" type="Label" parent="Contenido/Paginas/Joystick" unique_id=503738987]
+[node name="Cruz2" type="TextureRect" parent="Contenido/Paginas/Joystick" unique_id=503738987]
+texture_filter = 4
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 44
-text = "✕"
+size_flags_horizontal = 0
+texture = ExtResource("3_cruz")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Slash" type="Label" parent="Contenido/Paginas/Joystick" unique_id=871583125]
 layout_mode = 2
@@ -375,12 +383,14 @@ theme_override_font_sizes/font_size = 44
 text = "Slash"
 horizontal_alignment = 2
 
-[node name="□" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1978702908]
+[node name="Cuadrado" type="TextureRect" parent="Contenido/Paginas/Joystick" unique_id=1978702908]
+texture_filter = 4
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 44
-text = "□"
+size_flags_horizontal = 0
+texture = ExtResource("5_cuadrado")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Dive" type="Label" parent="Contenido/Paginas/Joystick" unique_id=857808885]
 layout_mode = 2
@@ -390,12 +400,14 @@ theme_override_font_sizes/font_size = 44
 text = "Dive"
 horizontal_alignment = 2
 
-[node name="△" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1320879958]
+[node name="Triangulo" type="TextureRect" parent="Contenido/Paginas/Joystick" unique_id=1320879958]
+texture_filter = 4
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 44
-text = "△"
+size_flags_horizontal = 0
+texture = ExtResource("6_triangulo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Boomerang" type="Label" parent="Contenido/Paginas/Joystick" unique_id=457124114]
 layout_mode = 2
@@ -405,12 +417,14 @@ theme_override_font_sizes/font_size = 44
 text = "Boomerang"
 horizontal_alignment = 2
 
-[node name="○" type="Label" parent="Contenido/Paginas/Joystick" unique_id=845454608]
+[node name="Circulo" type="TextureRect" parent="Contenido/Paginas/Joystick" unique_id=845454608]
+texture_filter = 4
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 44
-text = "○"
+size_flags_horizontal = 0
+texture = ExtResource("4_circulo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Pausa" type="Label" parent="Contenido/Paginas/Joystick" unique_id=1468033715]
 layout_mode = 2
