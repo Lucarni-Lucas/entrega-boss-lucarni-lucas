@@ -85,6 +85,7 @@ stream = ExtResource("11_mus01")
 volume_db = -14.0
 pitch_scale = 0.99
 autoplay = true
+playback_type = 1
 
 [connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
 [connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
