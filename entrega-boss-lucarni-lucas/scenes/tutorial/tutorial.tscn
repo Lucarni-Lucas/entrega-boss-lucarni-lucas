@@ -1,0 +1,477 @@
+[gd_scene format=3 uid="uid://vs40drbmk6ry"]
+
+[ext_resource type="Texture2D" uid="uid://b6s7sn8uddq73" path="res://assets/placeholder/suelo.png" id="1_suelo"]
+[ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://fm4dys2j78qx" path="res://scenes/camara.tscn" id="3_camara"]
+[ext_resource type="Script" path="res://scenes/tutorial/tutorial.gd" id="4_guia"]
+[ext_resource type="Resource" uid="uid://blushg6hcpuui" path="res://resources/tutorial_params.tres" id="5_params"]
+[ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="6_boton"]
+[ext_resource type="PackedScene" uid="uid://dmco1vffocddq" path="res://scenes/ui/menu_partida.tscn" id="7_pausa"]
+[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/ronda_params.tres" id="8_ronda"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
+size = Vector2(2080, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical"]
+size = Vector2(40, 1580)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_barra_fondo"]
+bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.8)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_barra_relleno"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Tutorial" type="Node2D"]
+
+[node name="Suelo" type="TextureRect" parent="."]
+z_index = -10
+texture_filter = 1
+offset_right = 2000.0
+offset_bottom = 1500.0
+texture = ExtResource("1_suelo")
+stretch_mode = 1
+
+[node name="Paredes" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="ParedSuperior" type="CollisionShape2D" parent="Paredes"]
+position = Vector2(1000, -20)
+shape = SubResource("RectangleShape2D_horizontal")
+
+[node name="ParedInferior" type="CollisionShape2D" parent="Paredes"]
+position = Vector2(1000, 1520)
+shape = SubResource("RectangleShape2D_horizontal")
+
+[node name="ParedIzquierda" type="CollisionShape2D" parent="Paredes"]
+position = Vector2(-20, 750)
+shape = SubResource("RectangleShape2D_vertical")
+
+[node name="ParedDerecha" type="CollisionShape2D" parent="Paredes"]
+position = Vector2(2020, 750)
+shape = SubResource("RectangleShape2D_vertical")
+
+[node name="Entidades" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Entidades" instance=ExtResource("2_player")]
+position = Vector2(1000, 750)
+
+[node name="Camara" parent="." node_paths=PackedStringArray("objetivo") instance=ExtResource("3_camara")]
+limit_left = -370
+limit_top = -370
+limit_right = 2370
+limit_bottom = 1870
+limit_smoothed = true
+objetivo = NodePath("../Entidades/Player")
+
+[node name="Guia" type="CanvasLayer" parent="." node_paths=PackedStringArray("jugador")]
+script = ExtResource("4_guia")
+params = ExtResource("5_params")
+jugador = NodePath("../Entidades/Player")
+escena_partida = "uid://cfff452o8hyd1"
+
+[node name="Pasos" type="Control" parent="Guia"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Instruccion" type="Label" parent="Guia/Pasos"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 110.0
+offset_bottom = 210.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_font_sizes/font_size = 72
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineaDetalle" type="HBoxContainer" parent="Guia/Pasos"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 206.0
+offset_bottom = 266.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Detalle" type="Label" parent="Guia/Pasos/LineaDetalle"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BotonJoystick" type="TextureRect" parent="Guia/Pasos/LineaDetalle"]
+visible = false
+texture_filter = 4
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Puntos" type="HBoxContainer" parent="Guia/Pasos"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 278.0
+offset_bottom = 318.0
+grow_horizontal = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Punto1" type="Label" parent="Guia/Pasos/Puntos"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "●"
+
+[node name="Punto2" type="Label" parent="Guia/Pasos/Puntos"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "●"
+
+[node name="Punto3" type="Label" parent="Guia/Pasos/Puntos"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "●"
+
+[node name="Punto4" type="Label" parent="Guia/Pasos/Puntos"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "●"
+
+[node name="Punto5" type="Label" parent="Guia/Pasos/Puntos"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "●"
+
+[node name="Cadena" type="HBoxContainer" parent="Guia/Pasos"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 280.0
+offset_bottom = 340.0
+grow_horizontal = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="Saltar" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Saltar"
+
+[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Saltar"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Flecha1" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "→"
+
+[node name="Boomerang" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Boomerang"
+
+[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Boomerang"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Flecha2" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "→"
+
+[node name="Dive" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Dive"
+
+[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Dive"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Flecha3" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "→"
+
+[node name="Rebote" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Rebote"
+
+[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Rebote"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Flecha4" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "→"
+
+[node name="GroundPound" type="Label" parent="Guia/Pasos/Cadena"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 44
+text = "Ground pound"
+
+[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/GroundPound"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Aviso" type="Label" parent="Guia/Pasos"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 380.0
+offset_bottom = 432.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.82, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 38
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Saltar" type="Label" parent="Guia/Pasos"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1000.0
+offset_top = -100.0
+offset_right = -40.0
+offset_bottom = -56.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 28
+text = "Mantené P o Start para saltar el tutorial"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BarraSaltar" type="ProgressBar" parent="Guia/Pasos"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -560.0
+offset_top = -48.0
+offset_right = -40.0
+offset_bottom = -42.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_barra_fondo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_barra_relleno")
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="Consejos" type="Control" parent="Guia"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fondo" type="ColorRect" parent="Guia/Consejos"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Contenido" type="VBoxContainer" parent="Guia/Consejos"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Guia/Consejos/Contenido"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_constants/shadow_outline_size = 20
+theme_override_font_sizes/font_size = 96
+text = "Dos cosas más"
+horizontal_alignment = 1
+
+[node name="Curacion" type="Label" parent="Guia/Consejos/Contenido"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 38
+text = "1. Matar con ground pound llena la barrita debajo de la vida, y al llenarse te cura"
+horizontal_alignment = 1
+
+[node name="Fatiga" type="Label" parent="Guia/Consejos/Contenido"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 38
+text = "2. El ground pound gasta energía, y el siguiente sale débil"
+horizontal_alignment = 1
+
+[node name="FatigaRecarga" type="Label" parent="Guia/Consejos/Contenido"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 38
+text = "La energía se recarga haciendo la cadena (rebote y dive)"
+horizontal_alignment = 1
+
+[node name="FatigaDetalle" type="Label" parent="Guia/Consejos/Contenido"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "(mientras está débil, el blob se pone pálido)"
+horizontal_alignment = 1
+
+[node name="Espacio" type="Control" parent="Guia/Consejos/Contenido"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Empezar" parent="Guia/Consejos/Contenido" instance=ExtResource("6_boton")]
+layout_mode = 2
+text = "Empezar"
+
+[node name="ReintentarCadena" parent="Guia/Consejos/Contenido" instance=ExtResource("6_boton")]
+layout_mode = 2
+text = "Reintentar cadena"
+
+[node name="MenuPartida" parent="." instance=ExtResource("7_pausa")]
+escena_menu = "uid://c0rkujp15f28n"
+params = ExtResource("8_ronda")
+abrir_con_tecla = false
+
+[connection signal="reboto" from="Entidades/Player" to="Guia" method="_on_player_reboto"]
+[connection signal="pausa_pedida" from="Guia" to="MenuPartida" method="pausar"]
+[connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
+[connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]

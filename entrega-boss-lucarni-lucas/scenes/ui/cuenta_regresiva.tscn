@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://pmxug0atept3"]
+
+[ext_resource type="Script" uid="uid://s37bepeeswns" path="res://scenes/ui/cuenta_regresiva.gd" id="1_yw26l"]
+
+[node name="CuentaRegresiva" type="CanvasLayer" unique_id=643027304]
+process_mode = 3
+script = ExtResource("1_yw26l")
+
+[node name="Numero" type="Label" parent="." unique_id=1012905615]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 32
+theme_override_constants/shadow_outline_size = 32
+theme_override_font_sizes/font_size = 200
+horizontal_alignment = 1
+vertical_alignment = 1

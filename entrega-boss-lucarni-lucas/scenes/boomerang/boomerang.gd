@@ -66,6 +66,8 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	_angulo = 0.0
 	en_vuelo = true
 	visible = true
+	modulate.a = 1.0
+	process_mode = Node.PROCESS_MODE_INHERIT
 	set_physics_process(true)
 	_cambiar_fase(Fase.IDA)
 
@@ -143,11 +145,16 @@ func _desactivar() -> void:
 	_chispas.emitting = false
 
 
-func precalentar() -> void:
+func precalentar(posicion: Vector2) -> void:
 	_desactivar()
+	global_position = posicion
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = true
-	modulate.a = 0.0
+	modulate.a = 0.01
 	_chispas.emitting = true
 	await get_tree().create_timer(0.5).timeout
+	if en_vuelo:
+		return
 	modulate.a = 1.0
+	process_mode = Node.PROCESS_MODE_INHERIT
 	_desactivar()

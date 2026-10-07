@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://certh7s4brs0a" path="res://scenes/ui/menu_partida.gd" id="1_eetqr"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_yskbd"]
+[ext_resource type="PackedScene" uid="uid://cqmaiveha1uwg" path="res://scenes/ui/controles.tscn" id="3_s5twh"]
 
 [node name="MenuPartida" type="CanvasLayer" unique_id=105893207]
 process_mode = 3
@@ -49,10 +50,21 @@ theme_override_constants/shadow_outline_size = 24
 theme_override_font_sizes/font_size = 128
 horizontal_alignment = 1
 
-[node name="Reintentar" parent="Contenido/Opciones" unique_id=2028608480 instance=ExtResource("1_yskbd")]
+[node name="Reanudar" parent="Contenido/Opciones" unique_id=2028608480 instance=ExtResource("1_yskbd")]
+layout_mode = 2
+text = "Reanudar"
+
+[node name="Reintentar" parent="Contenido/Opciones" unique_id=1953770858 instance=ExtResource("1_yskbd")]
 layout_mode = 2
 text = "Reintentar"
+
+[node name="Controles" parent="Contenido/Opciones" unique_id=593878882 instance=ExtResource("1_yskbd")]
+layout_mode = 2
+text = "Controles"
 
 [node name="MenuPrincipal" parent="Contenido/Opciones" unique_id=1561209149 instance=ExtResource("1_yskbd")]
 layout_mode = 2
 text = "Menú principal"
+
+[node name="Controles" parent="Contenido" unique_id=700216410 instance=ExtResource("3_s5twh")]
+layout_mode = 1

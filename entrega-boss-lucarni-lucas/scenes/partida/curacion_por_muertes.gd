@@ -17,5 +17,8 @@ func _on_spawner_enemigo_murio(_posicion: Vector2, origen_muerte: Hitbox.Origen)
 	if _muertes >= necesarias:
 		_muertes = 0
 		_curaciones += 1
-		jugador.curar(jugador.params.curacion_cantidad)
+		var cantidad := jugador.params.curacion_cantidad
+		if jugador.vida < jugador.params.vida_max * jugador.params.curacion_umbral_vida_baja:
+			cantidad *= jugador.params.curacion_multiplicador_vida_baja
+		jugador.curar(cantidad)
 	progreso_cambio.emit(_curaciones + float(_muertes) / necesarias)

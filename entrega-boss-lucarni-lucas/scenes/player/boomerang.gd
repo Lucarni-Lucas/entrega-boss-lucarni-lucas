@@ -21,13 +21,15 @@ var _tiempo_recuperacion := 0.0
 var _proyectil: Boomerang
 
 
+func _ready() -> void:
+	_crear_proyectil.call_deferred(get_parent())
+
+
 func estado() -> Player.Estado:
 	return Player.Estado.THROW
 
 
 func procesar_fisica(player: Player, delta: float) -> void:
-	if _proyectil == null:
-		_crear_proyectil(player)
 	_actualizar_disponibilidad(player)
 	if player.verbo_activo == self:
 		_tiempo_recuperacion -= delta
@@ -74,7 +76,7 @@ func _actualizar_disponibilidad(player: Player) -> void:
 func _crear_proyectil(player: Player) -> void:
 	_proyectil = escena_boomerang.instantiate()
 	player.agregar_al_mundo(_proyectil)
-	_proyectil.precalentar()
+	_proyectil.precalentar(player.global_position)
 
 
 func _actualizar_visual(player: Player) -> void:
