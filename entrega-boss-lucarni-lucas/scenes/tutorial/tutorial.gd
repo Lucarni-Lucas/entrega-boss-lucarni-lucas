@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-signal pausa_pedida
-
 enum Accion { SALTO, LANZAMIENTO, DIVE, REBOTE, GROUND_POUND }
 enum Fase { VERBOS, CADENA, CONSEJOS }
 
@@ -36,8 +34,6 @@ var _en_suelo_previo := true
 var _espera := 0.0
 var _al_terminar_espera: Callable
 var _tiempo_aviso := 0.0
-var _tiempo_saltar := 0.0
-var _esperar_soltar := false
 var _bloqueado := false
 
 @onready var _pasos: Control = $Pasos
@@ -50,7 +46,6 @@ var _bloqueado := false
 @onready var _cadena: HBoxContainer = $Pasos/Cadena
 @onready var _pasos_cadena: Array[Label] = [$Pasos/Cadena/Saltar, $Pasos/Cadena/Boomerang, $Pasos/Cadena/Dive, $Pasos/Cadena/Rebote, $Pasos/Cadena/GroundPound]
 @onready var _aviso: Label = $Pasos/Aviso
-@onready var _barra_saltar: ProgressBar = $Pasos/BarraSaltar
 @onready var _consejos: Control = $Consejos
 @onready var _empezar: Button = $Consejos/Contenido/Empezar
 @onready var _reintentar: Button = $Consejos/Contenido/ReintentarCadena
@@ -71,7 +66,6 @@ func _input(_event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	_actualizar_saltar(delta)
 	if _tiempo_aviso > 0.0:
 		_tiempo_aviso -= delta
 		_aviso.visible = _tiempo_aviso > 0.0
@@ -111,9 +105,30 @@ func _on_menu_partida_pauso() -> void:
 func _on_menu_partida_reanudo() -> void:
 	visible = true
 	get_tree().paused = false
-	_esperar_soltar = true
 	if _fase == Fase.CONSEJOS and not _bloqueado:
 		_empezar.grab_focus()
+
+
+func _on_menu_partida_saltar_paso_pedido() -> void:
+	_ocultar_aviso()
+	if _espera > 0.0:
+		_espera = 0.0
+		_al_terminar_espera.call()
+	elif _fase == Fase.VERBOS:
+		_paso += 1
+		_actualizar_puntos()
+		if _paso < _PASOS.size():
+			_mostrar_verbo()
+		else:
+			_empezar_cadena()
+	elif _fase == Fase.CADENA:
+		_cadenas += 1
+		if _terminaron_las_cadenas():
+			_mostrar_consejos()
+		else:
+			_empezar_cadena()
+	else:
+		_ir_a_la_partida()
 
 
 func _escuchando() -> bool:
@@ -178,10 +193,14 @@ func _avanzar_cadena() -> void:
 	if _paso < _PASOS.size():
 		return
 	_cadenas += 1
-	if _reintento or _cadenas >= params.cadenas_necesarias:
+	if _terminaron_las_cadenas():
 		_celebrar("¡CADENA COMPLETA!", "", params.duracion_final, _mostrar_consejos)
 	else:
 		_celebrar("¡Bien!", "Una vez más", params.duracion_bien, _empezar_cadena)
+
+
+func _terminaron_las_cadenas() -> bool:
+	return _reintento or _cadenas >= params.cadenas_necesarias
 
 
 func _romper_cadena() -> void:
@@ -230,23 +249,6 @@ func _actualizar_cadena() -> void:
 			etiqueta.add_theme_color_override("font_color", Color.WHITE if i == _paso else color_inactivo)
 			etiqueta.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
 		etiqueta.get_node("Marca").visible = i == _paso
-
-
-func _actualizar_saltar(delta: float) -> void:
-	if _fase == Fase.CONSEJOS:
-		return
-	var apretado := Input.is_action_pressed("pausa")
-	if _esperar_soltar:
-		_esperar_soltar = apretado
-		return
-	if apretado:
-		_tiempo_saltar += delta
-		if _tiempo_saltar >= params.tiempo_mantener_saltar:
-			_ir_a_la_partida()
-	elif _tiempo_saltar > 0.0:
-		_tiempo_saltar = 0.0
-		pausa_pedida.emit()
-	_barra_saltar.value = _tiempo_saltar / params.tiempo_mantener_saltar
 
 
 func _mostrar_consejos() -> void:

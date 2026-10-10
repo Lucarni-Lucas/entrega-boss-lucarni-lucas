@@ -2,12 +2,13 @@ extends CanvasLayer
 
 signal pauso
 signal reanudo
+signal saltar_paso_pedido
 
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_file("*.tscn") var escena_menu: String
 @export var params: RondaParams
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
-@export var abrir_con_tecla := true
+@export var con_saltar_paso := false
 @export var titulos_derrota: Array[String] = ["¡UNA MÁS!", "¡NO TE RINDAS!"]
 
 var _en_pausa := false
@@ -18,6 +19,7 @@ var _finalizada := false
 @onready var _opciones: VBoxContainer = $Contenido/Opciones
 @onready var _titulo: Label = $Contenido/Opciones/Titulo
 @onready var _reanudar: Button = $Contenido/Opciones/Reanudar
+@onready var _saltar_paso: Button = $Contenido/Opciones/SaltarPaso
 @onready var _reintentar: Button = $Contenido/Opciones/Reintentar
 @onready var _boton_controles: Button = $Contenido/Opciones/Controles
 @onready var _menu_principal: Button = $Contenido/Opciones/MenuPrincipal
@@ -26,6 +28,7 @@ var _finalizada := false
 
 func _ready() -> void:
 	_reanudar.pressed.connect(_reanudar_partida)
+	_saltar_paso.pressed.connect(_on_saltar_paso_pressed)
 	_reintentar.pressed.connect(_on_reintentar_pressed)
 	_boton_controles.pressed.connect(_abrir_controles)
 	_menu_principal.pressed.connect(_on_menu_principal_pressed)
@@ -38,10 +41,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pausa"):
 		if _en_pausa:
 			_reanudar_partida()
-		elif abrir_con_tecla:
-			pausar()
 		else:
-			return
+			pausar()
 		get_viewport().set_input_as_handled()
 
 
@@ -68,10 +69,16 @@ func _reanudar_partida() -> void:
 	reanudo.emit()
 
 
+func _on_saltar_paso_pressed() -> void:
+	saltar_paso_pedido.emit()
+	_reanudar_partida()
+
+
 func _mostrar(titulo: String, en_pausa: bool) -> void:
 	_titulo.text = titulo
 	_reanudar.visible = en_pausa
 	_boton_controles.visible = en_pausa
+	_saltar_paso.visible = en_pausa and con_saltar_paso
 	_reintentar.visible = not en_pausa
 	visible = true
 	_contenido.modulate.a = 0.0

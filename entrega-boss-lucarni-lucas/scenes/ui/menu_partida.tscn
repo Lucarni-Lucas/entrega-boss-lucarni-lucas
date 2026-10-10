@@ -54,6 +54,11 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Reanudar"
 
+[node name="SaltarPaso" parent="Contenido/Opciones" unique_id=1288452097 instance=ExtResource("1_yskbd")]
+visible = false
+layout_mode = 2
+text = "Saltar al siguiente paso"
+
 [node name="Reintentar" parent="Contenido/Opciones" unique_id=1953770858 instance=ExtResource("1_yskbd")]
 layout_mode = 2
 text = "Reintentar"

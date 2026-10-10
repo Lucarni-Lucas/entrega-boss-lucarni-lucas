@@ -15,20 +15,6 @@ size = Vector2(2080, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical"]
 size = Vector2(40, 1580)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_barra_fondo"]
-bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.8)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_barra_relleno"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
 [node name="Tutorial" type="Node2D"]
 
 [node name="Suelo" type="TextureRect" parent="."]
@@ -337,7 +323,7 @@ theme_override_font_sizes/font_size = 38
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Saltar" type="Label" parent="Guia/Pasos"]
+[node name="AvisoPausa" type="Label" parent="Guia/Pasos"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -345,38 +331,18 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -1000.0
-offset_top = -100.0
+offset_top = -84.0
 offset_right = -40.0
-offset_bottom = -56.0
+offset_bottom = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 28
-text = "Mantené P o Start para saltar el tutorial"
+text = "P o Start: pausa"
 horizontal_alignment = 2
 vertical_alignment = 1
-
-[node name="BarraSaltar" type="ProgressBar" parent="Guia/Pasos"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -560.0
-offset_top = -48.0
-offset_right = -40.0
-offset_bottom = -42.0
-grow_horizontal = 0
-grow_vertical = 0
-mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_barra_fondo")
-theme_override_styles/fill = SubResource("StyleBoxFlat_barra_relleno")
-max_value = 1.0
-step = 0.0
-show_percentage = false
 
 [node name="Consejos" type="Control" parent="Guia"]
 visible = false
@@ -469,9 +435,9 @@ text = "Reintentar cadena"
 [node name="MenuPartida" parent="." instance=ExtResource("7_pausa")]
 escena_menu = "uid://c0rkujp15f28n"
 params = ExtResource("8_ronda")
-abrir_con_tecla = false
+con_saltar_paso = true
 
 [connection signal="reboto" from="Entidades/Player" to="Guia" method="_on_player_reboto"]
-[connection signal="pausa_pedida" from="Guia" to="MenuPartida" method="pausar"]
 [connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
 [connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]
+[connection signal="saltar_paso_pedido" from="MenuPartida" to="Guia" method="_on_menu_partida_saltar_paso_pedido"]
