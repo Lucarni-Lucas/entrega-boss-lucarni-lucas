@@ -8,6 +8,7 @@ signal reanudo
 @export var params: RondaParams
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
 @export var abrir_con_tecla := true
+@export var titulos_derrota: Array[String] = ["¡UNA MÁS!", "¡NO TE RINDAS!"]
 
 var _en_pausa := false
 var _bloqueado := false
@@ -51,7 +52,7 @@ func _notification(what: int) -> void:
 
 func _on_partida_finalizo(gano: bool) -> void:
 	_finalizada = true
-	_mostrar("¡GANASTE!" if gano else "MORISTE", false)
+	_mostrar("¡GANASTE!" if gano else titulos_derrota.pick_random(), false)
 
 
 func pausar() -> void:
