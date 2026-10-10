@@ -160,6 +160,60 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "●"
 
+[node name="Punto6" type="Label" parent="Guia/Pasos/Puntos"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "●"
+
+[node name="Punto7" type="Label" parent="Guia/Pasos/Puntos"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "●"
+
+[node name="Direcciones" type="HBoxContainer" parent="Guia/Pasos"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 326.0
+offset_bottom = 376.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="Izquierda" type="Label" parent="Guia/Pasos/Direcciones"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "←"
+
+[node name="Arriba" type="Label" parent="Guia/Pasos/Direcciones"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "↑"
+
+[node name="Abajo" type="Label" parent="Guia/Pasos/Direcciones"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "↓"
+
+[node name="Derecha" type="Label" parent="Guia/Pasos/Direcciones"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "→"
+
 [node name="Cadena" type="HBoxContainer" parent="Guia/Pasos"]
 visible = false
 layout_mode = 1
@@ -344,7 +398,7 @@ text = "P o Start: pausa"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Consejos" type="Control" parent="Guia"]
+[node name="Final" type="Control" parent="Guia"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -353,7 +407,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Fondo" type="ColorRect" parent="Guia/Consejos"]
+[node name="Fondo" type="ColorRect" parent="Guia/Final"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -362,7 +416,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.55)
 
-[node name="Contenido" type="VBoxContainer" parent="Guia/Consejos"]
+[node name="Contenido" type="VBoxContainer" parent="Guia/Final"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -375,62 +429,24 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 28
+theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Titulo" type="Label" parent="Guia/Consejos/Contenido"]
+[node name="Titulo" type="Label" parent="Guia/Final/Contenido"]
 layout_mode = 2
 theme_override_constants/outline_size = 20
 theme_override_constants/shadow_outline_size = 20
 theme_override_font_sizes/font_size = 96
-text = "Dos cosas más"
+text = "¿Querés reintentar la cadena?"
 horizontal_alignment = 1
 
-[node name="Curacion" type="Label" parent="Guia/Consejos/Contenido"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 38
-text = "1. Matar con ground pound llena la barrita debajo de la vida, y al llenarse te cura"
-horizontal_alignment = 1
-
-[node name="Fatiga" type="Label" parent="Guia/Consejos/Contenido"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 38
-text = "2. El ground pound gasta energía, y el siguiente sale débil"
-horizontal_alignment = 1
-
-[node name="FatigaRecarga" type="Label" parent="Guia/Consejos/Contenido"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 38
-text = "La energía se recarga haciendo la cadena (rebote y dive)"
-horizontal_alignment = 1
-
-[node name="FatigaDetalle" type="Label" parent="Guia/Consejos/Contenido"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 32
-text = "(mientras está débil, el blob se pone pálido)"
-horizontal_alignment = 1
-
-[node name="Espacio" type="Control" parent="Guia/Consejos/Contenido"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Empezar" parent="Guia/Consejos/Contenido" instance=ExtResource("6_boton")]
-layout_mode = 2
-text = "Empezar"
-
-[node name="ReintentarCadena" parent="Guia/Consejos/Contenido" instance=ExtResource("6_boton")]
+[node name="ReintentarCadena" parent="Guia/Final/Contenido" instance=ExtResource("6_boton")]
 layout_mode = 2
 text = "Reintentar cadena"
+
+[node name="EmpezarPartida" parent="Guia/Final/Contenido" instance=ExtResource("6_boton")]
+layout_mode = 2
+text = "Empezar partida"
 
 [node name="MenuPartida" parent="." instance=ExtResource("7_pausa")]
 escena_menu = "uid://c0rkujp15f28n"
@@ -438,6 +454,7 @@ params = ExtResource("8_ronda")
 con_saltar_paso = true
 
 [connection signal="reboto" from="Entidades/Player" to="Guia" method="_on_player_reboto"]
+[connection signal="slasheo" from="Entidades/Player/Slash" to="Guia" method="_on_slash_slasheo"]
 [connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
 [connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]
 [connection signal="saltar_paso_pedido" from="MenuPartida" to="Guia" method="_on_menu_partida_saltar_paso_pedido"]

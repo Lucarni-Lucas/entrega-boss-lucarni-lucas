@@ -70,8 +70,8 @@ func _reanudar_partida() -> void:
 
 
 func _on_saltar_paso_pressed() -> void:
-	saltar_paso_pedido.emit()
 	_reanudar_partida()
+	saltar_paso_pedido.emit()
 
 
 func _mostrar(titulo: String, en_pausa: bool) -> void:
