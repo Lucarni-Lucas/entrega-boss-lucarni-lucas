@@ -443,4 +443,4 @@ text = "Start"
 
 [node name="Boton" parent="Contenido" unique_id=2077913631 instance=ExtResource("1_0lq82")]
 layout_mode = 2
-text = "Empezar"
+text = "Volver"

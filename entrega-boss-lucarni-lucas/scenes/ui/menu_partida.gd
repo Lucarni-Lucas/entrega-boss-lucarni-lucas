@@ -102,7 +102,7 @@ func _atenuar_botones(alpha: float) -> void:
 
 func _abrir_controles() -> void:
 	_opciones.visible = false
-	_controles.abrir(false)
+	_controles.abrir()
 
 
 func _on_controles_cerrado() -> void:

@@ -60,9 +60,9 @@ theme_override_font_sizes/font_size = 160
 text = "CADENTIA"
 horizontal_alignment = 1
 
-[node name="Jugar" parent="Opciones" unique_id=2028608480 instance=ExtResource("1_tu06j")]
+[node name="EmpezarPartida" parent="Opciones" unique_id=2028608480 instance=ExtResource("1_tu06j")]
 layout_mode = 2
-text = "Jugar"
+text = "Empezar partida"
 
 [node name="Controles" parent="Opciones" unique_id=1926817305 instance=ExtResource("1_tu06j")]
 layout_mode = 2

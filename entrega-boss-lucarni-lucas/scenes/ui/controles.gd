@@ -1,6 +1,5 @@
 extends Control
 
-signal empezar
 signal cerrado
 
 const _NOMBRES := ["Teclado y mouse", "Teclado", "Joystick"]
@@ -9,7 +8,6 @@ const _TECLADO := 1
 @export var color_punto_inactivo := Color(0.4, 0.4, 0.4)
 
 var _pagina := _TECLADO
-var _antes_de_jugar := false
 
 @onready var _recomendado: Label = $Contenido/Recomendado
 @onready var _nombre: Label = $Contenido/Selector/Nombre
@@ -23,12 +21,10 @@ var _antes_de_jugar := false
 func _ready() -> void:
 	_izquierda.pressed.connect(_cambiar_pagina.bind(-1))
 	_derecha.pressed.connect(_cambiar_pagina.bind(1))
-	_boton.pressed.connect(_on_boton_pressed)
+	_boton.pressed.connect(_cerrar)
 
 
-func abrir(antes_de_jugar: bool) -> void:
-	_antes_de_jugar = antes_de_jugar
-	_boton.poner_texto("Empezar" if antes_de_jugar else "Volver")
+func abrir() -> void:
 	_pagina = _TECLADO
 	_mostrar_pagina()
 	visible = true
@@ -67,13 +63,6 @@ func _mostrar_pagina() -> void:
 func _mostrar_flecha(flecha: Button, disponible: bool) -> void:
 	flecha.disabled = not disponible
 	flecha.modulate.a = 1.0 if disponible else 0.0
-
-
-func _on_boton_pressed() -> void:
-	if _antes_de_jugar:
-		empezar.emit()
-	else:
-		_cerrar()
 
 
 func _cerrar() -> void:
