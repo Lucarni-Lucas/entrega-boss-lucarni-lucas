@@ -3,6 +3,7 @@ class_name Player
 
 signal aterrizo
 signal reboto
+signal slasheo
 signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
@@ -39,6 +40,7 @@ var _tiempo_protegido := 0.0
 func _ready() -> void:
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
+	_slash.slasheo.connect(slasheo.emit)
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)
 	energia_gp = params.gp_energia_max

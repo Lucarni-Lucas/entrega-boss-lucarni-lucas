@@ -4,6 +4,15 @@ signal cerrado
 
 const _NOMBRES := ["Teclado y mouse", "Teclado", "Joystick"]
 const _TECLADO := 1
+const _FILAS := [
+	["Moverse", "mover"],
+	["Saltar", "saltar"],
+	["Ground pound", "ground_pound"],
+	["Slash", "slash"],
+	["Dive", "dive"],
+	["Boomerang", "boomerang"],
+	["Pausa", "pausa"],
+]
 
 @export var color_punto_inactivo := Color(0.4, 0.4, 0.4)
 
@@ -16,16 +25,20 @@ var _pagina := _TECLADO
 @onready var _puntos := $Contenido/Puntos.get_children()
 @onready var _paginas := $Contenido/Paginas.get_children()
 @onready var _boton: Button = $Contenido/Boton
+@onready var _modelo_nombre: Label = $Modelos/Nombre
+@onready var _modelo_tecla: Label = $Modelos/Tecla
+@onready var _modelo_icono: TextureRect = $Modelos/Icono
 
 
 func _ready() -> void:
 	_izquierda.pressed.connect(_cambiar_pagina.bind(-1))
 	_derecha.pressed.connect(_cambiar_pagina.bind(1))
 	_boton.pressed.connect(_cerrar)
+	_armar_paginas()
 
 
 func abrir() -> void:
-	_pagina = _TECLADO
+	_pagina = EsquemaInput.actual
 	_mostrar_pagina()
 	visible = true
 	_boton.grab_focus()
@@ -34,9 +47,9 @@ func abrir() -> void:
 func _input(event: InputEvent) -> void:
 	if not visible:
 		return
-	if event.is_action_pressed("ui_left"):
+	if event.is_action_pressed("pagina_anterior"):
 		_cambiar_pagina(-1)
-	elif event.is_action_pressed("ui_right"):
+	elif event.is_action_pressed("pagina_siguiente"):
 		_cambiar_pagina(1)
 	elif event.is_action_pressed("ui_cancel"):
 		_cerrar()
@@ -68,3 +81,22 @@ func _mostrar_flecha(flecha: Button, disponible: bool) -> void:
 func _cerrar() -> void:
 	visible = false
 	cerrado.emit()
+
+
+func _armar_paginas() -> void:
+	for esquema in _paginas.size():
+		for fila in _FILAS:
+			var nombre: Label = _modelo_nombre.duplicate()
+			nombre.text = fila[0]
+			_paginas[esquema].add_child(nombre)
+			_paginas[esquema].add_child(_crear_tecla(EsquemaInput.TECLAS[fila[1]][esquema]))
+
+
+func _crear_tecla(tecla: Variant) -> Control:
+	if tecla is Texture2D:
+		var icono: TextureRect = _modelo_icono.duplicate()
+		icono.texture = tecla
+		return icono
+	var etiqueta: Label = _modelo_tecla.duplicate()
+	etiqueta.text = tecla
+	return etiqueta

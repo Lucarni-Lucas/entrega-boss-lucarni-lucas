@@ -3,24 +3,26 @@ extends CanvasLayer
 enum Accion { MOVER, SALTO, SLASH, LANZAMIENTO, DIVE, REBOTE, GROUND_POUND }
 enum Fase { VERBOS, CADENA, FINAL }
 
-const _BOTON_CRUZ := preload("res://assets/ui/botones/cruz.svg")
-const _BOTON_CIRCULO := preload("res://assets/ui/botones/circulo.svg")
-const _BOTON_CUADRADO := preload("res://assets/ui/botones/cuadrado.svg")
-const _BOTON_TRIANGULO := preload("res://assets/ui/botones/triangulo.svg")
 const _PASOS := [Accion.MOVER, Accion.SALTO, Accion.SLASH, Accion.LANZAMIENTO, Accion.DIVE, Accion.REBOTE, Accion.GROUND_POUND]
 const _CADENA := [Accion.SALTO, Accion.LANZAMIENTO, Accion.DIVE, Accion.REBOTE, Accion.GROUND_POUND]
+const _EN_EL_AIRE := "(en el aire)"
 const _INSTRUCCIONES := {
-	Accion.MOVER: ["Movete", "Flechas / WASD / Stick izq", null],
-	Accion.SALTO: ["Saltá", "Espacio / V /", _BOTON_CRUZ],
-	Accion.SLASH: ["Atacá con el slash", "C / Clic izq /", _BOTON_CUADRADO],
-	Accion.LANZAMIENTO: ["En el aire, tirá el boomerang", "Shift / Z /", _BOTON_CIRCULO],
-	Accion.DIVE: ["En el aire, hacé dive", "Clic der / X /", _BOTON_TRIANGULO],
-	Accion.REBOTE: ["Rebotá en el boomerang", "Saltá, tiralo y hacé dive hacia él para tocarlo en el aire", null],
-	Accion.GROUND_POUND: ["Desde arriba, hacé ground pound", "En el aire, apretá saltar otra vez", null],
+	Accion.MOVER: ["Movete", "mover", ""],
+	Accion.SALTO: ["Saltá", "saltar", ""],
+	Accion.SLASH: ["Atacá con el slash", "slash", ""],
+	Accion.LANZAMIENTO: ["En el aire, tirá el boomerang", "boomerang", _EN_EL_AIRE],
+	Accion.DIVE: ["En el aire, hacé dive", "dive", _EN_EL_AIRE],
+	Accion.REBOTE: ["Rebotá en el boomerang", "", "Saltá, tiralo y hacé dive hacia él para tocarlo en el aire"],
+	Accion.GROUND_POUND: ["Desde arriba, hacé ground pound", "ground_pound", _EN_EL_AIRE],
+}
+const _FRASES := {
+	"mover": ["Usá WASD", "Usá las flechas", "Usá el stick izquierdo"],
+	"slash": ["Hacé clic izquierdo", "", ""],
+	"dive": ["Hacé clic derecho", "", ""],
 }
 const _DIRECCIONES := ["mover_izquierda", "mover_arriba", "mover_abajo", "mover_derecha"]
 const _DETALLE_CADENA := "Ahora todo seguido, sin tocar el suelo"
-const _DETALLE_ENERGIA := "Gasta energía: si lo repetís seguido, sale débil"
+const _DETALLE_ENERGIA := "El ground pound gasta energía, si lo repetís seguido sale débil"
 const _TITULO_REINTENTO := "UNA CADENA MÁS"
 const _AVISO_SUELO := "Tocaste el suelo, empezá la cadena de nuevo"
 const _AVISO_LANZAR_EN_SUELO := "También se puede tirar en el suelo pero prueba en el aire"
@@ -48,6 +50,7 @@ var _bloqueado := false
 @onready var _linea_detalle: HBoxContainer = $Pasos/LineaDetalle
 @onready var _detalle: Label = $Pasos/LineaDetalle/Detalle
 @onready var _boton_joystick: TextureRect = $Pasos/LineaDetalle/BotonJoystick
+@onready var _sufijo: Label = $Pasos/LineaDetalle/Sufijo
 @onready var _fila_puntos: HBoxContainer = $Pasos/Puntos
 @onready var _puntos := _fila_puntos.get_children()
 @onready var _direcciones: HBoxContainer = $Pasos/Direcciones
@@ -55,6 +58,7 @@ var _bloqueado := false
 @onready var _cadena: HBoxContainer = $Pasos/Cadena
 @onready var _pasos_cadena: Array[Label] = [$Pasos/Cadena/Saltar, $Pasos/Cadena/Boomerang, $Pasos/Cadena/Dive, $Pasos/Cadena/Rebote, $Pasos/Cadena/GroundPound]
 @onready var _aviso: Label = $Pasos/Aviso
+@onready var _aviso_pausa: Label = $Pasos/AvisoPausa
 @onready var _final: Control = $Final
 @onready var _reintentar: Button = $Final/Contenido/ReintentarCadena
 @onready var _empezar_partida: Button = $Final/Contenido/EmpezarPartida
@@ -65,8 +69,10 @@ func _ready() -> void:
 	_en_suelo_previo = jugador.esta_en_suelo()
 	_reintentar.pressed.connect(_reintentar_cadena)
 	_empezar_partida.pressed.connect(_ir_a_la_partida)
+	EsquemaInput.cambio.connect(_on_esquema_cambio)
 	_actualizar_puntos()
 	_actualizar_flechas()
+	_actualizar_aviso_pausa()
 	_mostrar_verbo()
 
 
@@ -110,8 +116,14 @@ func _on_player_reboto() -> void:
 		_registrar(Accion.REBOTE)
 
 
-func _on_slash_slasheo() -> void:
+func _on_player_slasheo() -> void:
 	_registrar(Accion.SLASH)
+
+
+func _on_esquema_cambio(_esquema: EsquemaInput.Esquema) -> void:
+	_actualizar_aviso_pausa()
+	if _fase == Fase.VERBOS and _espera <= 0.0:
+		_mostrar_verbo()
 
 
 func _on_menu_partida_pauso() -> void:
@@ -203,8 +215,19 @@ func _completar_verbo() -> void:
 func _mostrar_verbo() -> void:
 	var accion: Accion = _PASOS[_paso]
 	var textos: Array = _INSTRUCCIONES[accion]
-	_mostrar_texto(textos[0], textos[1], textos[2])
+	if textos[1] == "":
+		_mostrar_texto(textos[0], textos[2])
+	else:
+		var tecla: Variant = EsquemaInput.tecla(textos[1])
+		_mostrar_texto(textos[0], _frase(textos[1], tecla), tecla if tecla is Texture2D else null, textos[2])
 	_direcciones.visible = accion == Accion.MOVER
+
+
+func _frase(accion_input: String, tecla: Variant) -> String:
+	var especial: String = _FRASES.get(accion_input, ["", "", ""])[EsquemaInput.actual]
+	if especial != "":
+		return especial
+	return "Apretá" if tecla is Texture2D else "Apretá " + tecla
 
 
 func _empezar_cadena() -> void:
@@ -252,12 +275,19 @@ func _celebrar(titulo: String, detalle: String, duracion: float, despues: Callab
 	_al_terminar_espera = despues
 
 
-func _mostrar_texto(titulo: String, detalle: String, boton: Texture2D = null) -> void:
+func _mostrar_texto(titulo: String, detalle: String, boton: Texture2D = null, sufijo := "") -> void:
 	_instruccion.text = titulo
 	_detalle.text = detalle
 	_linea_detalle.visible = detalle != ""
 	_boton_joystick.texture = boton
 	_boton_joystick.visible = boton != null
+	_sufijo.text = sufijo
+	_sufijo.visible = sufijo != ""
+
+
+func _actualizar_aviso_pausa() -> void:
+	var tecla := "Start" if EsquemaInput.actual == EsquemaInput.Esquema.JOYSTICK else "P"
+	_aviso_pausa.text = tecla + ": pausa"
 
 
 func _avisar(texto: String) -> void:
