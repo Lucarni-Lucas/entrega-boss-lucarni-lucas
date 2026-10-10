@@ -13,7 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_guvrm")
-escena_partida = "uid://vs40drbmk6ry"
+escena_tutorial = "uid://vs40drbmk6ry"
+escena_partida = "uid://cfff452o8hyd1"
 
 [node name="Suelo" type="TextureRect" parent="." unique_id=1334703041]
 z_index = -10
@@ -67,6 +68,39 @@ text = "Empezar partida"
 [node name="Controles" parent="Opciones" unique_id=1926817305 instance=ExtResource("1_tu06j")]
 layout_mode = 2
 text = "Controles"
+
+[node name="Pregunta" type="VBoxContainer" parent="." unique_id=1032511698]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Pregunta" unique_id=1074862061]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_constants/shadow_outline_size = 20
+theme_override_font_sizes/font_size = 96
+text = "¿Querés hacer el tutorial?"
+horizontal_alignment = 1
+
+[node name="HacerTutorial" parent="Pregunta" unique_id=361014354 instance=ExtResource("1_tu06j")]
+layout_mode = 2
+text = "Hacer el tutorial"
+
+[node name="JugarDirecto" parent="Pregunta" unique_id=1135379901 instance=ExtResource("1_tu06j")]
+layout_mode = 2
+text = "Jugar directo"
 
 [node name="Controles" parent="." unique_id=700216410 instance=ExtResource("4_g2cyh")]
 layout_mode = 1
