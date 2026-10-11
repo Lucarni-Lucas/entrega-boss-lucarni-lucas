@@ -12,6 +12,7 @@ var jugador: Player
 var muerto := false
 var _empuje := Vector2.ZERO
 var _capa: int
+var _tween_muerte: Tween
 
 @onready var _sombra: Sombra = $Sombra
 @onready var _sprite := $Sprite
@@ -53,6 +54,8 @@ func desactivar() -> void:
 	visible = false
 	process_mode = Node.PROCESS_MODE_DISABLED
 	_hitbox.desactivar()
+	if _tween_muerte:
+		_tween_muerte.kill()
 
 
 func _physics_process(delta: float) -> void:
@@ -75,9 +78,9 @@ func morir(origen := Hitbox.Origen.NINGUNO) -> void:
 	_hitbox.desactivar()
 	_hurtbox.set_deferred("monitorable", false)
 	set_deferred("collision_layer", 0)
-	var tween := create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, params.duracion_muerte)
-	tween.tween_callback(_terminar_muerte)
+	_tween_muerte = create_tween()
+	_tween_muerte.tween_property(self, "modulate:a", 0.0, params.duracion_muerte)
+	_tween_muerte.tween_callback(_terminar_muerte)
 
 
 func _terminar_muerte() -> void:

@@ -1,7 +1,8 @@
 extends Resource
 class_name RondaParams
 
-@export_range(10, 300, 5, "suffix:s") var duracion: float = 90.0
+@export_range(1, 20, 1) var cantidad_rondas: int = 5
+@export_range(10, 300, 5, "suffix:s") var duracion: float = 45.0
 
 @export_group("Cuenta regresiva")
 @export var cuenta_desde: int = 3

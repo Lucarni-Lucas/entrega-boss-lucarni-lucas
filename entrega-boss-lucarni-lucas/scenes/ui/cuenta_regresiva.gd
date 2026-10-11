@@ -12,10 +12,6 @@ var _activa := false
 @onready var _numero: Label = $Numero
 
 
-func _ready() -> void:
-	iniciar()
-
-
 func iniciar() -> void:
 	_restante = params.cuenta_desde * params.cuenta_paso
 	_activa = true

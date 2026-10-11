@@ -11,7 +11,7 @@ signal enemigo_murio(posicion: Vector2, origen: Hitbox.Origen)
 
 const _INTERVALO_MINIMO := 0.05
 
-var _tiempo_partida := 0.0
+var _tiempo_ronda := 0.0
 var _pool_enemigos: Pool
 var _pool_marcas: Pool
 var _jugador: Player
@@ -27,7 +27,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	_tiempo_partida += delta
+	_tiempo_ronda += delta
 	_tiempo += delta
 	var intervalo := _intervalo_actual()
 	while _tiempo >= intervalo:
@@ -93,4 +93,18 @@ func _mas_viejo_vivo() -> Enemigo:
 func _intervalo_actual() -> float:
 	if params.curva_intervalo == null:
 		return params.intervalo
-	return maxf(params.curva_intervalo.sample(_tiempo_partida), _INTERVALO_MINIMO)
+	return maxf(params.curva_intervalo.sample(_tiempo_ronda), _INTERVALO_MINIMO)
+
+
+func empezar_ronda(_numero: int, _total: int) -> void:
+	_tiempo_ronda = 0.0
+	_tiempo = 0.0
+	set_physics_process(true)
+
+
+func terminar_ronda(_numero: int) -> void:
+	set_physics_process(false)
+	for enemigo in _pool_enemigos.en_uso().duplicate():
+		_pool_enemigos.devolver(enemigo)
+	for marca in _pool_marcas.en_uso().duplicate():
+		_pool_marcas.devolver(marca)

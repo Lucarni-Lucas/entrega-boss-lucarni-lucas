@@ -14,6 +14,7 @@ signal saltar_paso_pedido
 var _en_pausa := false
 var _bloqueado := false
 var _finalizada := false
+var _entre_rondas := false
 
 @onready var _contenido: Control = $Contenido
 @onready var _opciones: VBoxContainer = $Contenido/Opciones
@@ -36,7 +37,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _finalizada or _controles.visible:
+	if _finalizada or _entre_rondas  or _controles.visible:
 		return
 	if event.is_action_pressed("pausa"):
 		if _en_pausa:
@@ -47,7 +48,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not _finalizada and not _en_pausa:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not _finalizada and not _en_pausa and not _entre_rondas:
 		pausar()
 
 
@@ -126,3 +127,11 @@ func _on_reintentar_pressed() -> void:
 func _on_menu_principal_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file(escena_menu)
+
+
+func _on_partida_ronda_superada(_numero: int, _total: int) -> void:
+	_entre_rondas = true
+
+
+func _on_partida_ronda_empezo(_numero: int, _total: int) -> void:
+	_entre_rondas = false

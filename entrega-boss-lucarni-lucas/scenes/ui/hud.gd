@@ -24,8 +24,11 @@ func _on_player_vida_cambio(actual: int, maximo: int) -> void:
 
 
 func _on_curacion_por_muertes_progreso_cambio(progreso: float) -> void:
-	if _tween_progreso:
-		_tween_progreso.kill()
+	if progreso < _progreso_mostrado:
+		if _tween_progreso:
+			_tween_progreso.kill()
+		_mostrar_progreso(progreso)
+		return
 	_tween_progreso = create_tween()
 	_tween_progreso.tween_method(_mostrar_progreso, _progreso_mostrado, progreso, duracion_progreso).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 

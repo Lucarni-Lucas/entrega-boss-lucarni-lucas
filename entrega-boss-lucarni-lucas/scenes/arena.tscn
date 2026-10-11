@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dmco1vffocddq" path="res://scenes/ui/menu_partida.tscn" id="9_naajo"]
 [ext_resource type="PackedScene" uid="uid://pmxug0atept3" path="res://scenes/ui/cuenta_regresiva.tscn" id="10_41jku"]
 [ext_resource type="AudioStream" uid="uid://doq3awtuqon2m" path="res://assets/audio/another_round_felolk.ogg" id="11_mus01"]
+[ext_resource type="PackedScene" uid="uid://6t8kbvexhe8a" path="res://scenes/ui/entre_rondas.tscn" id="12_ajq0i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -84,14 +85,26 @@ params = ExtResource("7_naajo")
 stream = ExtResource("11_mus01")
 volume_db = -14.0
 pitch_scale = 0.99
-autoplay = true
 playback_type = 1
+
+[node name="EntreRondas" parent="." unique_id=2049483962 instance=ExtResource("12_ajq0i")]
 
 [connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
 [connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
+[connection signal="volvio_al_inicio" from="Entidades/Player" to="Camara" method="saltar_al_objetivo"]
 [connection signal="enemigo_murio" from="Spawner" to="CuracionPorMuertes" method="_on_spawner_enemigo_murio"]
 [connection signal="progreso_cambio" from="CuracionPorMuertes" to="Hud" method="_on_curacion_por_muertes_progreso_cambio"]
 [connection signal="finalizo" from="Partida" to="MenuPartida" method="_on_partida_finalizo"]
+[connection signal="ronda_empezo" from="Partida" to="Spawner" method="empezar_ronda"]
+[connection signal="ronda_empezo" from="Partida" to="MenuPartida" method="_on_partida_ronda_empezo"]
+[connection signal="ronda_empezo" from="Partida" to="Entidades/Player" method="restaurar_vida" unbinds=2]
+[connection signal="ronda_empezo" from="Partida" to="CuentaRegresiva" method="iniciar" unbinds=2]
+[connection signal="ronda_superada" from="Partida" to="MenuPartida" method="_on_partida_ronda_superada"]
+[connection signal="ronda_superada" from="Partida" to="EntreRondas" method="mostrar"]
+[connection signal="ronda_superada" from="Partida" to="Entidades/Player" method="volver_al_inicio" unbinds=2]
+[connection signal="ronda_superada" from="Partida" to="CuracionPorMuertes" method="reiniciar" unbinds=2]
+[connection signal="ronda_termino" from="Partida" to="Spawner" method="terminar_ronda"]
 [connection signal="tiempo_cambio" from="Partida" to="Hud" method="_on_partida_tiempo_cambio"]
 [connection signal="pauso" from="MenuPartida" to="CuentaRegresiva" method="cancelar"]
 [connection signal="reanudo" from="MenuPartida" to="CuentaRegresiva" method="iniciar"]
+[connection signal="comenzar" from="EntreRondas" to="Partida" method="siguiente_ronda"]

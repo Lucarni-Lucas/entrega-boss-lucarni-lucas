@@ -7,9 +7,7 @@ extends Camera2D
 func _ready() -> void:
 	if objetivo == null:
 		return
-	zoom = Vector2.ONE * _zoom_necesario(_seguir())
-	reset_smoothing()
-	force_update_scroll()
+	saltar_al_objetivo()
 
 
 func _physics_process(delta: float) -> void:
@@ -46,3 +44,9 @@ func _zoom_necesario(extremos: Vector2) -> float:
 func _acomodar_zoom(extremos: Vector2, delta: float) -> void:
 	var destino := Vector2.ONE * _zoom_necesario(extremos)
 	zoom = zoom.lerp(destino, 1.0 - exp(-params.velocidad_zoom * delta))
+
+
+func saltar_al_objetivo() -> void:
+	zoom = Vector2.ONE * _zoom_necesario(_seguir())
+	reset_smoothing()
+	force_update_scroll()

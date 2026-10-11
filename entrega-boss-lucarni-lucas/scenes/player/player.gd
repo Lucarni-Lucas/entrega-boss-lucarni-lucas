@@ -7,6 +7,7 @@ signal slasheo
 signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
+signal volvio_al_inicio
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -25,6 +26,7 @@ var vida: int
 var energia_gp: float
 var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
+var _posicion_inicial: Vector2
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -45,6 +47,7 @@ func _ready() -> void:
 	_hurtbox.golpeado.connect(_on_golpeado)
 	energia_gp = params.gp_energia_max
 	vida_cambio.emit.call_deferred(vida, params.vida_max)
+	_posicion_inicial = global_position
 
 
 func _physics_process(delta: float) -> void:
@@ -59,13 +62,10 @@ func _physics_process(delta: float) -> void:
 	_actualizar_altura(delta)
 	if not esta_en_suelo() and estado_actual() != Estado.GROUND_POUND:
 		recargar_energia_gp(params.gp_recarga_aire * delta)
-	_sprite.mostrar_fatiga(fuerza_gp(), params.anim_gp_fatiga_color)
 	_hurtbox.z_min = z
 	_hurtbox.z_max = z + params.alto_cuerpo
-	_sprite.position.y = -z
 	_slash.procesar_fisica(self, delta)
-	_shadow.actualizar(z)
-	_sprite.estirar_segun_velocidad(_velocidad_en_pantalla(), params)
+	_actualizar_visual()
 
 
 ## Altura del suelo debajo del jugador.
@@ -209,6 +209,11 @@ func curar(cantidad: int) -> void:
 	_colorear(Color.GREEN)
 
 
+func restaurar_vida() -> void:
+	vida = params.vida_max
+	vida_cambio.emit(vida, params.vida_max)
+
+
 func _colorear(color: Color) -> void:
 	_sprite.modulate = color
 	create_tween().tween_property(_sprite, "modulate", Color.WHITE, 0.2)
@@ -234,3 +239,28 @@ func es_invulnerable() -> bool:
 	if _tiempo_invulnerable > 0.0 or _tiempo_protegido > 0.0:
 		return true
 	return verbo_activo != null and verbo_activo.es_invulnerable()
+
+
+func _actualizar_visual() -> void:
+	_sprite.mostrar_fatiga(fuerza_gp(), params.anim_gp_fatiga_color)
+	_sprite.position.y = -z
+	_shadow.actualizar(z)
+	_sprite.estirar_segun_velocidad(_velocidad_en_pantalla(), params)
+
+
+func volver_al_inicio() -> void:
+	if verbo_activo != null:
+		verbo_activo.cancelar(self)
+		verbo_activo = null
+	global_position = _posicion_inicial
+	velocity = Vector2.ZERO
+	z = 0.0
+	velocidad_z = 0.0
+	escala_gravedad = 1.0
+	_tiempo_invulnerable = 0.0
+	_tiempo_protegido = 0.0
+	_sprite.visible = true
+	energia_gp = params.gp_energia_max
+	_boomerang.reiniciar(self)
+	_actualizar_visual()
+	volvio_al_inicio.emit()

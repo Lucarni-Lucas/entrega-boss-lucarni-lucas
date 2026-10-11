@@ -110,3 +110,10 @@ func _mostrar_guardado(base: Vector2, mirada: float) -> void:
 	_visual_mano.rotation = mirada + deg_to_rad(rotacion_textura)
 	_visual_mano.scale = _escala_visual * escala_guardado
 	_visual_mano.modulate.a = alpha_guardado
+
+
+func reiniciar(player: Player) -> void:
+	if _proyectil.en_vuelo:
+		_proyectil.guardar()
+	player.tiene_boomerang = true
+	_actualizar_visual(player)
