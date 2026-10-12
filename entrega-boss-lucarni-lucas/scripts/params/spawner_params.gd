@@ -1,9 +1,6 @@
 extends Resource
 class_name SpawnerParams
 
-@export_group("Ritmo")
-@export_range(0.05, 10, 0.05, "suffix:s") var intervalo: float = 0.5
-@export var curva_intervalo: Curve
 
 @export_group("Cantidad")
 @export var max_enemigos: int = 99

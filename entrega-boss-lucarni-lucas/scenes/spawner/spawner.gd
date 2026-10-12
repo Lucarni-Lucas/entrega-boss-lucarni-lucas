@@ -3,19 +3,19 @@ class_name Spawner
 
 signal enemigo_murio(posicion: Vector2, origen: Hitbox.Origen)
 
+@export var ronda_params: RondaParams
 @export var params: SpawnerParams
 @export var escena_enemigo: PackedScene
 @export var escena_marca: PackedScene
 @export var contenedor: Node2D
 @export var area := Rect2(0, 0, 2000, 1500)
 
-const _INTERVALO_MINIMO := 0.05
-
+var _guion: GuionRonda
+var _proximos: Array[float] = []
 var _tiempo_ronda := 0.0
 var _pool_enemigos: Pool
 var _pool_marcas: Pool
 var _jugador: Player
-var _tiempo := 0.0
 
 
 func _ready() -> void:
@@ -24,23 +24,41 @@ func _ready() -> void:
 	_pool_marcas = Pool.new(escena_marca, contenedor, _preparar_marca)
 	_pool_enemigos.precalentar.call_deferred(params.precalentar)
 	_pool_marcas.precalentar.call_deferred(params.precalentar_marcas)
+	set_physics_process(false)
 
 
 func _physics_process(delta: float) -> void:
 	_tiempo_ronda += delta
-	_tiempo += delta
-	var intervalo := _intervalo_actual()
-	while _tiempo >= intervalo:
-		_tiempo -= intervalo
-		_marcar_spawn()
+	for i in _guion.grupos.size():
+		var grupo := _guion.grupos[i]
+		while _proximos[i] <= _tiempo_ronda and _proximos[i] <= grupo.hasta:
+			_marcar_grupo(grupo)
+			_proximos[i] += grupo.cada
 
 
-func _marcar_spawn() -> void:
-	var posicion := _buscar_posicion()
-	if posicion == Vector2.INF:
+func empezar_ronda(numero: int, _total: int) -> void:
+	_guion = ronda_params.guion(numero)
+	_proximos.clear()
+	for grupo in _guion.grupos:
+		_proximos.append(grupo.desde)
+	_tiempo_ronda = 0.0
+	set_physics_process(true)
+
+
+func _marcar_grupo(grupo: GrupoSpawn) -> void:
+	var centro := _buscar_posicion()
+	if centro == Vector2.INF:
 		return
-	var marca: MarcaSpawn = _pool_marcas.tomar()
-	marca.iniciar(posicion, params, _jugador)
+	for i in grupo.cantidad:
+		var punto := centro if i == 0 else _cerca_de(centro, grupo.radio)
+		var marca: MarcaSpawn = _pool_marcas.tomar()
+		marca.iniciar(punto, params, _jugador)
+
+
+func _cerca_de(centro: Vector2, radio: float) -> Vector2:
+	var zona := area.grow(-params.margen)
+	var punto := centro + Vector2.from_angle(randf() * TAU) * sqrt(randf()) * radio
+	return punto.clamp(zona.position, zona.end)
 
 
 func _buscar_posicion() -> Vector2:
@@ -88,18 +106,6 @@ func _mas_viejo_vivo() -> Enemigo:
 		if not enemigo.muerto:
 			return enemigo
 	return null
-
-
-func _intervalo_actual() -> float:
-	if params.curva_intervalo == null:
-		return params.intervalo
-	return maxf(params.curva_intervalo.sample(_tiempo_ronda), _INTERVALO_MINIMO)
-
-
-func empezar_ronda(_numero: int, _total: int) -> void:
-	_tiempo_ronda = 0.0
-	_tiempo = 0.0
-	set_physics_process(true)
 
 
 func terminar_ronda(_numero: int) -> void:

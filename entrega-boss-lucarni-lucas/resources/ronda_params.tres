@@ -1,7 +1,76 @@
 [gd_resource type="Resource" script_class="RondaParams" format=3 uid="uid://bdjb5a2imnkgu"]
 
+[ext_resource type="Script" uid="uid://dx78ul46qjn6p" path="res://scripts/params/guion_ronda.gd" id="1_bh7g0"]
 [ext_resource type="Script" uid="uid://bsmnpgwdipnu3" path="res://scripts/params/ronda_params.gd" id="1_qlryx"]
+[ext_resource type="Script" uid="uid://cr2el1333q385" path="res://scripts/params/grupo_spawn.gd" id="2_0iavs"]
+
+[sub_resource type="Resource" id="Resource_bh7g0"]
+script = ExtResource("2_0iavs")
+
+[sub_resource type="Resource" id="Resource_0iavs"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_bh7g0")])
+
+[sub_resource type="Resource" id="Resource_agblt"]
+script = ExtResource("2_0iavs")
+cada = 1.0
+
+[sub_resource type="Resource" id="Resource_e44s5"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 10.0
+desde = 20.0
+
+[sub_resource type="Resource" id="Resource_rkvqv"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_agblt"), SubResource("Resource_e44s5")])
+
+[sub_resource type="Resource" id="Resource_0ce1h"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 1.2
+
+[sub_resource type="Resource" id="Resource_4c5hy"]
+script = ExtResource("2_0iavs")
+cantidad = 4
+cada = 8.0
+desde = 15.0
+
+[sub_resource type="Resource" id="Resource_un3x3"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_0ce1h"), SubResource("Resource_4c5hy")])
+
+[sub_resource type="Resource" id="Resource_nrbpx"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 0.8
+
+[sub_resource type="Resource" id="Resource_g5xoq"]
+script = ExtResource("2_0iavs")
+cantidad = 5
+cada = 6.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_1ag0m"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_nrbpx"), SubResource("Resource_g5xoq")])
+
+[sub_resource type="Resource" id="Resource_85po6"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 0.7
+
+[sub_resource type="Resource" id="Resource_ah3qo"]
+script = ExtResource("2_0iavs")
+cantidad = 6
+cada = 5.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_mjipy"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_85po6"), SubResource("Resource_ah3qo")])
 
 [resource]
 script = ExtResource("1_qlryx")
+guiones = Array[ExtResource("1_bh7g0")]([SubResource("Resource_0iavs"), SubResource("Resource_rkvqv"), SubResource("Resource_un3x3"), SubResource("Resource_1ag0m"), SubResource("Resource_mjipy")])
 metadata/_custom_type_script = "uid://bsmnpgwdipnu3"

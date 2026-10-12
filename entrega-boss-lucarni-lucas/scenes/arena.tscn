@@ -63,6 +63,7 @@ limit_smoothed = true
 objetivo = NodePath("../Entidades/Player")
 
 [node name="Spawner" parent="." unique_id=555608513 node_paths=PackedStringArray("contenedor") instance=ExtResource("4_xdvfk")]
+ronda_params = ExtResource("7_naajo")
 contenedor = NodePath("../Entidades")
 
 [node name="CuracionPorMuertes" type="Node" parent="." unique_id=1436814135 node_paths=PackedStringArray("jugador")]
