@@ -2,6 +2,7 @@
 extends Resource
 class_name GrupoSpawn
 
+@export var enemigo: PackedScene = preload("res://scenes/enemigos/terrestre.tscn")
 @export_range(1, 30, 1) var cantidad: int = 1
 @export_range(0.1, 30, 0.1, "suffix:s") var cada: float = 1.5
 @export_range(0, 300, 1, "suffix:s") var desde: float = 0.0

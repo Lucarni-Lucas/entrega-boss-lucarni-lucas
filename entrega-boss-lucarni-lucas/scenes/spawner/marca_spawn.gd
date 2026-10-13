@@ -4,6 +4,7 @@ class_name MarcaSpawn
 signal lista(marca: MarcaSpawn)
 
 var _params: SpawnerParams
+var enemigo: PackedScene
 var _jugador: Player
 var _parpadeos_restantes := 0
 var _tiempo := 0.0

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cu8hlym231w5o"]
+
+[ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_mvkbh"]
+[ext_resource type="Script" uid="uid://s68at4i3fque" path="res://scenes/enemigos/volador.gd" id="2_8wo56"]
+[ext_resource type="Resource" uid="uid://d1u6jk05gl7ry" path="res://resources/enemigo_volador.tres" id="3_u5s8a"]
+
+[sub_resource type="Gradient" id="Gradient_8wo56"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0.56640625, 0.56640625, 0.56640625, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u5s8a"]
+gradient = SubResource("Gradient_8wo56")
+width = 40
+height = 40
+fill = 1
+fill_from = Vector2(0.5, 0.3)
+
+[node name="Volador" unique_id=794546459 instance=ExtResource("1_mvkbh")]
+script = ExtResource("2_8wo56")
+params = ExtResource("3_u5s8a")
+
+[node name="Sombra" parent="." index="1" unique_id=1825432861]
+scale = Vector2(0.7, 0.7)
+
+[node name="Visual" parent="Sprite" parent_id_path=PackedInt32Array(466197661) index="0" unique_id=1769203076]
+texture = null
+
+[node name="Triangulo" type="Polygon2D" parent="Sprite/Visual" index="0" unique_id=1797108770]
+position = Vector2(-20, -10)
+texture = SubResource("GradientTexture2D_u5s8a")
+polygon = PackedVector2Array(0, 0, 40, 0, 20, 40)
+
+[node name="Hurtbox" parent="." index="3" unique_id=1222409529]
+visible = false
+
+[node name="Hitbox" parent="." index="4" unique_id=1321716141]
+visible = false
