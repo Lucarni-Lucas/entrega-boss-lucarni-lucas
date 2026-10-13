@@ -2,6 +2,8 @@ extends Node
 class_name Spawner
 
 signal enemigo_murio(posicion: Vector2, origen: Hitbox.Origen)
+signal enemigo_aparecio(enemigo: Enemigo)
+signal enemigo_se_fue(enemigo: Enemigo)
 
 @export var ronda_params: RondaParams
 @export var params: SpawnerParams
@@ -91,7 +93,9 @@ func _on_marca_lista(marca: MarcaSpawn) -> void:
 	var posicion := marca.global_position
 	var escena := marca.enemigo
 	_pool_marcas.devolver(marca)
-	_elegir_enemigo(escena).activar_en(posicion)
+	var enemigo := _elegir_enemigo(escena)
+	enemigo.activar_en(posicion)
+	enemigo_aparecio.emit(enemigo)
 
 
 func _preparar_enemigo(enemigo: Enemigo) -> void:
@@ -116,6 +120,7 @@ func _elegir_enemigo(escena: PackedScene) -> Enemigo:
 func _devolver_enemigo(enemigo: Enemigo) -> void:
 	_activos.erase(enemigo)
 	_pools[enemigo.scene_file_path].devolver(enemigo)
+	enemigo_se_fue.emit(enemigo)
 
 
 func _mas_viejo_vivo() -> Enemigo:

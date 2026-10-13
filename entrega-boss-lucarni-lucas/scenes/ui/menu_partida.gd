@@ -90,7 +90,7 @@ func _mostrar(titulo: String, en_pausa: bool) -> void:
 		_bloquear_botones()
 
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if _bloqueado:
 		get_viewport().set_input_as_handled()
 

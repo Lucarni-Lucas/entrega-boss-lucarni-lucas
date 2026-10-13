@@ -11,6 +11,7 @@ var vida: int
 var jugador: Player
 var muerto := false
 var _empuje := Vector2.ZERO
+var punto := Vector2.ZERO
 var _capa: int
 var _tween_muerte: Tween
 
@@ -42,6 +43,7 @@ func activar_en(posicion: Vector2) -> void:
 	vida = params.vida_max
 	muerto = false
 	_empuje = Vector2.ZERO
+	punto = Vector2.ZERO
 	modulate = Color.WHITE
 	collision_layer = _capa
 	_hurtbox.monitorable = true
@@ -91,7 +93,10 @@ func _terminar_muerte() -> void:
 
 
 func _on_golpeado(hitbox: Hitbox) -> void:
-	_empuje += hitbox.global_position.direction_to(global_position) * hitbox.empuje
+	var direccion := hitbox.global_position.direction_to(global_position)
+	if direccion == Vector2.ZERO:
+		direccion = Vector2.from_angle(randf() * TAU)
+	_empuje += direccion * hitbox.empuje
 	recibir_dano(hitbox.dano, hitbox.origen)
 	if vida <= 0:
 		return
@@ -101,3 +106,7 @@ func _on_golpeado(hitbox: Hitbox) -> void:
 
 func velocidad_externa() -> Vector2:
 	return _empuje
+
+
+func destino() -> Vector2:
+	return jugador.global_position + punto

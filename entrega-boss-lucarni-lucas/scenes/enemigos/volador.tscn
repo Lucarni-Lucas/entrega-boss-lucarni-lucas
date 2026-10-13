@@ -29,9 +29,3 @@ texture = null
 position = Vector2(-20, -10)
 texture = SubResource("GradientTexture2D_u5s8a")
 polygon = PackedVector2Array(0, 0, 40, 0, 20, 40)
-
-[node name="Hurtbox" parent="." index="3" unique_id=1222409529]
-visible = false
-
-[node name="Hitbox" parent="." index="4" unique_id=1321716141]
-visible = false

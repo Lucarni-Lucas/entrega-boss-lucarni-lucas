@@ -4,11 +4,13 @@
 
 [resource]
 script = ExtResource("1_pk6jb")
+anim_perspectiva = 0.65
 piedad_dano = 2
 curacion_cada_muertes = 6
 curacion_cantidad = 1
 curacion_umbral_vida_baja = 0.2
-gp_radio_impacto = 150.0
+gp_radio_impacto = 65.0
+gp_impacto_duracion = 0.04
 gp_proteccion = 0.4
 gp_recarga_aire = 100.0
 gp_recarga_dive = 50.0
