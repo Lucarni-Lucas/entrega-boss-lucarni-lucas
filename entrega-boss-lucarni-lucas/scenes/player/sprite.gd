@@ -1,5 +1,8 @@
 extends Node2D
 
+@export var textura_suelo: Texture2D
+@export var textura_aire: Texture2D
+
 var _tween: Tween
 
 @onready var _estiramiento := $Estiramiento
@@ -29,3 +32,7 @@ func mostrar_fatiga(fuerza: float, color_fatiga: Color) -> void:
 func destellar(duracion: float) -> void:
 	_visual.self_modulate = Color(2, 2, 2, _self_modulate_base.a)
 	create_tween().tween_property(_visual, "self_modulate", _self_modulate_base, duracion)
+
+
+func cambiar_forma(en_suelo: bool) -> void:
+	_visual.texture = textura_suelo if en_suelo else textura_aire

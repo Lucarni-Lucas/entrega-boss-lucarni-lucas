@@ -246,6 +246,7 @@ func _actualizar_visual() -> void:
 	_sprite.position.y = -z
 	_shadow.actualizar(z)
 	_sprite.estirar_segun_velocidad(_velocidad_en_pantalla(), params)
+	_sprite.cambiar_forma(esta_en_suelo())
 
 
 func volver_al_inicio() -> void:
