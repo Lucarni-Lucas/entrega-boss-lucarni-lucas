@@ -243,10 +243,11 @@ func es_invulnerable() -> bool:
 
 func _actualizar_visual() -> void:
 	var velocidad := _velocidad_en_pantalla()
-	_sprite.mostrar_fatiga(fuerza_gp(), params.anim_gp_fatiga_color)
+	_sprite.mostrar_fatiga(fuerza_gp(), params.anim_gp_fatiga_desaturacion, params.anim_gp_fatiga_brillo)
 	_sprite.position.y = -z
 	_shadow.actualizar(z)
 	_sprite.estirar_segun_velocidad(velocidad, params)
+	_sprite.caminar(velocity.length() if esta_en_suelo() else 0.0, params)
 	_sprite.cambiar_forma(esta_en_suelo())
 	_sprite.mirar(ultima_direccion, velocidad, esta_en_suelo())
 

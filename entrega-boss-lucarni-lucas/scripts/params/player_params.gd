@@ -27,6 +27,8 @@ class_name PlayerParams
 
 @export_group("Caminar")
 @export_range(0, 1000, 1, "suffix:px/s") var velocidad: float = 337.0
+@export var anim_paso_escala := Vector2(1.025, 0.96)
+@export_range(1, 200, 1, "suffix:px") var anim_paso_distancia: float = 48.0
 
 @export_group("Salto")
 @export_range(0, 3000, 1, "suffix:px/s") var fuerza_salto: float = 975.0
@@ -73,7 +75,8 @@ class_name PlayerParams
 @export var anim_gp_impacto_escala := Vector2(1.6, 0.55)
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_gp_impacto_ida: float = 0.07
 @export_range(0, 1.2, 0.01, "suffix:s") var anim_gp_impacto_vuelta: float = 0.4
-@export var anim_gp_fatiga_color := Color(1.6, 1.6, 1.6)
+@export_range(0, 1, 0.05) var anim_gp_fatiga_desaturacion: float = 0.7
+@export_range(0, 1, 0.05) var anim_gp_fatiga_brillo: float = 0.35
 @export_range(0, 1, 0.01, "suffix:s") var anim_gp_destello: float = 0.2
 
 @export_group("Dive")

@@ -17,9 +17,15 @@
 [ext_resource type="Texture2D" uid="uid://ylmj7bep8ov1" path="res://assets/player/slime_aire.png" id="15_aire"]
 [ext_resource type="Script" uid="uid://y7u8l2ee16wo" path="res://scenes/player/ojos.gd" id="16_ojos"]
 [ext_resource type="Texture2D" uid="uid://chr0n7bq6fiu8" path="res://assets/player/ojo.png" id="17_ojo"]
+[ext_resource type="Shader" uid="uid://djev3bjnlk8s1" path="res://scenes/player/fatiga.gdshader" id="18_fatiga"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fatiga"]
+shader = ExtResource("18_fatiga")
+shader_parameter/desaturacion = 0.0
+shader_parameter/brillo = 0.0
 
 [sub_resource type="Curve" id="Curve_xrivr"]
 _data = [Vector2(0, 0), 1.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -78,6 +84,7 @@ position = Vector2(0, -32)
 
 [node name="Visual" type="Sprite2D" parent="Sprite/Estiramiento" unique_id=198621459]
 texture_filter = 4
+material = SubResource("ShaderMaterial_fatiga")
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("14_suelo")
 
