@@ -11,6 +11,8 @@ const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
 @export var alpha_guardado := 0.35
 @export_range(0, 1, 0.01) var perfil_minimo := 0.12
 @export_range(-180, 180, 5, "suffix:°") var rotacion_textura := 45.0
+@export_range(0, 1, 0.05) var perspectiva_en_mano := 0.1
+@export_range(0, 64, 1, "suffix:px") var altura_en_mano := 20.0
 
 @onready var _en_mano: Node2D = $EnMano
 @onready var _visual_mano: Sprite2D = $EnMano/Visual
@@ -38,7 +40,6 @@ func procesar_fisica(player: Player, delta: float) -> void:
 			player.liberar_verbo(self)
 	elif Input.is_action_just_pressed("boomerang"):
 		player.intentar_activar(self)
-	_actualizar_visual(player)
 
 
 func estados_validos() -> Array:
@@ -79,21 +80,21 @@ func _crear_proyectil(player: Player) -> void:
 	_proyectil.precalentar(player.global_position)
 
 
-func _actualizar_visual(player: Player) -> void:
+func actualizar_visual(player: Player, direccion: Vector2) -> void:
 	_en_mano.visible = not _proyectil.en_vuelo and not player.esta_slasheando()
 	if not _en_mano.visible:
 		return
 	var base := _offset_en_mano + Vector2(0, -player.z)
-	var mirada := player.ultima_direccion.angle()
+	var mirada := direccion.angle()
 	if player.tiene_boomerang:
-		_mostrar_en_mano(player, base, mirada + PI / 2.0)
+		_mostrar_en_mano(player, mirada + PI / 2.0)
 	else:
 		_mostrar_guardado(base, mirada)
 
 
-func _mostrar_en_mano(player: Player, base: Vector2, angulo: float) -> void:
-	var achatado := Vector2(cos(angulo), sin(angulo) * player.params.anim_perspectiva)
-	_en_mano.position = base + achatado * radio_en_mano
+func _mostrar_en_mano(player: Player, angulo: float) -> void:
+	var achatado := Vector2(cos(angulo), sin(angulo) * perspectiva_en_mano)
+	_en_mano.position = Vector2(0, -altura_en_mano - player.z) + achatado * radio_en_mano
 	_en_mano.z_index = -1 if sin(angulo) < 0.0 else 0
 	_visual_mano.rotation = 0.0
 	## Placa vertical girando: de frente se ve entera, de costado casi una línea.
@@ -116,4 +117,3 @@ func reiniciar(player: Player) -> void:
 	if _proyectil.en_vuelo:
 		_proyectil.guardar()
 	player.tiene_boomerang = true
-	_actualizar_visual(player)

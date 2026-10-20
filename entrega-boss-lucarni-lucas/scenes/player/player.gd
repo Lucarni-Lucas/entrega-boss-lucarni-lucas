@@ -250,6 +250,7 @@ func _actualizar_visual() -> void:
 	_sprite.caminar(velocity.length() if esta_en_suelo() else 0.0, params)
 	_sprite.cambiar_forma(esta_en_suelo())
 	_sprite.mirar(ultima_direccion, velocidad, esta_en_suelo())
+	_boomerang.actualizar_visual(self, _sprite.direccion_mirada())
 
 
 func volver_al_inicio() -> void:

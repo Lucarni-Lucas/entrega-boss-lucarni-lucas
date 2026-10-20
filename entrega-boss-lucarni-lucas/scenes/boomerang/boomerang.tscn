@@ -61,7 +61,7 @@ alpha_curve = SubResource("CurveTexture_13qdw")
 [sub_resource type="Gradient" id="Gradient_tave6"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0.1724138, 0.42528737, 0.50574714, 0.62068963, 0.68582374)
-colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 0.49231848, 0.22935726, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0, 0.1254902, 0.1254902, 0.14117648, 1, 0.6666667, 0.26666668, 0, 1, 0.1254902, 0.1254902, 0.14117648, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_13qdw"]
 gradient = SubResource("Gradient_tave6")

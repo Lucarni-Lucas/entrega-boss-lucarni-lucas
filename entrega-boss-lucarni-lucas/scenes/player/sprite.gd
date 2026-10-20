@@ -2,8 +2,10 @@ extends Node2D
 
 @export var textura_suelo: Texture2D
 @export var textura_aire: Texture2D
+@export var velocidad_giro := 12.0
 
 var _tween: Tween
+var _angulo := 0.0
 var _paso := 0.0
 var _escala_paso := Vector2.ONE
 var _deformacion := Vector2.ONE:
@@ -59,4 +61,16 @@ func cambiar_forma(en_suelo: bool) -> void:
 
 
 func mirar(direccion: Vector2, velocidad: Vector2, en_suelo: bool) -> void:
-	_ojos.actualizar(direccion, velocidad, en_suelo)
+	_girar_hacia(atan2(direccion.x, direccion.y), 1.0 - exp(-velocidad_giro * get_physics_process_delta_time()))
+	_ojos.actualizar(_angulo, velocidad, en_suelo)
+
+
+func direccion_mirada() -> Vector2:
+	return Vector2(sin(_angulo), cos(_angulo))
+
+
+func _girar_hacia(objetivo: float, peso: float) -> void:
+	var diferencia := angle_difference(_angulo, objetivo)
+	if absf(diferencia) > PI * 0.8 and absf(_angulo + diferencia) > PI + 0.01:
+		diferencia -= signf(diferencia) * TAU
+	_angulo = wrapf(_angulo + diferencia * peso, -PI, PI)
