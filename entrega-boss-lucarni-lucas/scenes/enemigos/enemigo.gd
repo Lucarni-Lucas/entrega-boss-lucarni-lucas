@@ -18,7 +18,7 @@ var _tween_muerte: Tween
 @onready var _sombra: Sombra = $Sombra
 @onready var _sprite := $Sprite
 @onready var _hurtbox: Hurtbox = $Hurtbox
-@onready var _visual: Sprite2D = $Sprite/Visual
+@onready var _visual: AnimatedSprite2D = $Sprite/Visual
 @onready var _hitbox: Hitbox = $Hitbox
 
 
@@ -50,6 +50,7 @@ func activar_en(posicion: Vector2) -> void:
 	_hitbox.activar()
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
+	_visual.set_frame_and_progress(randi() % _visual.sprite_frames.get_frame_count(_visual.animation), randf())
 
 
 func desactivar() -> void:
@@ -64,6 +65,8 @@ func _physics_process(delta: float) -> void:
 	_empuje = _empuje.move_toward(Vector2.ZERO, params.frenado_empuje * delta)
 	_sprite.position.y = -z
 	_sombra.actualizar(z)
+	_mirar_al_jugador()
+	_animar()
 
 
 func recibir_dano(cantidad: int, origen := Hitbox.Origen.NINGUNO) -> void:
@@ -110,3 +113,26 @@ func velocidad_externa() -> Vector2:
 
 func destino() -> Vector2:
 	return jugador.global_position + punto
+
+
+func _mirar_al_jugador() -> void:
+	if jugador == null:
+		return
+	var dx := jugador.global_position.x - global_position.x
+	if absf(dx) > 4.0:
+		_visual.flip_h = dx < 0.0
+
+
+## Solo los enemigos con animaciones "caminar" y "atacar" cambian según si se mueven.
+func _animar() -> void:
+	if muerto or not _visual.sprite_frames.has_animation(&"atacar"):
+		return
+	var rapidez := velocity.length()
+	var animacion := &"caminar" if rapidez > params.velocidad * 0.2 else &"atacar"
+	if _visual.animation != animacion:
+		_visual.play(animacion)
+	if animacion == &"caminar":
+		var fps := _visual.sprite_frames.get_animation_speed(animacion)
+		_visual.speed_scale = rapidez / (params.avance_por_frame * fps)
+	else:
+		_visual.speed_scale = 1.0

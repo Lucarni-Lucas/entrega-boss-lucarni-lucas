@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_sakc5")
 vida_max = 1
-altura_vuelo = 160.0
+alto = 64.0
+altura_vuelo = 148.0
 velocidad = 230.0
 metadata/_custom_type_script = "uid://bogkc7efq10ps"
