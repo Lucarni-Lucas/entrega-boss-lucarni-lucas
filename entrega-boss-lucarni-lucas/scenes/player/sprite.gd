@@ -8,6 +8,7 @@ var _tween: Tween
 @onready var _estiramiento := $Estiramiento
 @onready var _visual := $Estiramiento/Visual
 @onready var _self_modulate_base: Color = _visual.self_modulate
+@onready var _ojos := $Estiramiento/Visual/Ojos
 
 
 func deformar(escala: Vector2, duracion_ida: float, duracion_vuelta: float) -> void:
@@ -36,3 +37,7 @@ func destellar(duracion: float) -> void:
 
 func cambiar_forma(en_suelo: bool) -> void:
 	_visual.texture = textura_suelo if en_suelo else textura_aire
+
+
+func mirar(direccion: Vector2, velocidad: Vector2, en_suelo: bool) -> void:
+	_ojos.actualizar(direccion, velocidad, en_suelo)

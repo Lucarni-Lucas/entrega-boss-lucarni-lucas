@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="13_gx1jg"]
 [ext_resource type="Texture2D" uid="uid://dwtygxd1wncgg" path="res://assets/player/slime_suelo.png" id="14_suelo"]
 [ext_resource type="Texture2D" uid="uid://ylmj7bep8ov1" path="res://assets/player/slime_aire.png" id="15_aire"]
+[ext_resource type="Script" uid="uid://y7u8l2ee16wo" path="res://scenes/player/ojos.gd" id="16_ojos"]
+[ext_resource type="Texture2D" uid="uid://chr0n7bq6fiu8" path="res://assets/player/ojo.png" id="17_ojo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -78,6 +80,18 @@ position = Vector2(0, -32)
 texture_filter = 4
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("14_suelo")
+
+[node name="Ojos" type="Node2D" parent="Sprite/Estiramiento/Visual" unique_id=523295143]
+scale = Vector2(3, 3)
+script = ExtResource("16_ojos")
+
+[node name="Ojo1" type="Sprite2D" parent="Sprite/Estiramiento/Visual/Ojos" unique_id=578346060]
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("17_ojo")
+
+[node name="Ojo2" type="Sprite2D" parent="Sprite/Estiramiento/Visual/Ojos" unique_id=1110554181]
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("17_ojo")
 
 [node name="Walk" type="Node" parent="." unique_id=1032320984]
 script = ExtResource("2_gmlin")
