@@ -87,6 +87,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Instruccion" type="Label" parent="Guia/Pasos" unique_id=2106449745]
+theme_type_variation = &"Destacado"
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -456,6 +457,7 @@ theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Titulo" type="Label" parent="Guia/Final/Contenido" unique_id=687548199]
+theme_type_variation = &"Destacado"
 layout_mode = 2
 theme_override_constants/outline_size = 20
 theme_override_constants/shadow_outline_size = 20

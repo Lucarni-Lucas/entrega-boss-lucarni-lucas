@@ -49,6 +49,7 @@ focus_mode = 0
 text = "‹"
 
 [node name="Nombre" type="Label" parent="Contenido/Selector" unique_id=1052599733]
+theme_type_variation = &"Destacado"
 custom_minimum_size = Vector2(640, 0)
 layout_mode = 2
 theme_override_constants/outline_size = 16

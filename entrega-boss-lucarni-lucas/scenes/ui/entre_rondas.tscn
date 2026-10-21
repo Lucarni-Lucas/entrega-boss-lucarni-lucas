@@ -44,6 +44,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Titulo" type="Label" parent="Contenido/Opciones" unique_id=1841490414]
+theme_type_variation = &"Destacado"
 layout_mode = 2
 theme_override_constants/outline_size = 20
 theme_override_constants/shadow_outline_size = 20

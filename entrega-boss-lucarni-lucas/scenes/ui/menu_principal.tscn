@@ -75,15 +75,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -55.0
+offset_top = -49.0
 offset_right = 20.0
-offset_bottom = -15.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Titulo" type="Label" parent="Opciones" unique_id=2067785312]
+theme_type_variation = &"Destacado"
 layout_mode = 2
 theme_override_constants/outline_size = 32
 theme_override_constants/shadow_outline_size = 36
@@ -113,15 +114,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -18.0
+offset_top = -16.0
 offset_right = 20.0
-offset_bottom = 22.0
+offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Titulo" type="Label" parent="Pregunta" unique_id=1074862061]
+theme_type_variation = &"Destacado"
 layout_mode = 2
 theme_override_constants/outline_size = 20
 theme_override_constants/shadow_outline_size = 20
