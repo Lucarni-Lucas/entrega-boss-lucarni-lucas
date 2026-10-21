@@ -5,6 +5,9 @@
 [ext_resource type="Script" uid="uid://cr2el1333q385" path="res://scripts/params/grupo_spawn.gd" id="2_0iavs"]
 [ext_resource type="PackedScene" uid="uid://cu8hlym231w5o" path="res://scenes/enemigos/volador.tscn" id="3_0iavs"]
 [ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="3_agblt"]
+[ext_resource type="Texture2D" uid="uid://c1dl3v54vj7mv" path="res://assets/fondo/nebulosa_azul.png" id="4_azul"]
+[ext_resource type="Texture2D" uid="uid://bmn7stbqjafqb" path="res://assets/fondo/nebulosa_aqua_rosa.png" id="5_aqua"]
+[ext_resource type="Texture2D" uid="uid://n7ha2s1m2ct3" path="res://assets/fondo/nebulosa_roja.png" id="6_roja"]
 
 [sub_resource type="Resource" id="Resource_bh7g0"]
 script = ExtResource("2_0iavs")
@@ -12,6 +15,7 @@ script = ExtResource("2_0iavs")
 [sub_resource type="Resource" id="Resource_0iavs"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_bh7g0")])
+fondo = ExtResource("4_azul")
 
 [sub_resource type="Resource" id="Resource_agblt"]
 script = ExtResource("2_0iavs")
@@ -26,6 +30,7 @@ desde = 20.0
 [sub_resource type="Resource" id="Resource_rkvqv"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_agblt"), SubResource("Resource_e44s5")])
+fondo = ExtResource("4_azul")
 
 [sub_resource type="Resource" id="Resource_0ce1h"]
 script = ExtResource("2_0iavs")
@@ -47,6 +52,7 @@ desde = 14.0
 [sub_resource type="Resource" id="Resource_un3x3"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_0ce1h"), SubResource("Resource_4c5hy"), SubResource("Resource_xa0yy")])
+fondo = ExtResource("5_aqua")
 
 [sub_resource type="Resource" id="Resource_nrbpx"]
 script = ExtResource("2_0iavs")
@@ -69,6 +75,7 @@ desde = 10.0
 [sub_resource type="Resource" id="Resource_1ag0m"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_nrbpx"), SubResource("Resource_g5xoq"), SubResource("Resource_r2rme")])
+fondo = ExtResource("5_aqua")
 
 [sub_resource type="Resource" id="Resource_85po6"]
 script = ExtResource("2_0iavs")
@@ -91,6 +98,7 @@ desde = 6.0
 [sub_resource type="Resource" id="Resource_mjipy"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_85po6"), SubResource("Resource_ah3qo"), SubResource("Resource_iiway")])
+fondo = ExtResource("6_roja")
 
 [resource]
 script = ExtResource("1_qlryx")

@@ -24,7 +24,8 @@ var _proyectil: Boomerang
 
 
 func _ready() -> void:
-	_crear_proyectil.call_deferred(get_parent())
+	_proyectil = escena_boomerang.instantiate()
+	_agregar_proyectil.call_deferred(get_parent())
 
 
 func estado() -> Player.Estado:
@@ -74,8 +75,7 @@ func _actualizar_disponibilidad(player: Player) -> void:
 		player.tiene_boomerang = true
 
 
-func _crear_proyectil(player: Player) -> void:
-	_proyectil = escena_boomerang.instantiate()
+func _agregar_proyectil(player: Player) -> void:
 	player.agregar_al_mundo(_proyectil)
 	_proyectil.precalentar(player.global_position)
 

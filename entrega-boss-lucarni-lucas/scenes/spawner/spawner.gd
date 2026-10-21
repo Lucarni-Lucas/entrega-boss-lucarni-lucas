@@ -9,7 +9,7 @@ signal enemigo_se_fue(enemigo: Enemigo)
 @export var params: SpawnerParams
 @export var escena_marca: PackedScene
 @export var contenedor: Node2D
-@export var area := Rect2(0, 0, 2000, 1500)
+@export var area := Rect2(0, 0, 2000, 1560)
 
 var _guion: GuionRonda
 var _proximos: Array[float] = []

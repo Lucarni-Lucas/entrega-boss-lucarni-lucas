@@ -8,6 +8,7 @@ class_name GuionRonda
 		for i in grupos.size():
 			if grupos[i] == null:
 				grupos[i] = GrupoSpawn.new()
+@export var fondo: Texture2D
 
 
 static func con_grupo_inicial() -> GuionRonda:

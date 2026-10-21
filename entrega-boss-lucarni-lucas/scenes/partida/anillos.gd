@@ -2,7 +2,7 @@ extends Node
 class_name Anillos
 
 @export var params: AnillosParams
-@export var area := Rect2(0, 0, 2000, 1500)
+@export var area := Rect2(0, 0, 2000, 1560)
 
 var _puntos := PackedVector2Array([Vector2.ZERO])
 var _inicios := PackedInt32Array([0, 1])
