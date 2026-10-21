@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://b3wbsb5qhp3h1" path="res://scenes/fondo/fondo.tscn" id="10_fondo"]
 
 [ext_resource type="PackedScene" uid="uid://bqy5ik5om3lwq" path="res://scenes/efectos/efectos.tscn" id="30_efectos"]
+[ext_resource type="PackedScene" uid="uid://ougruljp6pt5" path="res://scenes/ui/icono_tecla.tscn" id="31_icono"]
+[ext_resource type="Texture2D" uid="uid://d00n8op8mg870" path="res://assets/player/boomerang.png" id="32_boomerang"]
+[ext_resource type="FontFile" uid="uid://btj1jvumk67dt" path="res://assets/fonts/DejaVuSans.ttf" id="33_dejavu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
 size = Vector2(2080, 40)
@@ -120,31 +123,23 @@ theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BotonJoystick" type="TextureRect" parent="Guia/Pasos/LineaDetalle" unique_id=1085371893]
-visible = false
-texture_filter = 4
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-size_flags_vertical = 4
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Sufijo" type="Label" parent="Guia/Pasos/LineaDetalle" unique_id=1739204856]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 34
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Teclas" type="HBoxContainer" parent="Guia/Pasos" unique_id=418823570]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 206.0
+offset_bottom = 286.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 22
+alignment = 1
 
 [node name="Puntos" type="HBoxContainer" parent="Guia/Pasos" unique_id=2145294595]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 278.0
-offset_bottom = 318.0
+offset_top = 300.0
+offset_bottom = 340.0
 grow_horizontal = 2
 theme_override_constants/separation = 18
 alignment = 1
@@ -198,201 +193,147 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "●"
 
-[node name="Direcciones" type="HBoxContainer" parent="Guia/Pasos" unique_id=948075161]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 326.0
-offset_bottom = 376.0
-grow_horizontal = 2
-mouse_filter = 2
-theme_override_constants/separation = 28
-alignment = 1
-
-[node name="Izquierda" type="Label" parent="Guia/Pasos/Direcciones" unique_id=793913837]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 40
-text = "←"
-
-[node name="Arriba" type="Label" parent="Guia/Pasos/Direcciones" unique_id=1196599037]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 40
-text = "↑"
-
-[node name="Abajo" type="Label" parent="Guia/Pasos/Direcciones" unique_id=1710079724]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 40
-text = "↓"
-
-[node name="Derecha" type="Label" parent="Guia/Pasos/Direcciones" unique_id=1446215220]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 40
-text = "→"
-
 [node name="Cadena" type="HBoxContainer" parent="Guia/Pasos" unique_id=984476627]
 visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 280.0
-offset_bottom = 340.0
+offset_top = 214.0
+offset_bottom = 374.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_constants/separation = 28
 alignment = 1
 
-[node name="Saltar" type="Label" parent="Guia/Pasos/Cadena" unique_id=433078360]
+[node name="Saltar" type="VBoxContainer" parent="Guia/Pasos/Cadena" unique_id=433078360]
 layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Nombre" type="Label" parent="Guia/Pasos/Cadena/Saltar" unique_id=1925022205]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 44
 text = "Saltar"
 
-[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Saltar" unique_id=1925022205]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 4.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-color = Color(1, 0, 0, 1)
+[node name="Tecla" parent="Guia/Pasos/Cadena/Saltar" unique_id=1601384727 instance=ExtResource("31_icono")]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Flecha1" type="Label" parent="Guia/Pasos/Cadena" unique_id=1497232549]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 40
 text = "→"
 
-[node name="Boomerang" type="Label" parent="Guia/Pasos/Cadena" unique_id=989233306]
+[node name="Boomerang" type="VBoxContainer" parent="Guia/Pasos/Cadena" unique_id=989233306]
 layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Nombre" type="Label" parent="Guia/Pasos/Cadena/Boomerang" unique_id=1189320587]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 44
 text = "Boomerang"
 
-[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Boomerang" unique_id=1189320587]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 4.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-color = Color(1, 0, 0, 1)
+[node name="Tecla" parent="Guia/Pasos/Cadena/Boomerang" unique_id=1823470915 instance=ExtResource("31_icono")]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Flecha2" type="Label" parent="Guia/Pasos/Cadena" unique_id=698676684]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 40
 text = "→"
 
-[node name="Dive" type="Label" parent="Guia/Pasos/Cadena" unique_id=855915742]
+[node name="Dive" type="VBoxContainer" parent="Guia/Pasos/Cadena" unique_id=855915742]
 layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Nombre" type="Label" parent="Guia/Pasos/Cadena/Dive" unique_id=644633501]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 44
 text = "Dive"
 
-[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Dive" unique_id=644633501]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 4.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-color = Color(1, 0, 0, 1)
+[node name="Tecla" parent="Guia/Pasos/Cadena/Dive" unique_id=1293846571 instance=ExtResource("31_icono")]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Flecha3" type="Label" parent="Guia/Pasos/Cadena" unique_id=1184325315]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 40
 text = "→"
 
-[node name="Rebote" type="Label" parent="Guia/Pasos/Cadena" unique_id=351039076]
+[node name="Rebote" type="VBoxContainer" parent="Guia/Pasos/Cadena" unique_id=351039076]
 layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Nombre" type="Label" parent="Guia/Pasos/Cadena/Rebote" unique_id=416081585]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 44
 text = "Rebote"
 
-[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/Rebote" unique_id=416081585]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 4.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-color = Color(1, 0, 0, 1)
+[node name="Tecla" parent="Guia/Pasos/Cadena/Rebote" unique_id=1736291054 instance=ExtResource("31_icono")]
+layout_mode = 2
+size_flags_horizontal = 4
+textura = ExtResource("32_boomerang")
+escala = 0.5
 
 [node name="Flecha4" type="Label" parent="Guia/Pasos/Cadena" unique_id=554163973]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 40
 text = "→"
 
-[node name="GroundPound" type="Label" parent="Guia/Pasos/Cadena" unique_id=697094914]
+[node name="GroundPound" type="VBoxContainer" parent="Guia/Pasos/Cadena" unique_id=697094914]
 layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Nombre" type="Label" parent="Guia/Pasos/Cadena/GroundPound" unique_id=367784291]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 44
 text = "Ground pound"
 
-[node name="Marca" type="ColorRect" parent="Guia/Pasos/Cadena/GroundPound" unique_id=367784291]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 4.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-color = Color(1, 0, 0, 1)
+[node name="Tecla" parent="Guia/Pasos/Cadena/GroundPound" unique_id=1048275931 instance=ExtResource("31_icono")]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Aviso" type="Label" parent="Guia/Pasos" unique_id=1906668900]
 visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 380.0
-offset_bottom = 432.0
+offset_top = 388.0
+offset_bottom = 440.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0.82, 0.82, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
@@ -401,7 +342,7 @@ theme_override_font_sizes/font_size = 38
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AvisoPausa" type="Label" parent="Guia/Pasos" unique_id=716222124]
+[node name="AvisoPausa" type="HBoxContainer" parent="Guia/Pasos" unique_id=716222124]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -414,12 +355,21 @@ offset_right = -40.0
 offset_bottom = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="Tecla" parent="Guia/Pasos/AvisoPausa" unique_id=1517203988 instance=ExtResource("31_icono")]
+layout_mode = 2
+escala = 0.31
+
+[node name="Texto" type="Label" parent="Guia/Pasos/AvisoPausa" unique_id=1366720459]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 28
-text = "P o Start: pausa"
-horizontal_alignment = 2
+text = "pausa"
 vertical_alignment = 1
 
 [node name="Final" type="Control" parent="Guia" unique_id=2084199144]

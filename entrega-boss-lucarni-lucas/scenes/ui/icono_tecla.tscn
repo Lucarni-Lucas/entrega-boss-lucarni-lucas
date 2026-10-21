@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ougruljp6pt5"]
+
+[ext_resource type="Script" path="res://scenes/ui/icono_tecla.gd" id="1_icono"]
+
+[node name="IconoTecla" type="Control"]
+texture_filter = 4
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_icono")

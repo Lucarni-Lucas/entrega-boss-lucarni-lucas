@@ -76,9 +76,9 @@ func _repartir(enemigos: Array) -> void:
 
 func _puntos_validos(centro: Vector2) -> Array[bool]:
 	var zona := area.grow(-params.margen)
-	var libres: Array[bool] = []
-	for desplazamiento in _puntos:
-		libres.append(zona.has_point(centro + desplazamiento))
+	var libres: Array[bool] = [true]
+	for i in range(1, _puntos.size()):
+		libres.append(zona.has_point(centro + _puntos[i]))
 	return libres
 
 

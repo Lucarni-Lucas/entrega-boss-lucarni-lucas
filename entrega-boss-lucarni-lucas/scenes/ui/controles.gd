@@ -2,6 +2,7 @@ extends Control
 
 signal cerrado
 
+const _ICONO := preload("res://scenes/ui/icono_tecla.tscn")
 const _NOMBRES := ["Teclado y mouse", "Teclado", "Joystick"]
 const _TECLADO := 1
 const _FILAS := [
@@ -26,8 +27,8 @@ var _pagina := _TECLADO
 @onready var _paginas := $Contenido/Paginas.get_children()
 @onready var _boton: Button = $Contenido/Boton
 @onready var _modelo_nombre: Label = $Modelos/Nombre
-@onready var _modelo_tecla: Label = $Modelos/Tecla
-@onready var _modelo_icono: TextureRect = $Modelos/Icono
+@onready var _modelo_teclas: HBoxContainer = $Modelos/Teclas
+@onready var _modelo_separador: Label = $Modelos/Separador
 
 
 func _ready() -> void:
@@ -89,14 +90,38 @@ func _armar_paginas() -> void:
 			var nombre: Label = _modelo_nombre.duplicate()
 			nombre.text = fila[0]
 			_paginas[esquema].add_child(nombre)
-			_paginas[esquema].add_child(_crear_tecla(EsquemaInput.TECLAS[fila[1]][esquema]))
+			_paginas[esquema].add_child(_crear_teclas(fila[1], esquema))
+	_igualar_filas()
 
 
-func _crear_tecla(tecla: Variant) -> Control:
-	if tecla is Texture2D:
-		var icono: TextureRect = _modelo_icono.duplicate()
-		icono.texture = tecla
-		return icono
-	var etiqueta: Label = _modelo_tecla.duplicate()
-	etiqueta.text = tecla
-	return etiqueta
+func _igualar_filas() -> void:
+	var celdas: Array[Control] = []
+	for pagina: Control in _paginas:
+		celdas.append_array(pagina.get_children())
+	var alto := 0.0
+	for celda in celdas:
+		alto = maxf(alto, celda.get_combined_minimum_size().y)
+	for celda in celdas:
+		celda.custom_minimum_size.y = alto
+
+
+func _crear_teclas(accion: String, esquema: EsquemaInput.Esquema) -> HBoxContainer:
+	var teclas: HBoxContainer = _modelo_teclas.duplicate()
+	var texturas := EsquemaInput.teclas(accion, esquema)
+	for i in texturas.size():
+		if i > 0 and accion == "pausa":
+			teclas.add_child(_modelo_separador.duplicate())
+		var icono: IconoTecla = _ICONO.instantiate()
+		icono.textura = texturas[i]
+		icono.accion = _accion_de_tecla(accion, i, texturas.size())
+		icono.esquema = esquema
+		teclas.add_child(icono)
+	return teclas
+
+
+func _accion_de_tecla(accion: String, indice: int, cantidad: int) -> StringName:
+	if accion == "pausa":
+		return &""
+	if accion == "mover":
+		return EsquemaInput.DIRECCIONES[indice] if cantidad == EsquemaInput.DIRECCIONES.size() else &""
+	return accion

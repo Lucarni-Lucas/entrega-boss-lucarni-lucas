@@ -125,19 +125,18 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 44
 text = "Nombre"
 horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="Tecla" type="Label" parent="Modelos" unique_id=1979801219]
+[node name="Teclas" type="HBoxContainer" parent="Modelos" unique_id=1979801219]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 0
+theme_override_constants/separation = 10
+
+[node name="Separador" type="Label" parent="Modelos" unique_id=202110117]
+layout_mode = 0
+theme_override_colors/font_color = Color(0.67, 0.67, 0.67, 1)
 theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 44
-text = "Tecla"
-
-[node name="Icono" type="TextureRect" parent="Modelos" unique_id=202110117]
-texture_filter = 4
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 0
-size_flags_horizontal = 0
-expand_mode = 1
-stretch_mode = 5
+text = "/"
+vertical_alignment = 1
