@@ -8,6 +8,7 @@ signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
 signal volvio_al_inicio
+signal impacto_gp(posicion: Vector2, radio: float)
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -173,8 +174,9 @@ func _on_anticipo_gp() -> void:
 	_sprite.deformar(params.anim_gp_anticipo_escala, params.gp_anticipacion, params.anim_gp_anticipo_vuelta)
 
 
-func _on_impacto_gp(_posicion: Vector2, _altura_inicial: float) -> void:
+func _on_impacto_gp(posicion: Vector2, _altura_inicial: float, radio: float) -> void:
 	_sprite.deformar(params.anim_gp_impacto_escala, params.anim_gp_impacto_ida, params.anim_gp_impacto_vuelta)
+	impacto_gp.emit(posicion, radio)
 
 
 func _on_reboto() -> void:
@@ -183,6 +185,7 @@ func _on_reboto() -> void:
 
 func _on_fuerza_gp_recuperada() -> void:
 	_sprite.destellar(params.anim_gp_destello)
+	_sprite.brillar()
 
 
 func recibir_dano(cantidad: int) -> void:

@@ -3,6 +3,7 @@ class_name Enemigo
 
 signal murio(posicion: Vector2, origen: Hitbox.Origen)
 signal termino(enemigo: Enemigo)
+signal golpeado(posicion: Vector2, origen: Hitbox.Origen)
 
 @export var params: EnemyParams
 
@@ -14,6 +15,7 @@ var _empuje := Vector2.ZERO
 var punto := Vector2.ZERO
 var _capa: int
 var _tween_muerte: Tween
+var _tween_destello: Tween
 
 @onready var _sombra: Sombra = $Sombra
 @onready var _sprite := $Sprite
@@ -45,6 +47,9 @@ func activar_en(posicion: Vector2) -> void:
 	_empuje = Vector2.ZERO
 	punto = Vector2.ZERO
 	modulate = Color.WHITE
+	if _tween_destello:
+		_tween_destello.kill()
+	_poner_destello(0.0)
 	collision_layer = _capa
 	_hurtbox.monitorable = true
 	_hitbox.activar()
@@ -100,11 +105,20 @@ func _on_golpeado(hitbox: Hitbox) -> void:
 	if direccion == Vector2.ZERO:
 		direccion = Vector2.from_angle(randf() * TAU)
 	_empuje += direccion * hitbox.empuje
+	golpeado.emit(global_position + Vector2(0, -z - params.alto * 0.5) - direccion * 10.0, hitbox.origen)
+	_destellar()
 	recibir_dano(hitbox.dano, hitbox.origen)
-	if vida <= 0:
-		return
-	modulate = Color.RED
-	create_tween().tween_property(self, "modulate", Color.WHITE, 0.2)
+
+
+func _destellar() -> void:
+	if _tween_destello:
+		_tween_destello.kill()
+	_tween_destello = create_tween()
+	_tween_destello.tween_method(_poner_destello, 1.0, 0.0, params.duracion_destello)
+
+
+func _poner_destello(valor: float) -> void:
+	_visual.set_instance_shader_parameter(&"destello", valor)
 
 
 func velocidad_externa() -> Vector2:

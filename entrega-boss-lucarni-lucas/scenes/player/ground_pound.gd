@@ -1,7 +1,7 @@
 extends VerboExclusivo
 
 signal anticipo
-signal impacto(posicion: Vector2, altura_inicial: float)
+signal impacto(posicion: Vector2, altura_inicial: float, radio: float)
 
 var _tiempo_anticipacion := 0.0
 var _tiempo_hitbox := 0.0
@@ -71,7 +71,7 @@ func _impactar(player: Player) -> void:
 	_hitbox.activar()
 	_tiempo_hitbox = player.params.gp_impacto_duracion
 	player.gastar_energia_gp()
-	impacto.emit(player.global_position, _altura_inicial)
+	impacto.emit(player.global_position, _altura_inicial, radio)
 
 
 func _actualizar_hitbox(delta: float) -> void:

@@ -4,6 +4,7 @@ class_name Spawner
 signal enemigo_murio(posicion: Vector2, origen: Hitbox.Origen)
 signal enemigo_aparecio(enemigo: Enemigo)
 signal enemigo_se_fue(enemigo: Enemigo)
+signal enemigo_golpeado(posicion: Vector2, origen: Hitbox.Origen)
 
 @export var ronda_params: RondaParams
 @export var params: SpawnerParams
@@ -101,6 +102,7 @@ func _on_marca_lista(marca: MarcaSpawn) -> void:
 func _preparar_enemigo(enemigo: Enemigo) -> void:
 	enemigo.termino.connect(_devolver_enemigo)
 	enemigo.murio.connect(enemigo_murio.emit)
+	enemigo.golpeado.connect(enemigo_golpeado.emit)
 
 
 func _preparar_marca(marca: MarcaSpawn) -> void:

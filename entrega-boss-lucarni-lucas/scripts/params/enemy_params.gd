@@ -19,6 +19,7 @@ class_name EnemyParams
 @export_group("Animación")
 ## Lo que avanza por cada frame de "caminar": a más velocidad, pasos más rápidos.
 @export_range(1, 100, 1, "suffix:px") var avance_por_frame: float = 18.0
+@export_range(0, 1, 0.01, "suffix:s") var duracion_destello: float = 0.15
 
 @export_group("Muerte")
 @export_range(0, 2, 0.05, "suffix:s") var duracion_muerte: float = 0.5

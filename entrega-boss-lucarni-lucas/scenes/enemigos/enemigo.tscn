@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="2_6sr6t"]
 [ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="4_gtmhs"]
 [ext_resource type="Resource" path="res://resources/sombra_enemigo.tres" id="5_sombra"]
+[ext_resource type="Shader" uid="uid://cj8lpecvpcyrh" path="res://scenes/enemigos/destello.gdshader" id="6_destello"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gtmhs"]
 radius = 1.0
@@ -12,6 +13,9 @@ radius = 1.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ldkxj"]
 radius = 18.0
 height = 42.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_destello"]
+shader = ExtResource("6_destello")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 
@@ -29,6 +33,7 @@ params = ExtResource("5_sombra")
 
 [node name="Visual" type="AnimatedSprite2D" parent="Sprite" unique_id=1769203076]
 texture_filter = 4
+material = SubResource("ShaderMaterial_destello")
 
 [node name="Hurtbox" parent="." unique_id=1222409529 instance=ExtResource("2_6sr6t")]
 collision_layer = 4

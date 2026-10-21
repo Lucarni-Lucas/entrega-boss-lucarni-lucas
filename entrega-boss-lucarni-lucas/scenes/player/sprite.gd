@@ -17,6 +17,7 @@ var _deformacion := Vector2.ONE:
 @onready var _visual := $Estiramiento/Visual
 @onready var _self_modulate_base: Color = _visual.self_modulate
 @onready var _ojos := $Estiramiento/Visual/Ojos
+@onready var _brillo: AnimatedSprite2D = $Brillo
 
 
 func deformar(escala: Vector2, duracion_ida: float, duracion_vuelta: float) -> void:
@@ -74,3 +75,8 @@ func _girar_hacia(objetivo: float, peso: float) -> void:
 	if absf(diferencia) > PI * 0.8 and absf(_angulo + diferencia) > PI + 0.01:
 		diferencia -= signf(diferencia) * TAU
 	_angulo = wrapf(_angulo + diferencia * peso, -PI, PI)
+
+
+func brillar() -> void:
+	_brillo.visible = true
+	_brillo.play(&"default")
