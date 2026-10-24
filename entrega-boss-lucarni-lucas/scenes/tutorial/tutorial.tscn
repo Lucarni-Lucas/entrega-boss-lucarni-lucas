@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ougruljp6pt5" path="res://scenes/ui/icono_tecla.tscn" id="31_icono"]
 [ext_resource type="Texture2D" uid="uid://d00n8op8mg870" path="res://assets/player/boomerang.png" id="32_boomerang"]
 [ext_resource type="FontFile" uid="uid://btj1jvumk67dt" path="res://assets/fonts/DejaVuSans.ttf" id="33_dejavu"]
+[ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="34_sonidos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
 size = Vector2(2080, 40)
@@ -427,9 +428,27 @@ text = "Empezar partida"
 params = ExtResource("8_ronda")
 con_saltar_paso = true
 
+[node name="Sonidos" parent="." unique_id=1093847261 node_paths=PackedStringArray("jugador") instance=ExtResource("34_sonidos")]
+jugador = NodePath("../Entidades/Player")
+
 [connection signal="impacto_gp" from="Entidades/Player" to="Efectos" method="_on_jugador_impacto_gp"]
 [connection signal="reboto" from="Entidades/Player" to="Guia" method="_on_player_reboto"]
 [connection signal="slasheo" from="Entidades/Player" to="Guia" method="_on_player_slasheo"]
 [connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
 [connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]
 [connection signal="saltar_paso_pedido" from="MenuPartida" to="Guia" method="_on_menu_partida_saltar_paso_pedido"]
+[connection signal="salto" from="Entidades/Player" to="Sonidos" method="_on_jugador_salto"]
+[connection signal="aterrizo" from="Entidades/Player" to="Sonidos" method="_on_jugador_aterrizo"]
+[connection signal="reboto" from="Entidades/Player" to="Sonidos" method="_on_jugador_reboto"]
+[connection signal="slasheo" from="Entidades/Player" to="Sonidos" method="_on_jugador_slasheo"]
+[connection signal="dive" from="Entidades/Player" to="Sonidos" method="_on_jugador_dive"]
+[connection signal="anticipo_gp" from="Entidades/Player" to="Sonidos" method="_on_jugador_anticipo_gp"]
+[connection signal="impacto_gp" from="Entidades/Player" to="Sonidos" method="_on_jugador_impacto_gp"]
+[connection signal="lanzo_boomerang" from="Entidades/Player" to="Sonidos" method="_on_jugador_lanzo_boomerang"]
+[connection signal="atrapo_boomerang" from="Entidades/Player" to="Sonidos" method="_on_jugador_atrapo_boomerang"]
+[connection signal="golpeado" from="Entidades/Player" to="Sonidos" method="_on_jugador_golpeado"]
+[connection signal="curado" from="Entidades/Player" to="Sonidos" method="_on_jugador_curado"]
+[connection signal="fuerza_gp_recuperada" from="Entidades/Player" to="Sonidos" method="_on_jugador_fuerza_gp_recuperada"]
+[connection signal="murio" from="Entidades/Player" to="Sonidos" method="_on_jugador_murio"]
+[connection signal="pauso" from="MenuPartida" to="Sonidos" method="_on_menu_partida_pauso"]
+[connection signal="reanudo" from="MenuPartida" to="Sonidos" method="_on_menu_partida_reanudo"]

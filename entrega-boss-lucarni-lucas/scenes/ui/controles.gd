@@ -60,8 +60,12 @@ func _input(event: InputEvent) -> void:
 
 
 func _cambiar_pagina(direccion: int) -> void:
-	_pagina = clampi(_pagina + direccion, 0, _paginas.size() - 1)
+	var nueva := clampi(_pagina + direccion, 0, _paginas.size() - 1)
+	if nueva == _pagina:
+		return
+	_pagina = nueva
 	_mostrar_pagina()
+	Audio.tocar(Audio.libreria.ui_foco)
 
 
 func _mostrar_pagina() -> void:
@@ -81,6 +85,7 @@ func _mostrar_flecha(flecha: Button, disponible: bool) -> void:
 
 func _cerrar() -> void:
 	visible = false
+	Audio.tocar(Audio.libreria.ui_volver)
 	cerrado.emit()
 
 

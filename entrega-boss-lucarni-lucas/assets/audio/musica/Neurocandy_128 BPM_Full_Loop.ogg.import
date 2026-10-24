@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bjm0wf4a3mjsg"
+path="res://.godot/imported/Neurocandy_128 BPM_Full_Loop.ogg-827c58bf203bf8b610e3d6fa3708f99c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/musica/Neurocandy_128 BPM_Full_Loop.ogg"
+dest_files=["res://.godot/imported/Neurocandy_128 BPM_Full_Loop.ogg-827c58bf203bf8b610e3d6fa3708f99c.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

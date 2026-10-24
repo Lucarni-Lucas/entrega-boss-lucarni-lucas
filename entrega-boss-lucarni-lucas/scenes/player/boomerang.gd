@@ -1,6 +1,7 @@
 extends VerboExclusivo
 
 signal lanzo
+signal atrapado
 
 
 const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
@@ -25,6 +26,7 @@ var _proyectil: Boomerang
 
 func _ready() -> void:
 	_proyectil = escena_boomerang.instantiate()
+	_proyectil.guardado.connect(atrapado.emit)
 	_agregar_proyectil.call_deferred(get_parent())
 
 

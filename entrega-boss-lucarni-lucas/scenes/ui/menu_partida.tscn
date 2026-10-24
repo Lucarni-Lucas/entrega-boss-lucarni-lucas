@@ -51,7 +51,7 @@ theme_override_constants/shadow_outline_size = 24
 theme_override_font_sizes/font_size = 128
 horizontal_alignment = 1
 
-[node name="Reanudar" parent="Contenido/Opciones" unique_id=2028608480 instance=ExtResource("1_yskbd")]
+[node name="Reanudar" parent="Contenido/Opciones" unique_id=2028608480 groups=["sonido_propio"] instance=ExtResource("1_yskbd")]
 layout_mode = 2
 text = "Reanudar"
 

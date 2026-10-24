@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal terminada
+signal numero_cambio(valor: int)
 
 const _DELTA_MAXIMO := 1.0 / 30.0
 
@@ -8,6 +9,7 @@ const _DELTA_MAXIMO := 1.0 / 30.0
 
 var _restante := 0.0
 var _activa := false
+var _numero_mostrado := 0
 
 @onready var _numero: Label = $Numero
 
@@ -17,6 +19,7 @@ func iniciar() -> void:
 	_activa = true
 	visible = true
 	get_tree().paused = true
+	_numero_mostrado = 0
 	_actualizar_numero()
 
 
@@ -39,4 +42,9 @@ func _process(delta: float) -> void:
 
 
 func _actualizar_numero() -> void:
-	_numero.text = str(ceili(_restante / params.cuenta_paso))
+	var valor := ceili(_restante / params.cuenta_paso)
+	if valor == _numero_mostrado:
+		return
+	_numero_mostrado = valor
+	_numero.text = str(valor)
+	numero_cambio.emit(valor)

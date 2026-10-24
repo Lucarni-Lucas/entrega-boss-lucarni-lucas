@@ -50,6 +50,7 @@ func _abrir_pregunta() -> void:
 
 
 func _cerrar_pregunta() -> void:
+	Audio.tocar(Audio.libreria.ui_volver)
 	_pregunta.visible = false
 	_opciones.visible = true
 	_mostrar_enemigos(true)

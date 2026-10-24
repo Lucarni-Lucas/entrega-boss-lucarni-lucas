@@ -10,6 +10,12 @@ signal fuerza_gp_recuperada
 signal volvio_al_inicio
 signal impacto_gp(posicion: Vector2, radio: float)
 signal salto
+signal anticipo_gp
+signal dive
+signal lanzo_boomerang
+signal atrapo_boomerang
+signal golpeado
+signal curado
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -45,6 +51,9 @@ func _ready() -> void:
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
 	_jump.salto.connect(salto.emit)
+	_dive.empezo.connect(dive.emit)
+	_boomerang.lanzo.connect(lanzo_boomerang.emit)
+	_boomerang.atrapado.connect(atrapo_boomerang.emit)
 	_slash.slasheo.connect(slasheo.emit)
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)
@@ -174,6 +183,7 @@ func _on_aterrizo() -> void:
 
 func _on_anticipo_gp() -> void:
 	_sprite.deformar(params.anim_gp_anticipo_escala, params.gp_anticipacion, params.anim_gp_anticipo_vuelta)
+	anticipo_gp.emit()
 
 
 func _on_impacto_gp(posicion: Vector2, _altura_inicial: float, radio: float) -> void:
@@ -204,6 +214,7 @@ func recibir_dano(cantidad: int) -> void:
 		return
 	_tiempo_invulnerable = params.invulnerabilidad
 	_colorear(Color.RED)
+	golpeado.emit()
 
 
 func curar(cantidad: int) -> void:
@@ -212,6 +223,7 @@ func curar(cantidad: int) -> void:
 	vida = mini(vida + cantidad, params.vida_max)
 	vida_cambio.emit(vida, params.vida_max)
 	_colorear(Color.GREEN)
+	curado.emit()
 
 
 func restaurar_vida() -> void:

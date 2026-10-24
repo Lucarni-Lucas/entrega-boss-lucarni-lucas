@@ -43,7 +43,7 @@ layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Izquierda" parent="Contenido/Selector" unique_id=2028608480 instance=ExtResource("1_0lq82")]
+[node name="Izquierda" parent="Contenido/Selector" unique_id=2028608480 groups=["sonido_propio"] instance=ExtResource("1_0lq82")]
 layout_mode = 2
 focus_mode = 0
 text = "‹"
@@ -58,7 +58,7 @@ theme_override_font_sizes/font_size = 72
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Derecha" parent="Contenido/Selector" unique_id=590805077 instance=ExtResource("1_0lq82")]
+[node name="Derecha" parent="Contenido/Selector" unique_id=590805077 groups=["sonido_propio"] instance=ExtResource("1_0lq82")]
 layout_mode = 2
 focus_mode = 0
 text = "›"
@@ -107,7 +107,7 @@ theme_override_constants/h_separation = 48
 theme_override_constants/v_separation = 12
 columns = 2
 
-[node name="Boton" parent="Contenido" unique_id=2077913631 instance=ExtResource("1_0lq82")]
+[node name="Boton" parent="Contenido" unique_id=2077913631 groups=["sonido_propio"] instance=ExtResource("1_0lq82")]
 layout_mode = 2
 text = "Volver"
 
