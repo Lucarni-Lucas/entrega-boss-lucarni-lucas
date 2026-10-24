@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bsmpjhwjrf4s"
+path="res://.godot/imported/Sectors_120 BPM_Full_Loop.ogg-9cc8b62440f8b751a6274431fc8326a3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/musica/Sectors_120 BPM_Full_Loop.ogg"
+dest_files=["res://.godot/imported/Sectors_120 BPM_Full_Loop.ogg-9cc8b62440f8b751a6274431fc8326a3.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

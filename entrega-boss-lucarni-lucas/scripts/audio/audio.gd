@@ -1,6 +1,7 @@
 extends Node
 
 const SILENCIO := -40.0
+const CORTE_ABIERTO := 20500.0
 const BUSES: Array[StringName] = [&"Master", &"Musica", &"Efectos", &"UI"]
 const _ARCHIVO_AJUSTES := "user://ajustes.cfg"
 const _NAVEGACION: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_right", &"ui_focus_next", &"ui_focus_prev"]
@@ -12,12 +13,15 @@ var _musica_actual: AudioStreamPlayer
 var _musica_otra: AudioStreamPlayer
 var _fundidos: Dictionary[AudioStreamPlayer, Tween] = {}
 var _cuadro_navegacion := -10
+var _filtro_musica: AudioEffectLowPassFilter
+var _tween_tapado: Tween
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_musica_actual = _crear_reproductor_musica()
 	_musica_otra = _crear_reproductor_musica()
+	_filtro_musica = AudioServer.get_bus_effect(AudioServer.get_bus_index(&"Musica"), 0)
 	_cargar_volumenes()
 	get_tree().node_added.connect(_on_nodo_agregado)
 	for boton in get_tree().root.find_children("*", "BaseButton", true, false):
@@ -41,7 +45,8 @@ func parar(sonido: Sonido) -> void:
 
 
 func tocar_musica(tema: AudioStream, volumen := 0.0, fundido := 1.0) -> void:
-	if _musica_actual.stream == tema and _musica_actual.playing:
+	if tema == tema_actual():
+		_fundir(_musica_actual, volumen, fundido)
 		return
 	_soltar_actual(fundido)
 	_musica_actual.stream = tema
@@ -52,6 +57,17 @@ func tocar_musica(tema: AudioStream, volumen := 0.0, fundido := 1.0) -> void:
 
 func parar_musica(fundido := 1.0) -> void:
 	_soltar_actual(fundido)
+
+
+func tema_actual() -> AudioStream:
+	return _musica_actual.stream if _musica_actual.playing else null
+
+
+func tapar_musica(tapar: bool, corte := 800.0, duracion := 0.3) -> void:
+	if _tween_tapado:
+		_tween_tapado.kill()
+	_tween_tapado = create_tween()
+	_tween_tapado.tween_method(_poner_corte, log(_filtro_musica.cutoff_hz), log(corte if tapar else CORTE_ABIERTO), duracion)
 
 
 func volumen_bus(bus: StringName) -> float:
@@ -81,6 +97,10 @@ func _reproductor_de(sonido: Sonido) -> AudioStreamPlayer:
 		add_child(reproductor)
 		_reproductores[sonido] = reproductor
 	return _reproductores[sonido]
+
+
+func _poner_corte(logaritmo: float) -> void:
+	_filtro_musica.cutoff_hz = exp(logaritmo)
 
 
 func _soltar_actual(fundido: float) -> void:

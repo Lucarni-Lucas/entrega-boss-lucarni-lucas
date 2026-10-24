@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="5_slime"]
 [ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="6_esqueleto"]
 [ext_resource type="PackedScene" uid="uid://cu8hlym231w5o" path="res://scenes/enemigos/volador.tscn" id="7_fantasma"]
+[ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="8_sonidos"]
+[ext_resource type="AudioStream" uid="uid://bfw66g1adh271" path="res://assets/audio/musica/Falcon_133 BPM_Full_Loop.ogg" id="9_falcon"]
 
 [node name="MenuPrincipal" type="Control" unique_id=896847840]
 layout_mode = 3
@@ -146,3 +148,7 @@ text = "Jugar directo"
 
 [node name="Controles" parent="." unique_id=700216410 instance=ExtResource("4_g2cyh")]
 layout_mode = 1
+
+[node name="Sonidos" parent="." unique_id=1739462018 instance=ExtResource("8_sonidos")]
+musica = ExtResource("9_falcon")
+volumen_musica = -12.0

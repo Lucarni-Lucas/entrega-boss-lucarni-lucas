@@ -3,6 +3,10 @@ extends Node
 @export var libreria: LibreriaSonidos
 @export var musica: AudioStream
 @export_range(-40, 0, 0.5, "suffix:dB") var volumen_musica := 0.0
+@export var temas_ronda: Array[AudioStream] = []
+@export var ronda_params: RondaParams
+@export_range(100, 5000, 50, "suffix:Hz") var corte_tapado := 800.0
+@export_range(0, 2, 0.05, "suffix:s") var duracion_tapado := 0.3
 @export var jugador: Player
 
 
@@ -13,6 +17,11 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	Audio.parar(libreria.boomerang_gira)
+	_tapar_musica(false)
+
+
+func _tapar_musica(tapar: bool) -> void:
+	Audio.tapar_musica(tapar, corte_tapado, duracion_tapado)
 
 
 func _on_jugador_salto() -> void:
@@ -92,18 +101,33 @@ func _on_cuenta_regresiva_terminada() -> void:
 	Audio.tocar(libreria.ya)
 
 
+func _on_partida_ronda_empezo(numero: int, _total: int) -> void:
+	_tapar_musica(false)
+	var fija := ronda_params.guion(numero).musica if ronda_params else null
+	if fija:
+		Audio.tocar_musica(fija, volumen_musica)
+		return
+	var opciones := temas_ronda.filter(func(tema: AudioStream) -> bool: return tema != Audio.tema_actual())
+	if not opciones.is_empty():
+		Audio.tocar_musica(opciones.pick_random(), volumen_musica)
+
+
 func _on_partida_ronda_superada(_numero: int, _total: int) -> void:
+	_tapar_musica(true)
 	Audio.tocar(libreria.jingle_ronda)
 
 
 func _on_partida_finalizo(gano: bool) -> void:
+	_tapar_musica(true)
 	Audio.parar(libreria.boomerang_gira)
 	Audio.tocar(libreria.jingle_victoria if gano else libreria.jingle_derrota)
 
 
 func _on_menu_partida_pauso() -> void:
+	_tapar_musica(true)
 	Audio.tocar(libreria.pausa)
 
 
 func _on_menu_partida_reanudo() -> void:
+	_tapar_musica(false)
 	Audio.tocar(libreria.reanudar)

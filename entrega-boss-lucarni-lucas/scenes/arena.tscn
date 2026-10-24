@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://b3wbsb5qhp3h1" path="res://scenes/fondo/fondo.tscn" id="15_fondo"]
 [ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="18_6joey"]
 [ext_resource type="PackedScene" uid="uid://bqy5ik5om3lwq" path="res://scenes/efectos/efectos.tscn" id="30_efectos"]
+[ext_resource type="AudioStream" uid="uid://bsmpjhwjrf4s" path="res://assets/audio/musica/Sectors_120 BPM_Full_Loop.ogg" id="42_sectors"]
+[ext_resource type="AudioStream" uid="uid://84evnvjfcvpf" path="res://assets/audio/musica/Nowhere_160 BPM_Full_Loop.ogg" id="41_nowhere"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -105,8 +107,9 @@ params = ExtResource("7_naajo")
 [node name="EntreRondas" parent="." unique_id=2049483962 instance=ExtResource("12_ajq0i")]
 
 [node name="Sonidos" parent="." unique_id=890807817 node_paths=PackedStringArray("jugador") instance=ExtResource("18_6joey")]
-musica = ExtResource("11_mus01")
 volumen_musica = -12.0
+temas_ronda = Array[AudioStream]([ExtResource("42_sectors"), ExtResource("11_mus01"), ExtResource("41_nowhere")])
+ronda_params = ExtResource("7_naajo")
 jugador = NodePath("../Entidades/Player")
 
 [connection signal="anticipo_gp" from="Entidades/Player" to="Sonidos" method="_on_jugador_anticipo_gp"]
@@ -155,3 +158,4 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="numero_cambio" from="CuentaRegresiva" to="Sonidos" method="_on_cuenta_regresiva_numero_cambio"]
 [connection signal="terminada" from="CuentaRegresiva" to="Sonidos" method="_on_cuenta_regresiva_terminada"]
 [connection signal="comenzar" from="EntreRondas" to="Partida" method="siguiente_ronda"]
+[connection signal="ronda_empezo" from="Partida" to="Sonidos" method="_on_partida_ronda_empezo"]

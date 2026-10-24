@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bfw66g1adh271"
+path="res://.godot/imported/Falcon_133 BPM_Full_Loop.ogg-cdfcf9a7c876ceb659a0cbb66977ad05.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/musica/Falcon_133 BPM_Full_Loop.ogg"
+dest_files=["res://.godot/imported/Falcon_133 BPM_Full_Loop.ogg-cdfcf9a7c876ceb659a0cbb66977ad05.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

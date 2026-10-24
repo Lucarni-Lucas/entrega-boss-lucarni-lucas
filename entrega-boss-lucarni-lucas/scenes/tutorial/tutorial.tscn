@@ -10,12 +10,12 @@
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="8_ronda"]
 [ext_resource type="TileSet" uid="uid://of5x6u5t4c1v" path="res://resources/arena/tileset_decoracion.tres" id="9_deco"]
 [ext_resource type="PackedScene" uid="uid://b3wbsb5qhp3h1" path="res://scenes/fondo/fondo.tscn" id="10_fondo"]
-
 [ext_resource type="PackedScene" uid="uid://bqy5ik5om3lwq" path="res://scenes/efectos/efectos.tscn" id="30_efectos"]
 [ext_resource type="PackedScene" uid="uid://ougruljp6pt5" path="res://scenes/ui/icono_tecla.tscn" id="31_icono"]
 [ext_resource type="Texture2D" uid="uid://d00n8op8mg870" path="res://assets/player/boomerang.png" id="32_boomerang"]
 [ext_resource type="FontFile" uid="uid://btj1jvumk67dt" path="res://assets/fonts/DejaVuSans.ttf" id="33_dejavu"]
 [ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="34_sonidos"]
+[ext_resource type="AudioStream" uid="uid://bfw66g1adh271" path="res://assets/audio/musica/Falcon_133 BPM_Full_Loop.ogg" id="35_falcon"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
 size = Vector2(2080, 40)
@@ -91,13 +91,13 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Instruccion" type="Label" parent="Guia/Pasos" unique_id=2106449745]
-theme_type_variation = &"Destacado"
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 110.0
 offset_bottom = 210.0
 grow_horizontal = 2
+theme_type_variation = &"Destacado"
 theme_override_constants/outline_size = 16
 theme_override_constants/shadow_outline_size = 16
 theme_override_font_sizes/font_size = 72
@@ -227,8 +227,8 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_font_sizes/font_size = 40
 text = "→"
 
@@ -253,8 +253,8 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_font_sizes/font_size = 40
 text = "→"
 
@@ -279,8 +279,8 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_font_sizes/font_size = 40
 text = "→"
 
@@ -307,8 +307,8 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
-theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("33_dejavu")
 theme_override_font_sizes/font_size = 40
 text = "→"
 
@@ -408,8 +408,8 @@ theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Titulo" type="Label" parent="Guia/Final/Contenido" unique_id=687548199]
-theme_type_variation = &"Destacado"
 layout_mode = 2
+theme_type_variation = &"Destacado"
 theme_override_constants/outline_size = 20
 theme_override_constants/shadow_outline_size = 20
 theme_override_font_sizes/font_size = 96
@@ -429,26 +429,28 @@ params = ExtResource("8_ronda")
 con_saltar_paso = true
 
 [node name="Sonidos" parent="." unique_id=1093847261 node_paths=PackedStringArray("jugador") instance=ExtResource("34_sonidos")]
+musica = ExtResource("35_falcon")
+volumen_musica = -17.0
 jugador = NodePath("../Entidades/Player")
 
-[connection signal="impacto_gp" from="Entidades/Player" to="Efectos" method="_on_jugador_impacto_gp"]
-[connection signal="reboto" from="Entidades/Player" to="Guia" method="_on_player_reboto"]
-[connection signal="slasheo" from="Entidades/Player" to="Guia" method="_on_player_slasheo"]
-[connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
-[connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]
-[connection signal="saltar_paso_pedido" from="MenuPartida" to="Guia" method="_on_menu_partida_saltar_paso_pedido"]
-[connection signal="salto" from="Entidades/Player" to="Sonidos" method="_on_jugador_salto"]
-[connection signal="aterrizo" from="Entidades/Player" to="Sonidos" method="_on_jugador_aterrizo"]
-[connection signal="reboto" from="Entidades/Player" to="Sonidos" method="_on_jugador_reboto"]
-[connection signal="slasheo" from="Entidades/Player" to="Sonidos" method="_on_jugador_slasheo"]
-[connection signal="dive" from="Entidades/Player" to="Sonidos" method="_on_jugador_dive"]
 [connection signal="anticipo_gp" from="Entidades/Player" to="Sonidos" method="_on_jugador_anticipo_gp"]
+[connection signal="aterrizo" from="Entidades/Player" to="Sonidos" method="_on_jugador_aterrizo"]
+[connection signal="atrapo_boomerang" from="Entidades/Player" to="Sonidos" method="_on_jugador_atrapo_boomerang"]
+[connection signal="curado" from="Entidades/Player" to="Sonidos" method="_on_jugador_curado"]
+[connection signal="dive" from="Entidades/Player" to="Sonidos" method="_on_jugador_dive"]
+[connection signal="fuerza_gp_recuperada" from="Entidades/Player" to="Sonidos" method="_on_jugador_fuerza_gp_recuperada"]
+[connection signal="golpeado" from="Entidades/Player" to="Sonidos" method="_on_jugador_golpeado"]
+[connection signal="impacto_gp" from="Entidades/Player" to="Efectos" method="_on_jugador_impacto_gp"]
 [connection signal="impacto_gp" from="Entidades/Player" to="Sonidos" method="_on_jugador_impacto_gp"]
 [connection signal="lanzo_boomerang" from="Entidades/Player" to="Sonidos" method="_on_jugador_lanzo_boomerang"]
-[connection signal="atrapo_boomerang" from="Entidades/Player" to="Sonidos" method="_on_jugador_atrapo_boomerang"]
-[connection signal="golpeado" from="Entidades/Player" to="Sonidos" method="_on_jugador_golpeado"]
-[connection signal="curado" from="Entidades/Player" to="Sonidos" method="_on_jugador_curado"]
-[connection signal="fuerza_gp_recuperada" from="Entidades/Player" to="Sonidos" method="_on_jugador_fuerza_gp_recuperada"]
 [connection signal="murio" from="Entidades/Player" to="Sonidos" method="_on_jugador_murio"]
+[connection signal="reboto" from="Entidades/Player" to="Guia" method="_on_player_reboto"]
+[connection signal="reboto" from="Entidades/Player" to="Sonidos" method="_on_jugador_reboto"]
+[connection signal="salto" from="Entidades/Player" to="Sonidos" method="_on_jugador_salto"]
+[connection signal="slasheo" from="Entidades/Player" to="Guia" method="_on_player_slasheo"]
+[connection signal="slasheo" from="Entidades/Player" to="Sonidos" method="_on_jugador_slasheo"]
+[connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
 [connection signal="pauso" from="MenuPartida" to="Sonidos" method="_on_menu_partida_pauso"]
+[connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]
 [connection signal="reanudo" from="MenuPartida" to="Sonidos" method="_on_menu_partida_reanudo"]
+[connection signal="saltar_paso_pedido" from="MenuPartida" to="Guia" method="_on_menu_partida_saltar_paso_pedido"]

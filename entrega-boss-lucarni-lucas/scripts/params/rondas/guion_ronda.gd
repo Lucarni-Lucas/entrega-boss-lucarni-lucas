@@ -9,6 +9,7 @@ class_name GuionRonda
 			if grupos[i] == null:
 				grupos[i] = GrupoSpawn.new()
 @export var fondo: Texture2D
+@export var musica: AudioStream
 
 
 static func con_grupo_inicial() -> GuionRonda:
