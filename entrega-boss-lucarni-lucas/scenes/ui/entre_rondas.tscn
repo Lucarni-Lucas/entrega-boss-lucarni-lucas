@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://6t8kbvexhe8a"]
 
 [ext_resource type="Script" uid="uid://dxs2f8y0endg8" path="res://scenes/ui/entre_rondas.gd" id="1_xobk1"]
-[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/ronda_params.tres" id="2_3jguy"]
+[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="2_3jguy"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="2_f74ey"]
 
 [node name="EntreRondas" type="CanvasLayer" unique_id=105893207]

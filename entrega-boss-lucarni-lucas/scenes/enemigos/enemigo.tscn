@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="1_8uhct"]
 [ext_resource type="PackedScene" uid="uid://b5k58mh6urecv" path="res://scenes/componentes/hurtbox.tscn" id="2_6sr6t"]
 [ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="4_gtmhs"]
-[ext_resource type="Resource" path="res://resources/sombra_enemigo.tres" id="5_sombra"]
+[ext_resource type="Resource" path="res://resources/visual/sombra_enemigo.tres" id="5_sombra"]
 [ext_resource type="Shader" uid="uid://cj8lpecvpcyrh" path="res://scenes/enemigos/destello.gdshader" id="6_destello"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gtmhs"]

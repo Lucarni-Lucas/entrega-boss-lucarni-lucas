@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="RondaParams" format=3 uid="uid://bdjb5a2imnkgu"]
 
-[ext_resource type="Script" uid="uid://dx78ul46qjn6p" path="res://scripts/params/guion_ronda.gd" id="1_bh7g0"]
-[ext_resource type="Script" uid="uid://bsmnpgwdipnu3" path="res://scripts/params/ronda_params.gd" id="1_qlryx"]
-[ext_resource type="Script" uid="uid://cr2el1333q385" path="res://scripts/params/grupo_spawn.gd" id="2_0iavs"]
+[ext_resource type="Script" uid="uid://dx78ul46qjn6p" path="res://scripts/params/rondas/guion_ronda.gd" id="1_bh7g0"]
+[ext_resource type="Script" uid="uid://bsmnpgwdipnu3" path="res://scripts/params/rondas/ronda_params.gd" id="1_qlryx"]
+[ext_resource type="Script" uid="uid://cr2el1333q385" path="res://scripts/params/rondas/grupo_spawn.gd" id="2_0iavs"]
 [ext_resource type="PackedScene" uid="uid://cu8hlym231w5o" path="res://scenes/enemigos/volador.tscn" id="3_0iavs"]
 [ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="3_agblt"]
 [ext_resource type="Texture2D" uid="uid://c1dl3v54vj7mv" path="res://assets/fondo/nebulosa_azul.png" id="4_azul"]

@@ -9,6 +9,7 @@ signal murio
 signal fuerza_gp_recuperada
 signal volvio_al_inicio
 signal impacto_gp(posicion: Vector2, radio: float)
+signal salto
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -43,6 +44,7 @@ var _posicion_inicial: Vector2
 func _ready() -> void:
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
+	_jump.salto.connect(salto.emit)
 	_slash.slasheo.connect(slasheo.emit)
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)

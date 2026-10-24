@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bqy5ik5om3lwq"]
 
 [ext_resource type="Script" uid="uid://dpm4s84ehlfm2" path="res://scenes/efectos/efectos.gd" id="1_efectos"]
-[ext_resource type="Resource" uid="uid://beiei0x45jsx8" path="res://resources/efectos_params.tres" id="2_params"]
+[ext_resource type="Resource" uid="uid://beiei0x45jsx8" path="res://resources/visual/efectos_params.tres" id="2_params"]
 [ext_resource type="Texture2D" uid="uid://cltu1j0p8anyr" path="res://assets/efectos/estrella.png" id="3_estrella"]
 [ext_resource type="Texture2D" uid="uid://cx22eoovpf38t" path="res://assets/efectos/chispa.png" id="4_chispa"]
 [ext_resource type="Script" uid="uid://cg448saq33d7x" path="res://scenes/efectos/anillo.gd" id="6_anillo"]

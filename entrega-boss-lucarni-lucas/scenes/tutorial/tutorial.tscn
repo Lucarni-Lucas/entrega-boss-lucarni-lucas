@@ -1,14 +1,14 @@
 [gd_scene format=4 uid="uid://vs40drbmk6ry"]
 
-[ext_resource type="TileSet" uid="uid://cd21be7edxvqc" path="res://resources/tileset_piso.tres" id="1_piso"]
+[ext_resource type="TileSet" uid="uid://cd21be7edxvqc" path="res://resources/arena/tileset_piso.tres" id="1_piso"]
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://fm4dys2j78qx" path="res://scenes/camara.tscn" id="3_camara"]
 [ext_resource type="Script" uid="uid://c1vdq2txieyef" path="res://scenes/tutorial/tutorial.gd" id="4_guia"]
-[ext_resource type="Resource" uid="uid://blushg6hcpuui" path="res://resources/tutorial_params.tres" id="5_params"]
+[ext_resource type="Resource" uid="uid://blushg6hcpuui" path="res://resources/tutorial/tutorial_params.tres" id="5_params"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="6_boton"]
 [ext_resource type="PackedScene" uid="uid://dmco1vffocddq" path="res://scenes/ui/menu_partida.tscn" id="7_pausa"]
-[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/ronda_params.tres" id="8_ronda"]
-[ext_resource type="TileSet" uid="uid://of5x6u5t4c1v" path="res://resources/tileset_decoracion.tres" id="9_deco"]
+[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="8_ronda"]
+[ext_resource type="TileSet" uid="uid://of5x6u5t4c1v" path="res://resources/arena/tileset_decoracion.tres" id="9_deco"]
 [ext_resource type="PackedScene" uid="uid://b3wbsb5qhp3h1" path="res://scenes/fondo/fondo.tscn" id="10_fondo"]
 
 [ext_resource type="PackedScene" uid="uid://bqy5ik5om3lwq" path="res://scenes/efectos/efectos.tscn" id="30_efectos"]

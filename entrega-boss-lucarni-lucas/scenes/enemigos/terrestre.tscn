@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://yw1jsfp12t2q"]
 
 [ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_crrjn"]
-[ext_resource type="Resource" uid="uid://bauovwlt6r0be" path="res://resources/enemigo_terrestre.tres" id="2_30hq7"]
+[ext_resource type="Resource" uid="uid://bauovwlt6r0be" path="res://resources/enemigos/enemigo_terrestre.tres" id="2_30hq7"]
 [ext_resource type="Script" uid="uid://bvq6klc348nhk" path="res://scenes/enemigos/terrestre.gd" id="2_qx8v0"]
 [ext_resource type="Texture2D" uid="uid://c856me4cgbqk3" path="res://assets/enemigos/esqueleto_1.png" id="3_esq1"]
 [ext_resource type="Texture2D" uid="uid://cmy30lws4g3mh" path="res://assets/enemigos/esqueleto_2.png" id="4_esq2"]

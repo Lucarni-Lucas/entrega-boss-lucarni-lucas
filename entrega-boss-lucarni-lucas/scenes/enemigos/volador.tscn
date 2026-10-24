@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_mvkbh"]
 [ext_resource type="Script" uid="uid://s68at4i3fque" path="res://scenes/enemigos/volador.gd" id="2_8wo56"]
-[ext_resource type="Resource" uid="uid://d1u6jk05gl7ry" path="res://resources/enemigo_volador.tres" id="3_u5s8a"]
+[ext_resource type="Resource" uid="uid://d1u6jk05gl7ry" path="res://resources/enemigos/enemigo_volador.tres" id="3_u5s8a"]
 [ext_resource type="Texture2D" uid="uid://ltk8kntsb87b" path="res://assets/enemigos/fantasma_1.png" id="4_fan1"]
 [ext_resource type="Texture2D" uid="uid://by75sfaqwsky3" path="res://assets/enemigos/fantasma_2.png" id="5_fan2"]
 

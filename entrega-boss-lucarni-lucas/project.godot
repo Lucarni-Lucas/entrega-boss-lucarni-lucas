@@ -15,10 +15,15 @@ run/main_scene="uid://c0rkujp15f28n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://6ykwtk0jp84m"
+
 [autoload]
 
 PantallaCompleta="*uid://cenmkjy67c80x"
 EsquemaInput="*uid://8iysdsacjsv2"
+Audio="*uid://bcvonaikm5lsc"
 
 [display]
 

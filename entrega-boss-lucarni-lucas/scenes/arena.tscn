@@ -6,17 +6,17 @@
 [ext_resource type="Script" uid="uid://c885wopt2l0s7" path="res://scenes/partida/curacion_por_muertes.gd" id="5_7ft05"]
 [ext_resource type="Script" uid="uid://butxgi6do0nfc" path="res://scenes/partida/anillos.gd" id="6_8vbsj"]
 [ext_resource type="Script" uid="uid://d34w53kyaoxa3" path="res://scenes/partida/partida.gd" id="6_oexds"]
-[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/ronda_params.tres" id="7_naajo"]
-[ext_resource type="Resource" uid="uid://c6kj31w2rb72e" path="res://resources/anillos_params.tres" id="7_xsx6r"]
+[ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="7_naajo"]
+[ext_resource type="Resource" uid="uid://c6kj31w2rb72e" path="res://resources/rondas/anillos_params.tres" id="7_xsx6r"]
 [ext_resource type="PackedScene" uid="uid://cybvp4mm6gmxw" path="res://scenes/ui/hud.tscn" id="8_41jku"]
 [ext_resource type="PackedScene" uid="uid://dmco1vffocddq" path="res://scenes/ui/menu_partida.tscn" id="9_naajo"]
 [ext_resource type="PackedScene" uid="uid://pmxug0atept3" path="res://scenes/ui/cuenta_regresiva.tscn" id="10_41jku"]
 [ext_resource type="AudioStream" uid="uid://doq3awtuqon2m" path="res://assets/audio/another_round_felolk.ogg" id="11_mus01"]
 [ext_resource type="PackedScene" uid="uid://6t8kbvexhe8a" path="res://scenes/ui/entre_rondas.tscn" id="12_ajq0i"]
-[ext_resource type="TileSet" uid="uid://cd21be7edxvqc" path="res://resources/tileset_piso.tres" id="13_piso"]
-[ext_resource type="TileSet" uid="uid://of5x6u5t4c1v" path="res://resources/tileset_decoracion.tres" id="14_decoracion"]
+[ext_resource type="TileSet" uid="uid://cd21be7edxvqc" path="res://resources/arena/tileset_piso.tres" id="13_piso"]
+[ext_resource type="TileSet" uid="uid://of5x6u5t4c1v" path="res://resources/arena/tileset_decoracion.tres" id="14_decoracion"]
 [ext_resource type="PackedScene" uid="uid://b3wbsb5qhp3h1" path="res://scenes/fondo/fondo.tscn" id="15_fondo"]
-
+[ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="18_6joey"]
 [ext_resource type="PackedScene" uid="uid://bqy5ik5om3lwq" path="res://scenes/efectos/efectos.tscn" id="30_efectos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
@@ -102,20 +102,20 @@ params = ExtResource("7_naajo")
 [node name="CuentaRegresiva" parent="." unique_id=643027304 instance=ExtResource("10_41jku")]
 params = ExtResource("7_naajo")
 
-[node name="Musica" type="AudioStreamPlayer" parent="." unique_id=1873402519]
-stream = ExtResource("11_mus01")
-volume_db = -14.0
-pitch_scale = 0.99
-playback_type = 1
-
 [node name="EntreRondas" parent="." unique_id=2049483962 instance=ExtResource("12_ajq0i")]
 
-[connection signal="enemigo_golpeado" from="Spawner" to="Efectos" method="golpe"]
+[node name="Sonidos" parent="." unique_id=890807817 instance=ExtResource("18_6joey")]
+musica = ExtResource("11_mus01")
+volumen_musica = -15.0
+
+[connection signal="aterrizo" from="Entidades/Player" to="Sonidos" method="_on_jugador_aterrizo"]
 [connection signal="impacto_gp" from="Entidades/Player" to="Efectos" method="_on_jugador_impacto_gp"]
 [connection signal="murio" from="Entidades/Player" to="Partida" method="_on_player_murio"]
+[connection signal="salto" from="Entidades/Player" to="Sonidos" method="_on_jugador_salto"]
 [connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
 [connection signal="volvio_al_inicio" from="Entidades/Player" to="Camara" method="saltar_al_objetivo"]
 [connection signal="enemigo_aparecio" from="Spawner" to="Anillos" method="agregar"]
+[connection signal="enemigo_golpeado" from="Spawner" to="Efectos" method="golpe"]
 [connection signal="enemigo_murio" from="Spawner" to="CuracionPorMuertes" method="_on_spawner_enemigo_murio"]
 [connection signal="enemigo_murio" from="Spawner" to="Anillos" method="repartir_pronto" unbinds=2]
 [connection signal="enemigo_se_fue" from="Spawner" to="Anillos" method="quitar"]

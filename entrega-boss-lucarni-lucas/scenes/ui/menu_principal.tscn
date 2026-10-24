@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cmnvistqvmth6" path="res://scenes/ui/menu_principal.gd" id="1_guvrm"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_tu06j"]
-[ext_resource type="TileSet" uid="uid://cd21be7edxvqc" path="res://resources/tileset_piso.tres" id="2_piso"]
-[ext_resource type="TileSet" uid="uid://of5x6u5t4c1v" path="res://resources/tileset_decoracion.tres" id="3_deco"]
+[ext_resource type="TileSet" uid="uid://cd21be7edxvqc" path="res://resources/arena/tileset_piso.tres" id="2_piso"]
+[ext_resource type="TileSet" uid="uid://of5x6u5t4c1v" path="res://resources/arena/tileset_decoracion.tres" id="3_deco"]
 [ext_resource type="PackedScene" uid="uid://cqmaiveha1uwg" path="res://scenes/ui/controles.tscn" id="4_g2cyh"]
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="5_slime"]
 [ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="6_esqueleto"]
