@@ -1,0 +1,87 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://c31rwgaa0riqy" path="res://scenes/ui/carta_boton.gd" id="1_carta"]
+[ext_resource type="Texture2D" uid="uid://dffbjbcdd6vu5" path="res://assets/ui/cartas/marco_azul.svg" id="4_azul"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_halo"]
+bg_color = Color(0.96, 0.95, 0.89, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+shadow_color = Color(1, 0.93, 0.7, 0.45)
+shadow_size = 28
+
+[node name="CartaBoton" type="Button"]
+custom_minimum_size = Vector2(393, 498)
+script = ExtResource("1_carta")
+
+[node name="Halo" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_halo")
+
+[node name="Marco" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_azul")
+expand_mode = 1
+
+[node name="Nombre" type="Label" parent="."]
+theme_type_variation = &"Destacado"
+layout_mode = 0
+offset_left = 30.0
+offset_top = 24.0
+offset_right = 245.0
+offset_bottom = 140.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.17, 0.17, 0.19, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 34
+text = "Ground pound explosivo"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Icono" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 140.0
+offset_right = 246.0
+offset_bottom = 240.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Descripcion" type="Label" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 250.0
+offset_right = 365.0
+offset_bottom = 434.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.29, 0.29, 0.31, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 28
+text = "Al caer, tu ground pound daña en un círculo más grande"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2

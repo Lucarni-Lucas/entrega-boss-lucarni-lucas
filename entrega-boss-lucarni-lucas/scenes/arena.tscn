@@ -109,7 +109,8 @@ params = ExtResource("7_naajo")
 [node name="CuentaRegresiva" parent="." unique_id=643027304 instance=ExtResource("10_41jku")]
 params = ExtResource("7_naajo")
 
-[node name="EntreRondas" parent="." unique_id=2049483962 instance=ExtResource("12_ajq0i")]
+[node name="EntreRondas" parent="." unique_id=2049483962 node_paths=PackedStringArray("cartas") instance=ExtResource("12_ajq0i")]
+cartas = NodePath("../Cartas")
 
 [node name="Sonidos" parent="." unique_id=890807817 node_paths=PackedStringArray("jugador") instance=ExtResource("18_6joey")]
 volumen_musica = -12.0

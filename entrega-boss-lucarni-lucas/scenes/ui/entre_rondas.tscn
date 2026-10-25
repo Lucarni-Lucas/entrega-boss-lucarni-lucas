@@ -3,12 +3,18 @@
 [ext_resource type="Script" uid="uid://dxs2f8y0endg8" path="res://scenes/ui/entre_rondas.gd" id="1_xobk1"]
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="2_3jguy"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="2_f74ey"]
+[ext_resource type="PackedScene" path="res://scenes/ui/carta_boton.tscn" id="3_carta"]
+[ext_resource type="Texture2D" uid="uid://dffbjbcdd6vu5" path="res://assets/ui/cartas/marco_azul.svg" id="4_azul"]
+[ext_resource type="Texture2D" uid="uid://r1wodc4uqbk3" path="res://assets/ui/cartas/marco_verde.svg" id="5_verde"]
+[ext_resource type="Texture2D" uid="uid://c4is53n3m16uc" path="res://assets/ui/cartas/marco_amarillo.svg" id="6_amarillo"]
 
 [node name="EntreRondas" type="CanvasLayer" unique_id=105893207]
 process_mode = 3
 visible = false
 script = ExtResource("1_xobk1")
 params = ExtResource("2_3jguy")
+escena_carta = ExtResource("3_carta")
+marcos = Array[Texture2D]([ExtResource("4_azul"), ExtResource("5_verde"), ExtResource("6_amarillo")])
 
 [node name="Contenido" type="Control" parent="." unique_id=2087623833]
 layout_mode = 3
@@ -61,6 +67,16 @@ horizontal_alignment = 1
 
 [node name="Espacio" type="Control" parent="Contenido/Opciones" unique_id=895988090]
 custom_minimum_size = Vector2(0, 218)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Cartas" type="HBoxContainer" parent="Contenido/Opciones"]
+layout_mode = 2
+theme_override_constants/separation = 56
+alignment = 1
+
+[node name="EspacioCartas" type="Control" parent="Contenido/Opciones"]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 mouse_filter = 2
 

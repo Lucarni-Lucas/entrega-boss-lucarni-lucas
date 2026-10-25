@@ -4,6 +4,7 @@ class_name Cartas
 signal carta_aplicada(carta: Carta)
 
 @export var jugador: Player
+@export var pozo: Array[Carta] = []
 
 var tomadas: Array[Carta] = []
 
@@ -17,6 +18,13 @@ func aplicar(carta: Carta) -> void:
 		jugador.add_child(efecto)
 	tomadas.append(carta)
 	carta_aplicada.emit(carta)
+
+
+func ofrecer(cantidad: int) -> Array[Carta]:
+	var disponibles: Array[Carta] = []
+	disponibles.assign(pozo.filter(func(carta: Carta) -> bool: return not carta in tomadas))
+	disponibles.shuffle()
+	return disponibles.slice(0, cantidad)
 
 
 func _sumar(nombre: StringName, cantidad: float) -> void:
