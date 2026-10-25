@@ -159,3 +159,5 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="terminada" from="CuentaRegresiva" to="Sonidos" method="_on_cuenta_regresiva_terminada"]
 [connection signal="comenzar" from="EntreRondas" to="Partida" method="siguiente_ronda"]
 [connection signal="ronda_empezo" from="Partida" to="Sonidos" method="_on_partida_ronda_empezo"]
+[connection signal="pauso" from="MenuPartida" to="Hud" method="hide"]
+[connection signal="reanudo" from="MenuPartida" to="Hud" method="show"]

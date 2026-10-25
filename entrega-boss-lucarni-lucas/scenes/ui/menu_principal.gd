@@ -8,6 +8,8 @@ extends Control
 @onready var _empezar_partida: Button = $Opciones/EmpezarPartida
 @onready var _boton_controles: Button = $Opciones/Controles
 @onready var _controles := $Controles
+@onready var _boton_ajustes: Button = $Opciones/Ajustes
+@onready var _ajustes := $Ajustes
 @onready var _pregunta: VBoxContainer = $Pregunta
 @onready var _hacer_tutorial: Button = $Pregunta/HacerTutorial
 @onready var _jugar_directo: Button = $Pregunta/JugarDirecto
@@ -19,6 +21,8 @@ func _ready() -> void:
 	_empezar_partida.pressed.connect(_abrir_pregunta)
 	_boton_controles.pressed.connect(_abrir_controles)
 	_controles.cerrado.connect(_on_controles_cerrado)
+	_boton_ajustes.pressed.connect(_abrir_ajustes)
+	_ajustes.cerrado.connect(_on_ajustes_cerrado)
 	_hacer_tutorial.pressed.connect(_ir_a.bind(escena_tutorial))
 	_jugar_directo.pressed.connect(_ir_a.bind(escena_partida))
 	_empezar_partida.grab_focus()
@@ -77,3 +81,15 @@ func _on_controles_cerrado() -> void:
 	_opciones.visible = true
 	_slime.visible = true
 	_boton_controles.grab_focus()
+
+
+func _abrir_ajustes() -> void:
+	_opciones.visible = false
+	_slime.visible = false
+	_ajustes.abrir()
+
+
+func _on_ajustes_cerrado() -> void:
+	_opciones.visible = true
+	_slime.visible = true
+	_boton_ajustes.grab_focus()

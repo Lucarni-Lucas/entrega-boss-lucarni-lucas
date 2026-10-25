@@ -25,6 +25,8 @@ var _entre_rondas := false
 @onready var _boton_controles: Button = $Contenido/Opciones/Controles
 @onready var _menu_principal: Button = $Contenido/Opciones/MenuPrincipal
 @onready var _controles := $Contenido/Controles
+@onready var _boton_ajustes: Button = $Contenido/Opciones/Ajustes
+@onready var _ajustes := $Contenido/Ajustes
 
 
 func _ready() -> void:
@@ -34,10 +36,12 @@ func _ready() -> void:
 	_boton_controles.pressed.connect(_abrir_controles)
 	_menu_principal.pressed.connect(_on_menu_principal_pressed)
 	_controles.cerrado.connect(_on_controles_cerrado)
+	_boton_ajustes.pressed.connect(_abrir_ajustes)
+	_ajustes.cerrado.connect(_on_ajustes_cerrado)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _finalizada or _entre_rondas  or _controles.visible:
+	if _finalizada or _entre_rondas  or _controles.visible or _ajustes.visible:
 		return
 	if event.is_action_pressed("pausa"):
 		if _en_pausa:
@@ -79,6 +83,7 @@ func _mostrar(titulo: String, en_pausa: bool) -> void:
 	_titulo.text = titulo
 	_reanudar.visible = en_pausa
 	_boton_controles.visible = en_pausa
+	_boton_ajustes.visible = en_pausa
 	_saltar_paso.visible = en_pausa and con_saltar_paso
 	_reintentar.visible = not en_pausa
 	visible = true
@@ -117,6 +122,16 @@ func _abrir_controles() -> void:
 func _on_controles_cerrado() -> void:
 	_opciones.visible = true
 	_boton_controles.grab_focus()
+
+
+func _abrir_ajustes() -> void:
+	_opciones.visible = false
+	_ajustes.abrir()
+
+
+func _on_ajustes_cerrado() -> void:
+	_opciones.visible = true
+	_boton_ajustes.grab_focus()
 
 
 func _on_reintentar_pressed() -> void:

@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cu8hlym231w5o" path="res://scenes/enemigos/volador.tscn" id="7_fantasma"]
 [ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="8_sonidos"]
 [ext_resource type="AudioStream" uid="uid://bfw66g1adh271" path="res://assets/audio/musica/Falcon_133 BPM_Full_Loop.ogg" id="9_falcon"]
+[ext_resource type="PackedScene" uid="uid://bi4rl8dkurghs" path="res://scenes/ui/ajustes.tscn" id="10_ajustes"]
 
 [node name="MenuPrincipal" type="Control" unique_id=896847840]
 layout_mode = 3
@@ -77,9 +78,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -49.0
+offset_top = 2.0
 offset_right = 20.0
-offset_bottom = -9.0
+offset_bottom = 42.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
@@ -106,6 +107,10 @@ text = "Empezar partida"
 [node name="Controles" parent="Opciones" unique_id=1926817305 instance=ExtResource("1_tu06j")]
 layout_mode = 2
 text = "Controles"
+
+[node name="Ajustes" parent="Opciones" unique_id=1582066314 instance=ExtResource("1_tu06j")]
+layout_mode = 2
+text = "Ajustes"
 
 [node name="Pregunta" type="VBoxContainer" parent="." unique_id=1032511698]
 visible = false
@@ -147,6 +152,8 @@ layout_mode = 2
 text = "Jugar directo"
 
 [node name="Controles" parent="." unique_id=700216410 instance=ExtResource("4_g2cyh")]
+
+[node name="Ajustes" parent="." unique_id=1207734921 instance=ExtResource("10_ajustes")]
 layout_mode = 1
 
 [node name="Sonidos" parent="." unique_id=1739462018 instance=ExtResource("8_sonidos")]

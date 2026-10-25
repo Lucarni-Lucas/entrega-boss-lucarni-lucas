@@ -3,6 +3,7 @@ extends Node
 const SILENCIO := -40.0
 const CORTE_ABIERTO := 20500.0
 const BUSES: Array[StringName] = [&"Master", &"Musica", &"Efectos", &"UI"]
+const VOLUMENES_INICIALES: Dictionary[StringName, float] = {&"Master": 1.0, &"Musica": 0.6, &"Efectos": 0.8, &"UI": 0.8}
 const _ARCHIVO_AJUSTES := "user://ajustes.cfg"
 const _NAVEGACION: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_right", &"ui_focus_next", &"ui_focus_prev"]
 
@@ -24,8 +25,8 @@ func _ready() -> void:
 	_filtro_musica = AudioServer.get_bus_effect(AudioServer.get_bus_index(&"Musica"), 0)
 	_cargar_volumenes()
 	get_tree().node_added.connect(_on_nodo_agregado)
-	for boton in get_tree().root.find_children("*", "BaseButton", true, false):
-		_on_nodo_agregado(boton)
+	for control in get_tree().root.find_children("*", "Control", true, false):
+		_on_nodo_agregado(control)
 
 
 func _input(event: InputEvent) -> void:
@@ -130,17 +131,16 @@ func _fundir(reproductor: AudioStreamPlayer, destino: float, duracion: float) ->
 
 func _cargar_volumenes() -> void:
 	var config := ConfigFile.new()
-	if config.load(_ARCHIVO_AJUSTES) != OK:
-		return
+	config.load(_ARCHIVO_AJUSTES)
 	for bus in BUSES:
-		poner_volumen_bus(bus, config.get_value("volumen", bus, 1.0))
+		poner_volumen_bus(bus, config.get_value("volumen", bus, VOLUMENES_INICIALES[bus]))
 
 
 func _on_nodo_agregado(nodo: Node) -> void:
-	if nodo is not BaseButton or nodo.focus_entered.is_connected(_on_boton_enfocado):
+	if (nodo is not BaseButton and nodo is not Slider) or nodo.focus_entered.is_connected(_on_boton_enfocado):
 		return
 	nodo.focus_entered.connect(_on_boton_enfocado)
-	if not nodo.is_in_group(&"sonido_propio"):
+	if nodo is BaseButton and not nodo.is_in_group(&"sonido_propio"):
 		nodo.pressed.connect(tocar.bind(libreria.ui_aceptar))
 
 
