@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
 [ext_resource type="PackedScene" uid="uid://bff3bfq0dtcvp" path="res://scenes/spawner/spawner.tscn" id="4_xdvfk"]
 [ext_resource type="Script" uid="uid://c885wopt2l0s7" path="res://scenes/partida/curacion_por_muertes.gd" id="5_7ft05"]
+[ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="5_carta"]
 [ext_resource type="Script" uid="uid://btigfwwg2asuc" path="res://scenes/partida/cartas.gd" id="5_cartas"]
+[ext_resource type="Resource" uid="uid://dtjwu2qo5am47" path="res://resources/cartas/ground_pound_explosivo.tres" id="5_gp_explosivo"]
 [ext_resource type="Script" uid="uid://butxgi6do0nfc" path="res://scenes/partida/anillos.gd" id="6_8vbsj"]
 [ext_resource type="Script" uid="uid://d34w53kyaoxa3" path="res://scenes/partida/partida.gd" id="6_oexds"]
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="7_naajo"]
@@ -19,8 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://b3wbsb5qhp3h1" path="res://scenes/fondo/fondo.tscn" id="15_fondo"]
 [ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="18_6joey"]
 [ext_resource type="PackedScene" uid="uid://bqy5ik5om3lwq" path="res://scenes/efectos/efectos.tscn" id="30_efectos"]
-[ext_resource type="AudioStream" uid="uid://bsmpjhwjrf4s" path="res://assets/audio/musica/Sectors_120 BPM_Full_Loop.ogg" id="42_sectors"]
 [ext_resource type="AudioStream" uid="uid://84evnvjfcvpf" path="res://assets/audio/musica/Nowhere_160 BPM_Full_Loop.ogg" id="41_nowhere"]
+[ext_resource type="AudioStream" uid="uid://bsmpjhwjrf4s" path="res://assets/audio/musica/Sectors_120 BPM_Full_Loop.ogg" id="42_sectors"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(2080, 40)
@@ -93,9 +95,10 @@ params = ExtResource("7_xsx6r")
 script = ExtResource("5_7ft05")
 jugador = NodePath("../Entidades/Player")
 
-[node name="Cartas" type="Node" parent="." node_paths=PackedStringArray("jugador")]
+[node name="Cartas" type="Node" parent="." unique_id=753983594 node_paths=PackedStringArray("jugador")]
 script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
+pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo")])
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")
@@ -148,6 +151,7 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="ronda_empezo" from="Partida" to="Fondo" method="_on_ronda_empezo"]
 [connection signal="ronda_empezo" from="Partida" to="Spawner" method="empezar_ronda"]
 [connection signal="ronda_empezo" from="Partida" to="MenuPartida" method="_on_partida_ronda_empezo"]
+[connection signal="ronda_empezo" from="Partida" to="Sonidos" method="_on_partida_ronda_empezo"]
 [connection signal="ronda_empezo" from="Partida" to="Entidades/Player" method="restaurar_vida" unbinds=2]
 [connection signal="ronda_empezo" from="Partida" to="CuentaRegresiva" method="iniciar" unbinds=2]
 [connection signal="ronda_superada" from="Partida" to="MenuPartida" method="_on_partida_ronda_superada"]
@@ -157,13 +161,12 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="ronda_superada" from="Partida" to="CuracionPorMuertes" method="reiniciar" unbinds=2]
 [connection signal="ronda_termino" from="Partida" to="Spawner" method="terminar_ronda"]
 [connection signal="tiempo_cambio" from="Partida" to="Hud" method="_on_partida_tiempo_cambio"]
+[connection signal="pauso" from="MenuPartida" to="Hud" method="hide"]
 [connection signal="pauso" from="MenuPartida" to="CuentaRegresiva" method="cancelar"]
 [connection signal="pauso" from="MenuPartida" to="Sonidos" method="_on_menu_partida_pauso"]
+[connection signal="reanudo" from="MenuPartida" to="Hud" method="show"]
 [connection signal="reanudo" from="MenuPartida" to="CuentaRegresiva" method="iniciar"]
 [connection signal="reanudo" from="MenuPartida" to="Sonidos" method="_on_menu_partida_reanudo"]
 [connection signal="numero_cambio" from="CuentaRegresiva" to="Sonidos" method="_on_cuenta_regresiva_numero_cambio"]
 [connection signal="terminada" from="CuentaRegresiva" to="Sonidos" method="_on_cuenta_regresiva_terminada"]
 [connection signal="comenzar" from="EntreRondas" to="Partida" method="siguiente_ronda"]
-[connection signal="ronda_empezo" from="Partida" to="Sonidos" method="_on_partida_ronda_empezo"]
-[connection signal="pauso" from="MenuPartida" to="Hud" method="hide"]
-[connection signal="reanudo" from="MenuPartida" to="Hud" method="show"]

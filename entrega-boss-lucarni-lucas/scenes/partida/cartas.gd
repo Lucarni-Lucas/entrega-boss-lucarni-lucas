@@ -5,8 +5,17 @@ signal carta_aplicada(carta: Carta)
 
 @export var jugador: Player
 @export var pozo: Array[Carta] = []
+@export_group("Pruebas")
+@export var cartas_de_prueba: Array[Carta] = []
 
 var tomadas: Array[Carta] = []
+
+
+func _ready() -> void:
+	if not OS.has_feature("editor"):
+		return
+	for carta in cartas_de_prueba:
+		aplicar(carta)
 
 
 func aplicar(carta: Carta) -> void:

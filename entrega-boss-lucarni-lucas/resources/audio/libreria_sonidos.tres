@@ -28,6 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://o5erjeoax15n" path="res://assets/audio/ui/001_Hover_01.wav" id="26_jcpdf"]
 [ext_resource type="AudioStream" uid="uid://v3a4aiw1l7lx" path="res://assets/audio/ui/029_Decline_09.wav" id="27_qp36v"]
 [ext_resource type="AudioStream" uid="uid://cnivbkttgsvo" path="res://assets/audio/ui/select_006.ogg" id="28_r3su7"]
+[ext_resource type="AudioStream" uid="uid://gmy3vqudkn4i" path="res://assets/audio/efectos/04_Fire_explosion_04_medium.wav" id="29_explosion"]
 
 [sub_resource type="Resource" id="Resource_x57t8"]
 script = ExtResource("2_ko7ua")
@@ -91,6 +92,13 @@ copias = 1
 script = ExtResource("2_ko7ua")
 audio = ExtResource("10_sg2hp")
 volumen = -6.0
+copias = 1
+
+[sub_resource type="Resource" id="Resource_explosion_gp"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("29_explosion")
+volumen = -3.0
+tono = 1.3
 copias = 1
 
 [sub_resource type="Resource" id="Resource_hylu1"]
@@ -270,4 +278,5 @@ ui_aceptar = SubResource("Resource_a6m5r")
 ui_volver = SubResource("Resource_eh7nk")
 pausa = SubResource("Resource_5q5ia")
 reanudar = SubResource("Resource_5884m")
+explosion_gp = SubResource("Resource_explosion_gp")
 metadata/_custom_type_script = "uid://djv6hk6rc47r"

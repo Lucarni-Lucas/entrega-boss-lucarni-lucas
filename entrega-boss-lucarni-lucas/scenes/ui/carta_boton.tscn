@@ -61,10 +61,10 @@ autowrap_mode = 2
 
 [node name="Icono" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 146.0
-offset_top = 140.0
-offset_right = 246.0
-offset_bottom = 240.0
+offset_left = 122.0
+offset_top = 142.0
+offset_right = 272.0
+offset_bottom = 292.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
@@ -72,7 +72,7 @@ stretch_mode = 5
 [node name="Descripcion" type="Label" parent="."]
 layout_mode = 0
 offset_left = 28.0
-offset_top = 250.0
+offset_top = 298.0
 offset_right = 365.0
 offset_bottom = 434.0
 mouse_filter = 2
