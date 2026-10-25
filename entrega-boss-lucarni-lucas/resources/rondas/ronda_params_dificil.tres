@@ -1,0 +1,114 @@
+[gd_resource type="Resource" script_class="RondaParams" format=3 uid="uid://pu2eb1xjtwp4"]
+
+[ext_resource type="Script" uid="uid://dx78ul46qjn6p" path="res://scripts/params/rondas/guion_ronda.gd" id="1_bh7g0"]
+[ext_resource type="Script" uid="uid://bsmnpgwdipnu3" path="res://scripts/params/rondas/ronda_params.gd" id="1_qlryx"]
+[ext_resource type="Script" uid="uid://cr2el1333q385" path="res://scripts/params/rondas/grupo_spawn.gd" id="2_0iavs"]
+[ext_resource type="PackedScene" uid="uid://cu8hlym231w5o" path="res://scenes/enemigos/volador.tscn" id="3_0iavs"]
+[ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="3_agblt"]
+[ext_resource type="Texture2D" uid="uid://c1dl3v54vj7mv" path="res://assets/fondo/nebulosa_azul.png" id="4_azul"]
+[ext_resource type="AudioStream" uid="uid://bsmpjhwjrf4s" path="res://assets/audio/musica/Sectors_120 BPM_Full_Loop.ogg" id="5_8sef2"]
+[ext_resource type="Texture2D" uid="uid://bmn7stbqjafqb" path="res://assets/fondo/nebulosa_aqua_rosa.png" id="5_aqua"]
+[ext_resource type="Texture2D" uid="uid://n7ha2s1m2ct3" path="res://assets/fondo/nebulosa_roja.png" id="6_roja"]
+[ext_resource type="AudioStream" uid="uid://bjm0wf4a3mjsg" path="res://assets/audio/musica/Neurocandy_128 BPM_Full_Loop.ogg" id="8_i87nm"]
+[ext_resource type="AudioStream" uid="uid://84evnvjfcvpf" path="res://assets/audio/musica/Nowhere_160 BPM_Full_Loop.ogg" id="10_dhwsj"]
+
+[sub_resource type="Resource" id="Resource_bh7g0"]
+script = ExtResource("2_0iavs")
+
+[sub_resource type="Resource" id="Resource_0iavs"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_bh7g0")])
+fondo = ExtResource("4_azul")
+musica = ExtResource("5_8sef2")
+
+[sub_resource type="Resource" id="Resource_agblt"]
+script = ExtResource("2_0iavs")
+cada = 1.0
+
+[sub_resource type="Resource" id="Resource_e44s5"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 10.0
+desde = 20.0
+
+[sub_resource type="Resource" id="Resource_rkvqv"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_agblt"), SubResource("Resource_e44s5")])
+fondo = ExtResource("4_azul")
+musica = ExtResource("5_8sef2")
+
+[sub_resource type="Resource" id="Resource_0ce1h"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 1.2
+
+[sub_resource type="Resource" id="Resource_4c5hy"]
+script = ExtResource("2_0iavs")
+cantidad = 4
+cada = 8.0
+desde = 15.0
+
+[sub_resource type="Resource" id="Resource_xa0yy"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cada = 12.0
+desde = 14.0
+
+[sub_resource type="Resource" id="Resource_un3x3"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_0ce1h"), SubResource("Resource_4c5hy"), SubResource("Resource_xa0yy")])
+fondo = ExtResource("5_aqua")
+musica = ExtResource("8_i87nm")
+
+[sub_resource type="Resource" id="Resource_nrbpx"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 0.8
+
+[sub_resource type="Resource" id="Resource_g5xoq"]
+script = ExtResource("2_0iavs")
+cantidad = 5
+cada = 6.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_r2rme"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cantidad = 2
+cada = 12.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_1ag0m"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_nrbpx"), SubResource("Resource_g5xoq"), SubResource("Resource_r2rme")])
+fondo = ExtResource("5_aqua")
+musica = ExtResource("8_i87nm")
+
+[sub_resource type="Resource" id="Resource_85po6"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 0.7
+
+[sub_resource type="Resource" id="Resource_ah3qo"]
+script = ExtResource("2_0iavs")
+cantidad = 6
+cada = 5.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_iiway"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cantidad = 3
+cada = 10.0
+desde = 6.0
+
+[sub_resource type="Resource" id="Resource_mjipy"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_85po6"), SubResource("Resource_ah3qo"), SubResource("Resource_iiway")])
+fondo = ExtResource("6_roja")
+musica = ExtResource("10_dhwsj")
+
+[resource]
+script = ExtResource("1_qlryx")
+guiones = Array[ExtResource("1_bh7g0")]([SubResource("Resource_0iavs"), SubResource("Resource_rkvqv"), SubResource("Resource_un3x3"), SubResource("Resource_1ag0m"), SubResource("Resource_mjipy")])
+metadata/_custom_type_script = "uid://bsmnpgwdipnu3"

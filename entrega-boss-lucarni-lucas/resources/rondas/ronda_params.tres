@@ -1,0 +1,134 @@
+[gd_resource type="Resource" script_class="RondaParams" format=3 uid="uid://bdjb5a2imnkgu"]
+
+[ext_resource type="Script" uid="uid://dx78ul46qjn6p" path="res://scripts/params/rondas/guion_ronda.gd" id="1_bh7g0"]
+[ext_resource type="Script" uid="uid://bsmnpgwdipnu3" path="res://scripts/params/rondas/ronda_params.gd" id="1_qlryx"]
+[ext_resource type="Script" uid="uid://cr2el1333q385" path="res://scripts/params/rondas/grupo_spawn.gd" id="2_0iavs"]
+[ext_resource type="PackedScene" uid="uid://cu8hlym231w5o" path="res://scenes/enemigos/volador.tscn" id="3_0iavs"]
+[ext_resource type="PackedScene" uid="uid://yw1jsfp12t2q" path="res://scenes/enemigos/terrestre.tscn" id="3_agblt"]
+[ext_resource type="Texture2D" uid="uid://c1dl3v54vj7mv" path="res://assets/fondo/nebulosa_azul.png" id="4_azul"]
+[ext_resource type="AudioStream" uid="uid://bsmpjhwjrf4s" path="res://assets/audio/musica/Sectors_120 BPM_Full_Loop.ogg" id="5_8sef2"]
+[ext_resource type="Texture2D" uid="uid://bmn7stbqjafqb" path="res://assets/fondo/nebulosa_aqua_rosa.png" id="5_aqua"]
+[ext_resource type="Texture2D" uid="uid://n7ha2s1m2ct3" path="res://assets/fondo/nebulosa_roja.png" id="6_roja"]
+[ext_resource type="AudioStream" uid="uid://bjm0wf4a3mjsg" path="res://assets/audio/musica/Neurocandy_128 BPM_Full_Loop.ogg" id="8_i87nm"]
+[ext_resource type="AudioStream" uid="uid://84evnvjfcvpf" path="res://assets/audio/musica/Nowhere_160 BPM_Full_Loop.ogg" id="10_dhwsj"]
+
+
+[sub_resource type="Resource" id="Resource_r1_goteo"]
+script = ExtResource("2_0iavs")
+cada = 3.0
+desde = 2.0
+hasta = 25.0
+
+[sub_resource type="Resource" id="Resource_r1_sube"]
+script = ExtResource("2_0iavs")
+cada = 2.0
+desde = 25.0
+
+[sub_resource type="Resource" id="Resource_r1"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r1_goteo"), SubResource("Resource_r1_sube")])
+fondo = ExtResource("4_azul")
+musica = ExtResource("5_8sef2")
+
+[sub_resource type="Resource" id="Resource_r2_base"]
+script = ExtResource("2_0iavs")
+cada = 1.8
+
+[sub_resource type="Resource" id="Resource_r2_tanda"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 12.0
+desde = 20.0
+
+[sub_resource type="Resource" id="Resource_r2"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r2_base"), SubResource("Resource_r2_tanda")])
+fondo = ExtResource("4_azul")
+musica = ExtResource("5_8sef2")
+
+[sub_resource type="Resource" id="Resource_r3_base"]
+script = ExtResource("2_0iavs")
+cada = 1.4
+
+[sub_resource type="Resource" id="Resource_r3_tanda"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 12.0
+desde = 18.0
+
+[sub_resource type="Resource" id="Resource_r3_fantasma"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cada = 20.0
+desde = 15.0
+
+[sub_resource type="Resource" id="Resource_r3"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r3_base"), SubResource("Resource_r3_tanda"), SubResource("Resource_r3_fantasma")])
+fondo = ExtResource("5_aqua")
+musica = ExtResource("8_i87nm")
+
+[sub_resource type="Resource" id="Resource_r4_base"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 1.8
+
+[sub_resource type="Resource" id="Resource_r4_tanda"]
+script = ExtResource("2_0iavs")
+cantidad = 4
+cada = 9.0
+desde = 12.0
+
+[sub_resource type="Resource" id="Resource_r4_fantasma"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cada = 14.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_r4"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r4_base"), SubResource("Resource_r4_tanda"), SubResource("Resource_r4_fantasma")])
+fondo = ExtResource("5_aqua")
+musica = ExtResource("8_i87nm")
+
+[sub_resource type="Resource" id="Resource_r5_base"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 1.4
+hasta = 25.0
+
+[sub_resource type="Resource" id="Resource_r5_tanda"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 10.0
+desde = 10.0
+hasta = 25.0
+
+[sub_resource type="Resource" id="Resource_r5_final"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 1.1
+desde = 25.0
+
+[sub_resource type="Resource" id="Resource_r5_horda"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 8.0
+desde = 26.0
+
+[sub_resource type="Resource" id="Resource_r5_fantasma"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cada = 10.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_r5"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r5_base"), SubResource("Resource_r5_tanda"), SubResource("Resource_r5_final"), SubResource("Resource_r5_horda"), SubResource("Resource_r5_fantasma")])
+fondo = ExtResource("6_roja")
+musica = ExtResource("10_dhwsj")
+
+[resource]
+script = ExtResource("1_qlryx")
+guiones = Array[ExtResource("1_bh7g0")]([SubResource("Resource_r1"), SubResource("Resource_r2"), SubResource("Resource_r3"), SubResource("Resource_r4"), SubResource("Resource_r5")])
+metadata/_custom_type_script = "uid://bsmnpgwdipnu3"

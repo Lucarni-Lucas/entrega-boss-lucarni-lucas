@@ -1,6 +1,7 @@
 extends VerboExclusivo
 
 signal termino(posicion: Vector2)
+signal empezo
 
 const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.THROW]
 
@@ -39,6 +40,7 @@ func activar(player: Player) -> void:
 	player.escala_gravedad = player.params.dive_escala_gravedad
 	player.aplicar_impulso_vertical(player.params.dive_impulso_vertical)
 	player.recargar_energia_gp(player.params.gp_recarga_dive)
+	empezo.emit()
 
 
 func cancelar(player: Player) -> void:

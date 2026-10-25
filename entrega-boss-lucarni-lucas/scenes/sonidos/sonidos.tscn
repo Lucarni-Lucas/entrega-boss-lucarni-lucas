@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c11j5b45pgp8t"]
+
+[ext_resource type="Script" uid="uid://4wowcxmgyafc" path="res://scenes/sonidos/sonidos.gd" id="1_x35dc"]
+[ext_resource type="Resource" uid="uid://d1cyfl1b1jm6n" path="res://resources/audio/libreria_sonidos.tres" id="2_0rvf8"]
+
+[node name="Sonidos" type="Node" unique_id=833528048]
+script = ExtResource("1_x35dc")
+libreria = ExtResource("2_0rvf8")

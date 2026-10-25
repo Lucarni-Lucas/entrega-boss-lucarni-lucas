@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cu8hlym231w5o"]
+
+[ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_mvkbh"]
+[ext_resource type="Script" uid="uid://s68at4i3fque" path="res://scenes/enemigos/volador.gd" id="2_8wo56"]
+[ext_resource type="Resource" uid="uid://d1u6jk05gl7ry" path="res://resources/enemigos/enemigo_volador.tres" id="3_u5s8a"]
+[ext_resource type="Texture2D" uid="uid://ltk8kntsb87b" path="res://assets/enemigos/fantasma_1.png" id="4_fan1"]
+[ext_resource type="Texture2D" uid="uid://by75sfaqwsky3" path="res://assets/enemigos/fantasma_2.png" id="5_fan2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fantasma"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_fan1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fan2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Volador" unique_id=794546459 instance=ExtResource("1_mvkbh")]
+script = ExtResource("2_8wo56")
+params = ExtResource("3_u5s8a")
+
+[node name="Sombra" parent="." index="1" unique_id=1825432861]
+scale = Vector2(0.7, 0.7)
+
+[node name="Visual" parent="Sprite" parent_id_path=PackedInt32Array(466197661) index="0" unique_id=1769203076]
+scale = Vector2(0.32, 0.32)
+sprite_frames = SubResource("SpriteFrames_fantasma")
+autoplay = "default"
+offset = Vector2(0, -98)

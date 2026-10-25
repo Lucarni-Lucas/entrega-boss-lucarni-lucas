@@ -7,6 +7,7 @@ process_mode = 3
 script = ExtResource("1_yw26l")
 
 [node name="Numero" type="Label" parent="." unique_id=1012905615]
+theme_type_variation = &"Destacado"
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

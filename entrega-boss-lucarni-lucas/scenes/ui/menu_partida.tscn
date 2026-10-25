@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://certh7s4brs0a" path="res://scenes/ui/menu_partida.gd" id="1_eetqr"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_yskbd"]
 [ext_resource type="PackedScene" uid="uid://cqmaiveha1uwg" path="res://scenes/ui/controles.tscn" id="3_s5twh"]
+[ext_resource type="PackedScene" uid="uid://bi4rl8dkurghs" path="res://scenes/ui/ajustes.tscn" id="4_ajustes"]
 
 [node name="MenuPartida" type="CanvasLayer" unique_id=105893207]
 process_mode = 3
@@ -35,24 +36,35 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -20.0
+offset_top = -60.0
 offset_right = 20.0
-offset_bottom = 20.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Titulo" type="Label" parent="Contenido/Opciones" unique_id=1841490414]
+theme_type_variation = &"Destacado"
 layout_mode = 2
 theme_override_constants/outline_size = 24
 theme_override_constants/shadow_outline_size = 24
 theme_override_font_sizes/font_size = 128
 horizontal_alignment = 1
 
-[node name="Reanudar" parent="Contenido/Opciones" unique_id=2028608480 instance=ExtResource("1_yskbd")]
+[node name="Hueco" type="Control" parent="Contenido/Opciones" unique_id=1948260375]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Reanudar" parent="Contenido/Opciones" unique_id=2028608480 groups=["sonido_propio"] instance=ExtResource("1_yskbd")]
 layout_mode = 2
 text = "Reanudar"
+
+[node name="SaltarPaso" parent="Contenido/Opciones" unique_id=1288452097 instance=ExtResource("1_yskbd")]
+visible = false
+layout_mode = 2
+text = "Saltar al siguiente paso"
 
 [node name="Reintentar" parent="Contenido/Opciones" unique_id=1953770858 instance=ExtResource("1_yskbd")]
 layout_mode = 2
@@ -62,9 +74,15 @@ text = "Reintentar"
 layout_mode = 2
 text = "Controles"
 
+[node name="Ajustes" parent="Contenido/Opciones" unique_id=1366019477 instance=ExtResource("1_yskbd")]
+layout_mode = 2
+text = "Ajustes"
+
 [node name="MenuPrincipal" parent="Contenido/Opciones" unique_id=1561209149 instance=ExtResource("1_yskbd")]
 layout_mode = 2
 text = "Menú principal"
 
 [node name="Controles" parent="Contenido" unique_id=700216410 instance=ExtResource("3_s5twh")]
+
+[node name="Ajustes" parent="Contenido" unique_id=1863305527 instance=ExtResource("4_ajustes")]
 layout_mode = 1

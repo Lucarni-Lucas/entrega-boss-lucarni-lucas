@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://dqs65mgx7risr" path="res://scenes/tutorial/boomie.gd" id="1_boomie"]
+[ext_resource type="Texture2D" uid="uid://d00n8op8mg870" path="res://assets/player/boomerang.png" id="2_boomerang"]
+[ext_resource type="Texture2D" uid="uid://chr0n7bq6fiu8" path="res://assets/player/ojo.png" id="3_ojo"]
+
+[node name="Boomie" type="Control"]
+texture_filter = 4
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_boomie")
+textura = ExtResource("2_boomerang")
+textura_ojo = ExtResource("3_ojo")

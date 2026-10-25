@@ -2,56 +2,63 @@ extends CanvasLayer
 
 signal pauso
 signal reanudo
+signal saltar_paso_pedido
 
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_file("*.tscn") var escena_menu: String
 @export var params: RondaParams
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
-@export var abrir_con_tecla := true
+@export var con_saltar_paso := false
+@export var titulos_derrota: Array[String] = ["¡UNA MÁS!", "¡NO TE RINDAS!"]
 
 var _en_pausa := false
 var _bloqueado := false
 var _finalizada := false
+var _entre_rondas := false
 
 @onready var _contenido: Control = $Contenido
 @onready var _opciones: VBoxContainer = $Contenido/Opciones
 @onready var _titulo: Label = $Contenido/Opciones/Titulo
 @onready var _reanudar: Button = $Contenido/Opciones/Reanudar
+@onready var _saltar_paso: Button = $Contenido/Opciones/SaltarPaso
 @onready var _reintentar: Button = $Contenido/Opciones/Reintentar
 @onready var _boton_controles: Button = $Contenido/Opciones/Controles
 @onready var _menu_principal: Button = $Contenido/Opciones/MenuPrincipal
 @onready var _controles := $Contenido/Controles
+@onready var _boton_ajustes: Button = $Contenido/Opciones/Ajustes
+@onready var _ajustes := $Contenido/Ajustes
 
 
 func _ready() -> void:
 	_reanudar.pressed.connect(_reanudar_partida)
+	_saltar_paso.pressed.connect(_on_saltar_paso_pressed)
 	_reintentar.pressed.connect(_on_reintentar_pressed)
 	_boton_controles.pressed.connect(_abrir_controles)
 	_menu_principal.pressed.connect(_on_menu_principal_pressed)
 	_controles.cerrado.connect(_on_controles_cerrado)
+	_boton_ajustes.pressed.connect(_abrir_ajustes)
+	_ajustes.cerrado.connect(_on_ajustes_cerrado)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _finalizada or _controles.visible:
+	if _finalizada or _entre_rondas  or _controles.visible or _ajustes.visible:
 		return
 	if event.is_action_pressed("pausa"):
 		if _en_pausa:
 			_reanudar_partida()
-		elif abrir_con_tecla:
-			pausar()
 		else:
-			return
+			pausar()
 		get_viewport().set_input_as_handled()
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not _finalizada and not _en_pausa:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not _finalizada and not _en_pausa and not _entre_rondas:
 		pausar()
 
 
 func _on_partida_finalizo(gano: bool) -> void:
 	_finalizada = true
-	_mostrar("¡GANASTE!" if gano else "MORISTE", false)
+	_mostrar("¡GANASTE!" if gano else titulos_derrota.pick_random(), false)
 
 
 func pausar() -> void:
@@ -67,10 +74,17 @@ func _reanudar_partida() -> void:
 	reanudo.emit()
 
 
+func _on_saltar_paso_pressed() -> void:
+	_reanudar_partida()
+	saltar_paso_pedido.emit()
+
+
 func _mostrar(titulo: String, en_pausa: bool) -> void:
 	_titulo.text = titulo
 	_reanudar.visible = en_pausa
 	_boton_controles.visible = en_pausa
+	_boton_ajustes.visible = en_pausa
+	_saltar_paso.visible = en_pausa and con_saltar_paso
 	_reintentar.visible = not en_pausa
 	visible = true
 	_contenido.modulate.a = 0.0
@@ -81,7 +95,7 @@ func _mostrar(titulo: String, en_pausa: bool) -> void:
 		_bloquear_botones()
 
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if _bloqueado:
 		get_viewport().set_input_as_handled()
 
@@ -102,12 +116,22 @@ func _atenuar_botones(alpha: float) -> void:
 
 func _abrir_controles() -> void:
 	_opciones.visible = false
-	_controles.abrir(false)
+	_controles.abrir()
 
 
 func _on_controles_cerrado() -> void:
 	_opciones.visible = true
 	_boton_controles.grab_focus()
+
+
+func _abrir_ajustes() -> void:
+	_opciones.visible = false
+	_ajustes.abrir()
+
+
+func _on_ajustes_cerrado() -> void:
+	_opciones.visible = true
+	_boton_ajustes.grab_focus()
 
 
 func _on_reintentar_pressed() -> void:
@@ -118,3 +142,11 @@ func _on_reintentar_pressed() -> void:
 func _on_menu_principal_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file(escena_menu)
+
+
+func _on_partida_ronda_superada(_numero: int, _total: int) -> void:
+	_entre_rondas = true
+
+
+func _on_partida_ronda_empezo(_numero: int, _total: int) -> void:
+	_entre_rondas = false

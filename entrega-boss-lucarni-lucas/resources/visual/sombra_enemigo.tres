@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SombraParams" format=3]
+
+[ext_resource type="Script" uid="uid://bhkapoqyh7kji" path="res://scripts/params/visual/sombra_params.gd" id="1_1dk4p"]
+
+[resource]
+script = ExtResource("1_1dk4p")
+alpha_max = 0.3
+alpha_min = 0.2
+metadata/_custom_type_script = "uid://bhkapoqyh7kji"

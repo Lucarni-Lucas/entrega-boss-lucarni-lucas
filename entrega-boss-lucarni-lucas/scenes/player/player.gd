@@ -3,9 +3,19 @@ class_name Player
 
 signal aterrizo
 signal reboto
+signal slasheo
 signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
+signal volvio_al_inicio
+signal impacto_gp(posicion: Vector2, radio: float)
+signal salto
+signal anticipo_gp
+signal dive
+signal lanzo_boomerang
+signal atrapo_boomerang
+signal golpeado
+signal curado
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -24,6 +34,7 @@ var vida: int
 var energia_gp: float
 var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
+var _posicion_inicial: Vector2
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -39,10 +50,16 @@ var _tiempo_protegido := 0.0
 func _ready() -> void:
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
+	_jump.salto.connect(salto.emit)
+	_dive.empezo.connect(dive.emit)
+	_boomerang.lanzo.connect(lanzo_boomerang.emit)
+	_boomerang.atrapado.connect(atrapo_boomerang.emit)
+	_slash.slasheo.connect(slasheo.emit)
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)
 	energia_gp = params.gp_energia_max
 	vida_cambio.emit.call_deferred(vida, params.vida_max)
+	_posicion_inicial = global_position
 
 
 func _physics_process(delta: float) -> void:
@@ -57,13 +74,10 @@ func _physics_process(delta: float) -> void:
 	_actualizar_altura(delta)
 	if not esta_en_suelo() and estado_actual() != Estado.GROUND_POUND:
 		recargar_energia_gp(params.gp_recarga_aire * delta)
-	_sprite.mostrar_fatiga(fuerza_gp(), params.anim_gp_fatiga_color)
 	_hurtbox.z_min = z
 	_hurtbox.z_max = z + params.alto_cuerpo
-	_sprite.position.y = -z
 	_slash.procesar_fisica(self, delta)
-	_shadow.actualizar(z)
-	_sprite.estirar_segun_velocidad(_velocidad_en_pantalla(), params)
+	_actualizar_visual()
 
 
 ## Altura del suelo debajo del jugador.
@@ -169,10 +183,12 @@ func _on_aterrizo() -> void:
 
 func _on_anticipo_gp() -> void:
 	_sprite.deformar(params.anim_gp_anticipo_escala, params.gp_anticipacion, params.anim_gp_anticipo_vuelta)
+	anticipo_gp.emit()
 
 
-func _on_impacto_gp(_posicion: Vector2, _altura_inicial: float) -> void:
+func _on_impacto_gp(posicion: Vector2, _altura_inicial: float, radio: float) -> void:
 	_sprite.deformar(params.anim_gp_impacto_escala, params.anim_gp_impacto_ida, params.anim_gp_impacto_vuelta)
+	impacto_gp.emit(posicion, radio)
 
 
 func _on_reboto() -> void:
@@ -181,6 +197,7 @@ func _on_reboto() -> void:
 
 func _on_fuerza_gp_recuperada() -> void:
 	_sprite.destellar(params.anim_gp_destello)
+	_sprite.brillar()
 
 
 func recibir_dano(cantidad: int) -> void:
@@ -197,6 +214,7 @@ func recibir_dano(cantidad: int) -> void:
 		return
 	_tiempo_invulnerable = params.invulnerabilidad
 	_colorear(Color.RED)
+	golpeado.emit()
 
 
 func curar(cantidad: int) -> void:
@@ -205,6 +223,12 @@ func curar(cantidad: int) -> void:
 	vida = mini(vida + cantidad, params.vida_max)
 	vida_cambio.emit(vida, params.vida_max)
 	_colorear(Color.GREEN)
+	curado.emit()
+
+
+func restaurar_vida() -> void:
+	vida = params.vida_max
+	vida_cambio.emit(vida, params.vida_max)
 
 
 func _colorear(color: Color) -> void:
@@ -232,3 +256,33 @@ func es_invulnerable() -> bool:
 	if _tiempo_invulnerable > 0.0 or _tiempo_protegido > 0.0:
 		return true
 	return verbo_activo != null and verbo_activo.es_invulnerable()
+
+
+func _actualizar_visual() -> void:
+	var velocidad := _velocidad_en_pantalla()
+	_sprite.mostrar_fatiga(fuerza_gp(), params.anim_gp_fatiga_desaturacion, params.anim_gp_fatiga_brillo)
+	_sprite.position.y = -z
+	_shadow.actualizar(z)
+	_sprite.estirar_segun_velocidad(velocidad, params)
+	_sprite.caminar(velocity.length() if esta_en_suelo() else 0.0, params)
+	_sprite.cambiar_forma(esta_en_suelo())
+	_sprite.mirar(ultima_direccion, velocidad, esta_en_suelo())
+	_boomerang.actualizar_visual(self, _sprite.direccion_mirada())
+
+
+func volver_al_inicio() -> void:
+	if verbo_activo != null:
+		verbo_activo.cancelar(self)
+		verbo_activo = null
+	global_position = _posicion_inicial
+	velocity = Vector2.ZERO
+	z = 0.0
+	velocidad_z = 0.0
+	escala_gravedad = 1.0
+	_tiempo_invulnerable = 0.0
+	_tiempo_protegido = 0.0
+	_sprite.visible = true
+	energia_gp = params.gp_energia_max
+	_boomerang.reiniciar(self)
+	_actualizar_visual()
+	volvio_al_inicio.emit()

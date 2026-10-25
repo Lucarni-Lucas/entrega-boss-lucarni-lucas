@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="EfectosParams" format=3 uid="uid://beiei0x45jsx8"]
+
+[ext_resource type="Script" uid="uid://db7ku8yrguhhj" path="res://scripts/params/visual/efectos_params.gd" id="1_efectos"]
+
+[resource]
+script = ExtResource("1_efectos")
+metadata/_custom_type_script = "uid://db7ku8yrguhhj"

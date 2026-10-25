@@ -22,3 +22,9 @@ func _on_spawner_enemigo_murio(_posicion: Vector2, origen_muerte: Hitbox.Origen)
 			cantidad *= jugador.params.curacion_multiplicador_vida_baja
 		jugador.curar(cantidad)
 	progreso_cambio.emit(_curaciones + float(_muertes) / necesarias)
+
+
+func reiniciar() -> void:
+	_muertes = 0
+	_curaciones = 0
+	progreso_cambio.emit(0.0)

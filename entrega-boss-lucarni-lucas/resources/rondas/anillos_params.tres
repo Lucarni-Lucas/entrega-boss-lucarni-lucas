@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AnillosParams" format=3 uid="uid://c6kj31w2rb72e"]
+
+[ext_resource type="Script" uid="uid://rm524hos4gca" path="res://scripts/params/rondas/anillos_params.gd" id="1_ktiux"]
+
+[resource]
+script = ExtResource("1_ktiux")
+ancho_enemigo = 40.0
+metadata/_custom_type_script = "uid://rm524hos4gca"

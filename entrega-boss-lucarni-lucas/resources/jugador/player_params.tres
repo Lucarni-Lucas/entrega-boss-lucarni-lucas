@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="PlayerParams" format=3 uid="uid://dq4faj2ot85b1"]
+
+[ext_resource type="Script" uid="uid://bpnf8ftr7uhrk" path="res://scripts/params/jugador/player_params.gd" id="1_pk6jb"]
+
+[resource]
+script = ExtResource("1_pk6jb")
+anim_perspectiva = 0.65
+piedad_dano = 2
+curacion_cada_muertes = 6
+curacion_cantidad = 1
+curacion_umbral_vida_baja = 0.2
+anim_estiramiento_max = 1.25
+anim_paso_escala = Vector2(1.05, 0.94)
+anim_paso_distancia = 178.0
+gp_radio_impacto = 65.0
+gp_impacto_duracion = 0.04
+gp_proteccion = 0.4
+gp_recarga_aire = 100.0
+gp_recarga_dive = 50.0
+gp_recarga_rebote = 150.0
+gp_empuje_min = 0.5
+gp_radio_min = 0.3
+metadata/_custom_type_script = "uid://bpnf8ftr7uhrk"

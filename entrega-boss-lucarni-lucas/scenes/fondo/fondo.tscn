@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b3wbsb5qhp3h1"]
+
+[ext_resource type="Script" uid="uid://cen4n5o3kx1s1" path="res://scenes/fondo/fondo.gd" id="1_fondo"]
+[ext_resource type="Texture2D" uid="uid://c1dl3v54vj7mv" path="res://assets/fondo/nebulosa_azul.png" id="2_azul"]
+[ext_resource type="Texture2D" uid="uid://bqugmljjp7114" path="res://assets/fondo/estrellas_chicas.png" id="3_chicas"]
+[ext_resource type="Texture2D" uid="uid://x10rjmsvchgm" path="res://assets/fondo/estrellas_grandes.png" id="4_grandes"]
+
+[node name="Fondo" type="Node2D" unique_id=1742998438]
+script = ExtResource("1_fondo")
+
+[node name="Nebulosa" type="CanvasLayer" parent="." unique_id=1747511632]
+layer = -1
+
+[node name="Imagen" type="TextureRect" parent="Nebulosa" unique_id=1981718846]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_azul")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="EstrellasChicas" type="Parallax2D" parent="." unique_id=455471058]
+z_index = -20
+scroll_scale = Vector2(0.02, 0.02)
+repeat_size = Vector2(2048, 2048)
+
+[node name="Sprite" type="Sprite2D" parent="EstrellasChicas" unique_id=1975611496]
+texture = ExtResource("3_chicas")
+centered = false
+
+[node name="EstrellasGrandes" type="Parallax2D" parent="." unique_id=672501519]
+z_index = -19
+scroll_scale = Vector2(0.04, 0.04)
+repeat_size = Vector2(2048, 2048)
+
+[node name="Sprite" type="Sprite2D" parent="EstrellasGrandes" unique_id=17757792]
+texture = ExtResource("4_grandes")
+centered = false

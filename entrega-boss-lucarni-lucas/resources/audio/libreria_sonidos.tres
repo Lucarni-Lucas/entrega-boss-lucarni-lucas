@@ -1,0 +1,273 @@
+[gd_resource type="Resource" script_class="LibreriaSonidos" format=3 uid="uid://d1cyfl1b1jm6n"]
+
+[ext_resource type="Script" uid="uid://djv6hk6rc47r" path="res://scripts/audio/libreria_sonidos.gd" id="1_ky4cp"]
+[ext_resource type="AudioStream" uid="uid://d4mjm4oinnuq6" path="res://assets/audio/efectos/45_Landing_01.wav" id="1_x57t8"]
+[ext_resource type="Script" uid="uid://dker4vqy5cjik" path="res://scripts/audio/sonido.gd" id="2_ko7ua"]
+[ext_resource type="AudioStream" uid="uid://id435mod25w4" path="res://assets/audio/efectos/LIQImpt_Goo Splatter_09.wav" id="3_1sk1u"]
+[ext_resource type="AudioStream" uid="uid://dr75vfs6bk51v" path="res://assets/audio/efectos/30_Jump_03.wav" id="3_oal46"]
+[ext_resource type="AudioStream" uid="uid://cilbta3j3el3t" path="res://assets/audio/efectos/boomerang_giro_a.wav" id="4_kfk3o"]
+[ext_resource type="AudioStream" uid="uid://og48b5oj4mjl" path="res://assets/audio/efectos/Blade Swing Noise Slice 02.wav" id="5_qa6ub"]
+[ext_resource type="AudioStream" uid="uid://coc1q5tlnx4ik" path="res://assets/audio/ui/select_001.ogg" id="6_p3bt7"]
+[ext_resource type="AudioStream" uid="uid://bpjp4uhm32r2m" path="res://assets/audio/efectos/02_Heal_02.wav" id="7_fcqya"]
+[ext_resource type="AudioStream" uid="uid://bankw5r78bvn8" path="res://assets/audio/efectos/WHOOSH_ARM_SWING_01_WIDE.wav" id="8_2otad"]
+[ext_resource type="AudioStream" uid="uid://3ruy88mssvkp" path="res://assets/audio/efectos/61_Hit_03.wav" id="9_1eldy"]
+[ext_resource type="AudioStream" uid="uid://cwnshhp2gobul" path="res://assets/audio/efectos/013_Confirm_03.wav" id="10_sg2hp"]
+[ext_resource type="AudioStream" uid="uid://dem86odc5ps3m" path="res://assets/audio/efectos/carga_b.wav" id="11_xfqmf"]
+[ext_resource type="AudioStream" uid="uid://b851ei4aq7yg1" path="res://assets/audio/efectos/PUNCH_SQUELCH_HEAVY_05.wav" id="12_bufkn"]
+[ext_resource type="AudioStream" uid="uid://dva4v3uu8vxrm" path="res://assets/audio/efectos/RUBRImpt_Water-Filled Bln Impact-27_SFRMS_Bln.wav" id="13_ja6n7"]
+[ext_resource type="AudioStream" uid="uid://cq2mfrbuaqv5x" path="res://assets/audio/jingles/jingles_HIT15.ogg" id="14_hq078"]
+[ext_resource type="AudioStream" uid="uid://8ler5y1m7r6n" path="res://assets/audio/jingles/jingles_HIT01.ogg" id="15_8lfou"]
+[ext_resource type="AudioStream" uid="uid://rbgex8loimra" path="res://assets/audio/jingles/jingles_HIT10.ogg" id="16_yvcas"]
+[ext_resource type="AudioStream" uid="uid://cyhi50ua3qh4o" path="res://assets/audio/efectos/huesos_e.wav" id="17_28xuw"]
+[ext_resource type="AudioStream" uid="uid://d13lcptuxhg45" path="res://assets/audio/efectos/25714__wolfsinger__weirdbreath.wav" id="18_5ki35"]
+[ext_resource type="AudioStream" uid="uid://jkfvymwe0krg" path="res://assets/audio/efectos/167074__drminky__slime-death-1.wav" id="19_mtjt1"]
+[ext_resource type="AudioStream" uid="uid://17ivrrg72qrt" path="res://assets/audio/ui/092_Pause_04.wav" id="20_uu1kv"]
+[ext_resource type="AudioStream" uid="uid://5sy0d1vfnkrk" path="res://assets/audio/ui/098_Unpause_04.wav" id="21_tucqt"]
+[ext_resource type="AudioStream" uid="uid://bgcp5y8u0roa2" path="res://assets/audio/efectos/Whoosh Short Light 03.wav" id="24_baj11"]
+[ext_resource type="AudioStream" uid="uid://b7ebhpy34iej1" path="res://assets/audio/efectos/PUNCH_DESIGNED_HEAVY_23.wav" id="25_4tron"]
+[ext_resource type="AudioStream" uid="uid://o5erjeoax15n" path="res://assets/audio/ui/001_Hover_01.wav" id="26_jcpdf"]
+[ext_resource type="AudioStream" uid="uid://v3a4aiw1l7lx" path="res://assets/audio/ui/029_Decline_09.wav" id="27_qp36v"]
+[ext_resource type="AudioStream" uid="uid://cnivbkttgsvo" path="res://assets/audio/ui/select_006.ogg" id="28_r3su7"]
+
+[sub_resource type="Resource" id="Resource_x57t8"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("1_x57t8")
+volumen = -6.0
+tono = 1.3
+metadata/_custom_type_script = "uid://dker4vqy5cjik"
+
+[sub_resource type="Resource" id="Resource_iymcj"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("3_1sk1u")
+volumen = -40.0
+copias = 2
+
+[sub_resource type="Resource" id="Resource_atc5t"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("4_kfk3o")
+volumen = -21.0
+tono = 1.3
+copias = 1
+
+[sub_resource type="Resource" id="Resource_xs618"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("5_qa6ub")
+volumen = -9.0
+copias = 2
+
+[sub_resource type="Resource" id="Resource_imgx0"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("6_p3bt7")
+volumen = -12.0
+copias = 1
+bus = "UI"
+
+[sub_resource type="Resource" id="Resource_ghiyw"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("7_fcqya")
+volumen = -9.0
+tono = 1.3
+copias = 1
+
+[sub_resource type="Resource" id="Resource_8gvuu"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("8_2otad")
+volumen = -6.0
+tono = 1.2
+copias = 2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_f4wka"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("9_1eldy")
+
+[sub_resource type="Resource" id="Resource_t1ml8"]
+script = ExtResource("2_ko7ua")
+audio = SubResource("AudioStreamRandomizer_f4wka")
+volumen = -15.0
+copias = 1
+
+[sub_resource type="Resource" id="Resource_q7gmd"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("10_sg2hp")
+volumen = -6.0
+copias = 1
+
+[sub_resource type="Resource" id="Resource_hylu1"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("11_xfqmf")
+volumen = -40.0
+copias = 1
+
+[sub_resource type="Resource" id="Resource_42xld"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("12_bufkn")
+volumen = -15.0
+tono = 1.3
+copias = 2
+
+[sub_resource type="Resource" id="Resource_vf8xb"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("13_ja6n7")
+volumen = -18.0
+tono = 1.3
+copias = 2
+
+[sub_resource type="Resource" id="Resource_qbib4"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("14_hq078")
+volumen = -40.0
+copias = 1
+bus = "Musica"
+
+[sub_resource type="Resource" id="Resource_5yyvf"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("15_8lfou")
+volumen = -40.0
+copias = 1
+bus = "Musica"
+
+[sub_resource type="Resource" id="Resource_pfdpp"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("16_yvcas")
+volumen = -40.0
+copias = 1
+bus = "Musica"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rplqi"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("17_28xuw")
+
+[sub_resource type="Resource" id="Resource_hamcn"]
+script = ExtResource("2_ko7ua")
+audio = SubResource("AudioStreamRandomizer_rplqi")
+volumen = -18.0
+copias = 1
+
+[sub_resource type="Resource" id="Resource_2am5u"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("18_5ki35")
+volumen = -15.0
+copias = 1
+
+[sub_resource type="Resource" id="Resource_yqqrb"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("19_mtjt1")
+copias = 1
+
+[sub_resource type="Resource" id="Resource_5q5ia"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("20_uu1kv")
+tono = 0.75
+copias = 1
+bus = "UI"
+
+[sub_resource type="Resource" id="Resource_5884m"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("21_tucqt")
+copias = 1
+bus = "UI"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_76tmg"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("3_oal46")
+
+[sub_resource type="Resource" id="Resource_c4f1b"]
+script = ExtResource("2_ko7ua")
+audio = SubResource("AudioStreamRandomizer_76tmg")
+volumen = 3.0
+tono = 1.5
+
+[sub_resource type="Resource" id="Resource_xfouf"]
+script = ExtResource("2_ko7ua")
+audio = SubResource("AudioStreamRandomizer_76tmg")
+volumen = 3.0
+tono = 1.3
+metadata/_custom_type_script = "uid://dker4vqy5cjik"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b72ef"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("24_baj11")
+
+[sub_resource type="Resource" id="Resource_cinue"]
+script = ExtResource("2_ko7ua")
+audio = SubResource("AudioStreamRandomizer_b72ef")
+volumen = -6.0
+tono = 0.75
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b7v86"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("25_4tron")
+
+[sub_resource type="Resource" id="Resource_bupuv"]
+script = ExtResource("2_ko7ua")
+audio = SubResource("AudioStreamRandomizer_b7v86")
+volumen = -21.0
+tono = 1.3
+copias = 1
+
+[sub_resource type="Resource" id="Resource_a6m5r"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("26_jcpdf")
+volumen = -6.0
+tono = 1.3
+copias = 2
+bus = "UI"
+
+[sub_resource type="Resource" id="Resource_s7p7g"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("26_jcpdf")
+volumen = -6.0
+copias = 2
+bus = "UI"
+
+[sub_resource type="Resource" id="Resource_eh7nk"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("27_qp36v")
+volumen = -3.0
+copias = 2
+bus = "UI"
+
+[sub_resource type="Resource" id="Resource_tor2u"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("28_r3su7")
+volumen = -9.0
+tono = 2.0
+copias = 1
+bus = "UI"
+
+[resource]
+script = ExtResource("1_ky4cp")
+salto = SubResource("Resource_xfouf")
+aterrizaje = SubResource("Resource_x57t8")
+rebote = SubResource("Resource_c4f1b")
+slash = SubResource("Resource_cinue")
+slash_pega = SubResource("Resource_bupuv")
+dive = SubResource("Resource_8gvuu")
+gp_anticipo = SubResource("Resource_hylu1")
+gp_impacto = SubResource("Resource_42xld")
+herido = SubResource("Resource_vf8xb")
+muerte_jugador = SubResource("Resource_yqqrb")
+curacion = SubResource("Resource_ghiyw")
+energia_gp = SubResource("Resource_q7gmd")
+boomerang_lanzar = SubResource("Resource_xs618")
+boomerang_gira = SubResource("Resource_atc5t")
+boomerang_atrapado = SubResource("Resource_iymcj")
+enemigo_golpeado = SubResource("Resource_t1ml8")
+muerte_esqueleto = SubResource("Resource_hamcn")
+muerte_fantasma = SubResource("Resource_2am5u")
+cuenta = SubResource("Resource_imgx0")
+ya = SubResource("Resource_tor2u")
+jingle_ronda = SubResource("Resource_5yyvf")
+jingle_victoria = SubResource("Resource_pfdpp")
+jingle_derrota = SubResource("Resource_qbib4")
+ui_foco = SubResource("Resource_s7p7g")
+ui_aceptar = SubResource("Resource_a6m5r")
+ui_volver = SubResource("Resource_eh7nk")
+pausa = SubResource("Resource_5q5ia")
+reanudar = SubResource("Resource_5884m")
+metadata/_custom_type_script = "uid://djv6hk6rc47r"

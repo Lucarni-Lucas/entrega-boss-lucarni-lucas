@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cr5lcpbaims2p" path="res://scenes/boomerang/boomerang.gd" id="1_08vve"]
 [ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="1_8yxac"]
 [ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="2_7jrsh"]
+[ext_resource type="Texture2D" uid="uid://dtphyjsiu1ipl" path="res://assets/player/boomerang_vuelo.png" id="3_vuelo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_38jis"]
 radius = 1.0
@@ -58,21 +59,10 @@ scale_min = 0.39999998
 scale_max = 0.79999995
 alpha_curve = SubResource("CurveTexture_13qdw")
 
-[sub_resource type="Gradient" id="Gradient_tave6"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0.1724138, 0.42528737, 0.50574714, 0.62068963, 0.68582374)
-colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 0.49231848, 0.22935726, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_13qdw"]
-gradient = SubResource("Gradient_tave6")
-width = 54
-height = 18
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [node name="Boomerang" type="Area2D" unique_id=1278144397]
 collision_layer = 0
 script = ExtResource("1_08vve")
+destello_achatado = 0.42
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1453083831]
 shape = SubResource("CircleShape2D_38jis")
@@ -99,8 +89,10 @@ lifetime = 0.8
 process_material = SubResource("ParticleProcessMaterial_xrivr")
 
 [node name="Visual" type="Sprite2D" parent="Sprite" unique_id=639908634]
+texture_filter = 4
 position = Vector2(0, -5.9999995)
-texture = SubResource("GradientTexture2D_13qdw")
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_vuelo")
 
 [node name="Destello" type="Sprite2D" parent="Sprite" unique_id=2074469599]
 texture = SubResource("GradientTexture2D_xrivr")

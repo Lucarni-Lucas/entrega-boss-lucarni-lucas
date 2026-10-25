@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bfl3i6qt58bgu"]
 
 [ext_resource type="Script" uid="uid://brf5bmb34pw4f" path="res://scenes/componentes/sombra.gd" id="1_uud6y"]
-[ext_resource type="Resource" uid="uid://dt3afhff23ddt" path="res://resources/sombra_params.tres" id="2_8gupb"]
+[ext_resource type="Resource" uid="uid://dt3afhff23ddt" path="res://resources/visual/sombra_params.tres" id="2_8gupb"]
 
 [sub_resource type="Gradient" id="Gradient_pkmxr"]
 interpolation_mode = 2
