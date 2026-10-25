@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cox3t741yfdhq" path="res://scenes/player/player.tscn" id="2_olpmc"]
 [ext_resource type="PackedScene" uid="uid://bff3bfq0dtcvp" path="res://scenes/spawner/spawner.tscn" id="4_xdvfk"]
 [ext_resource type="Script" uid="uid://c885wopt2l0s7" path="res://scenes/partida/curacion_por_muertes.gd" id="5_7ft05"]
+[ext_resource type="Script" uid="uid://btigfwwg2asuc" path="res://scenes/partida/cartas.gd" id="5_cartas"]
 [ext_resource type="Script" uid="uid://butxgi6do0nfc" path="res://scenes/partida/anillos.gd" id="6_8vbsj"]
 [ext_resource type="Script" uid="uid://d34w53kyaoxa3" path="res://scenes/partida/partida.gd" id="6_oexds"]
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="7_naajo"]
@@ -90,6 +91,10 @@ params = ExtResource("7_xsx6r")
 
 [node name="CuracionPorMuertes" type="Node" parent="." unique_id=1436814135 node_paths=PackedStringArray("jugador")]
 script = ExtResource("5_7ft05")
+jugador = NodePath("../Entidades/Player")
+
+[node name="Cartas" type="Node" parent="." node_paths=PackedStringArray("jugador")]
+script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]

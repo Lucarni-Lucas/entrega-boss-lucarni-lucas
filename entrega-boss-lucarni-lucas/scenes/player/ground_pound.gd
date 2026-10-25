@@ -64,13 +64,14 @@ func _impactar(player: Player) -> void:
 		player.proteger(player.params.gp_proteccion)
 	var radio := (player.params.gp_radio_impacto + player.params.gp_radio_explosion) * lerpf(player.params.gp_radio_min, 1.0, fuerza)
 	_poligono.polygon = Formas.elipse(radio, player.params.anim_perspectiva)
-	_hitbox.dano = player.params.gp_dano
+	_hitbox.dano = player.dano_de(player.params.gp_dano)
 	_hitbox.z_min = player.z
 	_hitbox.z_max = player.z + player.params.alto_cuerpo
 	_hitbox.empuje = player.params.gp_empuje * lerpf(player.params.gp_empuje_min, 1.0, fuerza)
 	_hitbox.activar()
 	_tiempo_hitbox = player.params.gp_impacto_duracion
 	player.gastar_energia_gp()
+	player.mantener_aereo(player.params.gp_salto_ventana)
 	impacto.emit(player.global_position, _altura_inicial, radio)
 
 

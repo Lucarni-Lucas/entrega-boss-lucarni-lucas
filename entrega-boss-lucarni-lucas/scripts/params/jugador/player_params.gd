@@ -57,6 +57,7 @@ class_name PlayerParams
 @export var gp_dano: int = 2
 @export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 100.0
 @export var gp_radio_explosion: float = 0.0
+@export_range(0, 0.5, 0.01, "suffix:s") var gp_salto_ventana: float = 0.0
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09
 @export_range(0, 1, 0.01, "suffix:s") var gp_proteccion: float = 0.2
 @export_range(0, 2000, 10, "suffix:px/s") var gp_empuje: float = 850.0
@@ -102,3 +103,6 @@ class_name PlayerParams
 @export var anim_rebote_escala := Vector2(0.7, 1.4)
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_rebote_ida: float = 0.07
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_rebote_vuelta: float = 0.27
+@export_subgroup("Filo")
+@export var boomerang_dano: int = 0
+@export_range(0, 200, 5, "suffix:px") var boomerang_radio_dano: float = 35.0

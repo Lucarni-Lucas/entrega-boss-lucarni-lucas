@@ -20,6 +20,7 @@ signal curado
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
 const GRUPO := &"jugador"
+const _ESTADOS_AEREOS := [Estado.GROUND_POUND, Estado.DIVE]
 
 @export var params: PlayerParams
 
@@ -28,12 +29,15 @@ var z := 0.0
 ## Positiva sube, negativa baja.
 var velocidad_z := 0.0
 var tiene_boomerang := true
+var tiempo_en_aire := 0.0
+var multiplicador_dano := 1.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
 var energia_gp: float
 var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
+var _gracia_aerea := 0.0
 var _posicion_inicial: Vector2
 
 @onready var _walk := $Walk
@@ -48,6 +52,7 @@ var _posicion_inicial: Vector2
 
 
 func _ready() -> void:
+	params = params.duplicate()
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
 	_jump.salto.connect(salto.emit)
@@ -72,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	_actualizar_altura(delta)
+	_actualizar_tiempo_en_aire(delta)
 	if not esta_en_suelo() and estado_actual() != Estado.GROUND_POUND:
 		recargar_energia_gp(params.gp_recarga_aire * delta)
 	_hurtbox.z_min = z
@@ -87,6 +93,18 @@ func suelo_actual() -> float:
 
 func esta_en_suelo() -> bool:
 	return z <= suelo_actual() + 0.01
+
+
+func cuenta_como_aereo() -> bool:
+	return not esta_en_suelo() or _gracia_aerea > 0.0 or estado_actual() in _ESTADOS_AEREOS
+
+
+func mantener_aereo(segundos: float) -> void:
+	_gracia_aerea = maxf(_gracia_aerea, segundos)
+
+
+func dano_de(base: int) -> int:
+	return roundi(base * multiplicador_dano)
 
 
 func esta_slasheando() -> bool:
@@ -175,6 +193,11 @@ func _actualizar_altura(delta: float) -> void:
 		z = suelo_actual()
 		velocidad_z = 0.0
 		aterrizo.emit()
+
+
+func _actualizar_tiempo_en_aire(delta: float) -> void:
+	_gracia_aerea = maxf(_gracia_aerea - delta, 0.0)
+	tiempo_en_aire = tiempo_en_aire + delta if cuenta_como_aereo() else 0.0
 
 
 func _on_aterrizo() -> void:

@@ -160,6 +160,14 @@ polygon = PackedVector2Array(0, 32, 0, 32, 0, 32)
 [node name="Dive" type="Node2D" parent="." unique_id=1097185342]
 script = ExtResource("9_h17s1")
 
+[node name="DetectorEnemigos" type="Area2D" parent="Dive"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dive/DetectorEnemigos"]
+shape = SubResource("CircleShape2D_13qdw")
+
 [node name="Boomerang" type="Node2D" parent="." unique_id=1852323145]
 script = ExtResource("10_je7p5")
 escena_boomerang = ExtResource("12_fm80t")

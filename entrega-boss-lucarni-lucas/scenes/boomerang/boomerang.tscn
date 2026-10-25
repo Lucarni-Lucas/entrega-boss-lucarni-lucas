@@ -101,6 +101,8 @@ texture = SubResource("GradientTexture2D_xrivr")
 texture = SubResource("GradientTexture2D_xrivr")
 
 [node name="Hitbox" parent="." unique_id=1321716141 instance=ExtResource("1_8yxac")]
+collision_mask = 4
+continua = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox" unique_id=394508236]
 polygon = PackedVector2Array(0, 24, 0, 24, 0, 24)
