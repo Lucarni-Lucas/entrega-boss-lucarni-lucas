@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://btj1jvumk67dt" path="res://assets/fonts/DejaVuSans.ttf" id="33_dejavu"]
 [ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="34_sonidos"]
 [ext_resource type="AudioStream" uid="uid://bfw66g1adh271" path="res://assets/audio/musica/Falcon_133 BPM_Full_Loop.ogg" id="35_falcon"]
+[ext_resource type="PackedScene" path="res://scenes/tutorial/boomie.tscn" id="36_boomie"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
 size = Vector2(2080, 40)
@@ -90,13 +91,39 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="Franja" type="ColorRect" parent="Guia/Pasos" unique_id=27015470]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -302.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Boomie" parent="Guia/Pasos" unique_id=1135974610 instance=ExtResource("36_boomie")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -281.0
+offset_right = 251.0
+offset_bottom = 19.0
+grow_vertical = 0
+
 [node name="Instruccion" type="Label" parent="Guia/Pasos" unique_id=2106449745]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_top = 110.0
-offset_bottom = 210.0
+anchor_bottom = 1.0
+offset_top = -282.0
+offset_bottom = -182.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_type_variation = &"Destacado"
 theme_override_constants/outline_size = 16
 theme_override_constants/shadow_outline_size = 16
@@ -106,11 +133,14 @@ vertical_alignment = 1
 
 [node name="LineaDetalle" type="HBoxContainer" parent="Guia/Pasos" unique_id=1346514686]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_top = 206.0
-offset_bottom = 266.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_bottom = -120.0
 grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 12
 alignment = 1
@@ -126,22 +156,28 @@ vertical_alignment = 1
 
 [node name="Teclas" type="HBoxContainer" parent="Guia/Pasos" unique_id=418823570]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_top = 206.0
-offset_bottom = 286.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_bottom = -100.0
 grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 22
 alignment = 1
 
 [node name="Puntos" type="HBoxContainer" parent="Guia/Pasos" unique_id=2145294595]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_top = 300.0
-offset_bottom = 340.0
+anchor_bottom = 1.0
+offset_top = -92.0
+offset_bottom = -52.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 18
 alignment = 1
 
@@ -197,11 +233,14 @@ text = "●"
 [node name="Cadena" type="HBoxContainer" parent="Guia/Pasos" unique_id=984476627]
 visible = false
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_top = 214.0
-offset_bottom = 374.0
+anchor_bottom = 1.0
+offset_top = -176.0
+offset_bottom = -16.0
 grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 28
 alignment = 1
@@ -331,11 +370,14 @@ size_flags_horizontal = 4
 [node name="Aviso" type="Label" parent="Guia/Pasos" unique_id=1906668900]
 visible = false
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_top = 388.0
-offset_bottom = 440.0
+anchor_bottom = 1.0
+offset_top = -362.0
+offset_bottom = -310.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(1, 0.82, 0.82, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
 theme_override_constants/outline_size = 8
@@ -345,20 +387,17 @@ vertical_alignment = 1
 
 [node name="AvisoPausa" type="HBoxContainer" parent="Guia/Pasos" unique_id=716222124]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1000.0
-offset_top = -84.0
-offset_right = -40.0
-offset_bottom = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 28.0
+offset_right = 500.0
+offset_bottom = 72.0
+grow_horizontal = 2
 mouse_filter = 2
 theme_override_constants/separation = 12
-alignment = 2
+alignment = 1
 
 [node name="Tecla" parent="Guia/Pasos/AvisoPausa" unique_id=1517203988 instance=ExtResource("31_icono")]
 layout_mode = 2

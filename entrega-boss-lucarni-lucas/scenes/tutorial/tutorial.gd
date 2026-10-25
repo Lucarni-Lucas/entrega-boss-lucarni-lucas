@@ -7,13 +7,13 @@ const _ICONO := preload("res://scenes/ui/icono_tecla.tscn")
 const _PASOS := [Accion.MOVER, Accion.SALTO, Accion.SLASH, Accion.LANZAMIENTO, Accion.DIVE, Accion.REBOTE, Accion.GROUND_POUND]
 const _CADENA := [Accion.SALTO, Accion.LANZAMIENTO, Accion.DIVE, Accion.REBOTE, Accion.GROUND_POUND]
 const _INSTRUCCIONES := {
-	Accion.MOVER: "Movete",
-	Accion.SALTO: "Saltá",
-	Accion.SLASH: "Atacá con el boomerang",
-	Accion.LANZAMIENTO: "En el aire, tirá el boomerang",
-	Accion.DIVE: "En el aire, hacé dive",
-	Accion.REBOTE: "Rebotá en el boomerang",
-	Accion.GROUND_POUND: "Saltá y hacé ground pound",
+	Accion.MOVER: "Primero, probá moverte un poco",
+	Accion.SALTO: "Ahora, animate a dar un salto",
+	Accion.SLASH: "Podés defenderte usándome",
+	Accion.LANZAMIENTO: "Desde el aire, tirame sin miedo",
+	Accion.DIVE: "En pleno salto, lanzate con un dive",
+	Accion.REBOTE: "¡Mi favorito! Probá rebotar sobre mí",
+	Accion.GROUND_POUND: "Para cerrar, ¡un buen ground pound!",
 }
 const _SECUENCIAS := {
 	Accion.MOVER: [Accion.MOVER],
@@ -31,10 +31,15 @@ const _TECLAS := {
 	Accion.DIVE: "dive",
 	Accion.GROUND_POUND: "ground_pound",
 }
-const _DETALLE_ENERGIA := "El ground pound gasta energía, si lo repetís seguido sale débil"
+const _SALUDO := "¡Hola! Soy Boomie"
+const _DETALLE_SALUDO := "Dejame enseñarte lo básico"
+const _FESTEJOS := ["¡Bien!", "¡Eso!", "¡Genial!", "¡Muy bien!"]
+const _DETALLE_ENERGIA := "Ojo, que cansa. Si lo repetís muy seguido, sale débil"
+const _PRESENTACION_CADENA := "Ahora, intentemos algo más difícil"
+const _DETALLE_PRESENTACION_CADENA := "Hacé todo seguido sin tocar el suelo"
 const _TITULO_REINTENTO := "UNA CADENA MÁS"
-const _AVISO_SUELO := "Tocaste el suelo, empezá la cadena de nuevo"
-const _AVISO_LANZAR_EN_SUELO := "También se puede tirar en el suelo pero prueba en el aire"
+const _AVISO_SUELO := "¡Uy, tocaste el suelo! Arrancá la cadena de nuevo"
+const _AVISO_LANZAR_EN_SUELO := "También podés tirarme en el suelo, pero probá en el aire"
 
 @export var params: TutorialParams
 @export var jugador: Player
@@ -68,6 +73,7 @@ var _bloqueado := false
 @onready var _teclas_cadena: Array[IconoTecla] = [$Pasos/Cadena/Saltar/Tecla, $Pasos/Cadena/Boomerang/Tecla, $Pasos/Cadena/Dive/Tecla, $Pasos/Cadena/Rebote/Tecla, $Pasos/Cadena/GroundPound/Tecla]
 @onready var _aviso: Label = $Pasos/Aviso
 @onready var _tecla_pausa: IconoTecla = $Pasos/AvisoPausa/Tecla
+@onready var _boomie: Boomie = $Pasos/Boomie
 @onready var _final: Control = $Final
 @onready var _reintentar: Button = $Final/Contenido/ReintentarCadena
 @onready var _empezar_partida: Button = $Final/Contenido/EmpezarPartida
@@ -80,7 +86,9 @@ func _ready() -> void:
 	_empezar_partida.pressed.connect(_ir_a_la_partida)
 	EsquemaInput.cambio.connect(_on_esquema_cambio)
 	_actualizar_puntos()
-	_mostrar_verbo()
+	_actualizar_texturas()
+	_boomie.entrar(true)
+	_saludar()
 
 
 func _input(_event: InputEvent) -> void:
@@ -153,7 +161,7 @@ func _on_menu_partida_saltar_paso_pedido() -> void:
 		if _paso < _PASOS.size():
 			_mostrar_verbo()
 		else:
-			_empezar_cadena()
+			_presentar_cadena()
 	elif _fase == Fase.CADENA:
 		_cadenas += 1
 		if _terminaron_las_cadenas():
@@ -230,15 +238,16 @@ func _completar_verbo() -> void:
 	var completada: Accion = _PASOS[_paso]
 	_paso += 1
 	_actualizar_puntos()
-	var despues: Callable = _mostrar_verbo if _paso < _PASOS.size() else _empezar_cadena
+	var despues: Callable = _mostrar_verbo if _paso < _PASOS.size() else _presentar_cadena
 	if completada == Accion.GROUND_POUND:
-		_celebrar("¡Bien!", _DETALLE_ENERGIA, params.duracion_energia, despues)
+		_celebrar(_FESTEJOS.pick_random(), _DETALLE_ENERGIA, params.duracion_energia, despues)
 	else:
-		_celebrar("¡Bien!", "", params.duracion_bien, despues)
+		_celebrar(_FESTEJOS.pick_random(), "", params.duracion_bien, despues)
 
 
 func _mostrar_verbo() -> void:
 	_progreso = 0
+	_fila_puntos.visible = true
 	var accion: Accion = _PASOS[_paso]
 	_mostrar_texto(_INSTRUCCIONES[accion])
 	_armar_teclas(accion)
@@ -270,6 +279,22 @@ func _acciones_input(secuencia: Array) -> Array:
 	return acciones
 
 
+func _saludar() -> void:
+	_teclas.visible = false
+	_fila_puntos.visible = false
+	_mostrar_texto(_SALUDO, _DETALLE_SALUDO)
+	_espera = params.duracion_saludo
+	_al_terminar_espera = _mostrar_verbo
+
+
+func _presentar_cadena() -> void:
+	_teclas.visible = false
+	_fila_puntos.visible = false
+	_mostrar_texto(_PRESENTACION_CADENA, _DETALLE_PRESENTACION_CADENA)
+	_espera = params.duracion_presentacion_cadena
+	_al_terminar_espera = _empezar_cadena
+
+
 func _empezar_cadena() -> void:
 	_fase = Fase.CADENA
 	_progreso = 0
@@ -291,7 +316,7 @@ func _completar_cadena() -> void:
 	if _terminaron_las_cadenas():
 		_celebrar("¡CADENA COMPLETA!", "", params.duracion_final, _mostrar_final)
 	else:
-		_celebrar("¡Bien!", "Una vez más", params.duracion_bien, _empezar_cadena)
+		_celebrar(_FESTEJOS.pick_random(), "¡Dale, una vez más!", params.duracion_bien, _empezar_cadena)
 
 
 func _terminaron_las_cadenas() -> bool:
@@ -308,6 +333,7 @@ func _celebrar(titulo: String, detalle: String, duracion: float, despues: Callab
 	_teclas.visible = false
 	_cadena.visible = false
 	_mostrar_texto(titulo, detalle)
+	_boomie.festejar()
 	_espera = duracion
 	_al_terminar_espera = despues
 
@@ -316,6 +342,7 @@ func _mostrar_texto(titulo: String, detalle := "") -> void:
 	_instruccion.text = titulo
 	_detalle.text = detalle
 	_linea_detalle.visible = detalle != ""
+	_boomie.hablar()
 
 
 func _actualizar_texturas() -> void:
@@ -412,6 +439,7 @@ func _reintentar_cadena() -> void:
 	_pasos.visible = true
 	jugador.visible = true
 	jugador.process_mode = Node.PROCESS_MODE_INHERIT
+	_boomie.entrar()
 	_empezar_cadena()
 
 
