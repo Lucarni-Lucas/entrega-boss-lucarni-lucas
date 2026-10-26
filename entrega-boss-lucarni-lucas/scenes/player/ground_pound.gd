@@ -1,15 +1,11 @@
 extends VerboExclusivo
 
 signal anticipo
-signal impacto(posicion: Vector2, altura_inicial: float, radio: float)
+signal impacto(posicion: Vector2, altura_inicial: float)
 
 var _tiempo_anticipacion := 0.0
-var _tiempo_hitbox := 0.0
 var _altura_inicial := 0.0
 var _invulnerable := false
-
-@onready var _hitbox: Hitbox = $Hitbox
-@onready var _poligono: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
 
 
 func estado() -> Player.Estado:
@@ -17,7 +13,6 @@ func estado() -> Player.Estado:
 
 
 func procesar_fisica(player: Player, delta: float) -> void:
-	_actualizar_hitbox(delta)
 	if player.verbo_activo == self:
 		_procesar_caida(player, delta)
 	elif Input.is_action_just_pressed("ground_pound"):
@@ -62,25 +57,10 @@ func _impactar(player: Player) -> void:
 	var fuerza := player.fuerza_gp()
 	if _invulnerable:
 		player.proteger(player.params.gp_proteccion)
-	var radio := (player.params.gp_radio_impacto + player.params.gp_radio_explosion) * lerpf(player.params.gp_radio_min, 1.0, fuerza)
-	_poligono.polygon = Formas.elipse(radio, player.params.anim_perspectiva)
-	_hitbox.dano = player.dano_de(player.params.gp_dano)
-	_hitbox.z_min = player.z
-	_hitbox.z_max = player.z + player.params.alto_cuerpo
-	_hitbox.empuje = player.params.gp_empuje * lerpf(player.params.gp_empuje_min, 1.0, fuerza)
-	_hitbox.activar()
-	_tiempo_hitbox = player.params.gp_impacto_duracion
+	player.impactar_gp(player.global_position, player.z, fuerza)
 	player.gastar_energia_gp()
 	player.mantener_aereo(player.params.gp_salto_ventana)
-	impacto.emit(player.global_position, _altura_inicial, radio)
-
-
-func _actualizar_hitbox(delta: float) -> void:
-	if _tiempo_hitbox <= 0.0:
-		return
-	_tiempo_hitbox -= delta
-	if _tiempo_hitbox <= 0.0:
-		_hitbox.desactivar()
+	impacto.emit(player.global_position, _altura_inicial)
 
 
 func es_invulnerable() -> bool:

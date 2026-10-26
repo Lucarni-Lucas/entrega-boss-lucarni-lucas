@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://tv7moif7chl2" path="res://assets/efectos/destello_1.png" id="20_brillo1"]
 [ext_resource type="Texture2D" uid="uid://b7fi7gvj3hxu2" path="res://assets/efectos/destello_2.png" id="21_brillo2"]
 [ext_resource type="Texture2D" uid="uid://cdvcrmimctytr" path="res://assets/efectos/destello_3.png" id="22_brillo3"]
+[ext_resource type="PackedScene" uid="uid://0jq0cs5vo35g" path="res://scenes/impacto_gp/impacto_gp.tscn" id="23_impacto"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -76,6 +77,7 @@ collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_dovo2")
 params = ExtResource("2_lvxji")
+escena_impacto_gp = ExtResource("23_impacto")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651236493]
 shape = SubResource("CircleShape2D_xrivr")
@@ -149,13 +151,6 @@ texture = SubResource("GradientTexture2D_qek5x")
 
 [node name="GroundPound" type="Node2D" parent="." unique_id=851043009]
 script = ExtResource("7_5gtgg")
-
-[node name="Hitbox" parent="GroundPound" unique_id=1321716141 instance=ExtResource("7_0owmy")]
-collision_mask = 4
-origen = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundPound/Hitbox" unique_id=1392616015]
-polygon = PackedVector2Array(0, 32, 0, 32, 0, 32)
 
 [node name="Dive" type="Node2D" parent="." unique_id=1097185342]
 script = ExtResource("9_h17s1")

@@ -8,7 +8,7 @@ signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
 signal volvio_al_inicio
-signal impacto_gp(posicion: Vector2, radio: float)
+signal impacto_gp(posicion: Vector2, altura: float, radio: float, fuerza: float, primario: bool)
 signal salto
 signal anticipo_gp
 signal dive
@@ -23,6 +23,7 @@ const GRUPO := &"jugador"
 const _ESTADOS_AEREOS := [Estado.GROUND_POUND, Estado.DIVE]
 
 @export var params: PlayerParams
+@export var escena_impacto_gp: PackedScene
 
 var ultima_direccion := Vector2.DOWN
 var z := 0.0
@@ -178,6 +179,13 @@ func agregar_al_mundo(nodo: Node) -> void:
 	get_parent().add_child(nodo)
 
 
+func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true) -> void:
+	var impacto: ImpactoGp = escena_impacto_gp.instantiate()
+	agregar_al_mundo(impacto)
+	impacto.golpear(self, posicion, altura, fuerza)
+	impacto_gp.emit(posicion, altura, impacto.radio, fuerza, primario)
+
+
 func _velocidad_en_pantalla() -> Vector2:
 	if esta_en_suelo():
 		return Vector2.ZERO
@@ -209,9 +217,8 @@ func _on_anticipo_gp() -> void:
 	anticipo_gp.emit()
 
 
-func _on_impacto_gp(posicion: Vector2, _altura_inicial: float, radio: float) -> void:
+func _on_impacto_gp(_posicion: Vector2, _altura_inicial: float) -> void:
 	_sprite.deformar(params.anim_gp_impacto_escala, params.anim_gp_impacto_ida, params.anim_gp_impacto_vuelta)
-	impacto_gp.emit(posicion, radio)
 
 
 func _on_reboto() -> void:

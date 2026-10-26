@@ -6,18 +6,26 @@ extends Node2D
 @export var textura_chispa: Texture2D
 @export var tamano_pool_estrellas := 32
 @export var tamano_pool_chispas := 128
+@export var tamano_pool_anillos := 16
 
 var _estrellas: Array[Sprite2D] = []
 var _chispas: Array[Sprite2D] = []
+var _anillos: Array[Node2D] = []
 var _tweens := {}
 
 @onready var _arriba: Node2D = $Arriba
-@onready var _anillo := $Suelo/Anillo
+@onready var _suelo: Node2D = $Suelo
+@onready var _anillo: Node2D = $Suelo/Anillo
 
 
 func _ready() -> void:
 	_estrellas = _crear_pool(textura_estrella, _arriba, tamano_pool_estrellas)
 	_chispas = _crear_pool(textura_chispa, _arriba, tamano_pool_chispas)
+	_anillos.append(_anillo)
+	for i in tamano_pool_anillos - 1:
+		var anillo: Node2D = _anillo.duplicate()
+		_suelo.add_child(anillo)
+		_anillos.append(anillo)
 
 
 func golpe(posicion: Vector2, origen: Hitbox.Origen) -> void:
@@ -43,8 +51,10 @@ func golpe(posicion: Vector2, origen: Hitbox.Origen) -> void:
 		tween_chispa.chain().tween_callback(chispa.hide)
 
 
-func _on_jugador_impacto_gp(posicion: Vector2, radio: float) -> void:
-	_anillo.mostrar(posicion, radio, jugador.params.anim_perspectiva, params)
+func _on_jugador_impacto_gp(posicion: Vector2, altura: float, radio: float, _fuerza: float, _primario: bool) -> void:
+	var anillo: Node2D = _anillos.pop_front()
+	_anillos.push_back(anillo)
+	anillo.mostrar(posicion + Vector2(0, -altura), radio, jugador.params.anim_perspectiva, params)
 
 
 func _crear_pool(textura: Texture2D, contenedor: Node2D, cantidad: int) -> Array[Sprite2D]:

@@ -49,8 +49,8 @@ func _on_jugador_anticipo_gp() -> void:
 	Audio.tocar(libreria.gp_anticipo)
 
 
-func _on_jugador_impacto_gp(_posicion: Vector2, _radio: float) -> void:
-	Audio.tocar(libreria.gp_impacto)
+func _on_jugador_impacto_gp(_posicion: Vector2, _altura: float, _radio: float, _fuerza: float, _primario: bool) -> void:
+	Audio.tocar_una_vez_por_cuadro(libreria.gp_impacto)
 
 
 func _on_jugador_lanzo_boomerang() -> void:

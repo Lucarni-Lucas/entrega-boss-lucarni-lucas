@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://0jq0cs5vo35g"]
+
+[ext_resource type="Script" uid="uid://c471wcw07fmw2" path="res://scenes/impacto_gp/impacto_gp.gd" id="1_impacto"]
+
+[node name="ImpactoGp" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_impacto")
+origen = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
