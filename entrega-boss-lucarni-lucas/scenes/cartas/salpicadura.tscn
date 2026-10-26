@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cwj43r7ey7jlh"]
+
+[ext_resource type="Script" uid="uid://bnicrp4ytmkpx" path="res://scenes/cartas/salpicadura.gd" id="1_salpicadura"]
+[ext_resource type="PackedScene" uid="uid://dqg1llm54o0oa" path="res://scenes/cartas/bolita_slime.tscn" id="2_bolita"]
+
+[node name="Salpicadura" type="Node"]
+script = ExtResource("1_salpicadura")
+escena_bolita = ExtResource("2_bolita")

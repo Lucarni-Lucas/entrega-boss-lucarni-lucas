@@ -8,6 +8,7 @@ top_level = true
 z_index = -1
 script = ExtResource("1_estallido")
 textura_chispa = ExtResource("2_chispa")
+cantidad_chispas = 6
 
 [node name="Relleno" type="Polygon2D" parent="."]
 color = Color(1, 0.6, 0.24, 1)

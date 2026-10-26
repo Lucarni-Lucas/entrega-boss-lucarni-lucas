@@ -117,3 +117,9 @@ class_name PlayerParams
 @export_subgroup("Filo")
 @export var boomerang_dano: int = 0
 @export_range(0, 200, 5, "suffix:px") var boomerang_radio_dano: float = 35.0
+@export_subgroup("Salpicadura")
+@export var boomerang_salpicadura_bolitas: int = 0
+@export_range(0, 3000, 10, "suffix:px/s") var boomerang_salpicadura_velocidad: float = 900.0
+@export_range(0, 1000, 10, "suffix:px") var boomerang_salpicadura_alcance: float = 300.0
+@export_range(0, 100, 1, "suffix:px") var boomerang_salpicadura_altura: float = 32.0
+@export var boomerang_salpicadura_dano: int = 1

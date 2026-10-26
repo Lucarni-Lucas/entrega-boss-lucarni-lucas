@@ -30,6 +30,22 @@ var _elegida: CartaBoton
 
 func _ready() -> void:
 	_comenzar.pressed.connect(_on_comenzar_pressed)
+	_precalentar.call_deferred()
+
+
+func _precalentar() -> void:
+	var muestra: Array[Carta] = []
+	muestra.assign(cartas.pozo.slice(0, cartas_ofrecidas))
+	_llenar(1, params.cantidad_rondas, muestra)
+	if _fila_cartas.get_child_count() > 0:
+		_fila_cartas.get_child(0).elegida = true
+	_habilitar_comenzar(true)
+	_contenido.modulate.a = 0.01
+	visible = true
+	for i in 2:
+		await get_tree().process_frame
+	visible = false
+	_armar_cartas([])
 
 
 func _input(_event: InputEvent) -> void:
@@ -38,8 +54,17 @@ func _input(_event: InputEvent) -> void:
 
 
 func mostrar(numero: int, total: int) -> void:
-	var quedan := total - numero
 	var ofrecidas := cartas.ofrecer(cartas_ofrecidas)
+	_llenar(numero, total, ofrecidas)
+	_habilitar_comenzar(ofrecidas.is_empty())
+	visible = true
+	_contenido.modulate.a = 0.0
+	create_tween().tween_property(_contenido, "modulate:a", 1.0, duracion_entrada)
+	_bloquear()
+
+
+func _llenar(numero: int, total: int, ofrecidas: Array[Carta]) -> void:
+	var quedan := total - numero
 	var hay_cartas := not ofrecidas.is_empty()
 	var todas_tomadas := not hay_cartas and not cartas.pozo.is_empty()
 	_titulo.text = "¡RONDA %d COMPLETA!" % numero
@@ -53,11 +78,6 @@ func mostrar(numero: int, total: int) -> void:
 	_espacio.custom_minimum_size.y = espacio_con_cartas if hay_cartas else espacio_aviso if todas_tomadas else espacio_sin_cartas
 	_espacio_cartas.custom_minimum_size.y = espacio_aviso if todas_tomadas else espacio_con_cartas
 	_espacio_cartas.visible = hay_cartas or todas_tomadas
-	_habilitar_comenzar(not hay_cartas)
-	visible = true
-	_contenido.modulate.a = 0.0
-	create_tween().tween_property(_contenido, "modulate:a", 1.0, duracion_entrada)
-	_bloquear()
 
 
 func _armar_cartas(ofrecidas: Array[Carta]) -> void:

@@ -42,3 +42,4 @@ class_name LibreriaSonidos
 @export_group("Cartas")
 @export var explosion_gp: Sonido
 @export var geiser: Sonido
+@export var salpicadura: Sonido
