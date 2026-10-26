@@ -9,6 +9,8 @@ signal comenzar
 @export_range(1, 5, 1) var cartas_ofrecidas := 3
 @export_range(0, 400, 1, "suffix:px") var espacio_sin_cartas := 218.0
 @export_range(0, 400, 1, "suffix:px") var espacio_con_cartas := 44.0
+@export_range(0, 400, 1, "suffix:px") var espacio_aviso := 120.0
+@export_range(0, 400, 1, "suffix:px") var bajada_aviso := 112.0
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
 
@@ -16,9 +18,11 @@ var _bloqueado := false
 var _elegida: CartaBoton
 
 @onready var _contenido: Control = $Contenido
+@onready var _espacio_arriba: Control = $Contenido/Opciones/EspacioArriba
 @onready var _titulo: Label = $Contenido/Opciones/Titulo
 @onready var _detalle: Label = $Contenido/Opciones/Detalle
 @onready var _espacio: Control = $Contenido/Opciones/Espacio
+@onready var _aviso: Control = $Contenido/Opciones/Aviso
 @onready var _fila_cartas: HBoxContainer = $Contenido/Opciones/Cartas
 @onready var _espacio_cartas: Control = $Contenido/Opciones/EspacioCartas
 @onready var _comenzar: Button = $Contenido/Opciones/Comenzar
@@ -37,14 +41,18 @@ func mostrar(numero: int, total: int) -> void:
 	var quedan := total - numero
 	var ofrecidas := cartas.ofrecer(cartas_ofrecidas)
 	var hay_cartas := not ofrecidas.is_empty()
+	var todas_tomadas := not hay_cartas and not cartas.pozo.is_empty()
 	_titulo.text = "¡RONDA %d COMPLETA!" % numero
 	_detalle.text = "Te queda 1 ronda" if quedan == 1 else "Te quedan %d rondas" % quedan
 	if hay_cartas:
 		_detalle.text += " · Elegí una carta, te dura toda la partida"
 	_comenzar.poner_texto("Comenzar ronda %d" % (numero + 1))
 	_armar_cartas(ofrecidas)
-	_espacio.custom_minimum_size.y = espacio_con_cartas if hay_cartas else espacio_sin_cartas
-	_espacio_cartas.visible = hay_cartas
+	_aviso.visible = todas_tomadas
+	_espacio_arriba.custom_minimum_size.y = bajada_aviso if todas_tomadas else 0.0
+	_espacio.custom_minimum_size.y = espacio_con_cartas if hay_cartas else espacio_aviso if todas_tomadas else espacio_sin_cartas
+	_espacio_cartas.custom_minimum_size.y = espacio_aviso if todas_tomadas else espacio_con_cartas
+	_espacio_cartas.visible = hay_cartas or todas_tomadas
 	_habilitar_comenzar(not hay_cartas)
 	visible = true
 	_contenido.modulate.a = 0.0
