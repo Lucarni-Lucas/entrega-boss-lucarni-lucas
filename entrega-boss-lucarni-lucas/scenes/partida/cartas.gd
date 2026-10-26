@@ -41,4 +41,7 @@ func _sumar(nombre: StringName, cantidad: float) -> void:
 		push_error("La carta toca un param que no existe en PlayerParams: %s" % nombre)
 		return
 	var actual: Variant = jugador.params.get(nombre)
-	jugador.params.set(nombre, actual + (roundi(cantidad) if actual is int else cantidad))
+	if actual is int:
+		jugador.params.set(nombre, actual + roundi(cantidad))
+	else:
+		jugador.params.set(nombre, actual + cantidad)

@@ -65,6 +65,13 @@ class_name PlayerParams
 @export var gp_replicas: int = 0
 @export_range(0, 3, 0.05) var gp_replica_distancia: float = 1.7
 @export_range(0, 0.5, 0.01, "suffix:s") var gp_replica_retraso: float = 0.08
+@export_subgroup("Géiser")
+@export var gp_geiser_gotas: int = 0
+@export_range(0, 400, 1, "suffix:px") var gp_geiser_altura: float = 212.0
+@export_range(0, 1, 0.05) var gp_geiser_altura_min: float = 0.35
+@export_range(0, 2, 0.05) var gp_geiser_zona: float = 1.0
+@export_range(0, 10000, 10, "suffix:px/s²") var gp_geiser_gravedad: float = 1800.0
+@export var gp_geiser_dano: int = 1
 @export_subgroup("Energía")
 @export_range(1, 500, 1) var gp_energia_max: float = 300.0
 @export_range(0, 500, 1) var gp_energia_min: float = 250.0

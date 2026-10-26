@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Carta" format=3 uid="uid://c0ldra674vjqe"]
+
+[ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="1_carta"]
+[ext_resource type="PackedScene" uid="uid://dfsdbcyb7k2p1" path="res://scenes/cartas/geiser.tscn" id="2_efecto"]
+[ext_resource type="Texture2D" uid="uid://dr0mysvc14grl" path="res://assets/ui/cartas/iconos/geiser.svg" id="3_icono"]
+
+[resource]
+script = ExtResource("1_carta")
+nombre = "Géiser"
+icono = ExtResource("3_icono")
+descripcion = "Tu ground pound hace brotar un géiser, sus gotas pegan al subir y al caer"
+verbo = 1
+cambios = Dictionary[StringName, float]({
+&"gp_geiser_gotas": 3.0
+})
+efecto = ExtResource("2_efecto")

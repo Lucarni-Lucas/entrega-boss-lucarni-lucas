@@ -182,6 +182,8 @@ func agregar_al_mundo(nodo: Node) -> void:
 
 
 func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true) -> void:
+	if not is_inside_tree():
+		return
 	var impacto: ImpactoGp = escena_impacto_gp.instantiate()
 	agregar_al_mundo(impacto)
 	impacto.golpear(self, posicion, altura, fuerza)
