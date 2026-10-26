@@ -32,6 +32,23 @@ shader = ExtResource("18_fatiga")
 shader_parameter/desaturacion = 0.0
 shader_parameter/brillo = 0.0
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_brillo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_brillo1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_brillo2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_brillo3")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 10.0
+}]
+
 [sub_resource type="Curve" id="Curve_xrivr"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.6), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -51,23 +68,6 @@ height = 23
 fill = 1
 fill_from = Vector2(0.5, 0.1)
 fill_to = Vector2(1, 1)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_brillo"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("20_brillo1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_brillo2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_brillo3")
-}],
-"loop": false,
-"name": &"default",
-"speed": 10.0
-}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_13qdw"]
 radius = 20.0
@@ -155,12 +155,12 @@ script = ExtResource("7_5gtgg")
 [node name="Dive" type="Node2D" parent="." unique_id=1097185342]
 script = ExtResource("9_h17s1")
 
-[node name="DetectorEnemigos" type="Area2D" parent="Dive"]
+[node name="DetectorEnemigos" type="Area2D" parent="Dive" unique_id=1425272297]
 collision_layer = 0
 collision_mask = 4
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dive/DetectorEnemigos"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dive/DetectorEnemigos" unique_id=1945022449]
 shape = SubResource("CircleShape2D_13qdw")
 
 [node name="Boomerang" type="Node2D" parent="." unique_id=1852323145]
@@ -183,7 +183,7 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1845187846]
 shape = SubResource("CircleShape2D_13qdw")
 
-[connection signal="animation_finished" from="Sprite/Brillo" to="Sprite/Brillo" method="hide"]
 [connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
 [connection signal="fuerza_gp_recuperada" from="." to="." method="_on_fuerza_gp_recuperada"]
 [connection signal="reboto" from="." to="." method="_on_reboto"]
+[connection signal="animation_finished" from="Sprite/Brillo" to="Sprite/Brillo" method="hide"]

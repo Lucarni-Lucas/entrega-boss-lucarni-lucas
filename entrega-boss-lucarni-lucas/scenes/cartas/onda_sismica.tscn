@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d3jvc3q4hbll4"]
+
+[ext_resource type="Script" uid="uid://tespwpohqwes" path="res://scenes/cartas/onda_sismica.gd" id="1_onda"]
+
+[node name="OndaSismica" type="Node2D"]
+top_level = true
+z_index = 1
+script = ExtResource("1_onda")

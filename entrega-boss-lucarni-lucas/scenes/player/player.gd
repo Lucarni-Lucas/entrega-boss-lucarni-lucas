@@ -3,6 +3,7 @@ class_name Player
 
 signal aterrizo
 signal reboto
+signal rebote_aereo(posicion: Vector2, altura: float)
 signal slasheo
 signal vida_cambio(actual: int, maximo: int)
 signal murio
@@ -146,6 +147,7 @@ func rebotar(fuerza: float) -> void:
 	escala_gravedad = 1.0
 	if not esta_en_suelo():
 		recargar_energia_gp(params.gp_recarga_rebote)
+		rebote_aereo.emit(global_position, z)
 	aplicar_impulso_vertical(fuerza)
 	reboto.emit()
 
