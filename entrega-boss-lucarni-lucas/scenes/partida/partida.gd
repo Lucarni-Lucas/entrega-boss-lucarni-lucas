@@ -10,7 +10,7 @@ enum Estado { RONDA, ENTRE_RONDAS, VICTORIA, DERROTA }
 
 @export var params: RondaParams
 
-var _estado := Estado.RONDA
+var _estado := Estado.ENTRE_RONDAS
 var _ronda := 0
 var _restante := 0.0
 

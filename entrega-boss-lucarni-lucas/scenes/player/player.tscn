@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://tv7moif7chl2" path="res://assets/efectos/destello_1.png" id="20_brillo1"]
 [ext_resource type="Texture2D" uid="uid://b7fi7gvj3hxu2" path="res://assets/efectos/destello_2.png" id="21_brillo2"]
 [ext_resource type="Texture2D" uid="uid://cdvcrmimctytr" path="res://assets/efectos/destello_3.png" id="22_brillo3"]
+[ext_resource type="PackedScene" uid="uid://0jq0cs5vo35g" path="res://scenes/impacto_gp/impacto_gp.tscn" id="23_impacto"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -30,6 +31,23 @@ radius = 1.0
 shader = ExtResource("18_fatiga")
 shader_parameter/desaturacion = 0.0
 shader_parameter/brillo = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_brillo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_brillo1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_brillo2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_brillo3")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="Curve" id="Curve_xrivr"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.6), 0.0, 0.0, 0, 0]
@@ -51,23 +69,6 @@ fill = 1
 fill_from = Vector2(0.5, 0.1)
 fill_to = Vector2(1, 1)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_brillo"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("20_brillo1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_brillo2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_brillo3")
-}],
-"loop": false,
-"name": &"default",
-"speed": 10.0
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_13qdw"]
 radius = 20.0
 
@@ -76,6 +77,7 @@ collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_dovo2")
 params = ExtResource("2_lvxji")
+escena_impacto_gp = ExtResource("23_impacto")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=651236493]
 shape = SubResource("CircleShape2D_xrivr")
@@ -150,15 +152,16 @@ texture = SubResource("GradientTexture2D_qek5x")
 [node name="GroundPound" type="Node2D" parent="." unique_id=851043009]
 script = ExtResource("7_5gtgg")
 
-[node name="Hitbox" parent="GroundPound" unique_id=1321716141 instance=ExtResource("7_0owmy")]
-collision_mask = 4
-origen = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundPound/Hitbox" unique_id=1392616015]
-polygon = PackedVector2Array(0, 32, 0, 32, 0, 32)
-
 [node name="Dive" type="Node2D" parent="." unique_id=1097185342]
 script = ExtResource("9_h17s1")
+
+[node name="DetectorEnemigos" type="Area2D" parent="Dive" unique_id=1425272297]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dive/DetectorEnemigos" unique_id=1945022449]
+shape = SubResource("CircleShape2D_13qdw")
 
 [node name="Boomerang" type="Node2D" parent="." unique_id=1852323145]
 script = ExtResource("10_je7p5")
@@ -180,7 +183,7 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1845187846]
 shape = SubResource("CircleShape2D_13qdw")
 
-[connection signal="animation_finished" from="Sprite/Brillo" to="Sprite/Brillo" method="hide"]
 [connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
 [connection signal="fuerza_gp_recuperada" from="." to="." method="_on_fuerza_gp_recuperada"]
 [connection signal="reboto" from="." to="." method="_on_reboto"]
+[connection signal="animation_finished" from="Sprite/Brillo" to="Sprite/Brillo" method="hide"]

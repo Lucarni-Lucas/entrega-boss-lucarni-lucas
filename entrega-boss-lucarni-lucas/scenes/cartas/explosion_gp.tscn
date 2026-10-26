@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://8fyvo6t5atp5" path="res://scenes/cartas/explosion_gp.gd" id="1_explosion"]
+[ext_resource type="PackedScene" uid="uid://m5ls6jgrsf7j" path="res://scenes/cartas/estallido.tscn" id="2_estallido"]
+
+[node name="ExplosionGp" type="Node"]
+script = ExtResource("1_explosion")
+escena_estallido = ExtResource("2_estallido")

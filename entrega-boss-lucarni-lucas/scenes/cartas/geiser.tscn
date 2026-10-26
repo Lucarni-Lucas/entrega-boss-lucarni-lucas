@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dfsdbcyb7k2p1"]
+
+[ext_resource type="Script" uid="uid://0y62w14kq5lr" path="res://scenes/cartas/geiser.gd" id="1_geiser"]
+[ext_resource type="PackedScene" uid="uid://wum2jpm7ni8g" path="res://scenes/cartas/gota.tscn" id="2_gota"]
+
+[node name="Geiser" type="Node"]
+script = ExtResource("1_geiser")
+escena_gota = ExtResource("2_gota")

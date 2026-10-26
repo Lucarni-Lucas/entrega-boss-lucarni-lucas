@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dpx3tr3fxff32"]
+
+[ext_resource type="Script" uid="uid://bcjvuh0npayn2" path="res://scenes/cartas/rebote_sismico.gd" id="1_rebote"]
+[ext_resource type="PackedScene" uid="uid://d3jvc3q4hbll4" path="res://scenes/cartas/onda_sismica.tscn" id="2_onda"]
+
+[node name="ReboteSismico" type="Node"]
+script = ExtResource("1_rebote")
+escena_onda = ExtResource("2_onda")

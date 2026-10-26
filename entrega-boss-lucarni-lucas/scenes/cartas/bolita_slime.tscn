@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dqg1llm54o0oa"]
+
+[ext_resource type="Script" uid="uid://bbfjw3buhtqof" path="res://scenes/componentes/proyectil.gd" id="1_proyectil"]
+[ext_resource type="Script" uid="uid://cdb05f27tcb1w" path="res://scenes/componentes/bolita.gd" id="2_bolita"]
+[ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="3_sombra"]
+[ext_resource type="Resource" path="res://resources/visual/sombra_enemigo.tres" id="4_sombra_params"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bolita"]
+radius = 14.0
+
+[node name="BolitaSlime" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_proyectil")
+radio = 10.0
+origen = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bolita")
+
+[node name="Sombra" parent="." instance=ExtResource("3_sombra")]
+scale = Vector2(0.4, 0.4)
+params = ExtResource("4_sombra_params")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("2_bolita")
+color_relleno = Color(0.2901961, 0.5254902, 0.9098039, 0.9)
+color_brillo = Color(0.85, 0.92, 1, 0.9)
+radio = 10.0

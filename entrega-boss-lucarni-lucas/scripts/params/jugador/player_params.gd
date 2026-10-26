@@ -57,9 +57,21 @@ class_name PlayerParams
 @export var gp_dano: int = 2
 @export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 100.0
 @export var gp_radio_explosion: float = 0.0
+@export_range(0, 0.5, 0.01, "suffix:s") var gp_salto_ventana: float = 0.0
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09
 @export_range(0, 1, 0.01, "suffix:s") var gp_proteccion: float = 0.2
 @export_range(0, 2000, 10, "suffix:px/s") var gp_empuje: float = 850.0
+@export_subgroup("Réplica")
+@export var gp_replicas: int = 0
+@export_range(0, 3, 0.05) var gp_replica_distancia: float = 1.7
+@export_range(0, 0.5, 0.01, "suffix:s") var gp_replica_retraso: float = 0.08
+@export_subgroup("Géiser")
+@export var gp_geiser_gotas: int = 0
+@export_range(0, 400, 1, "suffix:px") var gp_geiser_altura: float = 212.0
+@export_range(0, 1, 0.05) var gp_geiser_altura_min: float = 0.35
+@export_range(0, 2, 0.05) var gp_geiser_zona: float = 1.0
+@export_range(0, 10000, 10, "suffix:px/s²") var gp_geiser_gravedad: float = 1800.0
+@export var gp_geiser_dano: int = 1
 @export_subgroup("Energía")
 @export_range(1, 500, 1) var gp_energia_max: float = 300.0
 @export_range(0, 500, 1) var gp_energia_min: float = 250.0
@@ -102,3 +114,12 @@ class_name PlayerParams
 @export var anim_rebote_escala := Vector2(0.7, 1.4)
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_rebote_ida: float = 0.07
 @export_range(0, 0.5, 0.01, "suffix:s") var anim_rebote_vuelta: float = 0.27
+@export_subgroup("Filo")
+@export var boomerang_dano: int = 0
+@export_range(0, 200, 5, "suffix:px") var boomerang_radio_dano: float = 35.0
+@export_subgroup("Salpicadura")
+@export var boomerang_salpicadura_bolitas: int = 0
+@export_range(0, 3000, 10, "suffix:px/s") var boomerang_salpicadura_velocidad: float = 900.0
+@export_range(0, 1000, 10, "suffix:px") var boomerang_salpicadura_alcance: float = 300.0
+@export_range(0, 100, 1, "suffix:px") var boomerang_salpicadura_altura: float = 32.0
+@export var boomerang_salpicadura_dano: int = 1

@@ -10,6 +10,7 @@ const _NAVEGACION: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_r
 var libreria: LibreriaSonidos = preload("res://resources/audio/libreria_sonidos.tres")
 
 var _reproductores: Dictionary[Sonido, AudioStreamPlayer] = {}
+var _ultimo_cuadro: Dictionary[Sonido, int] = {}
 var _musica_actual: AudioStreamPlayer
 var _musica_otra: AudioStreamPlayer
 var _fundidos: Dictionary[AudioStreamPlayer, Tween] = {}
@@ -38,6 +39,14 @@ func tocar(sonido: Sonido) -> void:
 	if sonido == null or sonido.audio == null:
 		return
 	_reproductor_de(sonido).play()
+
+
+func tocar_una_vez_por_cuadro(sonido: Sonido) -> void:
+	var cuadro := Engine.get_physics_frames()
+	if _ultimo_cuadro.get(sonido, -1) == cuadro:
+		return
+	_ultimo_cuadro[sonido] = cuadro
+	tocar(sonido)
 
 
 func parar(sonido: Sonido) -> void:

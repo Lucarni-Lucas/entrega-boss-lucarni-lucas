@@ -3,12 +3,13 @@ class_name Player
 
 signal aterrizo
 signal reboto
+signal rebote_aereo(posicion: Vector2, altura: float)
 signal slasheo
 signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
 signal volvio_al_inicio
-signal impacto_gp(posicion: Vector2, radio: float)
+signal impacto_gp(posicion: Vector2, altura: float, radio: float, fuerza: float, primario: bool)
 signal salto
 signal anticipo_gp
 signal dive
@@ -20,20 +21,25 @@ signal curado
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
 const GRUPO := &"jugador"
+const _ESTADOS_AEREOS := [Estado.GROUND_POUND, Estado.DIVE]
 
 @export var params: PlayerParams
+@export var escena_impacto_gp: PackedScene
 
 var ultima_direccion := Vector2.DOWN
 var z := 0.0
 ## Positiva sube, negativa baja.
 var velocidad_z := 0.0
 var tiene_boomerang := true
+var tiempo_en_aire := 0.0
+var multiplicador_dano := 1.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
 var energia_gp: float
 var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
+var _gracia_aerea := 0.0
 var _posicion_inicial: Vector2
 
 @onready var _walk := $Walk
@@ -48,6 +54,7 @@ var _posicion_inicial: Vector2
 
 
 func _ready() -> void:
+	params = params.duplicate()
 	_ground_pound.anticipo.connect(_on_anticipo_gp)
 	_ground_pound.impacto.connect(_on_impacto_gp)
 	_jump.salto.connect(salto.emit)
@@ -72,6 +79,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	_actualizar_altura(delta)
+	_actualizar_tiempo_en_aire(delta)
 	if not esta_en_suelo() and estado_actual() != Estado.GROUND_POUND:
 		recargar_energia_gp(params.gp_recarga_aire * delta)
 	_hurtbox.z_min = z
@@ -87,6 +95,18 @@ func suelo_actual() -> float:
 
 func esta_en_suelo() -> bool:
 	return z <= suelo_actual() + 0.01
+
+
+func cuenta_como_aereo() -> bool:
+	return not esta_en_suelo() or _gracia_aerea > 0.0 or estado_actual() in _ESTADOS_AEREOS
+
+
+func mantener_aereo(segundos: float) -> void:
+	_gracia_aerea = maxf(_gracia_aerea, segundos)
+
+
+func dano_de(base: int) -> int:
+	return roundi(base * multiplicador_dano)
 
 
 func esta_slasheando() -> bool:
@@ -127,6 +147,7 @@ func rebotar(fuerza: float) -> void:
 	escala_gravedad = 1.0
 	if not esta_en_suelo():
 		recargar_energia_gp(params.gp_recarga_rebote)
+		rebote_aereo.emit(global_position, z)
 	aplicar_impulso_vertical(fuerza)
 	reboto.emit()
 
@@ -160,6 +181,28 @@ func agregar_al_mundo(nodo: Node) -> void:
 	get_parent().add_child(nodo)
 
 
+func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true) -> void:
+	if not is_inside_tree():
+		return
+	var impacto: ImpactoGp = escena_impacto_gp.instantiate()
+	agregar_al_mundo(impacto)
+	impacto.golpear(self, posicion, altura, fuerza)
+	impacto_gp.emit(posicion, altura, impacto.radio, fuerza, primario)
+	if primario:
+		_replicar_gp(posicion, altura, fuerza, impacto.radio)
+
+
+func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float) -> void:
+	for i in params.gp_replicas:
+		var angulo := TAU * i / params.gp_replicas
+		var desvio := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * radio * params.gp_replica_distancia
+		var replica := impactar_gp.bind(posicion + desvio, altura, fuerza, false)
+		if params.gp_replica_retraso > 0.0:
+			get_tree().create_timer(params.gp_replica_retraso, false, true).timeout.connect(replica)
+		else:
+			replica.call()
+
+
 func _velocidad_en_pantalla() -> Vector2:
 	if esta_en_suelo():
 		return Vector2.ZERO
@@ -177,6 +220,11 @@ func _actualizar_altura(delta: float) -> void:
 		aterrizo.emit()
 
 
+func _actualizar_tiempo_en_aire(delta: float) -> void:
+	_gracia_aerea = maxf(_gracia_aerea - delta, 0.0)
+	tiempo_en_aire = tiempo_en_aire + delta if cuenta_como_aereo() else 0.0
+
+
 func _on_aterrizo() -> void:
 	_sprite.deformar(params.anim_aterrizaje_escala, params.anim_aterrizaje_ida, params.anim_aterrizaje_vuelta)
 
@@ -186,9 +234,8 @@ func _on_anticipo_gp() -> void:
 	anticipo_gp.emit()
 
 
-func _on_impacto_gp(posicion: Vector2, _altura_inicial: float, radio: float) -> void:
+func _on_impacto_gp(_posicion: Vector2, _altura_inicial: float) -> void:
 	_sprite.deformar(params.anim_gp_impacto_escala, params.anim_gp_impacto_ida, params.anim_gp_impacto_vuelta)
-	impacto_gp.emit(posicion, radio)
 
 
 func _on_reboto() -> void:

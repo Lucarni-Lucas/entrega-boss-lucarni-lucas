@@ -3,7 +3,7 @@ class_name Hitbox
 
 signal golpeo(hurtbox: Hurtbox)
 
-enum Origen { NINGUNO, SLASH, GROUND_POUND }
+enum Origen { NINGUNO, SLASH, GROUND_POUND, PROYECTIL }
 
 @export var dano := 1
 @export var z_min := 0.0

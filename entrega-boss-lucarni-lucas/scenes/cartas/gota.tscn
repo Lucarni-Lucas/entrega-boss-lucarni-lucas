@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://wum2jpm7ni8g"]
+
+[ext_resource type="Script" uid="uid://bbfjw3buhtqof" path="res://scenes/componentes/proyectil.gd" id="1_proyectil"]
+[ext_resource type="Script" uid="uid://cdb05f27tcb1w" path="res://scenes/componentes/bolita.gd" id="2_bolita"]
+[ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="3_sombra"]
+[ext_resource type="Resource" path="res://resources/visual/sombra_enemigo.tres" id="4_sombra_params"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gota"]
+radius = 12.0
+
+[node name="Gota" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_proyectil")
+origen = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gota")
+
+[node name="Sombra" parent="." instance=ExtResource("3_sombra")]
+scale = Vector2(0.35, 0.35)
+params = ExtResource("4_sombra_params")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("2_bolita")

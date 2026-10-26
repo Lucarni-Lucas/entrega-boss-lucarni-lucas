@@ -45,7 +45,7 @@ func _iniciar(player: Player) -> void:
 
 	_construir_hitbox(player.params)
 	_hitbox.empuje = player.params.slash_empuje
-	_hitbox.dano = player.params.slash_dano
+	_hitbox.dano = player.dano_de(player.params.slash_dano)
 	_hitbox.activar()
 
 	if _tween_estela:

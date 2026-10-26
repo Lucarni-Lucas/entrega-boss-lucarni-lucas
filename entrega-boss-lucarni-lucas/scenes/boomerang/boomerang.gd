@@ -28,6 +28,8 @@ var en_vuelo := false
 @onready var _destello: Sprite2D = $Sprite/Destello
 @onready var _destello2: Sprite2D = $Sprite/Destello2
 @onready var _detector: Area2D = $DetectorJugador
+@onready var _hitbox: Hitbox = $Hitbox
+@onready var _poligono_hitbox: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
 @onready var _offset_sprite: Vector2 = _sprite.position
 
 
@@ -63,6 +65,7 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	_tiempo_flotando = 0.0
 	_rebotes = 0
 	_armado = false
+	_poligono_hitbox.polygon = Formas.elipse(params.boomerang_radio_dano, params.anim_perspectiva)
 	_angulo = 0.0
 	en_vuelo = true
 	visible = true
@@ -98,6 +101,13 @@ func _volver(delta: float) -> void:
 func _cambiar_fase(nueva: Fase) -> void:
 	_fase = nueva
 	_chispas.emitting = nueva == Fase.FLOTANDO
+	if nueva == Fase.FLOTANDO and params.boomerang_dano > 0:
+		_hitbox.dano = _duenio.dano_de(params.boomerang_dano)
+		_hitbox.z_min = z
+		_hitbox.z_max = z + params.boomerang_alto
+		_hitbox.activar()
+	else:
+		_hitbox.desactivar()
 
 
 func _ubicar_destello(destello: Sprite2D, angulo: float) -> void:
@@ -140,6 +150,7 @@ func guardar() -> void:
 
 func _desactivar() -> void:
 	visible = false
+	_hitbox.desactivar()
 	set_physics_process(false)
 	_chispas.restart()
 	_chispas.emitting = false

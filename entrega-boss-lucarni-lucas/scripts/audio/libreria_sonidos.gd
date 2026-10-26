@@ -38,3 +38,8 @@ class_name LibreriaSonidos
 @export var ui_volver: Sonido
 @export var pausa: Sonido
 @export var reanudar: Sonido
+
+@export_group("Cartas")
+@export var explosion_gp: Sonido
+@export var geiser: Sonido
+@export var salpicadura: Sonido
