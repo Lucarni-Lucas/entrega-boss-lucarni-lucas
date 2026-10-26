@@ -184,6 +184,19 @@ func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := tr
 	agregar_al_mundo(impacto)
 	impacto.golpear(self, posicion, altura, fuerza)
 	impacto_gp.emit(posicion, altura, impacto.radio, fuerza, primario)
+	if primario:
+		_replicar_gp(posicion, altura, fuerza, impacto.radio)
+
+
+func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float) -> void:
+	for i in params.gp_replicas:
+		var angulo := TAU * i / params.gp_replicas
+		var desvio := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * radio * params.gp_replica_distancia
+		var replica := impactar_gp.bind(posicion + desvio, altura, fuerza, false)
+		if params.gp_replica_retraso > 0.0:
+			get_tree().create_timer(params.gp_replica_retraso, false, true).timeout.connect(replica)
+		else:
+			replica.call()
 
 
 func _velocidad_en_pantalla() -> Vector2:

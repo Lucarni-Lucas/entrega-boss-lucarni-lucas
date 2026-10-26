@@ -56,7 +56,6 @@ theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_font_sizes/font_size = 34
 text = "Ground pound explosivo"
-vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Icono" type="TextureRect" parent="."]

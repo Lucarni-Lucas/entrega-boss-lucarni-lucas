@@ -15,6 +15,7 @@ anim_paso_distancia = 178.0
 gp_radio_impacto = 65.0
 gp_impacto_duracion = 0.04
 gp_proteccion = 0.4
+gp_replica_retraso = 0.12
 gp_recarga_aire = 100.0
 gp_recarga_dive = 50.0
 gp_recarga_rebote = 150.0

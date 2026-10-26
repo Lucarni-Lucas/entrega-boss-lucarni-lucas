@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="5_carta"]
 [ext_resource type="Script" uid="uid://btigfwwg2asuc" path="res://scenes/partida/cartas.gd" id="5_cartas"]
 [ext_resource type="Resource" uid="uid://dtjwu2qo5am47" path="res://resources/cartas/ground_pound_explosivo.tres" id="5_gp_explosivo"]
+[ext_resource type="Resource" uid="uid://cdkw4b86p5suh" path="res://resources/cartas/replica.tres" id="5_replica"]
 [ext_resource type="Script" uid="uid://butxgi6do0nfc" path="res://scenes/partida/anillos.gd" id="6_8vbsj"]
 [ext_resource type="Script" uid="uid://d34w53kyaoxa3" path="res://scenes/partida/partida.gd" id="6_oexds"]
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="7_naajo"]
@@ -98,7 +99,7 @@ jugador = NodePath("../Entidades/Player")
 [node name="Cartas" type="Node" parent="." unique_id=753983594 node_paths=PackedStringArray("jugador")]
 script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
-pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo")])
+pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica")])
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")

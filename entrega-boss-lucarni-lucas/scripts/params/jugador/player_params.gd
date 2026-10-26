@@ -61,6 +61,10 @@ class_name PlayerParams
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09
 @export_range(0, 1, 0.01, "suffix:s") var gp_proteccion: float = 0.2
 @export_range(0, 2000, 10, "suffix:px/s") var gp_empuje: float = 850.0
+@export_subgroup("Réplica")
+@export var gp_replicas: int = 0
+@export_range(0, 3, 0.05) var gp_replica_distancia: float = 1.7
+@export_range(0, 0.5, 0.01, "suffix:s") var gp_replica_retraso: float = 0.08
 @export_subgroup("Energía")
 @export_range(1, 500, 1) var gp_energia_max: float = 300.0
 @export_range(0, 500, 1) var gp_energia_min: float = 250.0
