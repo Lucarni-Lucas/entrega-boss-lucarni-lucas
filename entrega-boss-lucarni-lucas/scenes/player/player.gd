@@ -344,5 +344,11 @@ func volver_al_inicio() -> void:
 	_sprite.visible = true
 	energia_gp = params.gp_energia_max
 	_boomerang.reiniciar(self)
+	descartar_buffers()
 	_actualizar_visual()
 	volvio_al_inicio.emit()
+
+
+func descartar_buffers() -> void:
+	for verbo in [_jump, _slash, _ground_pound, _dive, _boomerang]:
+		verbo.descartar_buffer()

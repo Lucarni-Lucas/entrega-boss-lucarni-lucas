@@ -9,6 +9,7 @@ const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.THROW]
 var _direccion := Vector2.ZERO
 var _cargas := 0
 var _toco_enemigo := false
+var _buffer := BufferVerbo.new(&"dive")
 
 @onready var _detector: Area2D = $DetectorEnemigos
 
@@ -17,13 +18,19 @@ func estado() -> Player.Estado:
 	return Player.Estado.DIVE
 
 
-func procesar_fisica(player: Player, _delta: float) -> void:
+func procesar_fisica(player: Player, delta: float) -> void:
 	if player.esta_en_suelo():
 		_cargas = player.params.dive_cargas_max
+	var pedido := _buffer.actualizar(delta, player.params.buffer_verbos)
 	if player.verbo_activo == self:
 		_procesar_dive(player)
-	elif Input.is_action_just_pressed("dive") and player.intentar_activar(self):
+	elif pedido and player.intentar_activar(self):
+		_buffer.consumir()
 		_procesar_dive(player)
+
+
+func descartar_buffer() -> void:
+	_buffer.consumir()
 
 
 func estados_validos() -> Array:

@@ -6,6 +6,7 @@ signal impacto(posicion: Vector2, altura_inicial: float)
 var _tiempo_anticipacion := 0.0
 var _altura_inicial := 0.0
 var _invulnerable := false
+var _buffer := BufferVerbo.new(&"ground_pound")
 
 
 func estado() -> Player.Estado:
@@ -13,10 +14,15 @@ func estado() -> Player.Estado:
 
 
 func procesar_fisica(player: Player, delta: float) -> void:
+	var pedido := _buffer.actualizar(delta, player.params.buffer_verbos, player.z >= player.params.gp_altura_minima)
 	if player.verbo_activo == self:
 		_procesar_caida(player, delta)
-	elif Input.is_action_just_pressed("ground_pound"):
-		player.intentar_activar(self)
+	elif pedido and player.intentar_activar(self):
+		_buffer.consumir()
+
+
+func descartar_buffer() -> void:
+	_buffer.consumir()
 
 
 func estados_validos() -> Array:

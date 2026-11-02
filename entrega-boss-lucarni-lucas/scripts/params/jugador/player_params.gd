@@ -35,6 +35,9 @@ class_name PlayerParams
 @export_range(0, 10000, 0.5, "suffix:px/s²") var gravedad: float = 2812.5
 @export_range(0, 0.3, 0.01, "suffix:s") var salto_buffer: float = 0.13
 
+@export_group("Encadenar")
+@export_range(0, 0.3, 0.01, "suffix:s") var buffer_verbos: float = 0.13
+
 @export_group("Slash")
 @export_subgroup("Golpe")
 @export var slash_dano: int = 1

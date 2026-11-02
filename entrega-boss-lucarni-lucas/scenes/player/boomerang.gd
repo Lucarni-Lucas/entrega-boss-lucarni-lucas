@@ -22,6 +22,7 @@ const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
 
 var _tiempo_recuperacion := 0.0
 var _proyectil: Boomerang
+var _buffer := BufferVerbo.new(&"boomerang")
 
 
 func _ready() -> void:
@@ -36,13 +37,18 @@ func estado() -> Player.Estado:
 
 func procesar_fisica(player: Player, delta: float) -> void:
 	_actualizar_disponibilidad(player)
+	var pedido := _buffer.actualizar(delta, player.params.buffer_verbos)
 	if player.verbo_activo == self:
 		_tiempo_recuperacion -= delta
 		if _tiempo_recuperacion <= 0.0:
 			player.escala_gravedad = 1.0
 			player.liberar_verbo(self)
-	elif Input.is_action_just_pressed("boomerang"):
-		player.intentar_activar(self)
+	elif pedido and player.intentar_activar(self):
+		_buffer.consumir()
+
+
+func descartar_buffer() -> void:
+	_buffer.consumir()
 
 
 func estados_validos() -> Array:

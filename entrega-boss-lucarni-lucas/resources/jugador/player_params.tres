@@ -12,6 +12,7 @@ curacion_umbral_vida_baja = 0.2
 anim_estiramiento_max = 1.25
 anim_paso_escala = Vector2(1.05, 0.94)
 anim_paso_distancia = 178.0
+buffer_verbos = 0.08
 gp_radio_impacto = 65.0
 gp_impacto_duracion = 0.04
 gp_proteccion = 0.4

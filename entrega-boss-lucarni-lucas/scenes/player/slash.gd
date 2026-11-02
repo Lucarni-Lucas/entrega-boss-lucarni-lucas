@@ -11,6 +11,7 @@ var _tiempo_cooldown := 0.0
 var _angulo_centro := 0.0
 var _sentido := 1.0
 var _tween_estela: Tween
+var _buffer := BufferVerbo.new(&"slash")
 
 @onready var _hitbox: Hitbox = $Hitbox
 @onready var _efecto := $Efecto
@@ -23,6 +24,7 @@ var _tween_estela: Tween
 
 func procesar_fisica(player: Player, delta: float) -> void:
 	_tiempo_cooldown = maxf(_tiempo_cooldown - delta, 0.0)
+	var pedido := _buffer.actualizar(delta, player.params.buffer_verbos)
 
 	if _tiempo_activo > 0.0:
 		_tiempo_activo -= delta
@@ -30,8 +32,13 @@ func procesar_fisica(player: Player, delta: float) -> void:
 		_barrer(player)
 		if _tiempo_activo <= 0.0:
 			_terminar(player)
-	elif Input.is_action_just_pressed("slash") and esta_disponible(player):
+	elif pedido and esta_disponible(player):
+		_buffer.consumir()
 		_iniciar(player)
+
+
+func descartar_buffer() -> void:
+	_buffer.consumir()
 
 
 func esta_disponible(player: Player) -> bool:

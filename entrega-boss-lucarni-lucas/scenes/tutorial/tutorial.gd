@@ -96,6 +96,7 @@ func _ready() -> void:
 	_en_suelo_previo = jugador.esta_en_suelo()
 	_reintentar.pressed.connect(_reintentar_cadena)
 	_empezar_partida.pressed.connect(_ir_a_la_partida)
+	EsquemaInput.volver_a_teclado_si_fue_clic()
 	EsquemaInput.cambio.connect(_on_esquema_cambio)
 	jugador.fuerza_gp_recuperada.connect(_on_jugador_fuerza_gp_recuperada)
 	hud.visible = false

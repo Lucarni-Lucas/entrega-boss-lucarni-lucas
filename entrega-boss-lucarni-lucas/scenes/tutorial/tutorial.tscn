@@ -533,6 +533,7 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="slasheo" from="Entidades/Player" to="Guia" method="_on_player_slasheo"]
 [connection signal="slasheo" from="Entidades/Player" to="Sonidos" method="_on_jugador_slasheo"]
 [connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
+[connection signal="pauso" from="MenuPartida" to="Entidades/Player" method="descartar_buffers"]
 [connection signal="pauso" from="MenuPartida" to="Sonidos" method="_on_menu_partida_pauso"]
 [connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]
 [connection signal="reanudo" from="MenuPartida" to="Sonidos" method="_on_menu_partida_reanudo"]
