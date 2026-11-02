@@ -8,6 +8,7 @@ signal slasheo
 signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
+signal energia_gp_cambio(actual: float, minima: float, maxima: float)
 signal volvio_al_inicio
 signal impacto_gp(posicion: Vector2, altura: float, radio: float, fuerza: float, primario: bool)
 signal salto
@@ -36,7 +37,12 @@ var multiplicador_dano := 1.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
-var energia_gp: float
+var energia_gp: float:
+	set(valor):
+		if valor == energia_gp:
+			return
+		energia_gp = valor
+		energia_gp_cambio.emit.call_deferred(energia_gp, params.gp_energia_min, params.gp_energia_max)
 var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
 var _gracia_aerea := 0.0

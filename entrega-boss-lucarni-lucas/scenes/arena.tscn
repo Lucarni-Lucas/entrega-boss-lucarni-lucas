@@ -140,6 +140,7 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="reboto" from="Entidades/Player" to="Sonidos" method="_on_jugador_reboto"]
 [connection signal="salto" from="Entidades/Player" to="Sonidos" method="_on_jugador_salto"]
 [connection signal="slasheo" from="Entidades/Player" to="Sonidos" method="_on_jugador_slasheo"]
+[connection signal="energia_gp_cambio" from="Entidades/Player" to="Hud" method="_on_player_energia_gp_cambio"]
 [connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
 [connection signal="volvio_al_inicio" from="Entidades/Player" to="Camara" method="saltar_al_objetivo"]
 [connection signal="volvio_al_inicio" from="Entidades/Player" to="Efectos" method="_on_jugador_volvio_al_inicio"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cioisylynclp1" path="res://scenes/ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Script" uid="uid://xs56t7tk0pv" path="res://scenes/ui/barra_vida.gd" id="3_barra"]
+[ext_resource type="Texture2D" uid="uid://dd3hflny45wy1" path="res://assets/ui/hud/energia_gp.svg" id="4_energia"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_numero"]
 bg_color = Color(0.08, 0.08, 0.094, 0.85)
@@ -33,10 +34,10 @@ text = "1:30"
 horizontal_alignment = 1
 
 [node name="Numero" type="Panel" parent="." unique_id=1531365674]
-offset_left = 30.0
+offset_left = 24.0
 offset_top = 26.0
 offset_right = 114.0
-offset_bottom = 102.0
+offset_bottom = 108.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_numero")
 
 [node name="Texto" type="Label" parent="Numero" unique_id=712203835]
@@ -47,7 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"Destacado"
-theme_override_font_sizes/font_size = 52
+theme_override_font_sizes/font_size = 58
 text = "20"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -61,6 +62,7 @@ offset_right = 530.0
 offset_bottom = 90.0
 mouse_filter = 2
 script = ExtResource("3_barra")
-alto_barra = 46.0
-alto_curacion = 6.0
-separacion_curacion = 14.0
+alto_barra = 42.0
+icono_energia = ExtResource("4_energia")
+alto_energia = 6.0
+separacion_energia = 20.0

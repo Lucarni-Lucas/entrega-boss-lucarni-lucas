@@ -34,7 +34,10 @@ const _TECLAS := {
 const _SALUDO := "¡Hola! Soy Boomie"
 const _DETALLE_SALUDO := "Dejame enseñarte lo básico"
 const _FESTEJOS := ["¡Bien!", "¡Eso!", "¡Genial!", "¡Muy bien!"]
-const _DETALLE_ENERGIA := "Ojo, que cansa. Si lo repetís muy seguido, sale débil"
+const _TITULO_ENERGIA := "¡Ojo, que cansa!"
+const _DETALLE_ENERGIA := "Esa barrita de arriba es tu energía, se carga mientras estás en el aire"
+const _TITULO_MARCA := "Llenala hasta la marca"
+const _DETALLE_MARCA := "Así tu ground pound pega con todo"
 const _PRESENTACION_CADENA := "Ahora, intentemos algo más difícil"
 const _DETALLE_PRESENTACION_CADENA := "Hacé todo seguido sin tocar el suelo"
 const _TITULO_REINTENTO := "UNA CADENA MÁS"
@@ -43,9 +46,12 @@ const _AVISO_LANZAR_EN_SUELO := "También podés tirarme en el suelo, pero prob�
 
 @export var params: TutorialParams
 @export var jugador: Player
+@export var hud: Hud
 @export_file("*.tscn") var escena_partida: String
 @export var color_inactivo := Color(0.5, 0.5, 0.5)
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
+@export_range(0.2, 5, 0.1, "suffix:s") var periodo_pulso_continuar := 2.0
+@export_range(0, 1, 0.05) var alpha_pulso_continuar := 0.35
 
 var _fase := Fase.VERBOS
 var _paso := 0
@@ -59,6 +65,10 @@ var _espera := 0.0
 var _al_terminar_espera: Callable
 var _tiempo_aviso := 0.0
 var _bloqueado := false
+var _con_hud := false
+var _al_continuar: Callable
+var _bloqueo_dialogo := 0.0
+var _al_llegar_a_la_marca: Callable
 
 @onready var _pasos: Control = $Pasos
 @onready var _instruccion: Label = $Pasos/Instruccion
@@ -73,6 +83,8 @@ var _bloqueado := false
 @onready var _teclas_cadena: Array[IconoTecla] = [$Pasos/Cadena/Saltar/Tecla, $Pasos/Cadena/Boomerang/Tecla, $Pasos/Cadena/Dive/Tecla, $Pasos/Cadena/Rebote/Tecla, $Pasos/Cadena/GroundPound/Tecla]
 @onready var _aviso: Label = $Pasos/Aviso
 @onready var _tecla_pausa: IconoTecla = $Pasos/AvisoPausa/Tecla
+@onready var _continuar: Control = $Pasos/Continuar
+@onready var _tecla_continuar: IconoTecla = $Pasos/Continuar/Tecla
 @onready var _boomie: Boomie = $Pasos/Boomie
 @onready var _final: Control = $Final
 @onready var _reintentar: Button = $Final/Contenido/ReintentarCadena
@@ -85,18 +97,27 @@ func _ready() -> void:
 	_reintentar.pressed.connect(_reintentar_cadena)
 	_empezar_partida.pressed.connect(_ir_a_la_partida)
 	EsquemaInput.cambio.connect(_on_esquema_cambio)
+	jugador.fuerza_gp_recuperada.connect(_on_jugador_fuerza_gp_recuperada)
+	hud.visible = false
+	_continuar.visible = false
+	_pulsar_continuar()
 	_actualizar_puntos()
 	_actualizar_texturas()
 	_boomie.entrar(true)
 	_saludar()
 
 
-func _input(_event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if _bloqueado:
 		get_viewport().set_input_as_handled()
+	elif _continuar.visible and event.is_action_pressed("continuar"):
+		_continuar_dialogo()
 
 
 func _process(delta: float) -> void:
+	if _bloqueo_dialogo > 0.0:
+		_bloqueo_dialogo -= delta
+	_continuar.visible = _al_continuar.is_valid() and _bloqueo_dialogo <= 0.0
 	if _tiempo_aviso > 0.0:
 		_tiempo_aviso -= delta
 		_aviso.visible = _tiempo_aviso > 0.0
@@ -141,10 +162,12 @@ func _on_esquema_cambio(_esquema: EsquemaInput.Esquema) -> void:
 
 func _on_menu_partida_pauso() -> void:
 	visible = false
+	hud.visible = false
 
 
 func _on_menu_partida_reanudo() -> void:
 	visible = true
+	hud.visible = _con_hud and _fase != Fase.FINAL
 	get_tree().paused = false
 	if _fase == Fase.FINAL and not _bloqueado:
 		_reintentar.grab_focus()
@@ -155,6 +178,10 @@ func _on_menu_partida_saltar_paso_pedido() -> void:
 	if _espera > 0.0:
 		_espera = 0.0
 		_al_terminar_espera.call()
+	elif _al_continuar.is_valid():
+		_continuar_dialogo()
+	elif _al_llegar_a_la_marca.is_valid():
+		_on_jugador_fuerza_gp_recuperada()
 	elif _fase == Fase.VERBOS:
 		_paso += 1
 		_actualizar_puntos()
@@ -173,7 +200,7 @@ func _on_menu_partida_saltar_paso_pedido() -> void:
 
 
 func _escuchando() -> bool:
-	return _fase != Fase.FINAL and _espera <= 0.0
+	return _fase != Fase.FINAL and _espera <= 0.0 and not _al_continuar.is_valid() and not _al_llegar_a_la_marca.is_valid()
 
 
 func _secuencia() -> Array:
@@ -240,9 +267,36 @@ func _completar_verbo() -> void:
 	_actualizar_puntos()
 	var despues: Callable = _mostrar_verbo if _paso < _PASOS.size() else _presentar_cadena
 	if completada == Accion.GROUND_POUND:
-		_celebrar(_FESTEJOS.pick_random(), _DETALLE_ENERGIA, params.duracion_energia, despues)
+		_mostrar_hud()
+		hud.resaltar_energia(true)
+		_boomie.festejar()
+		_dialogo(_TITULO_ENERGIA, _DETALLE_ENERGIA, _pedir_marca.bind(despues))
 	else:
 		_celebrar(_FESTEJOS.pick_random(), "", params.duracion_bien, despues)
+
+
+func _pedir_marca(despues: Callable) -> void:
+	jugador.energia_gp = 0.0
+	_mostrar_texto(_TITULO_MARCA, _DETALLE_MARCA)
+	_al_llegar_a_la_marca = _celebrar.bind(_FESTEJOS.pick_random(), "", params.duracion_bien, _terminar_energia.bind(despues))
+
+
+func _on_jugador_fuerza_gp_recuperada() -> void:
+	if not _al_llegar_a_la_marca.is_valid():
+		return
+	var despues := _al_llegar_a_la_marca
+	_al_llegar_a_la_marca = Callable()
+	despues.call()
+
+
+func _terminar_energia(despues: Callable) -> void:
+	hud.resaltar_energia(false)
+	despues.call()
+
+
+func _mostrar_hud() -> void:
+	_con_hud = true
+	hud.visible = true
 
 
 func _mostrar_verbo() -> void:
@@ -280,19 +334,35 @@ func _acciones_input(secuencia: Array) -> Array:
 
 
 func _saludar() -> void:
-	_teclas.visible = false
 	_fila_puntos.visible = false
-	_mostrar_texto(_SALUDO, _DETALLE_SALUDO)
-	_espera = params.duracion_saludo
-	_al_terminar_espera = _mostrar_verbo
+	_dialogo(_SALUDO, _DETALLE_SALUDO, _mostrar_verbo)
 
 
 func _presentar_cadena() -> void:
-	_teclas.visible = false
+	_mostrar_hud()
 	_fila_puntos.visible = false
-	_mostrar_texto(_PRESENTACION_CADENA, _DETALLE_PRESENTACION_CADENA)
-	_espera = params.duracion_presentacion_cadena
-	_al_terminar_espera = _empezar_cadena
+	_dialogo(_PRESENTACION_CADENA, _DETALLE_PRESENTACION_CADENA, _empezar_cadena)
+
+
+func _dialogo(titulo: String, detalle: String, despues: Callable) -> void:
+	_teclas.visible = false
+	_cadena.visible = false
+	_mostrar_texto(titulo, detalle)
+	_al_continuar = despues
+	_bloqueo_dialogo = params.bloqueo_dialogo
+
+
+func _continuar_dialogo() -> void:
+	var despues := _al_continuar
+	_al_continuar = Callable()
+	_continuar.visible = false
+	despues.call()
+
+
+func _pulsar_continuar() -> void:
+	var pulso := create_tween().set_loops()
+	pulso.tween_property(_continuar, "modulate:a", alpha_pulso_continuar, periodo_pulso_continuar * 0.5).set_trans(Tween.TRANS_SINE)
+	pulso.tween_property(_continuar, "modulate:a", 1.0, periodo_pulso_continuar * 0.5).set_trans(Tween.TRANS_SINE)
 
 
 func _empezar_cadena() -> void:
@@ -352,6 +422,7 @@ func _actualizar_texturas() -> void:
 		if _TECLAS.has(_CADENA[i]):
 			_poner_tecla(_teclas_cadena[i], _TECLAS[_CADENA[i]])
 	_tecla_pausa.textura = EsquemaInput.tecla("pausa")
+	_tecla_continuar.textura = EsquemaInput.tecla("continuar")
 
 
 func _poner_tecla(icono: IconoTecla, accion: String) -> void:
@@ -414,6 +485,7 @@ func _mostrar_final() -> void:
 	_fase = Fase.FINAL
 	jugador.process_mode = Node.PROCESS_MODE_DISABLED
 	jugador.visible = false
+	hud.visible = false
 	_pasos.visible = false
 	_final.visible = true
 	_bloqueado = true
@@ -438,6 +510,7 @@ func _reintentar_cadena() -> void:
 	_final.visible = false
 	_pasos.visible = true
 	jugador.visible = true
+	hud.visible = true
 	jugador.process_mode = Node.PROCESS_MODE_INHERIT
 	_boomie.entrar()
 	_empezar_cadena()

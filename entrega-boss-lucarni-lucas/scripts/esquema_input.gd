@@ -17,6 +17,7 @@ const TECLAS := {
 	"dive": [["mouse_derecho"], ["x"], ["triangulo"]],
 	"boomerang": [["shift"], ["z"], ["circulo"]],
 	"pausa": [["esc", "p"], ["esc", "p"], ["options"]],
+	"continuar": [["enter"], ["enter"], ["cruz"]],
 }
 const _ICONOS := "res://assets/ui/controles/%s.svg"
 const _TECLAS_MOUSE := [KEY_W, KEY_A, KEY_S, KEY_D, KEY_SPACE, KEY_SHIFT]
