@@ -39,6 +39,12 @@ func bajar(posicion: Vector2, altura: float, duracion: float, perspectiva: float
 	_tween.tween_callback(hide)
 
 
+func desactivar() -> void:
+	if _tween:
+		_tween.kill()
+	hide()
+
+
 func _poner_avance(valor: float) -> void:
 	_avance = valor
 	queue_redraw()

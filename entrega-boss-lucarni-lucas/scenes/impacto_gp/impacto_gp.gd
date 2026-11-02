@@ -19,6 +19,7 @@ func golpear(jugador: Player, posicion: Vector2, altura: float, fuerza: float) -
 	_restante = params.gp_impacto_duracion
 	activar()
 	_esperando_fisica = false
+	jugador.volvio_al_inicio.connect(queue_free)
 
 
 func _physics_process(delta: float) -> void:

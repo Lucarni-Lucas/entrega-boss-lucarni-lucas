@@ -41,6 +41,7 @@ var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
 var _gracia_aerea := 0.0
 var _posicion_inicial: Vector2
+var _vueltas_al_inicio := 0
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -196,11 +197,16 @@ func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float)
 	for i in params.gp_replicas:
 		var angulo := TAU * i / params.gp_replicas
 		var desvio := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * radio * params.gp_replica_distancia
-		var replica := impactar_gp.bind(posicion + desvio, altura, fuerza, false)
+		var replica := _replicar.bind(_vueltas_al_inicio, posicion + desvio, altura, fuerza)
 		if params.gp_replica_retraso > 0.0:
 			get_tree().create_timer(params.gp_replica_retraso, false, true).timeout.connect(replica)
 		else:
 			replica.call()
+
+
+func _replicar(vuelta: int, posicion: Vector2, altura: float, fuerza: float) -> void:
+	if vuelta == _vueltas_al_inicio:
+		impactar_gp(posicion, altura, fuerza, false)
 
 
 func _velocidad_en_pantalla() -> Vector2:
@@ -253,7 +259,7 @@ func recibir_dano(cantidad: int) -> void:
 	if vida > params.piedad_vida:
 		vida = maxi(vida - cantidad, params.piedad_vida)
 	else:
-		vida = maxi(vida - params.piedad_dano, 0)
+		vida = maxi(vida - mini(params.piedad_dano, cantidad), 0)
 	vida_cambio.emit(vida, params.vida_max)
 	if vida == 0:
 		murio.emit()
@@ -318,6 +324,7 @@ func _actualizar_visual() -> void:
 
 
 func volver_al_inicio() -> void:
+	_vueltas_al_inicio += 1
 	if verbo_activo != null:
 		verbo_activo.cancelar(self)
 		verbo_activo = null

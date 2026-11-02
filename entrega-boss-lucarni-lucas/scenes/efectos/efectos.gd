@@ -57,6 +57,16 @@ func _on_jugador_impacto_gp(posicion: Vector2, altura: float, radio: float, _fue
 	anillo.mostrar(posicion + Vector2(0, -altura), radio, jugador.params.anim_perspectiva, params)
 
 
+func _on_jugador_volvio_al_inicio() -> void:
+	for tween in _tweens.values():
+		tween.kill()
+	_tweens.clear()
+	for sprite in _estrellas + _chispas:
+		sprite.hide()
+	for anillo in _anillos:
+		anillo.desactivar()
+
+
 func _crear_pool(textura: Texture2D, contenedor: Node2D, cantidad: int) -> Array[Sprite2D]:
 	var pool: Array[Sprite2D] = []
 	for i in cantidad:

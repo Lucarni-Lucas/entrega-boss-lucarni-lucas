@@ -20,6 +20,12 @@ func mostrar(posicion: Vector2, radio: float, perspectiva: float, params: Efecto
 	_tween.tween_callback(hide)
 
 
+func desactivar() -> void:
+	if _tween:
+		_tween.kill()
+	hide()
+
+
 func _poner_radio(radio: float) -> void:
 	_radio = radio
 	queue_redraw()

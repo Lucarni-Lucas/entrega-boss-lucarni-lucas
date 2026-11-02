@@ -96,6 +96,7 @@ func _on_marca_lista(marca: MarcaSpawn) -> void:
 	_pool_marcas.devolver(marca)
 	var enemigo := _elegir_enemigo(escena)
 	enemigo.activar_en(posicion)
+	enemigo.poner_dano_contacto(_guion.dano_contacto)
 	enemigo_aparecio.emit(enemigo)
 
 
@@ -136,5 +137,4 @@ func terminar_ronda(_numero: int) -> void:
 	set_physics_process(false)
 	for enemigo in _activos.duplicate():
 		_devolver_enemigo(enemigo)
-	for marca in _pool_marcas.en_uso().duplicate():
-		_pool_marcas.devolver(marca)
+	_pool_marcas.devolver_todos()

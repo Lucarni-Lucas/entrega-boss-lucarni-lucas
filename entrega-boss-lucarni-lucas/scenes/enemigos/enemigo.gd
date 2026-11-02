@@ -58,6 +58,10 @@ func activar_en(posicion: Vector2) -> void:
 	_visual.set_frame_and_progress(randi() % _visual.sprite_frames.get_frame_count(_visual.animation), randf())
 
 
+func poner_dano_contacto(dano: int) -> void:
+	_hitbox.dano = dano
+
+
 func desactivar() -> void:
 	visible = false
 	process_mode = Node.PROCESS_MODE_DISABLED

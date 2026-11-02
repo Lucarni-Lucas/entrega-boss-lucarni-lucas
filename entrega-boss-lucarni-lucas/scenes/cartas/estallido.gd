@@ -53,6 +53,12 @@ func explotar(posicion: Vector2, radio: float, perspectiva: float) -> void:
 	_tween.chain().tween_callback(hide)
 
 
+func desactivar() -> void:
+	if _tween:
+		_tween.kill()
+	hide()
+
+
 func _dibujar_estallido(progreso: float, radio: float, perspectiva: float) -> void:
 	var puntos := PackedVector2Array()
 	for i in _forma.size():
