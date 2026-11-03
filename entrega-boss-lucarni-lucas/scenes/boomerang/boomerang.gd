@@ -116,14 +116,19 @@ func _ubicar_destello(destello: Sprite2D, angulo: float) -> void:
 
 
 func _revisar_rebote() -> void:
-	var cuerpos := _detector.get_overlapping_bodies()
+	var jugador := _jugador_que_rebota()
 	if not _armado:
-		_armado = cuerpos.is_empty()
+		_armado = jugador == null
 		return
-	for cuerpo in cuerpos:
+	if jugador:
+		_rebotar_en(jugador)
+
+
+func _jugador_que_rebota() -> Player:
+	for cuerpo in _detector.get_overlapping_bodies():
 		if cuerpo is Player and _puede_rebotar(cuerpo):
-			_rebotar_en(cuerpo)
-			return
+			return cuerpo
+	return null
 
 
 func _puede_rebotar(player: Player) -> bool:
@@ -138,6 +143,7 @@ func _rebotar_en(player: Player) -> void:
 		return
 	player.rebotar(params.vault_fuerza)
 	_rebotes += 1
+	_armado = false
 	if _rebotes >= params.boomerang_rebotes_max:
 		_cambiar_fase(Fase.VUELTA)
 
