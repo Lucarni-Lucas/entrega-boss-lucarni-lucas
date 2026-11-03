@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/doble_filo.gd" id="1_doble_filo"]
+
+[node name="DobleFilo" type="Node"]
+script = ExtResource("1_doble_filo")

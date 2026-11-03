@@ -8,6 +8,7 @@
 [ext_resource type="Resource" path="res://resources/cartas/boomie_persistente.tres" id="5_boomie_persistente"]
 [ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="5_carta"]
 [ext_resource type="Script" uid="uid://btigfwwg2asuc" path="res://scenes/partida/cartas.gd" id="5_cartas"]
+[ext_resource type="Resource" path="res://resources/cartas/doble_filo.tres" id="5_doble_filo"]
 [ext_resource type="Resource" uid="uid://c0ldra674vjqe" path="res://resources/cartas/geiser.tres" id="5_geiser"]
 [ext_resource type="Resource" uid="uid://dtjwu2qo5am47" path="res://resources/cartas/ground_pound_explosivo.tres" id="5_gp_explosivo"]
 [ext_resource type="Resource" uid="uid://dcgicvev5c1ha" path="res://resources/cartas/rebote_sismico.tres" id="5_rebote_sismico"]
@@ -105,7 +106,7 @@ jugador = NodePath("../Entidades/Player")
 [node name="Cartas" type="Node" parent="." unique_id=753983594 node_paths=PackedStringArray("jugador")]
 script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
-pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado")])
+pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo")])
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")

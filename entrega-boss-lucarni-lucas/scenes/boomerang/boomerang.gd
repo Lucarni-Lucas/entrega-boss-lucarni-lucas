@@ -155,6 +155,11 @@ func guardar() -> void:
 	guardado.emit()
 
 
+func cancelar() -> void:
+	en_vuelo = false
+	_desactivar()
+
+
 func _desactivar() -> void:
 	visible = false
 	_hitbox.desactivar()

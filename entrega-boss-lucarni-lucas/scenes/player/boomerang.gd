@@ -123,5 +123,5 @@ func _mostrar_guardado(base: Vector2, mirada: float) -> void:
 
 func reiniciar(player: Player) -> void:
 	if _proyectil.en_vuelo:
-		_proyectil.guardar()
+		_proyectil.cancelar()
 	player.tiene_boomerang = true
