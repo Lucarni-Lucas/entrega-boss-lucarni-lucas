@@ -21,6 +21,7 @@ var _esperando_fisica := false
 
 func activar() -> void:
 	activa = true
+	_tiempo = 0.0
 	_ya_golpeados.clear()
 	_esperando_fisica = true
 

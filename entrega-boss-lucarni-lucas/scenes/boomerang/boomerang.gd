@@ -46,6 +46,8 @@ func _physics_process(delta: float) -> void:
 	_ubicar_destello(_destello2, _angulo + PI)
 	_sprite.position.y = _offset_sprite.y - z
 	_shadow.actualizar(z)
+	_hitbox.z_min = z
+	_hitbox.z_max = z + params.boomerang_alto
 
 
 func _on_body_entered(_cuerpo: Node2D) -> void:
@@ -73,6 +75,11 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	set_physics_process(true)
 	_cambiar_fase(Fase.IDA)
+	if params.boomerang_dano > 0:
+		_hitbox.dano = _duenio.dano_de(params.boomerang_dano)
+		_hitbox.z_min = z
+		_hitbox.z_max = z + params.boomerang_alto
+		_hitbox.activar()
 
 
 func _avanzar(delta: float) -> void:
@@ -101,13 +108,7 @@ func _volver(delta: float) -> void:
 func _cambiar_fase(nueva: Fase) -> void:
 	_fase = nueva
 	_chispas.emitting = nueva == Fase.FLOTANDO
-	if nueva == Fase.FLOTANDO and params.boomerang_dano > 0:
-		_hitbox.dano = _duenio.dano_de(params.boomerang_dano)
-		_hitbox.z_min = z
-		_hitbox.z_max = z + params.boomerang_alto
-		_hitbox.activar()
-	else:
-		_hitbox.desactivar()
+	_hitbox.continua = nueva == Fase.FLOTANDO
 
 
 func _ubicar_destello(destello: Sprite2D, angulo: float) -> void:
