@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Carta" format=3]
+
+[ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="1_carta"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/boomie_cargado.tscn" id="2_efecto"]
+[ext_resource type="Texture2D" path="res://assets/ui/cartas/iconos/boomie_cargado.svg" id="3_icono"]
+
+[resource]
+script = ExtResource("1_carta")
+nombre = "Boomie cargado"
+icono = ExtResource("3_icono")
+descripcion = "Boomie absorbe el golpe de tu ground pound y estalla cuando rebotás en él"
+verbo = 3
+cambios = Dictionary[StringName, float]({
+&"boomerang_carga_gp": 1.0
+})
+efecto = ExtResource("2_efecto")

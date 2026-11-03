@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/destello_boomie.gd" id="1_destello"]
+
+[node name="DestelloBoomie" type="Node2D"]
+top_level = true
+z_index = 5
+script = ExtResource("1_destello")

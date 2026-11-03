@@ -16,6 +16,8 @@ signal anticipo_gp
 signal dive
 signal lanzo_boomerang
 signal atrapo_boomerang
+signal cargo_boomie
+signal estallo_boomie(posicion: Vector2, altura: float)
 signal golpeado
 signal curado
 
@@ -68,6 +70,7 @@ func _ready() -> void:
 	_dive.empezo.connect(dive.emit)
 	_boomerang.lanzo.connect(lanzo_boomerang.emit)
 	_boomerang.atrapado.connect(atrapo_boomerang.emit)
+	_boomerang.estallo.connect(estallo_boomie.emit)
 	_slash.slasheo.connect(slasheo.emit)
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)
@@ -122,6 +125,15 @@ func esta_slasheando() -> bool:
 
 func slash_circular() -> void:
 	_slash.circular(self)
+
+
+func puede_cargar_boomie() -> bool:
+	return params.boomerang_carga_gp > 0 and not _boomerang.esta_cargado()
+
+
+func cargar_boomie(fuerza: float) -> void:
+	_boomerang.cargar(fuerza)
+	cargo_boomie.emit()
 
 
 ## x es el punto más alto (el blob), y el más bajo (la sombra).

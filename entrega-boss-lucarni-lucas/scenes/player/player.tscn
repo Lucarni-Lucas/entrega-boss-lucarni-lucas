@@ -23,9 +23,13 @@
 [ext_resource type="Texture2D" uid="uid://b7fi7gvj3hxu2" path="res://assets/efectos/destello_2.png" id="21_brillo2"]
 [ext_resource type="Texture2D" uid="uid://cdvcrmimctytr" path="res://assets/efectos/destello_3.png" id="22_brillo3"]
 [ext_resource type="PackedScene" uid="uid://0jq0cs5vo35g" path="res://scenes/impacto_gp/impacto_gp.tscn" id="23_impacto"]
+[ext_resource type="Shader" path="res://scenes/boomerang/carga.gdshader" id="24_carga"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_carga"]
+shader = ExtResource("24_carga")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fatiga"]
 shader = ExtResource("18_fatiga")
@@ -174,6 +178,7 @@ position = Vector2(0, -32)
 
 [node name="Visual" type="Sprite2D" parent="Boomerang/EnMano" unique_id=1182111535]
 texture_filter = 4
+material = SubResource("ShaderMaterial_carga")
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("19_boomerang")
 

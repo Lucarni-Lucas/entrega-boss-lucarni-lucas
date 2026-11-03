@@ -2,6 +2,7 @@ extends VerboExclusivo
 
 signal lanzo
 signal atrapado
+signal estallo(posicion: Vector2, altura: float)
 
 
 const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
@@ -28,6 +29,7 @@ var _buffer := BufferVerbo.new(&"boomerang")
 func _ready() -> void:
 	_proyectil = escena_boomerang.instantiate()
 	_proyectil.guardado.connect(atrapado.emit)
+	_proyectil.estallo.connect(estallo.emit)
 	_agregar_proyectil.call_deferred(get_parent())
 
 
@@ -76,6 +78,14 @@ func cancelar(player: Player) -> void:
 	player.escala_gravedad = 1.0
 
 
+func esta_cargado() -> bool:
+	return _proyectil.cargado
+
+
+func cargar(fuerza: float) -> void:
+	_proyectil.cargar(fuerza)
+
+
 func _actualizar_disponibilidad(player: Player) -> void:
 	if _proyectil.en_vuelo:
 		return
@@ -92,6 +102,7 @@ func actualizar_visual(player: Player, direccion: Vector2) -> void:
 	_en_mano.visible = not _proyectil.en_vuelo and not player.esta_slasheando()
 	if not _en_mano.visible:
 		return
+	_proyectil.pintar_carga(_visual_mano.material)
 	var base := _offset_en_mano + Vector2(0, -player.z)
 	var mirada := direccion.angle()
 	if player.tiene_boomerang:
@@ -124,4 +135,5 @@ func _mostrar_guardado(base: Vector2, mirada: float) -> void:
 func reiniciar(player: Player) -> void:
 	if _proyectil.en_vuelo:
 		_proyectil.cancelar()
+	_proyectil.descargar()
 	player.tiene_boomerang = true

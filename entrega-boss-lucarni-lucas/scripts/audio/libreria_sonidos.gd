@@ -43,3 +43,4 @@ class_name LibreriaSonidos
 @export var explosion_gp: Sonido
 @export var geiser: Sonido
 @export var salpicadura: Sonido
+@export var boomie_absorbe: Sonido

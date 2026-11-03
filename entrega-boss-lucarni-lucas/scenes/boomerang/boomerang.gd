@@ -2,15 +2,24 @@ extends Area2D
 class_name Boomerang
 
 signal guardado
+signal estallo(posicion: Vector2, altura: float)
 
 enum Fase { IDA, FLOTANDO, VUELTA }
 
 @export var destello_radio := 22.0
 @export var destello_achatado := 0.45
 @export var giro := 9.0
+@export_group("Carga")
+@export_range(0, 5, 0.1) var latidos_por_segundo := 2.0
+@export_range(0, 1, 0.05) var brillo_latido := 0.35
+@export_range(0, 100, 1, "suffix:px") var radio_aro := 34.0
+@export_range(1, 2, 0.05) var crecimiento_aro := 1.15
+@export_range(0, 1, 0.05) var alpha_aro_minimo := 0.25
 
 var params: PlayerParams
 var z := 0.0
+var cargado := false
+var _fuerza_cargada := 0.0
 
 var _fase := Fase.IDA
 var _direccion := Vector2.ZERO
@@ -30,7 +39,13 @@ var en_vuelo := false
 @onready var _detector: Area2D = $DetectorJugador
 @onready var _hitbox: Hitbox = $Hitbox
 @onready var _poligono_hitbox: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
+@onready var _visual: Sprite2D = $Sprite/Visual
+@onready var _aro: Line2D = $Sprite/Aro
 @onready var _offset_sprite: Vector2 = _sprite.position
+
+
+func _ready() -> void:
+	_aro.points = Formas.elipse(radio_aro, destello_achatado, 24)
 
 
 func _physics_process(delta: float) -> void:
@@ -48,6 +63,28 @@ func _physics_process(delta: float) -> void:
 	_shadow.actualizar(z)
 	_hitbox.z_min = z
 	_hitbox.z_max = z + params.boomerang_alto
+	var latido := pintar_carga(_visual.material)
+	_aro.visible = cargado
+	_aro.scale = Vector2.ONE * lerpf(1.0, crecimiento_aro, latido)
+	_aro.modulate.a = lerpf(alpha_aro_minimo, 1.0, latido)
+
+
+func cargar(fuerza: float) -> void:
+	cargado = true
+	_fuerza_cargada = fuerza
+
+
+func descargar() -> void:
+	cargado = false
+
+
+func pintar_carga(material: ShaderMaterial) -> float:
+	var latido := 0.0
+	if cargado:
+		latido = 0.5 + 0.5 * sin(Time.get_ticks_msec() / 1000.0 * TAU * latidos_por_segundo)
+	material.set_shader_parameter("carga", 1.0 if cargado else 0.0)
+	material.set_shader_parameter("brillo", brillo_latido * latido)
+	return latido
 
 
 func _on_body_entered(_cuerpo: Node2D) -> void:
@@ -145,8 +182,16 @@ func _rebotar_en(player: Player) -> void:
 	player.rebotar(params.vault_fuerza)
 	_rebotes += 1
 	_armado = false
+	if cargado:
+		_estallar(player)
 	if _rebotes >= params.boomerang_rebotes_max:
 		_cambiar_fase(Fase.VUELTA)
+
+
+func _estallar(player: Player) -> void:
+	cargado = false
+	player.impactar_gp(global_position, z, _fuerza_cargada)
+	estallo.emit(global_position, z)
 
 
 func guardar() -> void:

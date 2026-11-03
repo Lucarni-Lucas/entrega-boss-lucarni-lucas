@@ -63,7 +63,10 @@ func _impactar(player: Player) -> void:
 	var fuerza := player.fuerza_gp()
 	if _invulnerable:
 		player.proteger(player.params.gp_proteccion)
-	player.impactar_gp(player.global_position, player.z, fuerza)
+	if player.puede_cargar_boomie():
+		player.cargar_boomie(fuerza)
+	else:
+		player.impactar_gp(player.global_position, player.z, fuerza)
 	player.gastar_energia_gp()
 	player.mantener_aereo(player.params.gp_salto_ventana)
 	impacto.emit(player.global_position, _altura_inicial)

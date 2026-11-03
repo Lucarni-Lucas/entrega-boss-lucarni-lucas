@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/boomie_cargado.gd" id="1_boomie_cargado"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/destello_boomie.tscn" id="2_destello"]
+
+[node name="BoomieCargado" type="Node"]
+script = ExtResource("1_boomie_cargado")
+escena_destello = ExtResource("2_destello")
