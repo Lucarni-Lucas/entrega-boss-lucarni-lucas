@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Carta" format=3]
+
+[ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="1_carta"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/rareza_protectora.tscn" id="2_efecto"]
+[ext_resource type="Texture2D" path="res://assets/ui/cartas/iconos/rareza_protectora.svg" id="3_icono"]
+
+[resource]
+script = ExtResource("1_carta")
+nombre = "Rareza protectora"
+icono = ExtResource("3_icono")
+descripcion = "Tres diamantes giran a tu alrededor y dañan a todo enemigo que tocan"
+verbo = 4
+cambios = Dictionary[StringName, float]({
+&"diamantes_cantidad": 3.0
+})
+efecto = ExtResource("2_efecto")

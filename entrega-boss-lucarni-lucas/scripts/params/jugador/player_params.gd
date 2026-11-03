@@ -126,3 +126,12 @@ class_name PlayerParams
 @export_range(0, 1000, 10, "suffix:px") var boomerang_salpicadura_alcance: float = 300.0
 @export_range(0, 100, 1, "suffix:px") var boomerang_salpicadura_altura: float = 32.0
 @export var boomerang_salpicadura_dano: int = 1
+
+@export_group("Diamantes")
+@export var diamantes_cantidad: int = 0
+@export_range(0, 300, 5, "suffix:px") var diamantes_radio: float = 50.0
+@export_range(0, 3, 0.05) var diamantes_vueltas: float = 0.4
+@export_range(0, 100, 1, "suffix:px") var diamantes_radio_golpe: float = 16.0
+@export var diamantes_dano: int = 1
+@export_range(0.05, 2, 0.05, "suffix:s") var diamantes_intervalo: float = 0.8
+@export_range(0, 2000, 10, "suffix:px/s") var diamantes_empuje: float = 450.0

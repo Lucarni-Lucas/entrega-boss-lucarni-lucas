@@ -11,6 +11,7 @@
 [ext_resource type="Resource" path="res://resources/cartas/doble_filo.tres" id="5_doble_filo"]
 [ext_resource type="Resource" uid="uid://c0ldra674vjqe" path="res://resources/cartas/geiser.tres" id="5_geiser"]
 [ext_resource type="Resource" uid="uid://dtjwu2qo5am47" path="res://resources/cartas/ground_pound_explosivo.tres" id="5_gp_explosivo"]
+[ext_resource type="Resource" path="res://resources/cartas/rareza_protectora.tres" id="5_rareza_protectora"]
 [ext_resource type="Resource" uid="uid://dcgicvev5c1ha" path="res://resources/cartas/rebote_sismico.tres" id="5_rebote_sismico"]
 [ext_resource type="Resource" uid="uid://cdkw4b86p5suh" path="res://resources/cartas/replica.tres" id="5_replica"]
 [ext_resource type="Resource" uid="uid://xyj1jsmyuwam" path="res://resources/cartas/salpicadura.tres" id="5_salpicadura"]
@@ -106,7 +107,7 @@ jugador = NodePath("../Entidades/Player")
 [node name="Cartas" type="Node" parent="." unique_id=753983594 node_paths=PackedStringArray("jugador")]
 script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
-pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo")])
+pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo"), ExtResource("5_rareza_protectora")])
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")
@@ -150,6 +151,7 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
 [connection signal="volvio_al_inicio" from="Entidades/Player" to="Efectos" method="_on_jugador_volvio_al_inicio"]
 [connection signal="volvio_al_inicio" from="Entidades/Player" to="Camara" method="saltar_al_objetivo"]
+[connection signal="volvio_al_inicio" from="Entidades/Player" to="Sonidos" method="_on_jugador_volvio_al_inicio"]
 [connection signal="enemigo_aparecio" from="Spawner" to="Anillos" method="agregar"]
 [connection signal="enemigo_aparecio" from="Spawner" to="Sonidos" method="_on_spawner_enemigo_aparecio"]
 [connection signal="enemigo_golpeado" from="Spawner" to="Efectos" method="golpe"]

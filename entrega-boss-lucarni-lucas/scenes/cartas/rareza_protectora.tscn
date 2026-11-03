@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/rareza_protectora.gd" id="1_rareza"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/diamante.tscn" id="2_diamante"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="3_hitbox"]
+
+[node name="RarezaProtectora" type="Node"]
+script = ExtResource("1_rareza")
+escena_diamante = ExtResource("2_diamante")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_hitbox")]
+collision_mask = 4
+continua = true
+por_objetivo = true
+origen = 3

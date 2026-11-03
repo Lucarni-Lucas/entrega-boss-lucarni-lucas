@@ -63,6 +63,10 @@ func _on_jugador_atrapo_boomerang() -> void:
 	Audio.tocar(libreria.boomerang_atrapado)
 
 
+func _on_jugador_volvio_al_inicio() -> void:
+	Audio.parar(libreria.boomerang_gira)
+
+
 func _on_jugador_golpeado() -> void:
 	Audio.tocar(libreria.herido)
 
