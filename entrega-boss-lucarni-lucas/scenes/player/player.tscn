@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://b7fi7gvj3hxu2" path="res://assets/efectos/destello_2.png" id="21_brillo2"]
 [ext_resource type="Texture2D" uid="uid://cdvcrmimctytr" path="res://assets/efectos/destello_3.png" id="22_brillo3"]
 [ext_resource type="PackedScene" uid="uid://0jq0cs5vo35g" path="res://scenes/impacto_gp/impacto_gp.tscn" id="23_impacto"]
+[ext_resource type="PackedScene" path="res://scenes/boomerang/electricidad.tscn" id="24_electricidad"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -176,6 +177,10 @@ position = Vector2(0, -32)
 texture_filter = 4
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("19_boomerang")
+
+[node name="Electricidad" parent="Boomerang/EnMano" unique_id=548040375 instance=ExtResource("24_electricidad")]
+radio = 16.0
+largo = 14.0
 
 [node name="Hurtbox" parent="." unique_id=1222409529 instance=ExtResource("13_gx1jg")]
 collision_layer = 2

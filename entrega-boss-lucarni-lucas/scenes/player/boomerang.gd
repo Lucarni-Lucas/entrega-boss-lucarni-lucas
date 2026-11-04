@@ -17,6 +17,7 @@ const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
 
 @onready var _en_mano: Node2D = $EnMano
 @onready var _visual_mano: Sprite2D = $EnMano/Visual
+@onready var _electricidad: Electricidad = $EnMano/Electricidad
 @onready var _offset_en_mano: Vector2 = _en_mano.position
 @onready var _escala_visual: Vector2 = _visual_mano.scale
 
@@ -74,6 +75,14 @@ func activar(player: Player) -> void:
 
 func cancelar(player: Player) -> void:
 	player.escala_gravedad = 1.0
+
+
+func electrizar(activo: bool) -> void:
+	_proyectil.electrizado = activo
+	if activo and not _proyectil.en_vuelo:
+		_electricidad.rafaga()
+	else:
+		_electricidad.apagar()
 
 
 func _actualizar_disponibilidad(player: Player) -> void:

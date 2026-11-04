@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/descarga.gd" id="1_descarga"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/rayo.tscn" id="2_rayo"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="3_hitbox"]
+
+[node name="Descarga" type="Node"]
+script = ExtResource("1_descarga")
+escena_rayo = ExtResource("2_rayo")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_hitbox")]
+origen = 3

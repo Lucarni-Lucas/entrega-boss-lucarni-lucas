@@ -22,4 +22,6 @@ gp_recarga_dive = 50.0
 gp_recarga_rebote = 150.0
 gp_empuje_min = 0.5
 gp_radio_min = 0.3
+boomerang_rayo_recarga = 2.0
+boomerang_rayo_alcance = 420.0
 metadata/_custom_type_script = "uid://bpnf8ftr7uhrk"

@@ -21,6 +21,11 @@ var _angulo := 0.0
 var _rebotes := 0
 var _armado := false
 var en_vuelo := false
+var electrizado := false:
+	set(valor):
+		electrizado = valor
+		if is_node_ready():
+			_electricidad.visible = valor
 
 @onready var _sprite := $Sprite
 @onready var _shadow := $Sombra
@@ -30,7 +35,12 @@ var en_vuelo := false
 @onready var _detector: Area2D = $DetectorJugador
 @onready var _hitbox: Hitbox = $Hitbox
 @onready var _poligono_hitbox: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
+@onready var _electricidad: Electricidad = $Sprite/Electricidad
 @onready var _offset_sprite: Vector2 = _sprite.position
+
+
+func _ready() -> void:
+	_electricidad.visible = electrizado
 
 
 func _physics_process(delta: float) -> void:

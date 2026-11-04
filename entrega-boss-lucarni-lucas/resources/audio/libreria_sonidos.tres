@@ -31,6 +31,8 @@
 [ext_resource type="AudioStream" uid="uid://gmy3vqudkn4i" path="res://assets/audio/efectos/04_Fire_explosion_04_medium.wav" id="29_explosion"]
 [ext_resource type="AudioStream" uid="uid://dbf31djwbu7iy" path="res://assets/audio/efectos/22_Water_02.wav" id="30_geiser"]
 [ext_resource type="AudioStream" uid="uid://bvklcs6kvrjxr" path="res://assets/audio/efectos/PUNCH_SQUELCH_HEAVY_01.wav" id="31_salpicadura"]
+[ext_resource type="AudioStream" uid="uid://da1tngdrepk2p" path="res://assets/audio/efectos/18_Thunder_02.wav" id="32_rayo"]
+[ext_resource type="AudioStream" uid="uid://ciow7pt5yng3n" path="res://assets/audio/efectos/Static Glitch Short.wav" id="33_rayo_listo"]
 
 [sub_resource type="Resource" id="Resource_x57t8"]
 script = ExtResource("2_ko7ua")
@@ -180,6 +182,20 @@ tono = 0.75
 copias = 1
 bus = "UI"
 
+[sub_resource type="Resource" id="Resource_rayo"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("32_rayo")
+volumen = -6.0
+tono = 2.0
+copias = 2
+
+[sub_resource type="Resource" id="Resource_rayo_listo"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("33_rayo_listo")
+volumen = -6.0
+tono = 2.0
+copias = 1
+
 [sub_resource type="Resource" id="Resource_5884m"]
 script = ExtResource("2_ko7ua")
 audio = ExtResource("21_tucqt")
@@ -297,4 +313,6 @@ reanudar = SubResource("Resource_5884m")
 explosion_gp = SubResource("Resource_explosion_gp")
 geiser = SubResource("Resource_geiser")
 salpicadura = SubResource("Resource_salpicadura")
+rayo = SubResource("Resource_rayo")
+rayo_listo = SubResource("Resource_rayo_listo")
 metadata/_custom_type_script = "uid://djv6hk6rc47r"

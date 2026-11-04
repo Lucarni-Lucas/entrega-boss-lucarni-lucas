@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="1_8yxac"]
 [ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="2_7jrsh"]
 [ext_resource type="Texture2D" uid="uid://dtphyjsiu1ipl" path="res://assets/player/boomerang_vuelo.png" id="3_vuelo"]
+[ext_resource type="PackedScene" path="res://scenes/boomerang/electricidad.tscn" id="4_electricidad"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_38jis"]
 radius = 1.0
@@ -99,6 +100,12 @@ texture = SubResource("GradientTexture2D_xrivr")
 
 [node name="Destello2" type="Sprite2D" parent="Sprite" unique_id=561034599]
 texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="Electricidad" parent="Sprite" instance=ExtResource("4_electricidad")]
+position = Vector2(0, -6)
+radio = 22.0
+cantidad = 2
+probabilidad = 0.5
 
 [node name="Hitbox" parent="." unique_id=1321716141 instance=ExtResource("1_8yxac")]
 collision_mask = 4
