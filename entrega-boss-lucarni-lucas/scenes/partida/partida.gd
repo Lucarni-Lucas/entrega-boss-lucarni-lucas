@@ -16,7 +16,7 @@ enum Estado { RONDA, ENTRE_RONDAS, VICTORIA, DERROTA }
 var _estado := Estado.ENTRE_RONDAS
 var _ronda := 0
 var _restante := 0.0
-var _evento: Node
+var _evento: Evento
 
 
 func _ready() -> void:
@@ -46,7 +46,7 @@ func _empezar_ronda() -> void:
 	if OS.has_feature("editor") and duracion_de_prueba > 0.0:
 		_restante = duracion_de_prueba
 	if guion.evento:
-		_evento = guion.evento.instantiate()
+		_evento = guion.evento.instantiate() as Evento
 		add_child(_evento)
 	tiempo_cambio.emit(_restante)
 	ronda_empezo.emit(_ronda, params.cantidad_rondas)
@@ -74,7 +74,7 @@ func _terminar(estado: Estado) -> void:
 
 func _sacar_evento() -> void:
 	if _evento:
-		_evento.queue_free()
+		_evento.terminar()
 		_evento = null
 
 

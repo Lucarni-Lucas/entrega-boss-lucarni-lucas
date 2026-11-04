@@ -6,6 +6,8 @@ signal enemigo_aparecio(enemigo: Enemigo)
 signal enemigo_se_fue(enemigo: Enemigo)
 signal enemigo_golpeado(posicion: Vector2, origen: Hitbox.Origen)
 
+const GRUPO := &"spawner"
+
 @export var ronda_params: RondaParams
 @export var params: SpawnerParams
 @export var escena_marca: PackedScene
@@ -22,6 +24,7 @@ var _jugador: Player
 
 
 func _ready() -> void:
+	add_to_group(GRUPO)
 	_jugador = get_tree().get_first_node_in_group(Player.GRUPO) as Player
 	for numero in range(1, ronda_params.cantidad_rondas + 1):
 		for grupo in ronda_params.guion(numero).grupos:
@@ -131,6 +134,10 @@ func _mas_viejo_vivo() -> Enemigo:
 		if not enemigo.muerto:
 			return enemigo
 	return null
+
+
+func marcas() -> Array[Node]:
+	return _pool_marcas.en_uso()
 
 
 func terminar_ronda(_numero: int) -> void:
