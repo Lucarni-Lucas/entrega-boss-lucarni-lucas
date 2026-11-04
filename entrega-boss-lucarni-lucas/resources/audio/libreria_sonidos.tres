@@ -185,14 +185,14 @@ bus = "UI"
 [sub_resource type="Resource" id="Resource_rayo"]
 script = ExtResource("2_ko7ua")
 audio = ExtResource("32_rayo")
-volumen = -6.0
+volumen = -18.0
 tono = 2.0
-copias = 2
+copias = 1
 
 [sub_resource type="Resource" id="Resource_rayo_listo"]
 script = ExtResource("2_ko7ua")
 audio = ExtResource("33_rayo_listo")
-volumen = -6.0
+volumen = -18.0
 tono = 2.0
 copias = 1
 

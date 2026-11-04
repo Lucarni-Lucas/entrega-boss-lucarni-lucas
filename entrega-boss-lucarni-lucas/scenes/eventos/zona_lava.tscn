@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/eventos/zona_lava.gd" id="1_zona"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="2_hitbox"]
+
+[node name="ZonaLava" type="Node2D"]
+z_index = -4
+script = ExtResource("1_zona")
+
+[node name="Hitbox" parent="." instance=ExtResource("2_hitbox")]
+collision_mask = 2
+z_max = 1.0
+continua = true
+por_objetivo = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(0, 20, 0, 20, 0, 20)

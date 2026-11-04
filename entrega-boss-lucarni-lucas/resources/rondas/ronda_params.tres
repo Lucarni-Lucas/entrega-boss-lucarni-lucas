@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bjm0wf4a3mjsg" path="res://assets/audio/musica/Neurocandy_128 BPM_Full_Loop.ogg" id="8_i87nm"]
 [ext_resource type="AudioStream" uid="uid://84evnvjfcvpf" path="res://assets/audio/musica/Nowhere_160 BPM_Full_Loop.ogg" id="10_dhwsj"]
 [ext_resource type="PackedScene" path="res://scenes/eventos/ceguera.tscn" id="11_ceguera"]
+[ext_resource type="PackedScene" path="res://scenes/eventos/lava.tscn" id="12_lava"]
 
 [sub_resource type="Resource" id="Resource_r1_goteo"]
 script = ExtResource("2_0iavs")
@@ -198,6 +199,7 @@ desde = 10.0
 [sub_resource type="Resource" id="Resource_r7"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r7_base"), SubResource("Resource_r7_tanda"), SubResource("Resource_r7_final"), SubResource("Resource_r7_horda"), SubResource("Resource_r7_fantasma")])
+evento = ExtResource("12_lava")
 fondo = ExtResource("6_roja")
 musica = ExtResource("10_dhwsj")
 

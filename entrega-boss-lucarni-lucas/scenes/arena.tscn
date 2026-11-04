@@ -113,7 +113,6 @@ pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")
 params = ExtResource("7_naajo")
-ronda_de_prueba = 5
 
 [node name="Hud" parent="." unique_id=246180097 instance=ExtResource("8_41jku")]
 
