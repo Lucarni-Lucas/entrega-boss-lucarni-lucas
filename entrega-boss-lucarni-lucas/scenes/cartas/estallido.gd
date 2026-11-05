@@ -5,6 +5,8 @@ class_name Estallido
 @export var cantidad_chispas := 12
 @export var escala_chispa := 0.55
 @export var color_chispa := Color(1.0, 0.72, 0.4)
+@export var color_relleno := Color(1.0, 0.6, 0.24)
+@export var color_centro := Color(1.0, 0.85, 0.35)
 @export var puntas := 9
 @export_range(0, 1, 0.05) var hundimiento := 0.55
 @export_range(0, 1, 0.05) var irregularidad := 0.15
@@ -14,17 +16,19 @@ class_name Estallido
 
 var _chispas: Array[Sprite2D] = []
 var _forma: Array[float] = []
+var _puntos := PackedVector2Array()
+var _puntos_centro := PackedVector2Array()
 var _radio_forma := -1.0
 var _perspectiva_forma := -1.0
 var _signo := Vector2.ONE
 var _tween: Tween
 
-@onready var _relleno: Polygon2D = $Relleno
-@onready var _centro: Polygon2D = $Centro
+@onready var _dibujo: Node2D = $Forma
 @onready var _borde: Line2D = $Borde
 
 
 func _ready() -> void:
+	_dibujo.draw.connect(_dibujar_forma)
 	for i in cantidad_chispas:
 		var chispa := Sprite2D.new()
 		chispa.texture = textura_chispa
@@ -65,8 +69,7 @@ func desactivar() -> void:
 
 func _poner_progreso(progreso: float) -> void:
 	var escala := _signo * progreso
-	_relleno.scale = escala
-	_centro.scale = escala
+	_dibujo.scale = escala
 	_borde.scale = escala
 
 
@@ -79,9 +82,17 @@ func _armar_forma(radio: float, perspectiva: float) -> void:
 	for i in _forma.size():
 		var direccion := Vector2.from_angle(TAU * i / _forma.size())
 		puntos.append(Vector2(direccion.x, direccion.y * perspectiva) * radio * _forma[i])
-	_relleno.polygon = puntos
 	_borde.points = puntos
 	var centro := PackedVector2Array()
 	for punto in puntos:
 		centro.append(punto * tamano_centro)
-	_centro.polygon = centro
+	_puntos = puntos
+	_puntos_centro = centro
+	_dibujo.queue_redraw()
+
+
+func _dibujar_forma() -> void:
+	if _puntos.is_empty():
+		return
+	_dibujo.draw_colored_polygon(_puntos, color_relleno)
+	_dibujo.draw_colored_polygon(_puntos_centro, color_centro)
