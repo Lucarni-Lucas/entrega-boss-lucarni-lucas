@@ -50,8 +50,8 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	for i in _puntos.size() - 1:
 		var zigzag := _zigzag(_puntos[i], _puntos[i + 1])
-		draw_polyline(zigzag, color, grosor, true)
-		draw_polyline(zigzag, color_nucleo, grosor_nucleo, true)
+		draw_polyline(zigzag, color, grosor)
+		draw_polyline(zigzag, color_nucleo, grosor_nucleo)
 
 
 func _zigzag(desde: Vector2, hasta: Vector2) -> PackedVector2Array:

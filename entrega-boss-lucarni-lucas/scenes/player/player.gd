@@ -26,6 +26,7 @@ const _ESTADOS_AEREOS := [Estado.GROUND_POUND, Estado.DIVE]
 
 @export var params: PlayerParams
 @export var escena_impacto_gp: PackedScene
+@export var impactos_precalentados := 16
 
 var ultima_direccion := Vector2.DOWN
 var z := 0.0
@@ -48,6 +49,7 @@ var _tiempo_protegido := 0.0
 var _gracia_aerea := 0.0
 var _posicion_inicial: Vector2
 var _vueltas_al_inicio := 0
+var _pool_impactos: Pool
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -74,6 +76,13 @@ func _ready() -> void:
 	energia_gp = params.gp_energia_max
 	vida_cambio.emit.call_deferred(vida, params.vida_max)
 	_posicion_inicial = global_position
+	_pool_impactos = Pool.new(escena_impacto_gp, get_parent(), _al_crear_impacto)
+	_pool_impactos.precalentar.call_deferred(impactos_precalentados)
+	volvio_al_inicio.connect(_pool_impactos.devolver_todos)
+
+
+func _al_crear_impacto(impacto: ImpactoGp) -> void:
+	impacto.termino.connect(_pool_impactos.devolver)
 
 
 func _physics_process(delta: float) -> void:
@@ -199,8 +208,7 @@ func agregar_al_mundo(nodo: Node) -> void:
 func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true) -> void:
 	if not is_inside_tree():
 		return
-	var impacto: ImpactoGp = escena_impacto_gp.instantiate()
-	agregar_al_mundo(impacto)
+	var impacto: ImpactoGp = _pool_impactos.tomar()
 	impacto.golpear(self, posicion, altura, fuerza)
 	impacto_gp.emit(posicion, altura, impacto.radio, fuerza, primario)
 	if primario:

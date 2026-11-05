@@ -1,15 +1,10 @@
 extends Node2D
 
-var _radio := 0.0
-var _perspectiva := 1.0
-var _params: EfectosParams
 var _tween: Tween
 
 
-func mostrar(posicion: Vector2, radio: float, perspectiva: float, params: EfectosParams) -> void:
+func mostrar(posicion: Vector2, radio: float, params: EfectosParams) -> void:
 	position = posicion
-	_perspectiva = perspectiva
-	_params = params
 	modulate.a = 1.0
 	visible = true
 	if _tween:
@@ -27,14 +22,8 @@ func desactivar() -> void:
 
 
 func _poner_radio(radio: float) -> void:
-	_radio = radio
-	queue_redraw()
+	scale = Vector2.ONE * radio
 
 
 func _draw() -> void:
-	if _params == null:
-		return
-	var puntos := Formas.elipse(_radio, _perspectiva, 48)
-	puntos.append(puntos[0])
-	draw_polyline(puntos, _params.anillo_color_borde, _params.anillo_ancho_borde, true)
-	draw_polyline(puntos, _params.anillo_color_interior, _params.anillo_ancho_interior, true)
+	draw_rect(Rect2(-1.3, -1.0, 2.6, 2.0), Color.WHITE)

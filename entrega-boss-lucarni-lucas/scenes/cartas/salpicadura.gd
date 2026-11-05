@@ -1,7 +1,7 @@
 extends EfectoCarta
 
 @export var escena_bolita: PackedScene
-@export var bolitas_precalentadas := 16
+@export var bolitas_precalentadas := 24
 
 var _pool: Pool
 

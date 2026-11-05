@@ -3,6 +3,8 @@ class_name Hud
 
 @export var con_tiempo := true
 
+var _segundos := -1
+
 @onready var _tiempo: Label = $Tiempo
 @onready var _vida := $Vida
 @onready var _numero: Label = $Numero/Texto
@@ -14,6 +16,9 @@ func _ready() -> void:
 
 func _on_partida_tiempo_cambio(restante: float) -> void:
 	var segundos := ceili(restante)
+	if segundos == _segundos:
+		return
+	_segundos = segundos
 	@warning_ignore("integer_division")
 	_tiempo.text = "%d:%02d" % [segundos / 60, segundos % 60]
 

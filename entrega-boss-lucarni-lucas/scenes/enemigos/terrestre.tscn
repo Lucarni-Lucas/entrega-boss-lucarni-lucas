@@ -3,19 +3,32 @@
 [ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_crrjn"]
 [ext_resource type="Resource" uid="uid://bauovwlt6r0be" path="res://resources/enemigos/enemigo_terrestre.tres" id="2_30hq7"]
 [ext_resource type="Script" uid="uid://bvq6klc348nhk" path="res://scenes/enemigos/terrestre.gd" id="2_qx8v0"]
-[ext_resource type="Texture2D" uid="uid://c856me4cgbqk3" path="res://assets/enemigos/esqueleto_1.png" id="3_esq1"]
-[ext_resource type="Texture2D" uid="uid://cmy30lws4g3mh" path="res://assets/enemigos/esqueleto_2.png" id="4_esq2"]
-[ext_resource type="Texture2D" uid="uid://ciq5jxcpig45v" path="res://assets/enemigos/esqueleto_paso_a.png" id="5_pasoa"]
-[ext_resource type="Texture2D" uid="uid://c0hjqsim2v846" path="res://assets/enemigos/esqueleto_paso_b.png" id="6_pasob"]
+[ext_resource type="Texture2D" uid="uid://bhmw1byy5k3ux" path="res://assets/enemigos/hoja_entidades.png" id="9_hoja"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3_esq1"]
+atlas = ExtResource("9_hoja")
+region = Rect2(24, 24, 286, 199)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4_esq2"]
+atlas = ExtResource("9_hoja")
+region = Rect2(334, 24, 286, 199)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5_pasoa"]
+atlas = ExtResource("9_hoja")
+region = Rect2(644, 24, 286, 199)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6_pasob"]
+atlas = ExtResource("9_hoja")
+region = Rect2(24, 247, 286, 199)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_esqueleto"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_esq1")
+"texture": SubResource("AtlasTexture_3_esq1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_esq2")
+"texture": SubResource("AtlasTexture_4_esq2")
 }],
 "loop": 1,
 "name": &"atacar",
@@ -23,16 +36,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_esq1")
+"texture": SubResource("AtlasTexture_3_esq1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_pasoa")
+"texture": SubResource("AtlasTexture_5_pasoa")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_esq1")
+"texture": SubResource("AtlasTexture_3_esq1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_pasob")
+"texture": SubResource("AtlasTexture_6_pasob")
 }],
 "loop": 1,
 "name": &"caminar",

@@ -25,6 +25,7 @@ func _ready() -> void:
 	_musica_otra = _crear_reproductor_musica()
 	_filtro_musica = AudioServer.get_bus_effect(AudioServer.get_bus_index(&"Musica"), 0)
 	_cargar_volumenes()
+	_preparar_efectos()
 	get_tree().node_added.connect(_on_nodo_agregado)
 	for control in get_tree().root.find_children("*", "Control", true, false):
 		_on_nodo_agregado(control)
@@ -95,9 +96,17 @@ func guardar_volumenes() -> void:
 	config.save(_ARCHIVO_AJUSTES)
 
 
+func _preparar_efectos() -> void:
+	for propiedad in libreria.get_property_list():
+		var valor: Variant = libreria.get(propiedad.name)
+		if valor is Sonido and valor.audio != null:
+			_reproductor_de(valor)
+
+
 func _reproductor_de(sonido: Sonido) -> AudioStreamPlayer:
 	if not _reproductores.has(sonido):
 		var reproductor := AudioStreamPlayer.new()
+		reproductor.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
 		reproductor.stream = sonido.audio
 		reproductor.volume_db = sonido.volumen
 		reproductor.pitch_scale = sonido.tono

@@ -53,5 +53,5 @@ func _draw() -> void:
 		for paso in 3:
 			var lado := 1.0 if paso % 2 == 0 else -1.0
 			puntos.append(puntos[-1] + afuera * largo / 3.0 + costado * lado * largo * 0.3)
-		draw_polyline(puntos, color, grosor, true)
-		draw_polyline(puntos, color_nucleo, grosor_nucleo, true)
+		draw_polyline(puntos, color, grosor)
+		draw_polyline(puntos, color_nucleo, grosor_nucleo)

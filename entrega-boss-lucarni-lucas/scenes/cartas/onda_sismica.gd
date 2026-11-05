@@ -61,5 +61,5 @@ func _draw() -> void:
 			var angulo := PI * k / 16.0
 			puntos.append(Vector2(cos(angulo) * r, y + sin(angulo) * r * achatado * _perspectiva))
 		var alfa := 1.0 - float(i) / arcos
-		draw_polyline(puntos, Color(color_borde, alfa), ancho_borde, true)
-		draw_polyline(puntos, Color(color_interior, alfa), ancho_interior, true)
+		draw_polyline(puntos, Color(color_borde, alfa), ancho_borde)
+		draw_polyline(puntos, Color(color_interior, alfa), ancho_interior)

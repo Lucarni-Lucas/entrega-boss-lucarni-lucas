@@ -1,7 +1,7 @@
 extends EfectoCarta
 
 @export var escena_gota: PackedScene
-@export var gotas_precalentadas := 24
+@export var gotas_precalentadas := 60
 @export_range(0, 1, 0.05) var distancia_minima := 0.3
 
 var _pool: Pool

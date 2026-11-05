@@ -15,12 +15,18 @@ var _spawner: Spawner
 var _espera := 0.0
 var _puntos: Array[Vector2] = []
 var _zonas: Array[ZonaLava] = []
+var _tiempo := 0.0
 
 
 func _ready() -> void:
 	_jugador = get_tree().get_first_node_in_group(Player.GRUPO) as Player
 	_spawner = get_tree().get_first_node_in_group(Spawner.GRUPO) as Spawner
 	_espera = primera
+
+
+func _process(delta: float) -> void:
+	_tiempo += delta
+	ZonaLava.poner_tiempo(_tiempo)
 
 
 func _physics_process(delta: float) -> void:

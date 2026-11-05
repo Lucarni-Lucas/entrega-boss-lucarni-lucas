@@ -1,6 +1,10 @@
 extends Node2D
 class_name ZonaLava
 
+const _SHADER := preload("res://scenes/eventos/zona_lava.gdshader")
+
+static var _material: ShaderMaterial
+
 @export_range(0, 400, 5, "suffix:px") var radio := 160.0
 @export var color := Color(0.94, 0.48, 0.1)
 @export var color_centro := Color(1.0, 0.71, 0.23)
@@ -12,15 +16,25 @@ class_name ZonaLava
 @export_range(0, 2, 0.05) var burbujas_por_segundo := 1.4
 @export_range(0.05, 10, 0.05, "suffix:s") var aparicion := 4
 @export var dano := 3
-@export_range(0.05, 20, 0.05, "suffix:s") var intervalo := 15
+@export_range(0.05, 20, 0.05, "suffix:s") var intervalo := 1.1
 
 var _perspectiva := 0.65
 var _escala := 0.0
-var _tiempo := 0.0
-var _lugares: Array[Vector2] = []
+var _forma := Node2D.new()
 
 @onready var _hitbox: Hitbox = $Hitbox
 @onready var _poligono: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
+
+
+static func poner_tiempo(tiempo: float) -> void:
+	if _material:
+		_material.set_shader_parameter(&"tiempo", tiempo)
+
+
+func _ready() -> void:
+	add_child(_forma)
+	_forma.scale = Vector2.ONE * 0.001
+	_forma.draw.connect(_dibujar_forma)
 
 
 func prender(posicion: Vector2, perspectiva: float) -> void:
@@ -30,9 +44,9 @@ func prender(posicion: Vector2, perspectiva: float) -> void:
 	_hitbox.dano = dano
 	_hitbox.intervalo = intervalo
 	_hitbox.activar()
-	for i in burbujas:
-		var angulo := randf() * TAU
-		_lugares.append(Vector2(cos(angulo), sin(angulo) * perspectiva) * radio * tamano_centro * randf_range(0.2, 1.1))
+	_preparar_material()
+	_forma.material = _material
+	_forma.queue_redraw()
 
 
 func apagar(duracion: float) -> void:
@@ -41,17 +55,31 @@ func apagar(duracion: float) -> void:
 
 
 func _process(delta: float) -> void:
-	_tiempo += delta
 	_escala = minf(_escala + delta / aparicion, 1.0)
-	queue_redraw()
+	_forma.scale = Vector2.ONE * maxf(_escala, 0.001)
+	if _escala >= 1.0:
+		set_process(false)
+		_forma.queue_redraw()
 
 
-func _draw() -> void:
-	var afuera := Formas.elipse(radio * _escala, _perspectiva, 32)
-	draw_colored_polygon(afuera, color)
-	draw_colored_polygon(Formas.elipse(radio * tamano_centro * _escala, _perspectiva, 32), color_centro)
-	afuera.append(afuera[0])
-	draw_polyline(afuera, color_borde, grosor_borde, true)
-	for i in _lugares.size():
-		var fase := fmod(_tiempo * burbujas_por_segundo + float(i) / _lugares.size(), 1.0)
-		draw_arc(_lugares[i] * _escala, 3.0 + fase * 6.0, 0.0, TAU, 16, Color(color_burbuja, 1.0 - fase), 2.0, true)
+func _preparar_material() -> void:
+	if _material:
+		return
+	_material = ShaderMaterial.new()
+	_material.shader = _SHADER
+	_material.set_shader_parameter(&"radio", radio)
+	_material.set_shader_parameter(&"perspectiva", _perspectiva)
+	_material.set_shader_parameter(&"tamano_centro", tamano_centro)
+	_material.set_shader_parameter(&"grosor_borde", grosor_borde)
+	_material.set_shader_parameter(&"burbujas", burbujas)
+	_material.set_shader_parameter(&"burbujas_por_segundo", burbujas_por_segundo)
+	_material.set_shader_parameter(&"color_lava", color)
+	_material.set_shader_parameter(&"color_centro", color_centro)
+	_material.set_shader_parameter(&"color_borde", color_borde)
+	_material.set_shader_parameter(&"color_burbuja", color_burbuja)
+
+
+func _dibujar_forma() -> void:
+	var margen := grosor_borde + 2.0 if _escala >= 1.0 else radio * 0.5
+	var mitad := Vector2(radio + margen, radio * _perspectiva + margen)
+	_forma.draw_rect(Rect2(-mitad, mitad * 2.0), Color.WHITE)
