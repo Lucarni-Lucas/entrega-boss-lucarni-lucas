@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="2_3jguy"]
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="2_f74ey"]
 [ext_resource type="PackedScene" path="res://scenes/ui/carta_boton.tscn" id="3_carta"]
+[ext_resource type="PackedScene" path="res://scenes/ui/boton_precio.tscn" id="7_precio"]
 [ext_resource type="Texture2D" uid="uid://dffbjbcdd6vu5" path="res://assets/ui/cartas/marco_azul.svg" id="4_azul"]
 [ext_resource type="Texture2D" uid="uid://r1wodc4uqbk3" path="res://assets/ui/cartas/marco_verde.svg" id="5_verde"]
 [ext_resource type="Texture2D" uid="uid://c4is53n3m16uc" path="res://assets/ui/cartas/marco_amarillo.svg" id="6_amarillo"]
@@ -41,9 +42,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -20.0
+offset_top = 16.0
 offset_right = 20.0
-offset_bottom = 20.0
+offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -104,6 +105,14 @@ alignment = 1
 
 [node name="EspacioCartas" type="Control" parent="Contenido/Opciones"]
 custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Cambiar" parent="Contenido/Opciones" instance=ExtResource("7_precio")]
+layout_mode = 2
+
+[node name="EspacioCambiar" type="Control" parent="Contenido/Opciones"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 mouse_filter = 2
 

@@ -25,6 +25,7 @@ buses/default_bus_layout="uid://6ykwtk0jp84m"
 PantallaCompleta="*uid://cenmkjy67c80x"
 EsquemaInput="*uid://8iysdsacjsv2"
 Audio="*uid://bcvonaikm5lsc"
+PrecalentarShaders="*res://scripts/precalentar_shaders.gd"
 
 [display]
 

@@ -37,6 +37,10 @@ func _on_jugador_reboto() -> void:
 	Audio.tocar(libreria.rebote)
 
 
+func _on_plata_juntada() -> void:
+	Audio.tocar(libreria.recoger_plata)
+
+
 func _on_jugador_slasheo() -> void:
 	Audio.tocar(libreria.slash)
 

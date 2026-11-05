@@ -79,6 +79,7 @@ objetivo = NodePath("../Entidades/Player")
 
 [node name="Hud" parent="." unique_id=1739462051 instance=ExtResource("37_hud")]
 con_tiempo = false
+con_plata = false
 
 [node name="Guia" type="CanvasLayer" parent="." unique_id=37042358 node_paths=PackedStringArray("jugador", "hud")]
 script = ExtResource("4_guia")

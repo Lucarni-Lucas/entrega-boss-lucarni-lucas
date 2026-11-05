@@ -16,14 +16,14 @@
 
 [sub_resource type="Resource" id="Resource_r1_goteo"]
 script = ExtResource("2_0iavs")
-cada = 3.0
+cada = 2.6
 desde = 2.0
-hasta = 25.0
+hasta = 21.0
 
 [sub_resource type="Resource" id="Resource_r1_sube"]
 script = ExtResource("2_0iavs")
-cada = 2.0
-desde = 25.0
+desde = 21.0
+hasta = 24.0
 
 [sub_resource type="Resource" id="Resource_r1"]
 script = ExtResource("1_bh7g0")

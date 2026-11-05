@@ -31,6 +31,7 @@ class_name LibreriaSonidos
 @export var jingle_ronda: Sonido
 @export var jingle_victoria: Sonido
 @export var jingle_derrota: Sonido
+@export var recoger_plata: Sonido
 
 @export_group("UI")
 @export var ui_foco: Sonido

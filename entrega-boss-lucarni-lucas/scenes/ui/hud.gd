@@ -2,16 +2,20 @@ extends CanvasLayer
 class_name Hud
 
 @export var con_tiempo := true
+@export var con_plata := true
 
 var _segundos := -1
 
 @onready var _tiempo: Label = $Tiempo
 @onready var _vida := $Vida
 @onready var _numero: Label = $Numero/Texto
+@onready var _plata: Control = $Plata
+@onready var _texto_plata: Label = $Plata/Fila/Texto
 
 
 func _ready() -> void:
 	_tiempo.visible = con_tiempo
+	_plata.visible = con_plata
 
 
 func _on_partida_tiempo_cambio(restante: float) -> void:
@@ -30,6 +34,11 @@ func _on_player_vida_cambio(actual: int, maximo: int) -> void:
 
 func _on_player_energia_gp_cambio(actual: float, minima: float, maxima: float) -> void:
 	_vida.mostrar_energia(actual / maxima, minima / maxima)
+
+
+func _on_plata_cambio(cantidad: int) -> void:
+	_texto_plata.text = str(cantidad)
+	_plata.reset_size.call_deferred()
 
 
 func resaltar_energia(resaltar: bool) -> void:
