@@ -1,7 +1,7 @@
 extends EfectoCarta
 
 @export var escena_bolita: PackedScene
-@export var bolitas_precalentadas := 16
+@export var bolitas_precalentadas := 24
 
 var _pool: Pool
 
@@ -10,6 +10,7 @@ func _ready() -> void:
 	_pool = Pool.new(escena_bolita, jugador.get_parent(), _al_crear_bolita)
 	_pool.precalentar.call_deferred(bolitas_precalentadas)
 	jugador.rebote_aereo.connect(_on_rebote_aereo)
+	jugador.volvio_al_inicio.connect(_pool.devolver_todos)
 
 
 func _al_crear_bolita(bolita: Proyectil) -> void:

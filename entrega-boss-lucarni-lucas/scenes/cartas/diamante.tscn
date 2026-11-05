@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/diamante.gd" id="1_diamante"]
+[ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="2_sombra"]
+[ext_resource type="Texture2D" path="res://assets/efectos/diamante.svg" id="3_textura"]
+
+[node name="Diamante" type="Node2D"]
+script = ExtResource("1_diamante")
+
+[node name="Sombra" parent="." instance=ExtResource("2_sombra")]
+z_index = -1
+scale = Vector2(0.3, 0.3)
+
+[node name="Visual" type="Sprite2D" parent="."]
+texture_filter = 4
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_textura")

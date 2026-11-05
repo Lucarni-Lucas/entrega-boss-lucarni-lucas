@@ -32,6 +32,11 @@ func devolver(nodo: Node) -> void:
 	_libres.append(nodo)
 
 
+func devolver_todos() -> void:
+	for nodo in _en_uso.duplicate():
+		devolver(nodo)
+
+
 func _crear() -> Node:
 	var nodo := _escena.instantiate()
 	_contenedor.add_child(nodo)

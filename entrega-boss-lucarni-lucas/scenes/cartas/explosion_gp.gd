@@ -12,6 +12,7 @@ func _ready() -> void:
 		add_child(estallido)
 		_estallidos.append(estallido)
 	jugador.impacto_gp.connect(_explotar)
+	jugador.volvio_al_inicio.connect(_cortar_estallidos)
 
 
 func _explotar(posicion: Vector2, altura: float, radio: float, _fuerza: float, _primario: bool) -> void:
@@ -19,3 +20,8 @@ func _explotar(posicion: Vector2, altura: float, radio: float, _fuerza: float, _
 	var estallido: Estallido = _estallidos.pop_front()
 	_estallidos.push_back(estallido)
 	estallido.explotar(posicion + Vector2(0, -altura), radio, jugador.params.anim_perspectiva)
+
+
+func _cortar_estallidos() -> void:
+	for estallido in _estallidos:
+		estallido.desactivar()

@@ -29,11 +29,23 @@ func aplicar(carta: Carta) -> void:
 	carta_aplicada.emit(carta)
 
 
-func ofrecer(cantidad: int) -> Array[Carta]:
+func quedan() -> int:
+	return _disponibles().size()
+
+
+func ofrecer(cantidad: int, evitar: Array[Carta] = []) -> Array[Carta]:
+	var disponibles := _disponibles()
+	disponibles.shuffle()
+	var elegidas: Array[Carta] = []
+	elegidas.assign(disponibles.filter(func(carta: Carta) -> bool: return not carta in evitar))
+	elegidas.append_array(disponibles.filter(func(carta: Carta) -> bool: return carta in evitar))
+	return elegidas.slice(0, cantidad)
+
+
+func _disponibles() -> Array[Carta]:
 	var disponibles: Array[Carta] = []
 	disponibles.assign(pozo.filter(func(carta: Carta) -> bool: return not carta in tomadas))
-	disponibles.shuffle()
-	return disponibles.slice(0, cantidad)
+	return disponibles
 
 
 func _sumar(nombre: StringName, cantidad: float) -> void:

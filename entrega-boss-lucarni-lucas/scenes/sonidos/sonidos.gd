@@ -37,6 +37,10 @@ func _on_jugador_reboto() -> void:
 	Audio.tocar(libreria.rebote)
 
 
+func _on_plata_juntada() -> void:
+	Audio.tocar(libreria.recoger_plata)
+
+
 func _on_jugador_slasheo() -> void:
 	Audio.tocar(libreria.slash)
 
@@ -61,6 +65,10 @@ func _on_jugador_lanzo_boomerang() -> void:
 func _on_jugador_atrapo_boomerang() -> void:
 	Audio.parar(libreria.boomerang_gira)
 	Audio.tocar(libreria.boomerang_atrapado)
+
+
+func _on_jugador_volvio_al_inicio() -> void:
+	Audio.parar(libreria.boomerang_gira)
 
 
 func _on_jugador_golpeado() -> void:

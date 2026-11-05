@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/boomerang/electricidad.gd" id="1_electricidad"]
+
+[node name="Electricidad" type="Node2D"]
+visible = false
+z_index = 1
+script = ExtResource("1_electricidad")

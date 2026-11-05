@@ -17,11 +17,13 @@ const _INTERRUMPIBLES := [Player.Estado.GROUND_POUND, Player.Estado.DIVE]
 
 @onready var _en_mano: Node2D = $EnMano
 @onready var _visual_mano: Sprite2D = $EnMano/Visual
+@onready var _electricidad: Electricidad = $EnMano/Electricidad
 @onready var _offset_en_mano: Vector2 = _en_mano.position
 @onready var _escala_visual: Vector2 = _visual_mano.scale
 
 var _tiempo_recuperacion := 0.0
 var _proyectil: Boomerang
+var _buffer := BufferVerbo.new(&"boomerang")
 
 
 func _ready() -> void:
@@ -36,13 +38,18 @@ func estado() -> Player.Estado:
 
 func procesar_fisica(player: Player, delta: float) -> void:
 	_actualizar_disponibilidad(player)
+	var pedido := _buffer.actualizar(delta, player.params.buffer_verbos)
 	if player.verbo_activo == self:
 		_tiempo_recuperacion -= delta
 		if _tiempo_recuperacion <= 0.0:
 			player.escala_gravedad = 1.0
 			player.liberar_verbo(self)
-	elif Input.is_action_just_pressed("boomerang"):
-		player.intentar_activar(self)
+	elif pedido and player.intentar_activar(self):
+		_buffer.consumir()
+
+
+func descartar_buffer() -> void:
+	_buffer.consumir()
 
 
 func estados_validos() -> Array:
@@ -68,6 +75,14 @@ func activar(player: Player) -> void:
 
 func cancelar(player: Player) -> void:
 	player.escala_gravedad = 1.0
+
+
+func electrizar(activo: bool) -> void:
+	_proyectil.electrizado = activo
+	if activo and not _proyectil.en_vuelo:
+		_electricidad.rafaga()
+	else:
+		_electricidad.apagar()
 
 
 func _actualizar_disponibilidad(player: Player) -> void:
@@ -117,5 +132,5 @@ func _mostrar_guardado(base: Vector2, mirada: float) -> void:
 
 func reiniciar(player: Player) -> void:
 	if _proyectil.en_vuelo:
-		_proyectil.guardar()
+		_proyectil.cancelar()
 	player.tiene_boomerang = true

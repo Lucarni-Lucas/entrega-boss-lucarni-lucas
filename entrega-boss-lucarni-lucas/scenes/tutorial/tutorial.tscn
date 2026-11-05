@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="34_sonidos"]
 [ext_resource type="AudioStream" uid="uid://bfw66g1adh271" path="res://assets/audio/musica/Falcon_133 BPM_Full_Loop.ogg" id="35_falcon"]
 [ext_resource type="PackedScene" path="res://scenes/tutorial/boomie.tscn" id="36_boomie"]
+[ext_resource type="PackedScene" uid="uid://cybvp4mm6gmxw" path="res://scenes/ui/hud.tscn" id="37_hud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
 size = Vector2(2080, 40)
@@ -76,10 +77,15 @@ limit_bottom = 1930
 limit_smoothed = true
 objetivo = NodePath("../Entidades/Player")
 
-[node name="Guia" type="CanvasLayer" parent="." unique_id=37042358 node_paths=PackedStringArray("jugador")]
+[node name="Hud" parent="." unique_id=1739462051 instance=ExtResource("37_hud")]
+con_tiempo = false
+con_plata = false
+
+[node name="Guia" type="CanvasLayer" parent="." unique_id=37042358 node_paths=PackedStringArray("jugador", "hud")]
 script = ExtResource("4_guia")
 params = ExtResource("5_params")
 jugador = NodePath("../Entidades/Player")
+hud = NodePath("../Hud")
 escena_partida = "uid://cfff452o8hyd1"
 
 [node name="Pasos" type="Control" parent="Guia" unique_id=887021962]
@@ -412,6 +418,43 @@ theme_override_font_sizes/font_size = 28
 text = "pausa"
 vertical_alignment = 1
 
+[node name="Continuar" type="HBoxContainer" parent="Guia/Pasos" unique_id=1928374651]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -76.0
+offset_right = -48.0
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="Apreta" type="Label" parent="Guia/Pasos/Continuar" unique_id=1928374652]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Apretá"
+vertical_alignment = 1
+
+[node name="Tecla" parent="Guia/Pasos/Continuar" unique_id=1928374653 instance=ExtResource("31_icono")]
+layout_mode = 2
+escala = 0.26
+
+[node name="ParaSeguir" type="Label" parent="Guia/Pasos/Continuar" unique_id=1928374654]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "para seguir"
+vertical_alignment = 1
+
 [node name="Final" type="Control" parent="Guia" unique_id=2084199144]
 visible = false
 layout_mode = 3
@@ -482,13 +525,16 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="impacto_gp" from="Entidades/Player" to="Efectos" method="_on_jugador_impacto_gp"]
 [connection signal="impacto_gp" from="Entidades/Player" to="Sonidos" method="_on_jugador_impacto_gp"]
 [connection signal="lanzo_boomerang" from="Entidades/Player" to="Sonidos" method="_on_jugador_lanzo_boomerang"]
+[connection signal="energia_gp_cambio" from="Entidades/Player" to="Hud" method="_on_player_energia_gp_cambio"]
 [connection signal="murio" from="Entidades/Player" to="Sonidos" method="_on_jugador_murio"]
+[connection signal="vida_cambio" from="Entidades/Player" to="Hud" method="_on_player_vida_cambio"]
 [connection signal="reboto" from="Entidades/Player" to="Guia" method="_on_player_reboto"]
 [connection signal="reboto" from="Entidades/Player" to="Sonidos" method="_on_jugador_reboto"]
 [connection signal="salto" from="Entidades/Player" to="Sonidos" method="_on_jugador_salto"]
 [connection signal="slasheo" from="Entidades/Player" to="Guia" method="_on_player_slasheo"]
 [connection signal="slasheo" from="Entidades/Player" to="Sonidos" method="_on_jugador_slasheo"]
 [connection signal="pauso" from="MenuPartida" to="Guia" method="_on_menu_partida_pauso"]
+[connection signal="pauso" from="MenuPartida" to="Entidades/Player" method="descartar_buffers"]
 [connection signal="pauso" from="MenuPartida" to="Sonidos" method="_on_menu_partida_pauso"]
 [connection signal="reanudo" from="MenuPartida" to="Guia" method="_on_menu_partida_reanudo"]
 [connection signal="reanudo" from="MenuPartida" to="Sonidos" method="_on_menu_partida_reanudo"]

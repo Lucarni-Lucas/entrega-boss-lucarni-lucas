@@ -8,6 +8,7 @@ signal slasheo
 signal vida_cambio(actual: int, maximo: int)
 signal murio
 signal fuerza_gp_recuperada
+signal energia_gp_cambio(actual: float, minima: float, maxima: float)
 signal volvio_al_inicio
 signal impacto_gp(posicion: Vector2, altura: float, radio: float, fuerza: float, primario: bool)
 signal salto
@@ -25,6 +26,7 @@ const _ESTADOS_AEREOS := [Estado.GROUND_POUND, Estado.DIVE]
 
 @export var params: PlayerParams
 @export var escena_impacto_gp: PackedScene
+@export var impactos_precalentados := 16
 
 var ultima_direccion := Vector2.DOWN
 var z := 0.0
@@ -36,11 +38,18 @@ var multiplicador_dano := 1.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
-var energia_gp: float
+var energia_gp: float:
+	set(valor):
+		if valor == energia_gp:
+			return
+		energia_gp = valor
+		energia_gp_cambio.emit.call_deferred(energia_gp, params.gp_energia_min, params.gp_energia_max)
 var _tiempo_invulnerable := 0.0
 var _tiempo_protegido := 0.0
 var _gracia_aerea := 0.0
 var _posicion_inicial: Vector2
+var _vueltas_al_inicio := 0
+var _pool_impactos: Pool
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -67,6 +76,13 @@ func _ready() -> void:
 	energia_gp = params.gp_energia_max
 	vida_cambio.emit.call_deferred(vida, params.vida_max)
 	_posicion_inicial = global_position
+	_pool_impactos = Pool.new(escena_impacto_gp, get_parent(), _al_crear_impacto)
+	_pool_impactos.precalentar.call_deferred(impactos_precalentados)
+	volvio_al_inicio.connect(_pool_impactos.devolver_todos)
+
+
+func _al_crear_impacto(impacto: ImpactoGp) -> void:
+	impacto.termino.connect(_pool_impactos.devolver)
 
 
 func _physics_process(delta: float) -> void:
@@ -111,6 +127,14 @@ func dano_de(base: int) -> int:
 
 func esta_slasheando() -> bool:
 	return _slash.esta_activo()
+
+
+func slash_circular() -> void:
+	_slash.circular(self)
+
+
+func electrizar_boomie(activo: bool) -> void:
+	_boomerang.electrizar(activo)
 
 
 ## x es el punto más alto (el blob), y el más bajo (la sombra).
@@ -184,8 +208,7 @@ func agregar_al_mundo(nodo: Node) -> void:
 func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true) -> void:
 	if not is_inside_tree():
 		return
-	var impacto: ImpactoGp = escena_impacto_gp.instantiate()
-	agregar_al_mundo(impacto)
+	var impacto: ImpactoGp = _pool_impactos.tomar()
 	impacto.golpear(self, posicion, altura, fuerza)
 	impacto_gp.emit(posicion, altura, impacto.radio, fuerza, primario)
 	if primario:
@@ -196,11 +219,16 @@ func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float)
 	for i in params.gp_replicas:
 		var angulo := TAU * i / params.gp_replicas
 		var desvio := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * radio * params.gp_replica_distancia
-		var replica := impactar_gp.bind(posicion + desvio, altura, fuerza, false)
+		var replica := _replicar.bind(_vueltas_al_inicio, posicion + desvio, altura, fuerza)
 		if params.gp_replica_retraso > 0.0:
 			get_tree().create_timer(params.gp_replica_retraso, false, true).timeout.connect(replica)
 		else:
 			replica.call()
+
+
+func _replicar(vuelta: int, posicion: Vector2, altura: float, fuerza: float) -> void:
+	if vuelta == _vueltas_al_inicio:
+		impactar_gp(posicion, altura, fuerza, false)
 
 
 func _velocidad_en_pantalla() -> Vector2:
@@ -253,7 +281,7 @@ func recibir_dano(cantidad: int) -> void:
 	if vida > params.piedad_vida:
 		vida = maxi(vida - cantidad, params.piedad_vida)
 	else:
-		vida = maxi(vida - params.piedad_dano, 0)
+		vida = maxi(vida - mini(params.piedad_dano, cantidad), 0)
 	vida_cambio.emit(vida, params.vida_max)
 	if vida == 0:
 		murio.emit()
@@ -318,6 +346,7 @@ func _actualizar_visual() -> void:
 
 
 func volver_al_inicio() -> void:
+	_vueltas_al_inicio += 1
 	if verbo_activo != null:
 		verbo_activo.cancelar(self)
 		verbo_activo = null
@@ -331,5 +360,11 @@ func volver_al_inicio() -> void:
 	_sprite.visible = true
 	energia_gp = params.gp_energia_max
 	_boomerang.reiniciar(self)
+	descartar_buffers()
 	_actualizar_visual()
 	volvio_al_inicio.emit()
+
+
+func descartar_buffers() -> void:
+	for verbo in [_jump, _slash, _ground_pound, _dive, _boomerang]:
+		verbo.descartar_buffer()

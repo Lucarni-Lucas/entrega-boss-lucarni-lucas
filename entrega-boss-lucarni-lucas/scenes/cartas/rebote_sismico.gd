@@ -14,6 +14,7 @@ func _ready() -> void:
 		add_child(onda)
 		_ondas.append(onda)
 	jugador.rebote_aereo.connect(_on_rebote_aereo)
+	jugador.volvio_al_inicio.connect(_cortar_ondas)
 
 
 func _on_rebote_aereo(posicion: Vector2, altura: float) -> void:
@@ -25,3 +26,8 @@ func _on_rebote_aereo(posicion: Vector2, altura: float) -> void:
 
 func _golpear(posicion: Vector2, fuerza: float) -> void:
 	jugador.impactar_gp(posicion, 0.0, fuerza)
+
+
+func _cortar_ondas() -> void:
+	for onda in _ondas:
+		onda.desactivar()

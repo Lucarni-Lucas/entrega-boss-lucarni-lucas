@@ -8,6 +8,7 @@ var enemigo: PackedScene
 var _jugador: Player
 var _parpadeos_restantes := 0
 var _tiempo := 0.0
+var oculta := false
 
 @onready var _visual := $Visual
 
@@ -18,6 +19,7 @@ func iniciar(posicion: Vector2, params: SpawnerParams, jugador: Player) -> void:
 	_jugador = jugador
 	_parpadeos_restantes = params.parpadeos
 	_tiempo = 0.0
+	oculta = false
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -29,7 +31,7 @@ func desactivar() -> void:
 
 func _physics_process(delta: float) -> void:
 	_tiempo += delta
-	_visual.visible = _tiempo < _params.duracion_parpadeo / 2.0
+	_visual.visible = not oculta and _tiempo < _params.duracion_parpadeo / 2.0
 	if _tiempo < _params.duracion_parpadeo:
 		return
 	_tiempo -= _params.duracion_parpadeo

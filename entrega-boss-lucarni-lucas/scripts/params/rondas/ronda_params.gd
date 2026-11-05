@@ -6,7 +6,6 @@ class_name RondaParams
 	set(valor):
 		cantidad_rondas = valor
 		_completar_guiones()
-@export_range(10, 300, 5, "suffix:s") var duracion: float = 45.0
 @export var guiones: Array[GuionRonda] = []:
 	set(valor):
 		guiones = valor

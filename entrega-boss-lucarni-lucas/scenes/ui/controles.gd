@@ -39,6 +39,7 @@ func _ready() -> void:
 
 
 func abrir() -> void:
+	EsquemaInput.volver_a_teclado_si_fue_clic()
 	_pagina = EsquemaInput.actual
 	_mostrar_pagina()
 	visible = true

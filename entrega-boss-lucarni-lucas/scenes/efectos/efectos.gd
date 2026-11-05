@@ -1,5 +1,7 @@
 extends Node2D
 
+const _SHADER_ANILLO := preload("res://scenes/efectos/anillo.gdshader")
+
 @export var params: EfectosParams
 @export var jugador: Player
 @export var textura_estrella: Texture2D
@@ -21,6 +23,7 @@ var _tweens := {}
 func _ready() -> void:
 	_estrellas = _crear_pool(textura_estrella, _arriba, tamano_pool_estrellas)
 	_chispas = _crear_pool(textura_chispa, _arriba, tamano_pool_chispas)
+	_anillo.material = _material_anillo()
 	_anillos.append(_anillo)
 	for i in tamano_pool_anillos - 1:
 		var anillo: Node2D = _anillo.duplicate()
@@ -54,7 +57,28 @@ func golpe(posicion: Vector2, origen: Hitbox.Origen) -> void:
 func _on_jugador_impacto_gp(posicion: Vector2, altura: float, radio: float, _fuerza: float, _primario: bool) -> void:
 	var anillo: Node2D = _anillos.pop_front()
 	_anillos.push_back(anillo)
-	anillo.mostrar(posicion + Vector2(0, -altura), radio, jugador.params.anim_perspectiva, params)
+	anillo.mostrar(posicion + Vector2(0, -altura), radio, params)
+
+
+func _on_jugador_volvio_al_inicio() -> void:
+	for tween in _tweens.values():
+		tween.kill()
+	_tweens.clear()
+	for sprite in _estrellas + _chispas:
+		sprite.hide()
+	for anillo in _anillos:
+		anillo.desactivar()
+
+
+func _material_anillo() -> ShaderMaterial:
+	var material_anillo := ShaderMaterial.new()
+	material_anillo.shader = _SHADER_ANILLO
+	material_anillo.set_shader_parameter(&"perspectiva", jugador.params.anim_perspectiva)
+	material_anillo.set_shader_parameter(&"ancho_borde", params.anillo_ancho_borde)
+	material_anillo.set_shader_parameter(&"ancho_interior", params.anillo_ancho_interior)
+	material_anillo.set_shader_parameter(&"color_borde", params.anillo_color_borde)
+	material_anillo.set_shader_parameter(&"color_interior", params.anillo_color_interior)
+	return material_anillo
 
 
 func _crear_pool(textura: Texture2D, contenedor: Node2D, cantidad: int) -> Array[Sprite2D]:

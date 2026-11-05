@@ -1,7 +1,7 @@
 extends EfectoCarta
 
 @export var escena_gota: PackedScene
-@export var gotas_precalentadas := 24
+@export var gotas_precalentadas := 60
 @export_range(0, 1, 0.05) var distancia_minima := 0.3
 
 var _pool: Pool
@@ -11,6 +11,7 @@ func _ready() -> void:
 	_pool = Pool.new(escena_gota, jugador.get_parent(), _al_crear_gota)
 	_pool.precalentar.call_deferred(gotas_precalentadas)
 	jugador.impacto_gp.connect(_on_impacto_gp)
+	jugador.volvio_al_inicio.connect(_pool.devolver_todos)
 
 
 func _al_crear_gota(gota: Proyectil) -> void:

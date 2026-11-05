@@ -7,6 +7,8 @@ signal golpeado(posicion: Vector2, origen: Hitbox.Origen)
 
 @export var params: EnemyParams
 
+const PASOS_DESTELLO := 8
+
 var z := 0.0
 var vida: int
 var jugador: Player
@@ -50,12 +52,18 @@ func activar_en(posicion: Vector2) -> void:
 	if _tween_destello:
 		_tween_destello.kill()
 	_poner_destello(0.0)
+	_sprite.position.y = -z
+	_sombra.actualizar(z)
 	collision_layer = _capa
 	_hurtbox.monitorable = true
 	_hitbox.activar()
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
 	_visual.set_frame_and_progress(randi() % _visual.sprite_frames.get_frame_count(_visual.animation), randf())
+
+
+func poner_dano_contacto(dano: int) -> void:
+	_hitbox.dano = dano
 
 
 func desactivar() -> void:
@@ -68,8 +76,6 @@ func desactivar() -> void:
 
 func _physics_process(delta: float) -> void:
 	_empuje = _empuje.move_toward(Vector2.ZERO, params.frenado_empuje * delta)
-	_sprite.position.y = -z
-	_sombra.actualizar(z)
 	_mirar_al_jugador()
 	_animar()
 
@@ -118,7 +124,9 @@ func _destellar() -> void:
 
 
 func _poner_destello(valor: float) -> void:
-	_visual.set_instance_shader_parameter(&"destello", valor)
+	var color := params.color
+	color.r += 2.0 * ceili(valor * PASOS_DESTELLO)
+	_visual.modulate = color
 
 
 func velocidad_externa() -> Vector2:

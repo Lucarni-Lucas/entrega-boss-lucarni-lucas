@@ -6,6 +6,8 @@ signal enemigo_aparecio(enemigo: Enemigo)
 signal enemigo_se_fue(enemigo: Enemigo)
 signal enemigo_golpeado(posicion: Vector2, origen: Hitbox.Origen)
 
+const GRUPO := &"spawner"
+
 @export var ronda_params: RondaParams
 @export var params: SpawnerParams
 @export var escena_marca: PackedScene
@@ -22,6 +24,7 @@ var _jugador: Player
 
 
 func _ready() -> void:
+	add_to_group(GRUPO)
 	_jugador = get_tree().get_first_node_in_group(Player.GRUPO) as Player
 	for numero in range(1, ronda_params.cantidad_rondas + 1):
 		for grupo in ronda_params.guion(numero).grupos:
@@ -96,6 +99,7 @@ func _on_marca_lista(marca: MarcaSpawn) -> void:
 	_pool_marcas.devolver(marca)
 	var enemigo := _elegir_enemigo(escena)
 	enemigo.activar_en(posicion)
+	enemigo.poner_dano_contacto(_guion.dano_contacto)
 	enemigo_aparecio.emit(enemigo)
 
 
@@ -132,9 +136,12 @@ func _mas_viejo_vivo() -> Enemigo:
 	return null
 
 
+func marcas() -> Array[Node]:
+	return _pool_marcas.en_uso()
+
+
 func terminar_ronda(_numero: int) -> void:
 	set_physics_process(false)
 	for enemigo in _activos.duplicate():
 		_devolver_enemigo(enemigo)
-	for marca in _pool_marcas.en_uso().duplicate():
-		_pool_marcas.devolver(marca)
+	_pool_marcas.devolver_todos()

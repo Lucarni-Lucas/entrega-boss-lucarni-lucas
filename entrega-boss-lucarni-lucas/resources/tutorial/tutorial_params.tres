@@ -4,7 +4,5 @@
 
 [resource]
 script = ExtResource("1_tutp")
-duracion_saludo = 5.0
 duracion_bien = 1.5
-duracion_presentacion_cadena = 6.0
 duracion_aviso = 3.0

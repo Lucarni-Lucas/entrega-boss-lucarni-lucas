@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_6eo2x")
-precalentar_marcas = 10
+precalentar = 50
+precalentar_marcas = 20
 distancia_minima = 300.0
 metadata/_custom_type_script = "uid://jtfyndpaudrq"

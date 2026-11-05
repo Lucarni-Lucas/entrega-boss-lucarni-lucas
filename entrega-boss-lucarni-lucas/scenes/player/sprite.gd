@@ -8,6 +8,7 @@ var _tween: Tween
 var _angulo := 0.0
 var _paso := 0.0
 var _escala_paso := Vector2.ONE
+var _fatiga := -1.0
 var _deformacion := Vector2.ONE:
 	set(valor):
 		_deformacion = valor
@@ -48,6 +49,9 @@ func estirar_segun_velocidad(velocidad: Vector2, params: PlayerParams) -> void:
 
 func mostrar_fatiga(fuerza: float, desaturacion: float, brillo: float) -> void:
 	var fatiga := 1.0 - fuerza
+	if fatiga == _fatiga:
+		return
+	_fatiga = fatiga
 	_visual.material.set_shader_parameter("desaturacion", desaturacion * fatiga)
 	_visual.material.set_shader_parameter("brillo", brillo * fatiga)
 

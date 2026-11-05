@@ -17,6 +17,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [node name="Sombra" type="Sprite2D" unique_id=1825432861]
+z_index = -1
 modulate = Color(0, 0, 0, 1)
 texture = SubResource("GradientTexture2D_uud6y")
 script = ExtResource("1_uud6y")

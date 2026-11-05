@@ -4,6 +4,7 @@ signal comenzar
 
 @export var params: RondaParams
 @export var cartas: Cartas
+@export var plata: Plata
 @export var escena_carta: PackedScene
 @export var marcos: Array[Texture2D] = []
 @export_range(1, 5, 1) var cartas_ofrecidas := 3
@@ -13,9 +14,13 @@ signal comenzar
 @export_range(0, 400, 1, "suffix:px") var bajada_aviso := 112.0
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
+@export var precio_cambio := 25
+@export var aumento_cambio := 5
 
 var _bloqueado := false
 var _elegida: CartaBoton
+var _ofrecidas: Array[Carta] = []
+var _cambios := 0
 
 @onready var _contenido: Control = $Contenido
 @onready var _espacio_arriba: Control = $Contenido/Opciones/EspacioArriba
@@ -25,11 +30,16 @@ var _elegida: CartaBoton
 @onready var _aviso: Control = $Contenido/Opciones/Aviso
 @onready var _fila_cartas: HBoxContainer = $Contenido/Opciones/Cartas
 @onready var _espacio_cartas: Control = $Contenido/Opciones/EspacioCartas
+@onready var _cambiar: BotonPrecio = $Contenido/Opciones/Cambiar
+@onready var _espacio_cambiar: Control = $Contenido/Opciones/EspacioCambiar
 @onready var _comenzar: Button = $Contenido/Opciones/Comenzar
 
 
 func _ready() -> void:
 	_comenzar.pressed.connect(_on_comenzar_pressed)
+	_cambiar.pressed.connect(_on_cambiar_pressed)
+	_cambiar.focus_neighbor_left = _cambiar.get_path_to(_cambiar)
+	_cambiar.focus_neighbor_right = _cambiar.get_path_to(_cambiar)
 	_precalentar.call_deferred()
 
 
@@ -54,9 +64,10 @@ func _input(_event: InputEvent) -> void:
 
 
 func mostrar(numero: int, total: int) -> void:
-	var ofrecidas := cartas.ofrecer(cartas_ofrecidas)
-	_llenar(numero, total, ofrecidas)
-	_habilitar_comenzar(ofrecidas.is_empty())
+	_cambios = 0
+	_ofrecidas = cartas.ofrecer(cartas_ofrecidas)
+	_llenar(numero, total, _ofrecidas)
+	_habilitar_comenzar(_ofrecidas.is_empty())
 	visible = true
 	_contenido.modulate.a = 0.0
 	create_tween().tween_property(_contenido, "modulate:a", 1.0, duracion_entrada)
@@ -78,6 +89,7 @@ func _llenar(numero: int, total: int, ofrecidas: Array[Carta]) -> void:
 	_espacio.custom_minimum_size.y = espacio_con_cartas if hay_cartas else espacio_aviso if todas_tomadas else espacio_sin_cartas
 	_espacio_cartas.custom_minimum_size.y = espacio_aviso if todas_tomadas else espacio_con_cartas
 	_espacio_cartas.visible = hay_cartas or todas_tomadas
+	_actualizar_cambiar()
 
 
 func _armar_cartas(ofrecidas: Array[Carta]) -> void:
@@ -97,7 +109,6 @@ func _armar_cartas(ofrecidas: Array[Carta]) -> void:
 		boton.focus_neighbor_left = boton.get_path_to(botones[maxi(i - 1, 0)])
 		boton.focus_neighbor_right = boton.get_path_to(botones[mini(i + 1, botones.size() - 1)])
 		boton.focus_neighbor_top = boton.get_path_to(boton)
-		boton.focus_neighbor_bottom = boton.get_path_to(_comenzar)
 	_fila_cartas.visible = not ofrecidas.is_empty()
 
 
@@ -106,7 +117,6 @@ func _elegir(boton: CartaBoton) -> void:
 		_elegida.elegida = false
 	_elegida = boton
 	boton.elegida = true
-	_comenzar.focus_neighbor_top = _comenzar.get_path_to(boton)
 	_habilitar_comenzar(true)
 
 
@@ -115,6 +125,46 @@ func _habilitar_comenzar(habilitado: bool) -> void:
 	_comenzar.focus_mode = Control.FOCUS_ALL if habilitado else Control.FOCUS_NONE
 	_comenzar.mouse_filter = Control.MOUSE_FILTER_STOP if habilitado else Control.MOUSE_FILTER_IGNORE
 	_comenzar.modulate.a = 1.0 if habilitado else 0.0
+	_conectar_foco()
+
+
+func _actualizar_cambiar() -> void:
+	var se_puede := _fila_cartas.visible and cartas.quedan() > cartas_ofrecidas
+	_cambiar.visible = se_puede
+	_espacio_cambiar.visible = se_puede
+	if se_puede:
+		_cambiar.mostrar_precio(_precio_actual(), plata.alcanza(_precio_actual()))
+	_conectar_foco()
+
+
+func _precio_actual() -> int:
+	return precio_cambio + aumento_cambio * _cambios
+
+
+func _conectar_foco() -> void:
+	if _fila_cartas.get_child_count() == 0:
+		_comenzar.focus_neighbor_top = NodePath()
+		return
+	var usable := _cambiar.visible and not _cambiar.disabled
+	var abajo: Control = _cambiar if usable else _comenzar
+	var carta: Control = _elegida if _elegida else _fila_cartas.get_child(0)
+	for boton: Control in _fila_cartas.get_children():
+		boton.focus_neighbor_bottom = boton.get_path_to(abajo)
+	_cambiar.focus_neighbor_top = _cambiar.get_path_to(carta)
+	_cambiar.focus_neighbor_bottom = _cambiar.get_path_to(_comenzar if not _comenzar.disabled else _cambiar)
+	_comenzar.focus_neighbor_top = _comenzar.get_path_to(_cambiar if usable else carta)
+
+
+func _on_cambiar_pressed() -> void:
+	if not plata.gastar(_precio_actual()):
+		return
+	_cambios += 1
+	_ofrecidas = cartas.ofrecer(cartas_ofrecidas, _ofrecidas)
+	_armar_cartas(_ofrecidas)
+	_habilitar_comenzar(false)
+	_actualizar_cambiar()
+	if _cambiar.disabled:
+		_fila_cartas.get_child(0).grab_focus()
 
 
 func _bloquear() -> void:

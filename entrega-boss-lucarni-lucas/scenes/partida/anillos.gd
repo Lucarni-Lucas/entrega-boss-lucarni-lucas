@@ -61,10 +61,14 @@ func _repartir_todos() -> void:
 func _repartir(enemigos: Array) -> void:
 	var centro := _jugador.global_position
 	var escala := Vector2(1.0, 1.0 / params.perspectiva)
-	enemigos.sort_custom(func(a: Enemigo, b: Enemigo): return ((a.global_position - centro) * escala).length_squared() < ((b.global_position - centro) * escala).length_squared())
+	var orden := PackedVector2Array()
+	for i in enemigos.size():
+		orden.append(Vector2(((enemigos[i].global_position - centro) * escala).length_squared(), i))
+	orden.sort()
 	var libres := _puntos_validos(centro)
 	var quedan := libres.count(true)
-	for enemigo: Enemigo in enemigos:
+	for clave in orden:
+		var enemigo: Enemigo = enemigos[int(clave.y)]
 		var i := _mas_cercano(libres, enemigo.global_position - centro) if quedan > 0 else -1
 		if i == -1:
 			enemigo.punto = _punto_de_espera(enemigo, centro)

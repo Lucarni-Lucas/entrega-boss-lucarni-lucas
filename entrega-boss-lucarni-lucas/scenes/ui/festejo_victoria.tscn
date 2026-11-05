@@ -1,0 +1,136 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/festejo_victoria.gd" id="1_festejo"]
+[ext_resource type="PackedScene" path="res://scenes/tutorial/boomie.tscn" id="2_boomie"]
+
+[sub_resource type="Gradient" id="Gradient_papelito"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_papelito"]
+gradient = SubResource("Gradient_papelito")
+width = 14
+height = 7
+
+[sub_resource type="Gradient" id="Gradient_colores"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.17, 0.34, 0.5, 0.67, 0.84)
+colors = PackedColorArray(0.949, 0.698, 0.2, 1, 0.827, 0.2, 0.2, 1, 0.369, 0.784, 0.941, 1, 0.965, 0.949, 0.89, 1, 0.29, 0.525, 0.91, 1, 0.561, 0.82, 0.31, 1)
+
+[node name="FestejoVictoria" type="CanvasLayer"]
+process_mode = 3
+layer = 3
+script = ExtResource("1_festejo")
+
+[node name="Contenido" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Franja" type="ColorRect" parent="Contenido"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -302.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Boomie" parent="Contenido" instance=ExtResource("2_boomie")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -281.0
+offset_right = 251.0
+offset_bottom = 19.0
+grow_vertical = 0
+
+[node name="Titulo" type="Label" parent="Contenido"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -282.0
+offset_bottom = -182.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"Destacado"
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_font_sizes/font_size = 72
+text = "¡Gracias por jugar mi demo!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Detalle" type="Label" parent="Contenido"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 0)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+text = "Contame qué te pareció"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConfetiIzquierda" type="CPUParticles2D" parent="Contenido"]
+position = Vector2(0, 1100)
+emitting = false
+amount = 90
+texture = SubResource("GradientTexture2D_papelito")
+lifetime = 5.0
+explosiveness = 0.85
+randomness = 0.4
+direction = Vector2(0.38, -1)
+spread = 16.0
+gravity = Vector2(0, 750)
+initial_velocity_min = 1500.0
+initial_velocity_max = 2000.0
+angular_velocity_min = -540.0
+angular_velocity_max = 540.0
+damping_min = 150.0
+damping_max = 350.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+color_initial_ramp = SubResource("Gradient_colores")
+
+[node name="ConfetiDerecha" type="CPUParticles2D" parent="Contenido"]
+position = Vector2(1920, 1100)
+emitting = false
+amount = 90
+texture = SubResource("GradientTexture2D_papelito")
+lifetime = 5.0
+explosiveness = 0.85
+randomness = 0.4
+direction = Vector2(-0.38, -1)
+spread = 16.0
+gravity = Vector2(0, 750)
+initial_velocity_min = 1500.0
+initial_velocity_max = 2000.0
+angular_velocity_min = -540.0
+angular_velocity_max = 540.0
+damping_min = 150.0
+damping_max = 350.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+color_initial_ramp = SubResource("Gradient_colores")

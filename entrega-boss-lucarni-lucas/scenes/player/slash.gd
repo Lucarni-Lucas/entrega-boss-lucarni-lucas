@@ -10,7 +10,9 @@ var _tiempo_activo := 0.0
 var _tiempo_cooldown := 0.0
 var _angulo_centro := 0.0
 var _sentido := 1.0
+var _arco := 0.0
 var _tween_estela: Tween
+var _buffer := BufferVerbo.new(&"slash")
 
 @onready var _hitbox: Hitbox = $Hitbox
 @onready var _efecto := $Efecto
@@ -23,6 +25,7 @@ var _tween_estela: Tween
 
 func procesar_fisica(player: Player, delta: float) -> void:
 	_tiempo_cooldown = maxf(_tiempo_cooldown - delta, 0.0)
+	var pedido := _buffer.actualizar(delta, player.params.buffer_verbos)
 
 	if _tiempo_activo > 0.0:
 		_tiempo_activo -= delta
@@ -30,18 +33,29 @@ func procesar_fisica(player: Player, delta: float) -> void:
 		_barrer(player)
 		if _tiempo_activo <= 0.0:
 			_terminar(player)
-	elif Input.is_action_just_pressed("slash") and esta_disponible(player):
-		_iniciar(player)
+	elif pedido and esta_disponible(player):
+		_buffer.consumir()
+		_iniciar(player, player.params.slash_arco)
+		_tiempo_cooldown = player.params.slash_cooldown
+
+
+func circular(player: Player) -> void:
+	_iniciar(player, 360.0)
+
+
+func descartar_buffer() -> void:
+	_buffer.consumir()
 
 
 func esta_disponible(player: Player) -> bool:
 	return player.estado_actual() in _ESTADOS_VALIDOS and player.tiene_boomerang and _tiempo_cooldown <= 0.0
 
 
-func _iniciar(player: Player) -> void:
+func _iniciar(player: Player, arco: float) -> void:
 	var direccion := player.ultima_direccion
 	_angulo_centro = direccion.angle()
 	_sentido = -_sentido
+	_arco = deg_to_rad(arco)
 
 	_construir_hitbox(player.params)
 	_hitbox.empuje = player.params.slash_empuje
@@ -58,18 +72,19 @@ func _iniciar(player: Player) -> void:
 	_filo.scale.y = _sentido
 
 	_tiempo_activo = player.params.slash_duracion
-	_tiempo_cooldown = player.params.slash_cooldown
 	_seguir_altura(player)
 	_barrer(player)
 	slasheo.emit()
 
 
 func _construir_hitbox(params: PlayerParams) -> void:
-	var mitad_arco := deg_to_rad(params.slash_arco) / 2.0
+	var mitad_arco := _arco / 2.0
 	var perspectiva := Vector2(1.0, params.anim_perspectiva)
-	var puntos := PackedVector2Array([Vector2.ZERO])
-	for i in _SEGMENTOS_ARCO + 1:
-		var angulo := _angulo_centro + lerpf(-mitad_arco, mitad_arco, float(i) / _SEGMENTOS_ARCO)
+	var vuelta_entera := _arco >= TAU
+	var segmentos := maxi(_SEGMENTOS_ARCO, ceili(_arco / deg_to_rad(15.0)))
+	var puntos := PackedVector2Array() if vuelta_entera else PackedVector2Array([Vector2.ZERO])
+	for i in (segmentos if vuelta_entera else segmentos + 1):
+		var angulo := _angulo_centro + lerpf(-mitad_arco, mitad_arco, float(i) / segmentos)
 		puntos.append(Vector2.from_angle(angulo) * params.slash_alcance * perspectiva)
 	_poligono.polygon = puntos
 
@@ -82,7 +97,7 @@ func _seguir_altura(player: Player) -> void:
 
 func _barrer(player: Player) -> void:
 	var progreso := clampf(1.0 - _tiempo_activo / player.params.slash_duracion, 0.0, 1.0)
-	var mitad_arco := deg_to_rad(player.params.slash_arco) / 2.0
+	var mitad_arco := _arco / 2.0
 	var angulo := _angulo_centro + _sentido * lerpf(-mitad_arco, mitad_arco, progreso)
 	var direccion_punto := Vector2.from_angle(angulo)
 	_filo.position = direccion_punto * player.params.slash_radio_efecto

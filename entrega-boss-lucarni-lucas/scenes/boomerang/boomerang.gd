@@ -21,6 +21,11 @@ var _angulo := 0.0
 var _rebotes := 0
 var _armado := false
 var en_vuelo := false
+var electrizado := false:
+	set(valor):
+		electrizado = valor
+		if is_node_ready():
+			_electricidad.visible = valor
 
 @onready var _sprite := $Sprite
 @onready var _shadow := $Sombra
@@ -30,7 +35,12 @@ var en_vuelo := false
 @onready var _detector: Area2D = $DetectorJugador
 @onready var _hitbox: Hitbox = $Hitbox
 @onready var _poligono_hitbox: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
+@onready var _electricidad: Electricidad = $Sprite/Electricidad
 @onready var _offset_sprite: Vector2 = _sprite.position
+
+
+func _ready() -> void:
+	_electricidad.visible = electrizado
 
 
 func _physics_process(delta: float) -> void:
@@ -46,6 +56,8 @@ func _physics_process(delta: float) -> void:
 	_ubicar_destello(_destello2, _angulo + PI)
 	_sprite.position.y = _offset_sprite.y - z
 	_shadow.actualizar(z)
+	_hitbox.z_min = z
+	_hitbox.z_max = z + params.boomerang_alto
 
 
 func _on_body_entered(_cuerpo: Node2D) -> void:
@@ -73,6 +85,11 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	set_physics_process(true)
 	_cambiar_fase(Fase.IDA)
+	if params.boomerang_dano > 0:
+		_hitbox.dano = _duenio.dano_de(params.boomerang_dano)
+		_hitbox.z_min = z
+		_hitbox.z_max = z + params.boomerang_alto
+		_hitbox.activar()
 
 
 func _avanzar(delta: float) -> void:
@@ -101,13 +118,7 @@ func _volver(delta: float) -> void:
 func _cambiar_fase(nueva: Fase) -> void:
 	_fase = nueva
 	_chispas.emitting = nueva == Fase.FLOTANDO
-	if nueva == Fase.FLOTANDO and params.boomerang_dano > 0:
-		_hitbox.dano = _duenio.dano_de(params.boomerang_dano)
-		_hitbox.z_min = z
-		_hitbox.z_max = z + params.boomerang_alto
-		_hitbox.activar()
-	else:
-		_hitbox.desactivar()
+	_hitbox.continua = nueva == Fase.FLOTANDO
 
 
 func _ubicar_destello(destello: Sprite2D, angulo: float) -> void:
@@ -116,14 +127,19 @@ func _ubicar_destello(destello: Sprite2D, angulo: float) -> void:
 
 
 func _revisar_rebote() -> void:
-	var cuerpos := _detector.get_overlapping_bodies()
+	var jugador := _jugador_que_rebota()
 	if not _armado:
-		_armado = cuerpos.is_empty()
+		_armado = jugador == null
 		return
-	for cuerpo in cuerpos:
+	if jugador:
+		_rebotar_en(jugador)
+
+
+func _jugador_que_rebota() -> Player:
+	for cuerpo in _detector.get_overlapping_bodies():
 		if cuerpo is Player and _puede_rebotar(cuerpo):
-			_rebotar_en(cuerpo)
-			return
+			return cuerpo
+	return null
 
 
 func _puede_rebotar(player: Player) -> bool:
@@ -138,6 +154,7 @@ func _rebotar_en(player: Player) -> void:
 		return
 	player.rebotar(params.vault_fuerza)
 	_rebotes += 1
+	_armado = false
 	if _rebotes >= params.boomerang_rebotes_max:
 		_cambiar_fase(Fase.VUELTA)
 
@@ -146,6 +163,11 @@ func guardar() -> void:
 	en_vuelo = false
 	_desactivar()
 	guardado.emit()
+
+
+func cancelar() -> void:
+	en_vuelo = false
+	_desactivar()
 
 
 func _desactivar() -> void:

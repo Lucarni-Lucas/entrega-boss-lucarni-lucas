@@ -17,6 +17,7 @@ const TECLAS := {
 	"dive": [["mouse_derecho"], ["x"], ["triangulo"]],
 	"boomerang": [["shift"], ["z"], ["circulo"]],
 	"pausa": [["esc", "p"], ["esc", "p"], ["options"]],
+	"continuar": [["enter"], ["enter"], ["cruz"]],
 }
 const _ICONOS := "res://assets/ui/controles/%s.svg"
 const _TECLAS_MOUSE := [KEY_W, KEY_A, KEY_S, KEY_D, KEY_SPACE, KEY_SHIFT]
@@ -24,6 +25,7 @@ const _TECLAS_TECLADO := [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_V, KEY_C, K
 const _ZONA_MUERTA_STICK := 0.5
 
 var actual := Esquema.TECLADO
+var _ultimo_fue_clic := false
 
 
 func _ready() -> void:
@@ -31,9 +33,19 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT]:
+		_ultimo_fue_clic = true
+	elif event.is_pressed() and not event is InputEventMouseButton:
+		_ultimo_fue_clic = false
 	var nuevo := esquema_de(event)
 	if nuevo != actual:
 		actual = nuevo
+		cambio.emit(actual)
+
+
+func volver_a_teclado_si_fue_clic() -> void:
+	if _ultimo_fue_clic and actual == Esquema.TECLADO_MOUSE:
+		actual = Esquema.TECLADO
 		cambio.emit(actual)
 
 

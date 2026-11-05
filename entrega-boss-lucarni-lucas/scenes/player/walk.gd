@@ -11,4 +11,4 @@ func procesar_fisica(player: Player, _delta: float) -> void:
 	var factor := player.params.throw_factor_velocidad if estado == Player.Estado.THROW else 1.0
 	player.velocity = direccion * player.params.velocidad * factor
 	if direccion != Vector2.ZERO:
-		player.ultima_direccion = direccion
+		player.ultima_direccion = direccion.normalized()
