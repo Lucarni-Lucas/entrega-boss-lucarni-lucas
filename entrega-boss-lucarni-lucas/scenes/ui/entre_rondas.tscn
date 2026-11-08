@@ -98,6 +98,14 @@ theme_override_font_sizes/font_size = 32
 text = "Ya tenés todas las mejoras, seguí así hasta el final"
 horizontal_alignment = 1
 
+[node name="Cambiar" parent="Contenido/Opciones" instance=ExtResource("7_precio")]
+layout_mode = 2
+
+[node name="EspacioCambiar" type="Control" parent="Contenido/Opciones"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+mouse_filter = 2
+
 [node name="Cartas" type="HBoxContainer" parent="Contenido/Opciones"]
 layout_mode = 2
 theme_override_constants/separation = 56
@@ -105,14 +113,6 @@ alignment = 1
 
 [node name="EspacioCartas" type="Control" parent="Contenido/Opciones"]
 custom_minimum_size = Vector2(0, 44)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Cambiar" parent="Contenido/Opciones" instance=ExtResource("7_precio")]
-layout_mode = 2
-
-[node name="EspacioCambiar" type="Control" parent="Contenido/Opciones"]
-custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 mouse_filter = 2
 

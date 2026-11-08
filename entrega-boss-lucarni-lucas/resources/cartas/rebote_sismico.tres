@@ -8,6 +8,6 @@
 script = ExtResource("1_carta")
 nombre = "Rebote sísmico"
 icono = ExtResource("3_icono")
-descripcion = "Cuando rebotás en Boomie, el golpe baja hasta el piso como un ground pound"
+descripcion = "Cuando rebotás en Boomie, una onda baja hasta el piso y golpea como un Ground Pound"
 verbo = 3
 efecto = ExtResource("2_efecto")

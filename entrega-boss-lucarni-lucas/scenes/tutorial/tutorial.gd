@@ -11,9 +11,9 @@ const _INSTRUCCIONES := {
 	Accion.SALTO: "Ahora, animate a dar un salto",
 	Accion.SLASH: "Podés defenderte usándome",
 	Accion.LANZAMIENTO: "Desde el aire, tirame sin miedo",
-	Accion.DIVE: "En pleno salto, lanzate con un dive",
+	Accion.DIVE: "En pleno salto, lanzate con un Dive",
 	Accion.REBOTE: "¡Mi favorito! Probá rebotar sobre mí",
-	Accion.GROUND_POUND: "Para cerrar, ¡un buen ground pound!",
+	Accion.GROUND_POUND: "Para cerrar, ¡un buen Ground Pound!",
 }
 const _SECUENCIAS := {
 	Accion.MOVER: [Accion.MOVER],
@@ -37,7 +37,7 @@ const _FESTEJOS := ["¡Bien!", "¡Eso!", "¡Genial!", "¡Muy bien!"]
 const _TITULO_ENERGIA := "¡Ojo, que cansa!"
 const _DETALLE_ENERGIA := "Esa barrita de arriba es tu energía, se carga mientras estás en el aire"
 const _TITULO_MARCA := "Llenala hasta la marca"
-const _DETALLE_MARCA := "Así tu ground pound pega con todo"
+const _DETALLE_MARCA := "Así tu Ground Pound pega con todo"
 const _PRESENTACION_CADENA := "Ahora, intentemos algo más difícil"
 const _DETALLE_PRESENTACION_CADENA := "Hacé todo seguido sin tocar el suelo"
 const _TITULO_REINTENTO := "UNA CADENA MÁS"

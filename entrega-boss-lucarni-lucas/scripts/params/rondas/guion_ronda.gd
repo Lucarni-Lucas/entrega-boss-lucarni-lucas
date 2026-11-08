@@ -11,6 +11,7 @@ class_name GuionRonda
 @export_range(10, 300, 5, "suffix:s") var duracion: float = 45.0
 @export_range(0, 20, 1) var dano_contacto: int = 5
 @export var evento: PackedScene
+@export var icono_evento: Texture2D
 @export var fondo: Texture2D
 @export var musica: AudioStream
 

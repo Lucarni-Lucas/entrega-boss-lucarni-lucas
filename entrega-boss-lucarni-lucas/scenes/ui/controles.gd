@@ -8,7 +8,7 @@ const _TECLADO := 1
 const _FILAS := [
 	["Moverse", "mover"],
 	["Saltar", "saltar"],
-	["Ground pound", "ground_pound"],
+	["Ground Pound", "ground_pound"],
 	["Slash", "slash"],
 	["Dive", "dive"],
 	["Boomerang", "boomerang"],

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dmm0bnb0mc5sc" path="res://scenes/ui/boton_texto.tscn" id="1_yskbd"]
 [ext_resource type="PackedScene" uid="uid://cqmaiveha1uwg" path="res://scenes/ui/controles.tscn" id="3_s5twh"]
 [ext_resource type="PackedScene" uid="uid://bi4rl8dkurghs" path="res://scenes/ui/ajustes.tscn" id="4_ajustes"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resumen_partida.tscn" id="5_resumen"]
 
 [node name="MenuPartida" type="CanvasLayer" unique_id=105893207]
 process_mode = 3
@@ -81,6 +82,10 @@ text = "Ajustes"
 [node name="MenuPrincipal" parent="Contenido/Opciones" unique_id=1561209149 instance=ExtResource("1_yskbd")]
 layout_mode = 2
 text = "Menú principal"
+
+[node name="Resumen" parent="Contenido" instance=ExtResource("5_resumen")]
+visible = false
+layout_mode = 1
 
 [node name="Controles" parent="Contenido" unique_id=700216410 instance=ExtResource("3_s5twh")]
 

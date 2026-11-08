@@ -8,7 +8,7 @@
 script = ExtResource("1_carta")
 nombre = "Géiser"
 icono = ExtResource("3_icono")
-descripcion = "Tu ground pound hace brotar un géiser, sus gotas pegan al subir y al caer"
+descripcion = "Tu Ground Pound hace brotar un géiser, sus gotas pegan al subir y al caer"
 verbo = 1
 cambios = Dictionary[StringName, float]({
 &"gp_geiser_gotas": 3.0

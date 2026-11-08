@@ -1,0 +1,160 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/resumen_partida.gd" id="1_resumen"]
+[ext_resource type="PackedScene" path="res://scenes/ui/carta_boton.tscn" id="2_carta"]
+[ext_resource type="Texture2D" uid="uid://dffbjbcdd6vu5" path="res://assets/ui/cartas/marco_azul.svg" id="3_azul"]
+[ext_resource type="Texture2D" uid="uid://r1wodc4uqbk3" path="res://assets/ui/cartas/marco_verde.svg" id="4_verde"]
+[ext_resource type="Texture2D" uid="uid://c4is53n3m16uc" path="res://assets/ui/cartas/marco_amarillo.svg" id="5_amarillo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_franja"]
+bg_color = Color(0, 0, 0, 0.35)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.29, 0.29, 0.32, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icono"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.95, 0.925, 0.85, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_foco"]
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[node name="Resumen" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = -250.0
+offset_right = -96.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_resumen")
+marcos = Array[Texture2D]([ExtResource("3_azul"), ExtResource("4_verde"), ExtResource("5_amarillo")])
+estilo_icono = SubResource("StyleBoxFlat_icono")
+estilo_foco = SubResource("StyleBoxFlat_foco")
+
+[node name="Franja" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_franja")
+
+[node name="Fila" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 14.0
+offset_right = -30.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 40
+
+[node name="Cartas" type="VBoxContainer" parent="Fila"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Titulo" type="Label" parent="Fila/Cartas"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73, 0.71, 0.67, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 26
+text = "Tus cartas"
+
+[node name="VentanaCartas" type="Control" parent="Fila/Cartas"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Iconos" type="HBoxContainer" parent="Fila/Cartas/VentanaCartas"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+mouse_filter = 2
+
+[node name="Vacio" type="Label" parent="Fila/Cartas"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 104)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54, 0.53, 0.5, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 26
+text = "Todavía no elegiste ninguna"
+vertical_alignment = 1
+
+[node name="VentanaRondas" type="Control" parent="Fila"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Pista" type="Control" parent="Fila/VentanaRondas"]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+
+[node name="Linea" type="ColorRect" parent="Fila/VentanaRondas/Pista"]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+color = Color(0.35, 0.35, 0.38, 1)
+
+[node name="Numeros" type="HBoxContainer" parent="Fila/VentanaRondas/Pista"]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+
+[node name="Carta" parent="." instance=ExtResource("2_carta")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 393.0
+offset_bottom = 498.0

@@ -7,7 +7,7 @@
 script = ExtResource("1_carta")
 nombre = "Réplica"
 icono = ExtResource("2_icono")
-descripcion = "Tu ground pound hace temblar el piso y salen seis réplicas alrededor"
+descripcion = "Tu Ground Pound hace temblar el piso y salen seis réplicas alrededor"
 verbo = 1
 cambios = Dictionary[StringName, float]({
 &"gp_replicas": 6.0
