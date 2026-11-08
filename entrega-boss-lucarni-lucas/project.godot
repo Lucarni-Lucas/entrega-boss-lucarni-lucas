@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="entrega-boss-lucarni-lucas"
+config/name="Cadentia"
 run/main_scene="uid://c0rkujp15f28n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=75
+boot_splash/bg_color=Color(0.07058824, 0.07058824, 0.09411765, 1)
+boot_splash/image="res://assets/ui/pantalla_carga.png"
 config/icon="res://icon.svg"
 
 [audio]

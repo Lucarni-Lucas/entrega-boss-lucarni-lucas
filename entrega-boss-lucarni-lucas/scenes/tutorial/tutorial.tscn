@@ -367,7 +367,7 @@ size_flags_horizontal = 4
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 44
-text = "Ground pound"
+text = "Ground Pound"
 
 [node name="Tecla" parent="Guia/Pasos/Cadena/GroundPound" unique_id=1048275931 instance=ExtResource("31_icono")]
 layout_mode = 2

@@ -124,8 +124,9 @@ params = ExtResource("7_naajo")
 
 [node name="Hud" parent="." unique_id=246180097 instance=ExtResource("8_41jku")]
 
-[node name="MenuPartida" parent="." unique_id=105893207 instance=ExtResource("9_naajo")]
+[node name="MenuPartida" parent="." unique_id=105893207 node_paths=PackedStringArray("cartas") instance=ExtResource("9_naajo")]
 params = ExtResource("7_naajo")
+cartas = NodePath("../Cartas")
 
 [node name="CuentaRegresiva" parent="." unique_id=643027304 instance=ExtResource("10_41jku")]
 params = ExtResource("7_naajo")
@@ -192,10 +193,14 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="pauso" from="MenuPartida" to="Entidades/Player" method="descartar_buffers"]
 [connection signal="pauso" from="MenuPartida" to="Hud" method="hide"]
 [connection signal="pauso" from="MenuPartida" to="CuentaRegresiva" method="cancelar"]
+[connection signal="pauso" from="MenuPartida" to="EntreRondas" method="_on_menu_partida_pauso"]
 [connection signal="pauso" from="MenuPartida" to="Sonidos" method="_on_menu_partida_pauso"]
 [connection signal="reanudo" from="MenuPartida" to="Hud" method="show"]
 [connection signal="reanudo" from="MenuPartida" to="CuentaRegresiva" method="iniciar"]
 [connection signal="reanudo" from="MenuPartida" to="Sonidos" method="_on_menu_partida_reanudo"]
+[connection signal="volvio_a_cartas" from="MenuPartida" to="Hud" method="show"]
+[connection signal="volvio_a_cartas" from="MenuPartida" to="EntreRondas" method="_on_menu_partida_volvio_a_cartas"]
+[connection signal="volvio_a_cartas" from="MenuPartida" to="Sonidos" method="_on_menu_partida_volvio_a_cartas"]
 [connection signal="numero_cambio" from="CuentaRegresiva" to="Sonidos" method="_on_cuenta_regresiva_numero_cambio"]
 [connection signal="terminada" from="CuentaRegresiva" to="Sonidos" method="_on_cuenta_regresiva_terminada"]
 [connection signal="comenzar" from="EntreRondas" to="Partida" method="siguiente_ronda"]

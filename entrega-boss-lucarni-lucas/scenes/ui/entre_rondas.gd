@@ -14,13 +14,14 @@ signal comenzar
 @export_range(0, 400, 1, "suffix:px") var bajada_aviso := 112.0
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
-@export var precio_cambio := 25
-@export var aumento_cambio := 5
+@export var precio_cambio := 50
+@export var aumento_cambio := 25
 
 var _bloqueado := false
 var _elegida: CartaBoton
 var _ofrecidas: Array[Carta] = []
 var _cambios := 0
+var _foco_previo: Control
 
 @onready var _contenido: Control = $Contenido
 @onready var _espacio_arriba: Control = $Contenido/Opciones/EspacioArriba
@@ -108,7 +109,6 @@ func _armar_cartas(ofrecidas: Array[Carta]) -> void:
 		var boton := botones[i]
 		boton.focus_neighbor_left = boton.get_path_to(botones[maxi(i - 1, 0)])
 		boton.focus_neighbor_right = boton.get_path_to(botones[mini(i + 1, botones.size() - 1)])
-		boton.focus_neighbor_top = boton.get_path_to(boton)
 	_fila_cartas.visible = not ofrecidas.is_empty()
 
 
@@ -146,13 +146,13 @@ func _conectar_foco() -> void:
 		_comenzar.focus_neighbor_top = NodePath()
 		return
 	var usable := _cambiar.visible and not _cambiar.disabled
-	var abajo: Control = _cambiar if usable else _comenzar
 	var carta: Control = _elegida if _elegida else _fila_cartas.get_child(0)
 	for boton: Control in _fila_cartas.get_children():
-		boton.focus_neighbor_bottom = boton.get_path_to(abajo)
-	_cambiar.focus_neighbor_top = _cambiar.get_path_to(carta)
-	_cambiar.focus_neighbor_bottom = _cambiar.get_path_to(_comenzar if not _comenzar.disabled else _cambiar)
-	_comenzar.focus_neighbor_top = _comenzar.get_path_to(_cambiar if usable else carta)
+		boton.focus_neighbor_top = boton.get_path_to(_cambiar if usable else boton)
+		boton.focus_neighbor_bottom = boton.get_path_to(_comenzar if not _comenzar.disabled else boton)
+	_cambiar.focus_neighbor_top = _cambiar.get_path_to(_cambiar)
+	_cambiar.focus_neighbor_bottom = _cambiar.get_path_to(carta)
+	_comenzar.focus_neighbor_top = _comenzar.get_path_to(carta)
 
 
 func _on_cambiar_pressed() -> void:
@@ -167,8 +167,25 @@ func _on_cambiar_pressed() -> void:
 		_fila_cartas.get_child(0).grab_focus()
 
 
+func _primero() -> Control:
+	return _fila_cartas.get_child(0) if _fila_cartas.get_child_count() > 0 else _comenzar
+
+
+func _on_menu_partida_pauso() -> void:
+	if not visible:
+		return
+	_foco_previo = get_viewport().gui_get_focus_owner()
+	_contenido.visible = false
+
+
+func _on_menu_partida_volvio_a_cartas() -> void:
+	_contenido.visible = true
+	var foco := _foco_previo if is_instance_valid(_foco_previo) and _foco_previo.is_visible_in_tree() else _primero()
+	foco.grab_focus()
+
+
 func _bloquear() -> void:
-	var primero: Control = _fila_cartas.get_child(0) if _fila_cartas.get_child_count() > 0 else _comenzar
+	var primero := _primero()
 	var atenuado: CanvasItem = _fila_cartas if primero != _comenzar else _comenzar
 	_bloqueado = true
 	atenuado.modulate.a = alpha_bloqueado

@@ -8,7 +8,7 @@
 script = ExtResource("1_carta")
 nombre = "Rareza protectora"
 icono = ExtResource("3_icono")
-descripcion = "Tres diamantes giran a tu alrededor y dañan a todo enemigo que tocan"
+descripcion = "Tres diamantes giran a tu alrededor y dañan a todo enemigo que los toca"
 verbo = 4
 cambios = Dictionary[StringName, float]({
 &"diamantes_cantidad": 3.0

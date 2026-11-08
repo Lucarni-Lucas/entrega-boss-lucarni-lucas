@@ -139,3 +139,7 @@ func _on_menu_partida_pauso() -> void:
 func _on_menu_partida_reanudo() -> void:
 	_tapar_musica(false)
 	Audio.tocar(libreria.reanudar)
+
+
+func _on_menu_partida_volvio_a_cartas() -> void:
+	Audio.tocar(libreria.reanudar)
