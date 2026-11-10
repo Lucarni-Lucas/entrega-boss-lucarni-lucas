@@ -34,6 +34,7 @@
 [ext_resource type="AudioStream" uid="uid://da1tngdrepk2p" path="res://assets/audio/efectos/18_Thunder_02.wav" id="32_rayo"]
 [ext_resource type="AudioStream" uid="uid://ciow7pt5yng3n" path="res://assets/audio/efectos/Static Glitch Short.wav" id="33_rayo_listo"]
 [ext_resource type="AudioStream" uid="uid://lbss6cfcwlbd" path="res://assets/audio/efectos/079_Buy_sell_01.wav" id="90_moneda"]
+[ext_resource type="AudioStream" uid="uid://b85ariv842tne" path="res://assets/audio/efectos/15_Impact_flesh_02.wav" id="91_rechazo"]
 
 [sub_resource type="Resource" id="Resource_x57t8"]
 script = ExtResource("2_ko7ua")
@@ -214,6 +215,12 @@ audio = SubResource("AudioStreamRandomizer_76tmg")
 volumen = 3.0
 tono = 1.5
 
+[sub_resource type="Resource" id="Resource_rechazo"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("91_rechazo")
+tono = 1.75
+copias = 1
+
 [sub_resource type="Resource" id="Resource_recoger_plata"]
 script = ExtResource("2_ko7ua")
 audio = ExtResource("90_moneda")
@@ -324,4 +331,5 @@ geiser = SubResource("Resource_geiser")
 salpicadura = SubResource("Resource_salpicadura")
 rayo = SubResource("Resource_rayo")
 rayo_listo = SubResource("Resource_rayo_listo")
+rechazo = SubResource("Resource_rechazo")
 metadata/_custom_type_script = "uid://djv6hk6rc47r"

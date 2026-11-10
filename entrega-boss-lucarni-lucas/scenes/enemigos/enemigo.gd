@@ -18,6 +18,8 @@ var punto := Vector2.ZERO
 var _capa: int
 var _tween_muerte: Tween
 var _tween_destello: Tween
+var _lento := 0.0
+var _factor_lento := 1.0
 
 @onready var _sombra: Sombra = $Sombra
 @onready var _sprite := $Sprite
@@ -49,6 +51,7 @@ func activar_en(posicion: Vector2) -> void:
 	_empuje = Vector2.ZERO
 	punto = Vector2.ZERO
 	modulate = Color.WHITE
+	_quitar_lentitud()
 	if _tween_destello:
 		_tween_destello.kill()
 	_poner_destello(0.0)
@@ -76,6 +79,10 @@ func desactivar() -> void:
 
 func _physics_process(delta: float) -> void:
 	_empuje = _empuje.move_toward(Vector2.ZERO, params.frenado_empuje * delta)
+	if _lento > 0.0:
+		_lento -= delta
+		if _lento <= 0.0:
+			_quitar_lentitud()
 	_mirar_al_jugador()
 	_animar()
 
@@ -107,9 +114,7 @@ func _terminar_muerte() -> void:
 
 
 func _on_golpeado(hitbox: Hitbox) -> void:
-	var direccion := hitbox.global_position.direction_to(global_position)
-	if direccion == Vector2.ZERO:
-		direccion = Vector2.from_angle(randf() * TAU)
+	var direccion := _direccion_desde(hitbox.global_position)
 	_empuje += direccion * hitbox.empuje
 	golpeado.emit(global_position + Vector2(0, -z - params.alto * 0.5) - direccion * 10.0, hitbox.origen)
 	_destellar()
@@ -127,6 +132,37 @@ func _poner_destello(valor: float) -> void:
 	var color := params.color
 	color.r += 2.0 * ceili(valor * PASOS_DESTELLO)
 	_visual.modulate = color
+
+
+func empujar(desde: Vector2, fuerza: float) -> void:
+	_empuje += _direccion_desde(desde) * fuerza
+
+
+func ralentizar(factor: float, segundos: float, tinte: Color) -> void:
+	_factor_lento = factor
+	_lento = segundos
+	_sprite.modulate = tinte
+
+
+func esta_lento() -> bool:
+	return _lento > 0.0
+
+
+func _quitar_lentitud() -> void:
+	_lento = 0.0
+	_factor_lento = 1.0
+	_sprite.modulate = Color.WHITE
+
+
+func _direccion_desde(desde: Vector2) -> Vector2:
+	var direccion := desde.direction_to(global_position)
+	if direccion == Vector2.ZERO:
+		direccion = Vector2.from_angle(randf() * TAU)
+	return direccion
+
+
+func velocidad_maxima() -> float:
+	return params.velocidad * _factor_lento
 
 
 func velocidad_externa() -> Vector2:
@@ -147,7 +183,10 @@ func _mirar_al_jugador() -> void:
 
 ## Solo los enemigos con animaciones "caminar" y "atacar" cambian según si se mueven.
 func _animar() -> void:
-	if muerto or not _visual.sprite_frames.has_animation(&"atacar"):
+	if muerto:
+		return
+	if not _visual.sprite_frames.has_animation(&"atacar"):
+		_visual.speed_scale = _factor_lento
 		return
 	var rapidez := velocity.length()
 	var animacion := &"caminar" if rapidez > params.velocidad * 0.2 else &"atacar"
@@ -157,4 +196,4 @@ func _animar() -> void:
 		var fps := _visual.sprite_frames.get_animation_speed(animacion)
 		_visual.speed_scale = rapidez / (params.avance_por_frame * fps)
 	else:
-		_visual.speed_scale = 1.0
+		_visual.speed_scale = _factor_lento

@@ -46,3 +46,4 @@ class_name LibreriaSonidos
 @export var salpicadura: Sonido
 @export var rayo: Sonido
 @export var rayo_listo: Sonido
+@export var rechazo: Sonido

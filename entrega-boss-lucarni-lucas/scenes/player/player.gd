@@ -17,6 +17,7 @@ signal dive
 signal lanzo_boomerang
 signal atrapo_boomerang
 signal golpeado
+signal golpe_de_enemigo
 signal curado
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
@@ -320,7 +321,10 @@ func _actualizar_invulnerabilidad(delta: float) -> void:
 
 
 func _on_golpeado(hitbox: Hitbox) -> void:
+	var de_enemigo := not es_invulnerable() and hitbox.get_parent() is Enemigo
 	recibir_dano(hitbox.dano)
+	if de_enemigo and vida > 0:
+		golpe_de_enemigo.emit()
 
 
 func proteger(segundos: float) -> void:

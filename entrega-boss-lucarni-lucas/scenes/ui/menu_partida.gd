@@ -60,8 +60,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not _finalizada and not _en_pausa and not _entre_rondas:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not _finalizada and not _en_pausa and not _entre_rondas and not _sin_pausa_por_foco():
 		pausar()
+
+
+func _sin_pausa_por_foco() -> bool:
+	return "--sin-pausa-por-foco" in OS.get_cmdline_user_args()
 
 
 func _on_partida_finalizo(gano: bool) -> void:

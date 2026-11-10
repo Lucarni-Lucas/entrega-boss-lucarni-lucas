@@ -140,3 +140,10 @@ class_name PlayerParams
 @export var diamantes_dano: int = 1
 @export_range(0.05, 2, 0.05, "suffix:s") var diamantes_intervalo: float = 0.8
 @export_range(0, 2000, 10, "suffix:px/s") var diamantes_empuje: float = 450.0
+
+@export_group("Rechazo")
+@export_range(0, 1000, 10, "suffix:px") var rechazo_radio: float = 300.0
+@export_range(0, 3000, 10, "suffix:px/s") var rechazo_empuje: float = 850.0
+@export_range(0, 1, 0.05) var rechazo_velocidad: float = 0.5
+@export_range(0, 10, 0.25, "suffix:s") var rechazo_duracion: float = 2.0
+@export_range(0, 30, 0.5, "suffix:s") var rechazo_recarga: float = 5.0

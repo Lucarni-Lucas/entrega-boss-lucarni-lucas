@@ -6,6 +6,6 @@ func _physics_process(delta: float) -> void:
 	if jugador == null:
 		return
 	var hacia := destino() - global_position
-	var persecucion := Vector2.ZERO if muerto else (hacia / delta).limit_length(params.velocidad)
+	var persecucion := Vector2.ZERO if muerto else (hacia / delta).limit_length(velocidad_maxima())
 	velocity = persecucion + velocidad_externa()
 	move_and_slide()
