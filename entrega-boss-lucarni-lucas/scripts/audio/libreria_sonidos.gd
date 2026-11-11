@@ -47,3 +47,5 @@ class_name LibreriaSonidos
 @export var rayo: Sonido
 @export var rayo_listo: Sonido
 @export var rechazo: Sonido
+@export var tiara_rota: Sonido
+@export var tiara_lista: Sonido

@@ -8,7 +8,7 @@
 script = ExtResource("1_carta")
 nombre = "Rebote eléctrico"
 icono = ExtResource("3_icono")
-descripcion = "Cada 2 segundos, tu próximo rebote en Boomie suelta un rayo que salta de enemigo en enemigo"
+descripcion = "Cada 2 segundos, tu próximo rebote en Boomie suelta un rayo que salta entre enemigos"
 verbo = 3
 cambios = Dictionary[StringName, float]({
 &"boomerang_rayo_saltos": 8.0

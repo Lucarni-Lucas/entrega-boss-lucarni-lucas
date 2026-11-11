@@ -147,3 +147,6 @@ class_name PlayerParams
 @export_range(0, 1, 0.05) var rechazo_velocidad: float = 0.5
 @export_range(0, 10, 0.25, "suffix:s") var rechazo_duracion: float = 2.0
 @export_range(0, 30, 0.5, "suffix:s") var rechazo_recarga: float = 5.0
+
+@export_group("Tiara")
+@export_range(0, 60, 0.5, "suffix:s") var tiara_recarga: float = 15.0

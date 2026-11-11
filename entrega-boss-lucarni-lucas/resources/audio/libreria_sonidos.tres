@@ -35,6 +35,8 @@
 [ext_resource type="AudioStream" uid="uid://ciow7pt5yng3n" path="res://assets/audio/efectos/Static Glitch Short.wav" id="33_rayo_listo"]
 [ext_resource type="AudioStream" uid="uid://lbss6cfcwlbd" path="res://assets/audio/efectos/079_Buy_sell_01.wav" id="90_moneda"]
 [ext_resource type="AudioStream" uid="uid://b85ariv842tne" path="res://assets/audio/efectos/15_Impact_flesh_02.wav" id="91_rechazo"]
+[ext_resource type="AudioStream" uid="uid://cfnp4sph6u5o7" path="res://assets/audio/efectos/Blade Metal Impact Recoil 01.wav" id="92_tiara_rota"]
+[ext_resource type="AudioStream" uid="uid://i1wi03tptwb4" path="res://assets/audio/efectos/13_Ice_explosion_01.wav" id="93_tiara_lista"]
 
 [sub_resource type="Resource" id="Resource_x57t8"]
 script = ExtResource("2_ko7ua")
@@ -218,6 +220,7 @@ tono = 1.5
 [sub_resource type="Resource" id="Resource_rechazo"]
 script = ExtResource("2_ko7ua")
 audio = ExtResource("91_rechazo")
+volumen = -6.0
 tono = 1.75
 copias = 1
 
@@ -263,6 +266,20 @@ script = ExtResource("2_ko7ua")
 audio = SubResource("AudioStreamRandomizer_b7v86")
 volumen = -21.0
 tono = 1.3
+copias = 1
+
+[sub_resource type="Resource" id="Resource_tiara_lista"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("93_tiara_lista")
+volumen = -6.0
+tono = 1.25
+copias = 1
+
+[sub_resource type="Resource" id="Resource_tiara_rota"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("92_tiara_rota")
+volumen = -9.0
+tono = 1.5
 copias = 1
 
 [sub_resource type="Resource" id="Resource_a6m5r"]
@@ -332,4 +349,6 @@ salpicadura = SubResource("Resource_salpicadura")
 rayo = SubResource("Resource_rayo")
 rayo_listo = SubResource("Resource_rayo_listo")
 rechazo = SubResource("Resource_rechazo")
+tiara_rota = SubResource("Resource_tiara_rota")
+tiara_lista = SubResource("Resource_tiara_lista")
 metadata/_custom_type_script = "uid://djv6hk6rc47r"

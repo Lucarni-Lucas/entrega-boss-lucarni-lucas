@@ -186,7 +186,9 @@ func _on_menu_partida_volvio_a_cartas() -> void:
 
 func _bloquear() -> void:
 	var primero := _primero()
-	var atenuado: CanvasItem = _fila_cartas if primero != _comenzar else _comenzar
+	var atenuado: CanvasItem = _comenzar
+	if primero != _comenzar:
+		atenuado = _fila_cartas
 	_bloqueado = true
 	atenuado.modulate.a = alpha_bloqueado
 	await get_tree().create_timer(params.bloqueo_final).timeout

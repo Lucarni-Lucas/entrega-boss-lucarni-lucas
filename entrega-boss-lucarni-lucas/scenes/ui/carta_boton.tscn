@@ -55,7 +55,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_font_sizes/font_size = 34
-text = "Ground Pound explosivo"
+text = "Impacto explosivo"
 autowrap_mode = 2
 
 [node name="Icono" type="TextureRect" parent="."]
@@ -79,7 +79,7 @@ theme_override_colors/font_color = Color(0.29, 0.29, 0.31, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 24
 text = "Al caer, tu Ground Pound explota y daña en un área más grande"
 horizontal_alignment = 1
 vertical_alignment = 2

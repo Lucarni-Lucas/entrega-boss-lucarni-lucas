@@ -18,6 +18,8 @@ signal lanzo_boomerang
 signal atrapo_boomerang
 signal golpeado
 signal golpe_de_enemigo
+signal golpe_bloqueado
+signal escudo_cambio(activo: bool)
 signal curado
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
@@ -39,6 +41,7 @@ var multiplicador_dano := 1.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
+var escudo := false
 var energia_gp: float:
 	set(valor):
 		if valor == energia_gp:
@@ -279,6 +282,11 @@ func _on_fuerza_gp_recuperada() -> void:
 func recibir_dano(cantidad: int) -> void:
 	if es_invulnerable():
 		return
+	if escudo:
+		poner_escudo(false)
+		_tiempo_invulnerable = params.invulnerabilidad
+		golpe_bloqueado.emit()
+		return
 	if vida > params.piedad_vida:
 		vida = maxi(vida - cantidad, params.piedad_vida)
 	else:
@@ -291,6 +299,13 @@ func recibir_dano(cantidad: int) -> void:
 	_tiempo_invulnerable = params.invulnerabilidad
 	_colorear(Color.RED)
 	golpeado.emit()
+
+
+func poner_escudo(activo: bool) -> void:
+	if escudo == activo:
+		return
+	escudo = activo
+	escudo_cambio.emit.call_deferred(activo)
 
 
 func curar(cantidad: int) -> void:
