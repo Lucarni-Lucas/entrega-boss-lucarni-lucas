@@ -8,9 +8,11 @@ enum Fase { IDA, FLOTANDO, VUELTA }
 @export var destello_radio := 22.0
 @export var destello_achatado := 0.45
 @export var giro := 9.0
+@export_range(0, 1, 0.01, "suffix:s") var duracion_desvanecer := 0.2
 
 var params: PlayerParams
 var z := 0.0
+var vuelve := true
 
 var _fase := Fase.IDA
 var _direccion := Vector2.ZERO
@@ -20,6 +22,7 @@ var _duenio: Player
 var _angulo := 0.0
 var _rebotes := 0
 var _armado := false
+var _tween_desvanecer: Tween
 var en_vuelo := false
 var electrizado := false:
 	set(valor):
@@ -81,6 +84,8 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	_angulo = 0.0
 	en_vuelo = true
 	visible = true
+	if _tween_desvanecer:
+		_tween_desvanecer.kill()
 	modulate.a = 1.0
 	process_mode = Node.PROCESS_MODE_INHERIT
 	set_physics_process(true)
@@ -116,6 +121,9 @@ func _volver(delta: float) -> void:
 
 
 func _cambiar_fase(nueva: Fase) -> void:
+	if nueva == Fase.VUELTA and not vuelve:
+		desvanecer()
+		return
 	_fase = nueva
 	_chispas.emitting = nueva == Fase.FLOTANDO
 	_hitbox.continua = nueva == Fase.FLOTANDO
@@ -150,7 +158,10 @@ func _rebotar_en(player: Player) -> void:
 	## Desde el suelo es un salto que además devuelve el boomerang a la mano.
 	if player.esta_en_suelo():
 		player.rebotar(params.fuerza_salto)
-		guardar()
+		if vuelve:
+			guardar()
+		else:
+			desvanecer()
 		return
 	player.rebotar(params.vault_fuerza)
 	_rebotes += 1
@@ -167,7 +178,21 @@ func guardar() -> void:
 
 func cancelar() -> void:
 	en_vuelo = false
+	if _tween_desvanecer:
+		_tween_desvanecer.kill()
 	_desactivar()
+
+
+func desvanecer() -> void:
+	if not en_vuelo:
+		return
+	en_vuelo = false
+	_hitbox.desactivar()
+	_chispas.emitting = false
+	set_physics_process(false)
+	_tween_desvanecer = create_tween()
+	_tween_desvanecer.tween_property(self, "modulate:a", 0.0, duracion_desvanecer)
+	_tween_desvanecer.tween_callback(_desactivar)
 
 
 func _desactivar() -> void:

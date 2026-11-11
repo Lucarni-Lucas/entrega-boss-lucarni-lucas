@@ -7,6 +7,7 @@ const _SHADERS: Array[Shader] = [
 	preload("res://scenes/enemigos/destello.gdshader"),
 	preload("res://scenes/player/fatiga.gdshader"),
 	preload("res://scenes/cartas/rompe_pisos.gdshader"),
+	preload("res://scenes/cartas/espejismo_aereo.gdshader"),
 ]
 
 

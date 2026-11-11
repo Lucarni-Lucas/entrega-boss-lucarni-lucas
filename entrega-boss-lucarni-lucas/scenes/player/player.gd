@@ -16,6 +16,7 @@ signal anticipo_gp
 signal dive
 signal lanzo_boomerang
 signal atrapo_boomerang
+signal boomie_electrizado(activo: bool)
 signal golpeado
 signal golpe_de_enemigo
 signal golpe_bloqueado
@@ -36,6 +37,7 @@ var z := 0.0
 ## Positiva sube, negativa baja.
 var velocidad_z := 0.0
 var tiene_boomerang := true
+var boomie_cargado_de_electricidad := false
 var tiempo_en_aire := 0.0
 var multiplicador_dano := 1.0
 var verbo_activo: VerboExclusivo = null
@@ -139,6 +141,8 @@ func slash_circular() -> void:
 
 func electrizar_boomie(activo: bool) -> void:
 	_boomerang.electrizar(activo)
+	boomie_cargado_de_electricidad = activo
+	boomie_electrizado.emit(activo)
 
 
 ## x es el punto más alto (el blob), y el más bajo (la sombra).
