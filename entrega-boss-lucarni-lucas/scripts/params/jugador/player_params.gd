@@ -150,3 +150,9 @@ class_name PlayerParams
 
 @export_group("Tiara")
 @export_range(0, 60, 0.5, "suffix:s") var tiara_recarga: float = 15.0
+
+@export_group("Rompe pisos")
+@export_range(0, 10, 0.25, "suffix:s") var rompe_pisos_duracion: float = 2.0
+@export_range(0, 1, 0.05) var rompe_pisos_velocidad: float = 0.5
+@export_range(0, 2, 0.05, "suffix:s") var rompe_pisos_rastro: float = 0.25
+@export_range(0, 3, 0.05) var rompe_pisos_escala: float = 1.0

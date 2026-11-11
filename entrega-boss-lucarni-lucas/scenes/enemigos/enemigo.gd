@@ -138,10 +138,11 @@ func empujar(desde: Vector2, fuerza: float) -> void:
 	_empuje += _direccion_desde(desde) * fuerza
 
 
-func ralentizar(factor: float, segundos: float, tinte: Color) -> void:
-	_factor_lento = factor
-	_lento = segundos
-	_sprite.modulate = tinte
+func ralentizar(factor: float, segundos: float, tinte := Color.WHITE) -> void:
+	_factor_lento = minf(_factor_lento, factor) if esta_lento() else factor
+	_lento = maxf(_lento, segundos)
+	if tinte != Color.WHITE:
+		_sprite.modulate = tinte
 
 
 func esta_lento() -> bool:

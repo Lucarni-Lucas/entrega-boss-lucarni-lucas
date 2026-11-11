@@ -37,6 +37,7 @@
 [ext_resource type="AudioStream" uid="uid://b85ariv842tne" path="res://assets/audio/efectos/15_Impact_flesh_02.wav" id="91_rechazo"]
 [ext_resource type="AudioStream" uid="uid://cfnp4sph6u5o7" path="res://assets/audio/efectos/Blade Metal Impact Recoil 01.wav" id="92_tiara_rota"]
 [ext_resource type="AudioStream" uid="uid://i1wi03tptwb4" path="res://assets/audio/efectos/13_Ice_explosion_01.wav" id="93_tiara_lista"]
+[ext_resource type="AudioStream" uid="uid://btewrwd1vlsoo" path="res://assets/audio/efectos/rompe_pisos.wav" id="94_rompe_pisos"]
 
 [sub_resource type="Resource" id="Resource_x57t8"]
 script = ExtResource("2_ko7ua")
@@ -231,6 +232,12 @@ volumen = -12.0
 tono = 1.75
 metadata/_custom_type_script = "uid://dker4vqy5cjik"
 
+[sub_resource type="Resource" id="Resource_rompe_pisos"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("94_rompe_pisos")
+volumen = -21.0
+copias = 1
+
 [sub_resource type="Resource" id="Resource_salpicadura"]
 script = ExtResource("2_ko7ua")
 audio = ExtResource("31_salpicadura")
@@ -351,4 +358,5 @@ rayo_listo = SubResource("Resource_rayo_listo")
 rechazo = SubResource("Resource_rechazo")
 tiara_rota = SubResource("Resource_tiara_rota")
 tiara_lista = SubResource("Resource_tiara_lista")
+rompe_pisos = SubResource("Resource_rompe_pisos")
 metadata/_custom_type_script = "uid://djv6hk6rc47r"
