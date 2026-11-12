@@ -26,4 +26,4 @@ func _on_rebote_aereo(posicion: Vector2, altura: float) -> void:
 		var angulo := TAU * i / cantidad
 		var direccion := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva)
 		var bolita: Proyectil = _pool.tomar()
-		bolita.lanzar(posicion, altura + params.boomerang_salpicadura_altura, direccion * params.boomerang_salpicadura_velocidad, 0.0, 0.0, duracion, jugador.dano_de(params.boomerang_salpicadura_dano))
+		bolita.lanzar(posicion, altura + params.boomerang_salpicadura_altura, direccion * params.boomerang_salpicadura_velocidad, 0.0, 0.0, duracion, jugador.dano_de(params.boomerang_salpicadura_dano), params.escala_proyectiles)

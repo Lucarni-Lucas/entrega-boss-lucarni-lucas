@@ -25,6 +25,7 @@ var _angulo := 0.0
 var _rebotes := 0
 var _armado := false
 var _tween_desvanecer: Tween
+var _escala := 1.0
 var en_vuelo := false
 var electrizado := false:
 	set(valor):
@@ -42,6 +43,7 @@ var electrizado := false:
 @onready var _poligono_hitbox: CollisionPolygon2D = $Hitbox/CollisionPolygon2D
 @onready var _electricidad: Electricidad = $Sprite/Electricidad
 @onready var _offset_sprite: Vector2 = _sprite.position
+@onready var _forma_detector: CollisionShape2D = $DetectorJugador/CollisionShape2D
 
 
 func _ready() -> void:
@@ -60,10 +62,10 @@ func _physics_process(delta: float) -> void:
 	_angulo += giro * delta
 	_ubicar_destello(_destello, _angulo)
 	_ubicar_destello(_destello2, _angulo + PI)
-	_sprite.position.y = _offset_sprite.y - z
+	_sprite.position.y = _offset_sprite.y * _escala - z
 	_shadow.actualizar(z)
 	_hitbox.z_min = z
-	_hitbox.z_max = z + params.boomerang_alto
+	_hitbox.z_max = z + _alto()
 
 
 func _on_body_entered(_cuerpo: Node2D) -> void:
@@ -83,7 +85,11 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	_tiempo_flotando = 0.0
 	_rebotes = 0
 	_armado = false
-	_poligono_hitbox.polygon = Formas.elipse(params.boomerang_radio_dano, params.anim_perspectiva)
+	_escala = params.escala_proyectiles
+	_sprite.scale = Vector2.ONE * _escala
+	_forma_detector.scale = Vector2.ONE * _escala
+	_shadow.agrandar(_escala)
+	_poligono_hitbox.polygon = Formas.elipse(params.boomerang_radio_dano * _escala, params.anim_perspectiva)
 	_angulo = 0.0
 	en_vuelo = true
 	visible = true
@@ -96,7 +102,7 @@ func lanzar(duenio: Player, direccion: Vector2) -> void:
 	if params.boomerang_dano > 0:
 		_hitbox.dano = _duenio.dano_de(params.boomerang_dano)
 		_hitbox.z_min = z
-		_hitbox.z_max = z + params.boomerang_alto
+		_hitbox.z_max = z + _alto()
 		_hitbox.activar()
 
 
@@ -121,6 +127,10 @@ func _volver(delta: float) -> void:
 	z = move_toward(z, _duenio.z, paso)
 	if global_position.distance_to(_duenio.global_position) < paso:
 		guardar()
+
+
+func _alto() -> float:
+	return params.boomerang_alto * _escala
 
 
 func esta_flotando() -> bool:
@@ -158,7 +168,7 @@ func _jugador_que_rebota() -> Player:
 
 
 func _puede_rebotar(player: Player) -> bool:
-	return Altura.rangos_se_tocan(z, z + params.boomerang_alto, player.z, player.z + params.alto_cuerpo)
+	return Altura.rangos_se_tocan(z, z + _alto(), player.z, player.z + params.alto_cuerpo)
 
 
 func _rebotar_en(player: Player) -> void:

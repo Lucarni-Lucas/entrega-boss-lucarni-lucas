@@ -39,7 +39,7 @@ func _soltar_gota(boomie: Boomerang, params: PlayerParams) -> void:
 	var gravedad := params.boomerang_llovizna_gravedad
 	var caida := sqrt(2.0 * boomie.z / gravedad)
 	var angulo := randf() * TAU
-	var distancia := params.boomerang_radio_dano * sqrt(randf())
+	var distancia := params.boomerang_radio_dano * params.escala_proyectiles * sqrt(randf())
 	var desvio := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * distancia
 	var gota: Proyectil = _pool.tomar()
-	gota.lanzar(boomie.global_position + desvio, boomie.z, Vector2.ZERO, 0.0, gravedad, caida + 0.5, jugador.dano_de(params.boomerang_llovizna_dano))
+	gota.lanzar(boomie.global_position + desvio, boomie.z, Vector2.ZERO, 0.0, gravedad, caida + 0.5, jugador.dano_de(params.boomerang_llovizna_dano), params.escala_proyectiles)

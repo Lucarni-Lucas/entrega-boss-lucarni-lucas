@@ -31,4 +31,4 @@ func _on_impacto_gp(posicion: Vector2, altura: float, radio: float, fuerza: floa
 		var distancia := radio * params.gp_geiser_zona * randf_range(distancia_minima, 1.0)
 		var destino := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * distancia
 		var gota: Proyectil = _pool.tomar()
-		gota.lanzar(posicion, altura, destino / vuelo, subida, gravedad, vuelo + 0.5, jugador.dano_de(params.gp_geiser_dano))
+		gota.lanzar(posicion, altura, destino / vuelo, subida, gravedad, vuelo + 0.5, jugador.dano_de(params.gp_geiser_dano), params.escala_proyectiles)

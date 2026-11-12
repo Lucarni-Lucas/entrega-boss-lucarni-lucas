@@ -137,6 +137,9 @@ class_name PlayerParams
 @export_range(0, 1000, 10, "suffix:px") var boomerang_rayo_alcance: float = 220.0
 @export var boomerang_rayo_dano: int = 1
 
+@export_group("Gran calibre")
+@export_range(0.5, 3, 0.05) var escala_proyectiles: float = 1.0
+
 @export_group("Diamantes")
 @export var diamantes_cantidad: int = 0
 @export_range(0, 300, 5, "suffix:px") var diamantes_radio: float = 50.0
