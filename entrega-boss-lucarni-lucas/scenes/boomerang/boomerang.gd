@@ -5,6 +5,8 @@ signal guardado
 
 enum Fase { IDA, FLOTANDO, VUELTA }
 
+const GRUPO := &"boomies"
+
 @export var destello_radio := 22.0
 @export var destello_achatado := 0.45
 @export var giro := 9.0
@@ -43,6 +45,7 @@ var electrizado := false:
 
 
 func _ready() -> void:
+	add_to_group(GRUPO)
 	_electricidad.visible = electrizado
 
 
@@ -118,6 +121,10 @@ func _volver(delta: float) -> void:
 	z = move_toward(z, _duenio.z, paso)
 	if global_position.distance_to(_duenio.global_position) < paso:
 		guardar()
+
+
+func esta_flotando() -> bool:
+	return en_vuelo and _fase == Fase.FLOTANDO
 
 
 func _cambiar_fase(nueva: Fase) -> void:

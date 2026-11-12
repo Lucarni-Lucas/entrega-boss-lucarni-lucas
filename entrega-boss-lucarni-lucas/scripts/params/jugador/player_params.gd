@@ -126,6 +126,11 @@ class_name PlayerParams
 @export_range(0, 1000, 10, "suffix:px") var boomerang_salpicadura_alcance: float = 300.0
 @export_range(0, 100, 1, "suffix:px") var boomerang_salpicadura_altura: float = 32.0
 @export var boomerang_salpicadura_dano: int = 1
+@export_subgroup("Llovizna")
+@export_range(0, 2, 0.05, "suffix:s") var boomerang_llovizna_intervalo: float = 0.2
+@export_range(0, 400, 5, "suffix:px") var boomerang_llovizna_altura_min: float = 80.0
+@export_range(0, 10000, 10, "suffix:px/s²") var boomerang_llovizna_gravedad: float = 1800.0
+@export var boomerang_llovizna_dano: int = 1
 @export_subgroup("Rayo")
 @export var boomerang_rayo_saltos: int = 0
 @export_range(0, 30, 0.5, "suffix:s") var boomerang_rayo_recarga: float = 5.0

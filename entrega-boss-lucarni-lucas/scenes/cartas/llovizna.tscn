@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/llovizna.gd" id="1_llovizna"]
+[ext_resource type="PackedScene" uid="uid://wum2jpm7ni8g" path="res://scenes/cartas/gota.tscn" id="2_gota"]
+
+[node name="Llovizna" type="Node"]
+script = ExtResource("1_llovizna")
+escena_gota = ExtResource("2_gota")
