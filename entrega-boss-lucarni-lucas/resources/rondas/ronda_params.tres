@@ -41,28 +41,33 @@ dano_contacto = 2
 fondo = ExtResource("4_azul")
 musica = ExtResource("5_8sef2")
 
-[sub_resource type="Resource" id="Resource_r2_base"]
+[sub_resource type="Resource" id="Resource_r2_goteo"]
 script = ExtResource("2_0iavs")
 cada = 1.8
-hasta = 24.0
 
-[sub_resource type="Resource" id="Resource_r2_tanda"]
+[sub_resource type="Resource" id="Resource_r2_suelto1"]
 script = ExtResource("2_0iavs")
-cantidad = 3
-cada = 12.0
-desde = 8.0
-hasta = 24.0
+cada = 15.0
+desde = 15.0
+hasta = 30.0
 
-[sub_resource type="Resource" id="Resource_r2_final"]
+[sub_resource type="Resource" id="Resource_r2_suelto2"]
 script = ExtResource("2_0iavs")
-desde = 26.0
-hasta = 28.0
+cada = 15.0
+desde = 15.0
+hasta = 30.0
+
+[sub_resource type="Resource" id="Resource_r2_suelto3"]
+script = ExtResource("2_0iavs")
+cada = 15.0
+desde = 15.0
+hasta = 30.0
 
 [sub_resource type="Resource" id="Resource_r2"]
 script = ExtResource("1_bh7g0")
-grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r2_base"), SubResource("Resource_r2_tanda"), SubResource("Resource_r2_final")])
-duracion = 30.0
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r2_goteo"), SubResource("Resource_r2_suelto1"), SubResource("Resource_r2_suelto2"), SubResource("Resource_r2_suelto3")])
 dano_contacto = 2
+icono_evento = ExtResource("13_horda")
 fondo = ExtResource("4_azul")
 musica = ExtResource("5_8sef2")
 
@@ -70,154 +75,230 @@ musica = ExtResource("5_8sef2")
 script = ExtResource("2_0iavs")
 cada = 1.6
 
-[sub_resource type="Resource" id="Resource_r3_horda1"]
+[sub_resource type="Resource" id="Resource_r3_fantasma"]
 script = ExtResource("2_0iavs")
-cada = 13.0
-desde = 10.0
-
-[sub_resource type="Resource" id="Resource_r3_horda2"]
-script = ExtResource("2_0iavs")
-cada = 13.0
-desde = 10.0
-
-[sub_resource type="Resource" id="Resource_r3_horda3"]
-script = ExtResource("2_0iavs")
-cada = 13.0
-desde = 10.0
-
-[sub_resource type="Resource" id="Resource_r3_horda4"]
-script = ExtResource("2_0iavs")
-cada = 13.0
-desde = 10.0
-
-[sub_resource type="Resource" id="Resource_r3_horda5"]
-script = ExtResource("2_0iavs")
-cada = 13.0
-desde = 10.0
+enemigo = ExtResource("3_0iavs")
+cada = 6.0
+desde = 4.0
 
 [sub_resource type="Resource" id="Resource_r3"]
 script = ExtResource("1_bh7g0")
-grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r3_base"), SubResource("Resource_r3_horda1"), SubResource("Resource_r3_horda2"), SubResource("Resource_r3_horda3"), SubResource("Resource_r3_horda4"), SubResource("Resource_r3_horda5")])
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r3_base"), SubResource("Resource_r3_fantasma")])
+duracion = 30.0
 dano_contacto = 3
-icono_evento = ExtResource("13_horda")
-fondo = ExtResource("5_aqua")
-musica = ExtResource("8_i87nm")
+fondo = ExtResource("4_azul")
+musica = ExtResource("5_8sef2")
 
 [sub_resource type="Resource" id="Resource_r4_base"]
 script = ExtResource("2_0iavs")
+cada = 1.2
+desde = 2.0
+hasta = 43.0
 
 [sub_resource type="Resource" id="Resource_r4_tanda"]
 script = ExtResource("2_0iavs")
 cantidad = 3
 cada = 12.0
-desde = 14.0
+desde = 12.0
 
 [sub_resource type="Resource" id="Resource_r4_fantasma"]
 script = ExtResource("2_0iavs")
 enemigo = ExtResource("3_0iavs")
-cada = 12.0
-desde = 8.0
+cada = 14.0
+desde = 10.0
 
 [sub_resource type="Resource" id="Resource_r4"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r4_base"), SubResource("Resource_r4_tanda"), SubResource("Resource_r4_fantasma")])
-duracion = 30.0
 dano_contacto = 3
+evento = ExtResource("11_ceguera")
+icono_evento = ExtResource("14_oscuridad")
 fondo = ExtResource("5_aqua")
 musica = ExtResource("8_i87nm")
 
 [sub_resource type="Resource" id="Resource_r5_base"]
 script = ExtResource("2_0iavs")
 cantidad = 2
-cada = 1.8
+cada = 2.2
 
 [sub_resource type="Resource" id="Resource_r5_tanda"]
 script = ExtResource("2_0iavs")
-cantidad = 4
-cada = 9.0
-desde = 12.0
+cantidad = 3
+cada = 12.0
+desde = 10.0
 
 [sub_resource type="Resource" id="Resource_r5_fantasma"]
 script = ExtResource("2_0iavs")
 enemigo = ExtResource("3_0iavs")
-cada = 14.0
-desde = 10.0
+cada = 12.0
+desde = 6.0
+hasta = 20.0
 
 [sub_resource type="Resource" id="Resource_r5"]
 script = ExtResource("1_bh7g0")
 grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r5_base"), SubResource("Resource_r5_tanda"), SubResource("Resource_r5_fantasma")])
+duracion = 30.0
 dano_contacto = 4
-evento = ExtResource("11_ceguera")
-icono_evento = ExtResource("14_oscuridad")
 fondo = ExtResource("5_aqua")
 musica = ExtResource("8_i87nm")
 
-[sub_resource type="Resource" id="Resource_r6_base"]
+[sub_resource type="Resource" id="Resource_r6_goteo"]
 script = ExtResource("2_0iavs")
 cantidad = 2
-cada = 1.8
+cada = 2.0
+hasta = 43.0
 
-[sub_resource type="Resource" id="Resource_r6_tanda"]
+[sub_resource type="Resource" id="Resource_r6_suelto1"]
 script = ExtResource("2_0iavs")
-cantidad = 3
-cada = 8.0
-desde = 8.0
+cada = 11.0
+desde = 10.0
+hasta = 43.0
+
+[sub_resource type="Resource" id="Resource_r6_suelto2"]
+script = ExtResource("2_0iavs")
+cada = 11.0
+desde = 10.0
+hasta = 43.0
+
+[sub_resource type="Resource" id="Resource_r6_suelto3"]
+script = ExtResource("2_0iavs")
+cada = 11.0
+desde = 10.0
+hasta = 43.0
+
+[sub_resource type="Resource" id="Resource_r6_suelto4"]
+script = ExtResource("2_0iavs")
+cada = 11.0
+desde = 10.0
+hasta = 43.0
+
+[sub_resource type="Resource" id="Resource_r6_suelto5"]
+script = ExtResource("2_0iavs")
+cada = 11.0
+desde = 10.0
+hasta = 43.0
 
 [sub_resource type="Resource" id="Resource_r6_fantasma"]
 script = ExtResource("2_0iavs")
 enemigo = ExtResource("3_0iavs")
-cada = 10.0
-desde = 6.0
+cada = 9.0
+desde = 4.0
 
 [sub_resource type="Resource" id="Resource_r6"]
 script = ExtResource("1_bh7g0")
-grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r6_base"), SubResource("Resource_r6_tanda"), SubResource("Resource_r6_fantasma")])
-duracion = 30.0
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r6_goteo"), SubResource("Resource_r6_suelto1"), SubResource("Resource_r6_suelto2"), SubResource("Resource_r6_suelto3"), SubResource("Resource_r6_suelto4"), SubResource("Resource_r6_suelto5"), SubResource("Resource_r6_fantasma")])
 dano_contacto = 4
-fondo = ExtResource("6_roja")
-musica = ExtResource("10_dhwsj")
+icono_evento = ExtResource("13_horda")
+fondo = ExtResource("5_aqua")
+musica = ExtResource("8_i87nm")
 
 [sub_resource type="Resource" id="Resource_r7_base"]
 script = ExtResource("2_0iavs")
 cantidad = 2
-cada = 1.4
-hasta = 25.0
+cada = 2.0
 
 [sub_resource type="Resource" id="Resource_r7_tanda"]
 script = ExtResource("2_0iavs")
 cantidad = 3
-cada = 10.0
-desde = 10.0
-hasta = 25.0
-
-[sub_resource type="Resource" id="Resource_r7_final"]
-script = ExtResource("2_0iavs")
-cantidad = 2
-cada = 1.1
-desde = 25.0
-
-[sub_resource type="Resource" id="Resource_r7_horda"]
-script = ExtResource("2_0iavs")
-cantidad = 3
-cada = 8.0
-desde = 26.0
+cada = 9.0
+desde = 8.0
 
 [sub_resource type="Resource" id="Resource_r7_fantasma"]
 script = ExtResource("2_0iavs")
 enemigo = ExtResource("3_0iavs")
 cada = 10.0
-desde = 10.0
+desde = 6.0
 
 [sub_resource type="Resource" id="Resource_r7"]
 script = ExtResource("1_bh7g0")
-grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r7_base"), SubResource("Resource_r7_tanda"), SubResource("Resource_r7_final"), SubResource("Resource_r7_horda"), SubResource("Resource_r7_fantasma")])
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r7_base"), SubResource("Resource_r7_tanda"), SubResource("Resource_r7_fantasma")])
+duracion = 30.0
+dano_contacto = 4
+fondo = ExtResource("5_aqua")
+musica = ExtResource("8_i87nm")
+
+[sub_resource type="Resource" id="Resource_r8_base"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 2.0
+hasta = 25.0
+
+[sub_resource type="Resource" id="Resource_r8_final"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+desde = 25.0
+hasta = 43.0
+
+[sub_resource type="Resource" id="Resource_r8_tanda"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 10.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_r8_fantasma"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cada = 12.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_r8"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r8_base"), SubResource("Resource_r8_final"), SubResource("Resource_r8_tanda"), SubResource("Resource_r8_fantasma")])
 evento = ExtResource("12_lava")
 icono_evento = ExtResource("15_icono_lava")
 fondo = ExtResource("6_roja")
 musica = ExtResource("10_dhwsj")
 
+[sub_resource type="Resource" id="Resource_r9_base"]
+script = ExtResource("2_0iavs")
+cantidad = 2
+cada = 1.8
+
+[sub_resource type="Resource" id="Resource_r9_tanda"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 10.0
+desde = 8.0
+
+[sub_resource type="Resource" id="Resource_r9_fantasma"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cada = 8.0
+desde = 4.0
+
+[sub_resource type="Resource" id="Resource_r9"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r9_base"), SubResource("Resource_r9_tanda"), SubResource("Resource_r9_fantasma")])
+duracion = 30.0
+fondo = ExtResource("6_roja")
+musica = ExtResource("10_dhwsj")
+
+[sub_resource type="Resource" id="Resource_r10_base"]
+script = ExtResource("2_0iavs")
+cada = 1.1
+desde = 2.0
+hasta = 43.0
+
+[sub_resource type="Resource" id="Resource_r10_tanda"]
+script = ExtResource("2_0iavs")
+cantidad = 3
+cada = 15.0
+desde = 10.0
+
+[sub_resource type="Resource" id="Resource_r10_fantasma"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("3_0iavs")
+cada = 15.0
+desde = 8.0
+
+[sub_resource type="Resource" id="Resource_r10"]
+script = ExtResource("1_bh7g0")
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r10_base"), SubResource("Resource_r10_tanda"), SubResource("Resource_r10_fantasma")])
+fondo = ExtResource("6_roja")
+musica = ExtResource("10_dhwsj")
+
 [resource]
 script = ExtResource("1_qlryx")
-cantidad_rondas = 7
-guiones = Array[ExtResource("1_bh7g0")]([SubResource("Resource_r1"), SubResource("Resource_r2"), SubResource("Resource_r3"), SubResource("Resource_r4"), SubResource("Resource_r5"), SubResource("Resource_r6"), SubResource("Resource_r7")])
+cantidad_rondas = 10
+guiones = Array[ExtResource("1_bh7g0")]([SubResource("Resource_r1"), SubResource("Resource_r2"), SubResource("Resource_r3"), SubResource("Resource_r4"), SubResource("Resource_r5"), SubResource("Resource_r6"), SubResource("Resource_r7"), SubResource("Resource_r8"), SubResource("Resource_r9"), SubResource("Resource_r10")])
 metadata/_custom_type_script = "uid://bsmnpgwdipnu3"

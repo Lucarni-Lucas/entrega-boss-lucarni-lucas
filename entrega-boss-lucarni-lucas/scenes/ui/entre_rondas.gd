@@ -14,8 +14,8 @@ signal comenzar
 @export_range(0, 400, 1, "suffix:px") var bajada_aviso := 112.0
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
-@export var precio_cambio := 50
-@export var aumento_cambio := 25
+@export var precio_cambio := 100
+@export var aumento_cambio := 50
 
 var _bloqueado := false
 var _elegida: CartaBoton
@@ -118,6 +118,7 @@ func _elegir(boton: CartaBoton) -> void:
 	_elegida = boton
 	boton.elegida = true
 	_habilitar_comenzar(true)
+	_comenzar.grab_focus()
 
 
 func _habilitar_comenzar(habilitado: bool) -> void:

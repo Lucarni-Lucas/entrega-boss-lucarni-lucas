@@ -123,7 +123,6 @@ jugador = NodePath("../Entidades/Player")
 script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
 pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo"), ExtResource("5_rareza_protectora"), ExtResource("5_rebote_electrico"), ExtResource("5_rechazo_pegajoso"), ExtResource("5_tiara_de_diamante"), ExtResource("5_rompe_pisos"), ExtResource("5_espejismo_aereo"), ExtResource("5_llovizna"), ExtResource("5_gran_calibre")])
-cartas_de_prueba = Array[ExtResource("5_carta")]([ExtResource("5_gran_calibre")])
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")

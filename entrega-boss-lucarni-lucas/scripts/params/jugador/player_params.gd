@@ -11,6 +11,9 @@ class_name PlayerParams
 @export_range(1, 30, 1, "suffix:Hz") var parpadeo_frecuencia: float = 12.0
 @export var piedad_vida: int = 5
 @export var piedad_dano: int = 1
+@export_subgroup("Vibración")
+@export_range(0, 1, 0.05) var vibracion_golpe: float = 0.25
+@export_range(0, 1, 0.01, "suffix:s") var vibracion_duracion: float = 0.12
 @export_subgroup("Curación")
 @export var curacion_cada_muertes: int = 20
 @export var curacion_cantidad: int = 5
