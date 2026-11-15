@@ -130,6 +130,10 @@ func mantener_aereo(segundos: float) -> void:
 	_gracia_aerea = maxf(_gracia_aerea, segundos)
 
 
+func en_gracia_aerea() -> bool:
+	return _gracia_aerea > 0.0
+
+
 func dano_de(base: int) -> int:
 	return roundi(base * multiplicador_dano)
 
@@ -140,6 +144,10 @@ func esta_slasheando() -> bool:
 
 func slash_circular() -> void:
 	_slash.circular(self)
+
+
+func slash_es_circular() -> bool:
+	return _slash.circular_activo
 
 
 func electrizar_boomie(activo: bool) -> void:

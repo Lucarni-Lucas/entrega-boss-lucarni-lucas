@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/impacto_elastico.gd" id="1_efecto"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/destello_salto.tscn" id="2_destello"]
+
+[node name="ImpactoElastico" type="Node"]
+script = ExtResource("1_efecto")
+escena_destello = ExtResource("2_destello")

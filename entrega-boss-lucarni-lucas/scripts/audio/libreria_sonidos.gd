@@ -50,3 +50,4 @@ class_name LibreriaSonidos
 @export var tiara_rota: Sonido
 @export var tiara_lista: Sonido
 @export var rompe_pisos: Sonido
+@export var impacto_elastico: Sonido

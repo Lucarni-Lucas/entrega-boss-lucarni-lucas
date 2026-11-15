@@ -46,7 +46,7 @@ func _conectar() -> void:
 	if _jugador == null:
 		return
 	_jugador.lanzo_boomerang.connect(_sumar)
-	_jugador.slasheo.connect(_sumar)
+	_jugador.slasheo.connect(_on_slasheo)
 	_jugador.dive.connect(_sumar)
 	_jugador.anticipo_gp.connect(_sumar)
 	_jugador.rebote_aereo.connect(_sumar.unbind(2))
@@ -64,6 +64,11 @@ func _process(delta: float) -> void:
 	_tiempo += delta
 	var onda := sin(_tiempo * TAU * titileo_velocidad) * titileo
 	_llama.scale = Vector2(1.0 - onda * 0.5, 1.0 + onda) * _escala_llama * _golpe_llama
+
+
+func _on_slasheo() -> void:
+	if not _jugador.slash_es_circular():
+		_sumar()
 
 
 func _sumar() -> void:
