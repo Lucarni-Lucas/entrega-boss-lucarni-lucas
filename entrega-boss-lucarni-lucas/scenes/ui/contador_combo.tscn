@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/contador_combo.gd" id="1_combo"]
+[ext_resource type="Texture2D" path="res://assets/ui/combo/llama_amarilla.svg" id="2_amarilla"]
+[ext_resource type="Texture2D" path="res://assets/ui/combo/llama_naranja.svg" id="3_naranja"]
+[ext_resource type="Texture2D" path="res://assets/ui/combo/llama_roja.svg" id="4_roja"]
+[ext_resource type="Texture2D" path="res://assets/ui/combo/llama_violeta.svg" id="5_violeta"]
+[ext_resource type="Texture2D" path="res://assets/ui/combo/llama_azul.svg" id="6_azul"]
+
+[node name="Combo" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -256.0
+offset_top = 26.0
+offset_right = -56.0
+offset_bottom = 170.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("1_combo")
+llamas = Array[Texture2D]([ExtResource("2_amarilla"), ExtResource("3_naranja"), ExtResource("4_roja"), ExtResource("5_violeta"), ExtResource("6_azul")])
+
+[node name="Llama" type="TextureRect" parent="."]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("2_amarilla")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Titulo" type="Label" parent="."]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 200.0
+offset_bottom = 80.0
+theme_type_variation = &"Destacado"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_constants/shadow_outline_size = 12
+theme_override_font_sizes/font_size = 38
+text = "COMBO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Numero" type="Label" parent="."]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 200.0
+offset_bottom = 138.0
+theme_type_variation = &"Destacado"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_constants/shadow_outline_size = 12
+theme_override_font_sizes/font_size = 58
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
