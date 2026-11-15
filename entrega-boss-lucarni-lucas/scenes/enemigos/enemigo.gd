@@ -20,12 +20,14 @@ var _tween_muerte: Tween
 var _tween_destello: Tween
 var _lento := 0.0
 var _factor_lento := 1.0
+var _agitacion := 0.0
 
 @onready var _sombra: Sombra = $Sombra
 @onready var _sprite := $Sprite
 @onready var _hurtbox: Hurtbox = $Hurtbox
 @onready var _visual: AnimatedSprite2D = $Sprite/Visual
 @onready var _hitbox: Hitbox = $Hitbox
+@onready var _posicion_visual: Vector2 = _visual.position
 
 
 func _ready() -> void:
@@ -55,6 +57,7 @@ func activar_en(posicion: Vector2) -> void:
 	if _tween_destello:
 		_tween_destello.kill()
 	_poner_destello(0.0)
+	agitar(0.0)
 	_sprite.position.y = -z
 	_sombra.actualizar(z)
 	collision_layer = _capa
@@ -83,8 +86,16 @@ func _physics_process(delta: float) -> void:
 		_lento -= delta
 		if _lento <= 0.0:
 			_quitar_lentitud()
+	if _agitacion > 0.0:
+		_visual.position = _posicion_visual + Vector2(randf_range(-_agitacion, _agitacion), randf_range(-_agitacion, _agitacion))
 	_mirar_al_jugador()
 	_animar()
+
+
+func agitar(amplitud: float) -> void:
+	_agitacion = amplitud
+	if amplitud <= 0.0:
+		_visual.position = _posicion_visual
 
 
 func recibir_dano(cantidad: int, origen := Hitbox.Origen.NINGUNO) -> void:
@@ -115,7 +126,7 @@ func _terminar_muerte() -> void:
 
 func _on_golpeado(hitbox: Hitbox) -> void:
 	var direccion := _direccion_desde(hitbox.global_position)
-	_empuje += direccion * hitbox.empuje
+	_empuje += direccion * hitbox.empuje * params.factor_empuje
 	golpeado.emit(global_position + Vector2(0, -z - params.alto * 0.5) - direccion * 10.0, hitbox.origen)
 	_destellar()
 	recibir_dano(hitbox.dano, hitbox.origen)
@@ -135,7 +146,7 @@ func _poner_destello(valor: float) -> void:
 
 
 func empujar(desde: Vector2, fuerza: float) -> void:
-	_empuje += _direccion_desde(desde) * fuerza
+	_empuje += _direccion_desde(desde) * fuerza * params.factor_empuje
 
 
 func ralentizar(factor: float, segundos: float, tinte := Color.WHITE) -> void:

@@ -11,6 +11,7 @@ class_name EnemyParams
 @export_range(0, 1000, 5, "suffix:px/s") var velocidad: float = 250.0
 @export_range(0, 10000, 50, "suffix:px/s²") var frenado_empuje: float = 2400.0
 @export_range(0, 5000, 50, "suffix:px/s²") var aceleracion: float = 400.0
+@export_range(0, 1, 0.05) var factor_empuje: float = 1.0
 
 @export_group("Contacto")
 @export var dano_contacto: int = 5

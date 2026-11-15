@@ -95,10 +95,16 @@ func _on_spawner_enemigo_golpeado(_posicion: Vector2, origen: Hitbox.Origen) -> 
 func _on_spawner_enemigo_aparecio(enemigo: Enemigo) -> void:
 	if not enemigo.murio.is_connected(_on_enemigo_murio):
 		enemigo.murio.connect(_on_enemigo_murio.bind(enemigo))
+	if enemigo is Jefe and not enemigo.pisoteado.is_connected(_on_jefe_pisoteado):
+		enemigo.pisoteado.connect(_on_jefe_pisoteado)
 
 
 func _on_enemigo_murio(_posicion: Vector2, _origen: Hitbox.Origen, enemigo: Enemigo) -> void:
-	Audio.tocar(libreria.muerte_fantasma if enemigo.params.altura_vuelo > 0.0 else libreria.muerte_esqueleto)
+	Audio.tocar_una_vez_por_cuadro(libreria.muerte_fantasma if enemigo.params.altura_vuelo > 0.0 else libreria.muerte_esqueleto)
+
+
+func _on_jefe_pisoteado() -> void:
+	Audio.tocar_una_vez_por_cuadro(libreria.gp_impacto)
 
 
 func _on_cuenta_regresiva_numero_cambio(_valor: int) -> void:

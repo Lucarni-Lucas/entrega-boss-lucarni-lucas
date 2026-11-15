@@ -13,8 +13,9 @@ var oculta := false
 @onready var _visual := $Visual
 
 
-func iniciar(posicion: Vector2, params: SpawnerParams, jugador: Player) -> void:
+func iniciar(posicion: Vector2, params: SpawnerParams, jugador: Player, escala := 1.0) -> void:
 	global_position = posicion
+	scale = Vector2.ONE * escala
 	_params = params
 	_jugador = jugador
 	_parpadeos_restantes = params.parpadeos
@@ -45,4 +46,4 @@ func _physics_process(delta: float) -> void:
 
 
 func _jugador_encima() -> bool:
-	return _jugador != null and global_position.distance_to(_jugador.global_position) < _params.radio_bloqueo
+	return _jugador != null and global_position.distance_to(_jugador.global_position) < _params.radio_bloqueo * scale.x

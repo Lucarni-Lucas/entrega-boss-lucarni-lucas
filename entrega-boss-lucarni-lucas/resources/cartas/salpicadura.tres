@@ -8,7 +8,7 @@
 script = ExtResource("1_carta")
 nombre = "Salpicadura"
 icono = ExtResource("3_icono")
-descripcion = "Cuando rebotás en Boomie, salpicás ocho bolitas de slime para todos lados"
+descripcion = "Al rebotar en el aire sobre Boomie, salpicás ocho bolitas de slime para todos lados"
 verbo = 3
 cambios = Dictionary[StringName, float]({
 &"boomerang_salpicadura_bolitas": 8.0

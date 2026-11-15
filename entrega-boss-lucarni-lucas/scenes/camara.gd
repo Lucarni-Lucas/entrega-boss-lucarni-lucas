@@ -3,6 +3,10 @@ extends Camera2D
 @export var params: CameraParams
 @export var objetivo: Node2D
 
+var _zoom_base := Vector2.ONE
+var _golpe := 1.0
+var _tween_golpe: Tween
+
 
 func _ready() -> void:
 	if objetivo == null:
@@ -43,10 +47,24 @@ func _zoom_necesario(extremos: Vector2) -> float:
 
 func _acomodar_zoom(extremos: Vector2, delta: float) -> void:
 	var destino := Vector2.ONE * _zoom_necesario(extremos)
-	zoom = zoom.lerp(destino, 1.0 - exp(-params.velocidad_zoom * delta))
+	_zoom_base = _zoom_base.lerp(destino, 1.0 - exp(-params.velocidad_zoom * delta))
+	zoom = _zoom_base * _golpe
+
+
+func _process(_delta: float) -> void:
+	zoom = _zoom_base * _golpe
 
 
 func saltar_al_objetivo() -> void:
-	zoom = Vector2.ONE * _zoom_necesario(_seguir())
+	_zoom_base = Vector2.ONE * _zoom_necesario(_seguir())
+	zoom = _zoom_base * _golpe
 	reset_smoothing()
 	force_update_scroll()
+
+
+func golpe_de_zoom(factor: float, duracion: float) -> void:
+	if _tween_golpe:
+		_tween_golpe.kill()
+	_tween_golpe = create_tween().set_ignore_time_scale(true)
+	_tween_golpe.tween_property(self, "_golpe", factor, duracion * 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_tween_golpe.tween_property(self, "_golpe", 1.0, duracion * 0.75).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)

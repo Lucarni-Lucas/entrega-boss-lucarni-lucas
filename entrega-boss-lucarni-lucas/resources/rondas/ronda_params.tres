@@ -16,6 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://c5jutuwokl05p" path="res://assets/ui/eventos/horda.svg" id="13_horda"]
 [ext_resource type="Texture2D" uid="uid://bxheg31ubctb0" path="res://assets/ui/eventos/oscuridad.svg" id="14_oscuridad"]
 [ext_resource type="Texture2D" uid="uid://dyx456j8f6pxm" path="res://assets/ui/eventos/lava.svg" id="15_icono_lava"]
+[ext_resource type="PackedScene" uid="uid://dpn6w1kl6agna" path="res://scenes/enemigos/jefe.tscn" id="16_jefe"]
+[ext_resource type="PackedScene" path="res://scenes/eventos/ronda_jefe.tscn" id="17_ronda_jefe"]
+[ext_resource type="Texture2D" uid="uid://dr73ykkylkqmv" path="res://assets/ui/eventos/jefe.svg" id="18_icono_jefe"]
 
 [sub_resource type="Resource" id="Resource_r1_goteo"]
 script = ExtResource("2_0iavs")
@@ -291,9 +294,18 @@ enemigo = ExtResource("3_0iavs")
 cada = 15.0
 desde = 8.0
 
+[sub_resource type="Resource" id="Resource_r10_jefe"]
+script = ExtResource("2_0iavs")
+enemigo = ExtResource("16_jefe")
+desde = 3.0
+hasta = 3.0
+escala_marca = 2.5
+
 [sub_resource type="Resource" id="Resource_r10"]
 script = ExtResource("1_bh7g0")
-grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r10_base"), SubResource("Resource_r10_tanda"), SubResource("Resource_r10_fantasma")])
+grupos = Array[ExtResource("2_0iavs")]([SubResource("Resource_r10_base"), SubResource("Resource_r10_tanda"), SubResource("Resource_r10_fantasma"), SubResource("Resource_r10_jefe")])
+evento = ExtResource("17_ronda_jefe")
+icono_evento = ExtResource("18_icono_jefe")
 fondo = ExtResource("6_roja")
 musica = ExtResource("10_dhwsj")
 

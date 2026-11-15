@@ -19,6 +19,16 @@ func _ready() -> void:
 		punto.size = Vector2.ONE
 		punto.material = material
 		add_child(punto)
+	var recorte := ColorRect.new()
+	recorte.size = Vector2.ONE
+	recorte.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
+	recorte.material = ShaderMaterial.new()
+	recorte.material.shader = preload("res://scenes/enemigos/destello.gdshader")
+	var adentro := ColorRect.new()
+	adentro.size = Vector2.ONE
+	adentro.use_parent_material = true
+	recorte.add_child(adentro)
+	add_child(recorte)
 	await RenderingServer.frame_post_draw
 	for punto in get_children():
 		punto.queue_free()

@@ -17,6 +17,7 @@ var _estado := Estado.ENTRE_RONDAS
 var _ronda := 0
 var _restante := 0.0
 var _evento: Evento
+var _reloj_detenido := false
 
 
 func _ready() -> void:
@@ -28,10 +29,20 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if _estado != Estado.RONDA:
 		return
-	_restante = maxf(_restante - delta, 0.0)
-	tiempo_cambio.emit(_restante)
+	if not _reloj_detenido:
+		_restante = maxf(_restante - delta, 0.0)
+		tiempo_cambio.emit(_restante)
 	if _restante == 0.0:
 		_terminar_ronda()
+
+
+func terminar_ronda_ya() -> void:
+	if _estado == Estado.RONDA:
+		_restante = 0.0
+
+
+func detener_reloj() -> void:
+	_reloj_detenido = true
 
 
 func _on_player_murio() -> void:
@@ -41,6 +52,7 @@ func _on_player_murio() -> void:
 func _empezar_ronda() -> void:
 	_ronda += 1
 	_estado = Estado.RONDA
+	_reloj_detenido = false
 	var guion := params.guion(_ronda)
 	_restante = guion.duracion
 	if OS.has_feature("editor") and duracion_de_prueba > 0.0:

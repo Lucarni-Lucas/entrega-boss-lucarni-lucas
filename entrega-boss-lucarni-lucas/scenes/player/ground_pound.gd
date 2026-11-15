@@ -5,6 +5,7 @@ signal impacto(posicion: Vector2, altura_inicial: float)
 
 var _tiempo_anticipacion := 0.0
 var _altura_inicial := 0.0
+var _z_previo := 0.0
 var _invulnerable := false
 var _buffer := BufferVerbo.new(&"ground_pound")
 
@@ -35,6 +36,7 @@ func esta_disponible(player: Player) -> bool:
 
 func activar(player: Player) -> void:
 	_altura_inicial = player.z
+	_z_previo = player.z
 	_tiempo_anticipacion = player.params.gp_anticipacion
 	player.velocidad_z = 0.0
 	player.escala_gravedad = 0.0
@@ -54,8 +56,22 @@ func _procesar_caida(player: Player, delta: float) -> void:
 			player.escala_gravedad = 1.0
 			player.aplicar_impulso_vertical(-player.params.gp_velocidad)
 		return
-	if player.esta_en_suelo():
+	var jefe := Jefe.debajo_de(player)
+	if jefe and _z_previo >= jefe.altura_cabeza() and player.z <= jefe.altura_cabeza():
+		_impactar_en_cabeza(player, jefe)
+	elif player.esta_en_suelo():
 		_impactar(player)
+	_z_previo = player.z
+
+
+func _impactar_en_cabeza(player: Player, jefe: Jefe) -> void:
+	player.liberar_verbo(self)
+	if _invulnerable:
+		player.proteger(player.params.gp_proteccion)
+	player.z = jefe.altura_cabeza()
+	player.gastar_energia_gp()
+	jefe.recibir_pisoton(player)
+	impacto.emit(player.global_position, _altura_inicial)
 
 
 func _impactar(player: Player) -> void:

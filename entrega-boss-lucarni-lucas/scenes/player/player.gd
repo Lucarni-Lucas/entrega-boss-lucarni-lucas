@@ -56,6 +56,7 @@ var _gracia_aerea := 0.0
 var _posicion_inicial: Vector2
 var _vueltas_al_inicio := 0
 var _pool_impactos: Pool
+var _empuje := Vector2.ZERO
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -98,6 +99,8 @@ func _physics_process(delta: float) -> void:
 	_ground_pound.procesar_fisica(self, delta)
 	_dive.procesar_fisica(self, delta)
 	_boomerang.procesar_fisica(self, delta)
+	velocity += _empuje
+	_empuje = _empuje.move_toward(Vector2.ZERO, params.empuje_frenado * delta)
 	move_and_slide()
 
 	_actualizar_altura(delta)
@@ -181,6 +184,16 @@ func rebotar(fuerza: float) -> void:
 		recargar_energia_gp(params.gp_recarga_rebote)
 		rebote_aereo.emit(global_position, z)
 	aplicar_impulso_vertical(fuerza)
+	reboto.emit()
+
+
+func rebotar_de_costado(fuerza: float, empuje: Vector2) -> void:
+	if verbo_activo != null:
+		verbo_activo.cancelar(self)
+		verbo_activo = null
+	escala_gravedad = 1.0
+	aplicar_impulso_vertical(fuerza)
+	_empuje = empuje
 	reboto.emit()
 
 
@@ -375,6 +388,7 @@ func volver_al_inicio() -> void:
 		verbo_activo = null
 	global_position = _posicion_inicial
 	velocity = Vector2.ZERO
+	_empuje = Vector2.ZERO
 	z = 0.0
 	velocidad_z = 0.0
 	escala_gravedad = 1.0

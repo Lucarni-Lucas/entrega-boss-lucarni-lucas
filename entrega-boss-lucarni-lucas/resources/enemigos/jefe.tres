@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="JefeParams" format=3 uid="uid://d0vabu3dg0l3c"]
+
+[ext_resource type="Script" uid="uid://ht8qemtcdj1a" path="res://scripts/params/enemigos/jefe_params.gd" id="1_jefe"]
+
+[resource]
+script = ExtResource("1_jefe")
+rebote_empuje = 1300.0
+vida_max = 75
+alto = 180.0
+altura_vuelo = 1.0
+velocidad = 150.0
+factor_empuje = 0.15
+duracion_muerte = 0.35
