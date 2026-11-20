@@ -6,9 +6,9 @@
 
 [resource]
 script = ExtResource("1_carta")
-nombre = "Ground Pound explosivo"
+nombre = "Impacto explosivo"
 icono = ExtResource("3_icono")
-descripcion = "Al caer, tu Ground Pound explota y daña en un área más grande"
+descripcion = "Al caer, el impacto de tu Ground Pound explota y daña en un área más grande"
 verbo = 1
 cambios = Dictionary[StringName, float]({
 &"gp_radio_explosion": 50.0

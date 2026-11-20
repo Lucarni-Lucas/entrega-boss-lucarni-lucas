@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/rompe_pisos.gd" id="1_rompe_pisos"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/zona_rompe_pisos.tscn" id="2_zona"]
+
+[node name="RompePisos" type="Node"]
+script = ExtResource("1_rompe_pisos")
+escena_zona = ExtResource("2_zona")

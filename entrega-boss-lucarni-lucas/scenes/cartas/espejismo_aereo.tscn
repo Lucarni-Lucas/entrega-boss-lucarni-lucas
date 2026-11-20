@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/espejismo_aereo.gd" id="1_espejismo"]
+[ext_resource type="PackedScene" path="res://scenes/boomerang/boomerang.tscn" id="2_boomerang"]
+
+[node name="EspejismoAereo" type="Node"]
+script = ExtResource("1_espejismo")
+escena_boomerang = ExtResource("2_boomerang")

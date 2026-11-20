@@ -106,7 +106,7 @@ func actualizar_visual(player: Player, direccion: Vector2) -> void:
 	if player.tiene_boomerang:
 		_mostrar_en_mano(player, mirada + PI / 2.0)
 	else:
-		_mostrar_guardado(base, mirada)
+		_mostrar_guardado(base, mirada, player.params.escala_proyectiles)
 
 
 func _mostrar_en_mano(player: Player, angulo: float) -> void:
@@ -118,15 +118,15 @@ func _mostrar_en_mano(player: Player, angulo: float) -> void:
 	var perfil := sin(angulo)
 	if absf(perfil) < perfil_minimo:
 		perfil = perfil_minimo if perfil >= 0.0 else -perfil_minimo
-	_visual_mano.scale = Vector2(_escala_visual.x * perfil, _escala_visual.y)
+	_visual_mano.scale = Vector2(_escala_visual.x * perfil, _escala_visual.y) * player.params.escala_proyectiles
 	_visual_mano.modulate.a = 1.0
 
 
-func _mostrar_guardado(base: Vector2, mirada: float) -> void:
+func _mostrar_guardado(base: Vector2, mirada: float, escala: float) -> void:
 	_en_mano.position = base
 	_en_mano.z_index = 0
 	_visual_mano.rotation = mirada + deg_to_rad(rotacion_textura)
-	_visual_mano.scale = _escala_visual * escala_guardado
+	_visual_mano.scale = _escala_visual * escala_guardado * escala
 	_visual_mano.modulate.a = alpha_guardado
 
 

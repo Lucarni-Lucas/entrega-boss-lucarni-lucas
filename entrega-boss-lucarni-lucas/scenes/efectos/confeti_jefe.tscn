@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/efectos/confeti.gd" id="1_confeti"]
+
+[sub_resource type="Gradient" id="Gradient_papelito"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_papelito"]
+gradient = SubResource("Gradient_papelito")
+width = 14
+height = 7
+
+[sub_resource type="Gradient" id="Gradient_colores"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.17, 0.34, 0.5, 0.67, 0.84)
+colors = PackedColorArray(0.949, 0.698, 0.2, 1, 0.827, 0.2, 0.2, 1, 0.369, 0.784, 0.941, 1, 0.965, 0.949, 0.89, 1, 0.29, 0.525, 0.91, 1, 0.561, 0.82, 0.31, 1)
+
+[node name="ConfetiJefe" type="CPUParticles2D"]
+z_index = 50
+emitting = false
+amount = 160
+texture = SubResource("GradientTexture2D_papelito")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 60.0
+direction = Vector2(0, -1)
+spread = 75.0
+gravity = Vector2(0, 900)
+initial_velocity_min = 500.0
+initial_velocity_max = 1100.0
+angular_velocity_min = -540.0
+angular_velocity_max = 540.0
+damping_min = 150.0
+damping_max = 350.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+color_initial_ramp = SubResource("Gradient_colores")
+script = ExtResource("1_confeti")

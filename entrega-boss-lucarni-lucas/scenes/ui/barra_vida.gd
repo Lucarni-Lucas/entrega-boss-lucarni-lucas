@@ -17,6 +17,11 @@ const SUAVIZADO := 0.6
 @export_range(0, 2, 0.05, "suffix:s") var espera_rastro := 0.35
 @export var velocidad_rastro := 15.0
 
+@export_group("Escudo")
+@export var color_lleno_escudo := Color("74d4ff")
+@export var color_brillo_escudo := Color(0.88, 0.97, 1, 0.65)
+@export_range(0, 1, 0.05, "suffix:s") var duracion_destello_escudo := 0.25
+
 @export_group("Energía")
 @export var icono_energia: Texture2D
 @export_range(0, 40, 1, "suffix:px") var alto_energia := 8.0
@@ -38,6 +43,7 @@ var vida := 0
 var maximo := 1
 var energia := 0.0
 var marca_energia := 1.0
+var escudo := false
 var resaltar_energia := false:
 	set(valor):
 		resaltar_energia = valor
@@ -47,6 +53,7 @@ var resaltar_energia := false:
 var _rastro := 0.0
 var _espera := 0.0
 var _tiempo_resaltado := 0.0
+var _destello_escudo := 0.0
 var _relleno := Node2D.new()
 var _marco := Node2D.new()
 var _puntos := PackedVector2Array()
@@ -75,6 +82,14 @@ func mostrar(actual: int, nuevo_maximo: int) -> void:
 	queue_redraw()
 
 
+func mostrar_escudo(activo: bool) -> void:
+	if activo == escudo:
+		return
+	escudo = activo
+	_destello_escudo = 0.0 if activo else 1.0
+	queue_redraw()
+
+
 func mostrar_energia(nueva: float, marca: float) -> void:
 	var estaba_lista := energia >= marca_energia
 	var marca_cambio := marca != marca_energia
@@ -89,6 +104,9 @@ func _process(delta: float) -> void:
 	if resaltar_energia:
 		_tiempo_resaltado += delta
 		_marco.queue_redraw()
+	if _destello_escudo > 0.0:
+		_destello_escudo = maxf(_destello_escudo - delta / duracion_destello_escudo, 0.0)
+		queue_redraw()
 	if _rastro <= vida:
 		return
 	if _espera > 0.0:
@@ -103,6 +121,8 @@ func _draw() -> void:
 	var ancho_tramo := (size.x - inclinacion - separacion * (tramos - 1)) / tramos
 	var margen := Vector2(margen_fondo, margen_fondo)
 	_paralelogramo(Vector2(inclinacion, 0) - margen, _ancho_total() + margen_fondo * 2, alto_barra + margen_fondo * 2, color_fondo)
+	var lleno_color := (color_lleno_escudo if escudo else color_lleno).lerp(Color.WHITE, _destello_escudo)
+	var brillo_color := color_brillo_escudo if escudo else color_brillo
 	for tramo in tramos:
 		var origen := Vector2(inclinacion + tramo * (ancho_tramo + separacion), 0)
 		var desde := tramo * puntos_por_tramo
@@ -114,8 +134,8 @@ func _draw() -> void:
 		if rastro > 0.0:
 			_paralelogramo(origen, ancho_punto * rastro, alto_barra, color_rastro)
 		if lleno > 0.0:
-			_paralelogramo(origen, ancho_punto * lleno, alto_barra, color_lleno)
-			_paralelogramo(origen, ancho_punto * lleno, alto_brillo, color_brillo)
+			_paralelogramo(origen, ancho_punto * lleno, alto_barra, lleno_color)
+			_paralelogramo(origen, ancho_punto * lleno, alto_brillo, brillo_color)
 		for punto in range(1, capacidad):
 			var arriba := origen + Vector2(ancho_punto * punto, 0)
 			_linea(arriba, arriba + Vector2(-inclinacion, alto_barra), color_fondo, grosor_division)

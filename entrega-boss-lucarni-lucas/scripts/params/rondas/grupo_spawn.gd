@@ -8,3 +8,4 @@ class_name GrupoSpawn
 @export_range(0, 300, 1, "suffix:s") var desde: float = 0.0
 @export_range(0, 300, 1, "suffix:s") var hasta: float = 45.0
 @export_range(0, 2000, 5, "suffix:px") var radio: float = 150.0
+@export_range(0.5, 5, 0.1) var escala_marca: float = 1.0

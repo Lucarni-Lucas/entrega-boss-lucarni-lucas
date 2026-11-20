@@ -14,8 +14,8 @@ signal comenzar
 @export_range(0, 400, 1, "suffix:px") var bajada_aviso := 112.0
 @export_range(0, 1, 0.05, "suffix:s") var duracion_entrada := 0.2
 @export_range(0, 1, 0.05) var alpha_bloqueado := 0.35
-@export var precio_cambio := 50
-@export var aumento_cambio := 25
+@export var precio_cambio := 100
+@export var aumento_cambio := 50
 
 var _bloqueado := false
 var _elegida: CartaBoton
@@ -118,6 +118,7 @@ func _elegir(boton: CartaBoton) -> void:
 	_elegida = boton
 	boton.elegida = true
 	_habilitar_comenzar(true)
+	_comenzar.grab_focus()
 
 
 func _habilitar_comenzar(habilitado: bool) -> void:
@@ -186,7 +187,9 @@ func _on_menu_partida_volvio_a_cartas() -> void:
 
 func _bloquear() -> void:
 	var primero := _primero()
-	var atenuado: CanvasItem = _fila_cartas if primero != _comenzar else _comenzar
+	var atenuado: CanvasItem = _comenzar
+	if primero != _comenzar:
+		atenuado = _fila_cartas
 	_bloqueado = true
 	atenuado.modulate.a = alpha_bloqueado
 	await get_tree().create_timer(params.bloqueo_final).timeout

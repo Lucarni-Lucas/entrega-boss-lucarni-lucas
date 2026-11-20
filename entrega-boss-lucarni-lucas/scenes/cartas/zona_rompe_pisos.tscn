@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/zona_rompe_pisos.gd" id="1_zona"]
+
+[node name="ZonaRompePisos" type="Node2D"]
+z_index = -6
+script = ExtResource("1_zona")

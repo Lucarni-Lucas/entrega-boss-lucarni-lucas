@@ -9,13 +9,20 @@
 [ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="5_carta"]
 [ext_resource type="Script" uid="uid://btigfwwg2asuc" path="res://scenes/partida/cartas.gd" id="5_cartas"]
 [ext_resource type="Resource" path="res://resources/cartas/doble_filo.tres" id="5_doble_filo"]
+[ext_resource type="Resource" path="res://resources/cartas/espejismo_aereo.tres" id="5_espejismo_aereo"]
 [ext_resource type="Resource" uid="uid://c0ldra674vjqe" path="res://resources/cartas/geiser.tres" id="5_geiser"]
 [ext_resource type="Resource" uid="uid://dtjwu2qo5am47" path="res://resources/cartas/ground_pound_explosivo.tres" id="5_gp_explosivo"]
+[ext_resource type="Resource" uid="uid://bbhtp7syen27t" path="res://resources/cartas/gran_calibre.tres" id="5_gran_calibre"]
+[ext_resource type="Resource" path="res://resources/cartas/impacto_elastico.tres" id="5_impacto_elastico"]
+[ext_resource type="Resource" uid="uid://bttesj5dbwbml" path="res://resources/cartas/llovizna.tres" id="5_llovizna"]
 [ext_resource type="Resource" path="res://resources/cartas/rareza_protectora.tres" id="5_rareza_protectora"]
 [ext_resource type="Resource" uid="uid://dtgw5b84wrkko" path="res://resources/cartas/rebote_electrico.tres" id="5_rebote_electrico"]
 [ext_resource type="Resource" uid="uid://dcgicvev5c1ha" path="res://resources/cartas/rebote_sismico.tres" id="5_rebote_sismico"]
+[ext_resource type="Resource" path="res://resources/cartas/rechazo_pegajoso.tres" id="5_rechazo_pegajoso"]
 [ext_resource type="Resource" uid="uid://cdkw4b86p5suh" path="res://resources/cartas/replica.tres" id="5_replica"]
+[ext_resource type="Resource" uid="uid://vuxivawntue7" path="res://resources/cartas/rompe_pisos.tres" id="5_rompe_pisos"]
 [ext_resource type="Resource" uid="uid://xyj1jsmyuwam" path="res://resources/cartas/salpicadura.tres" id="5_salpicadura"]
+[ext_resource type="Resource" uid="uid://bkbqu0svqusqy" path="res://resources/cartas/tiara_de_diamante.tres" id="5_tiara_de_diamante"]
 [ext_resource type="Script" uid="uid://butxgi6do0nfc" path="res://scenes/partida/anillos.gd" id="6_8vbsj"]
 [ext_resource type="Script" uid="uid://d34w53kyaoxa3" path="res://scenes/partida/partida.gd" id="6_oexds"]
 [ext_resource type="Resource" uid="uid://bdjb5a2imnkgu" path="res://resources/rondas/ronda_params.tres" id="7_naajo"]
@@ -116,7 +123,7 @@ jugador = NodePath("../Entidades/Player")
 [node name="Cartas" type="Node" parent="." unique_id=753983594 node_paths=PackedStringArray("jugador")]
 script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
-pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo"), ExtResource("5_rareza_protectora"), ExtResource("5_rebote_electrico")])
+pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo"), ExtResource("5_rareza_protectora"), ExtResource("5_rebote_electrico"), ExtResource("5_rechazo_pegajoso"), ExtResource("5_tiara_de_diamante"), ExtResource("5_rompe_pisos"), ExtResource("5_espejismo_aereo"), ExtResource("5_llovizna"), ExtResource("5_gran_calibre"), ExtResource("5_impacto_elastico")])
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")
@@ -151,6 +158,7 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="curado" from="Entidades/Player" to="Sonidos" method="_on_jugador_curado"]
 [connection signal="dive" from="Entidades/Player" to="Sonidos" method="_on_jugador_dive"]
 [connection signal="energia_gp_cambio" from="Entidades/Player" to="Hud" method="_on_player_energia_gp_cambio"]
+[connection signal="escudo_cambio" from="Entidades/Player" to="Hud" method="_on_player_escudo_cambio"]
 [connection signal="fuerza_gp_recuperada" from="Entidades/Player" to="Sonidos" method="_on_jugador_fuerza_gp_recuperada"]
 [connection signal="golpeado" from="Entidades/Player" to="Sonidos" method="_on_jugador_golpeado"]
 [connection signal="impacto_gp" from="Entidades/Player" to="Efectos" method="_on_jugador_impacto_gp"]

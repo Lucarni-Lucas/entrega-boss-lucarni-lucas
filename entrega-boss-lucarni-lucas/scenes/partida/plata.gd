@@ -6,7 +6,7 @@ signal juntada
 
 @export var jugador: Player
 @export var textura: Texture2D
-@export var iniciales := 25
+@export var iniciales := 50
 @export var valor_moneda := 1
 @export_range(0, 1, 0.05) var cobro_restante := 0.5
 @export_range(0, 400, 1, "suffix:px") var radio_recogida := 90.0

@@ -39,6 +39,7 @@ func _ready() -> void:
 
 func prender(posicion: Vector2, perspectiva: float) -> void:
 	global_position = posicion
+	modulate = Color(randf(), randf(), 1.0, 1.0)
 	_perspectiva = perspectiva
 	_poligono.polygon = Formas.elipse(radio, perspectiva, 24)
 	_hitbox.dano = dano

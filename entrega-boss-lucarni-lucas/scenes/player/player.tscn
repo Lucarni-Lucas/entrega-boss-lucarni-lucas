@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://cdvcrmimctytr" path="res://assets/efectos/destello_3.png" id="22_brillo3"]
 [ext_resource type="PackedScene" uid="uid://0jq0cs5vo35g" path="res://scenes/impacto_gp/impacto_gp.tscn" id="23_impacto"]
 [ext_resource type="PackedScene" path="res://scenes/boomerang/electricidad.tscn" id="24_electricidad"]
+[ext_resource type="Script" path="res://scenes/player/vibracion.gd" id="25_vibracion"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 1.0
@@ -188,7 +189,12 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1845187846]
 shape = SubResource("CircleShape2D_13qdw")
 
+[node name="Vibracion" type="Node" parent="."]
+script = ExtResource("25_vibracion")
+
 [connection signal="aterrizo" from="." to="." method="_on_aterrizo"]
 [connection signal="fuerza_gp_recuperada" from="." to="." method="_on_fuerza_gp_recuperada"]
 [connection signal="reboto" from="." to="." method="_on_reboto"]
 [connection signal="animation_finished" from="Sprite/Brillo" to="Sprite/Brillo" method="hide"]
+[connection signal="golpeado" from="." to="Vibracion" method="vibrar"]
+[connection signal="murio" from="." to="Vibracion" method="vibrar"]

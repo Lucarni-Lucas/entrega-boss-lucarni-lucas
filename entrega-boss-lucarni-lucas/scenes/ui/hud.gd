@@ -3,6 +3,7 @@ class_name Hud
 
 @export var con_tiempo := true
 @export var con_plata := true
+@export var color_sombra_escudo := Color("74d4ff")
 
 var _segundos := -1
 
@@ -30,6 +31,14 @@ func _on_partida_tiempo_cambio(restante: float) -> void:
 func _on_player_vida_cambio(actual: int, maximo: int) -> void:
 	_vida.mostrar(actual, maximo)
 	_numero.text = str(actual)
+
+
+func _on_player_escudo_cambio(activo: bool) -> void:
+	_vida.mostrar_escudo(activo)
+	if activo:
+		_numero.add_theme_color_override(&"font_shadow_color", color_sombra_escudo)
+	else:
+		_numero.remove_theme_color_override(&"font_shadow_color")
 
 
 func _on_player_energia_gp_cambio(actual: float, minima: float, maxima: float) -> void:

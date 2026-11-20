@@ -11,6 +11,7 @@ var _tiempo_cooldown := 0.0
 var _angulo_centro := 0.0
 var _sentido := 1.0
 var _arco := 0.0
+var circular_activo := false
 var _tween_estela: Tween
 var _buffer := BufferVerbo.new(&"slash")
 
@@ -40,7 +41,7 @@ func procesar_fisica(player: Player, delta: float) -> void:
 
 
 func circular(player: Player) -> void:
-	_iniciar(player, 360.0)
+	_iniciar(player, 360.0, true)
 
 
 func descartar_buffer() -> void:
@@ -51,7 +52,8 @@ func esta_disponible(player: Player) -> bool:
 	return player.estado_actual() in _ESTADOS_VALIDOS and player.tiene_boomerang and _tiempo_cooldown <= 0.0
 
 
-func _iniciar(player: Player, arco: float) -> void:
+func _iniciar(player: Player, arco: float, circular_pedido := false) -> void:
+	circular_activo = circular_pedido
 	var direccion := player.ultima_direccion
 	_angulo_centro = direccion.angle()
 	_sentido = -_sentido

@@ -38,8 +38,21 @@ func _agregar_pool(escena: PackedScene) -> void:
 	if _pools.has(escena.resource_path):
 		return
 	var pool := Pool.new(escena, contenedor, _preparar_enemigo)
-	pool.precalentar.call_deferred(params.precalentar)
+	pool.precalentar.call_deferred(mini(params.precalentar, _planeados(escena)))
 	_pools[escena.resource_path] = pool
+
+
+func _planeados(escena: PackedScene) -> int:
+	var maximo := 0
+	for numero in range(1, ronda_params.cantidad_rondas + 1):
+		var guion := ronda_params.guion(numero)
+		var total := 0
+		for grupo in guion.grupos:
+			var fin := minf(grupo.hasta, guion.duracion)
+			if grupo.enemigo.resource_path == escena.resource_path and fin >= grupo.desde:
+				total += grupo.cantidad * (floori((fin - grupo.desde) / grupo.cada) + 1)
+		maximo = maxi(maximo, total)
+	return maximo
 
 
 func _physics_process(delta: float) -> void:
@@ -67,7 +80,7 @@ func _marcar_grupo(grupo: GrupoSpawn) -> void:
 	for i in grupo.cantidad:
 		var punto := centro if i == 0 else _cerca_de(centro, grupo.radio)
 		var marca: MarcaSpawn = _pool_marcas.tomar()
-		marca.iniciar(punto, params, _jugador)
+		marca.iniciar(punto, params, _jugador, grupo.escala_marca)
 		marca.enemigo = grupo.enemigo
 
 
@@ -138,6 +151,15 @@ func _mas_viejo_vivo() -> Enemigo:
 
 func marcas() -> Array[Node]:
 	return _pool_marcas.en_uso()
+
+
+func enemigos_activos() -> Array[Enemigo]:
+	return _activos.duplicate()
+
+
+func detener() -> void:
+	set_physics_process(false)
+	_pool_marcas.devolver_todos()
 
 
 func terminar_ronda(_numero: int) -> void:

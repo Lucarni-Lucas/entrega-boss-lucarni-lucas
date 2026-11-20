@@ -11,6 +11,11 @@ class_name PlayerParams
 @export_range(1, 30, 1, "suffix:Hz") var parpadeo_frecuencia: float = 12.0
 @export var piedad_vida: int = 5
 @export var piedad_dano: int = 1
+@export_subgroup("Empuje")
+@export_range(0, 10000, 50, "suffix:px/s²") var empuje_frenado: float = 2400.0
+@export_subgroup("Vibración")
+@export_range(0, 1, 0.05) var vibracion_golpe: float = 0.25
+@export_range(0, 1, 0.01, "suffix:s") var vibracion_duracion: float = 0.12
 @export_subgroup("Curación")
 @export var curacion_cada_muertes: int = 20
 @export var curacion_cantidad: int = 5
@@ -61,6 +66,7 @@ class_name PlayerParams
 @export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 100.0
 @export var gp_radio_explosion: float = 0.0
 @export_range(0, 0.5, 0.01, "suffix:s") var gp_salto_ventana: float = 0.0
+@export_range(0, 500, 1) var gp_salto_recarga: float = 0.0
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09
 @export_range(0, 1, 0.01, "suffix:s") var gp_proteccion: float = 0.2
 @export_range(0, 2000, 10, "suffix:px/s") var gp_empuje: float = 850.0
@@ -126,11 +132,19 @@ class_name PlayerParams
 @export_range(0, 1000, 10, "suffix:px") var boomerang_salpicadura_alcance: float = 300.0
 @export_range(0, 100, 1, "suffix:px") var boomerang_salpicadura_altura: float = 32.0
 @export var boomerang_salpicadura_dano: int = 1
+@export_subgroup("Llovizna")
+@export_range(0, 2, 0.05, "suffix:s") var boomerang_llovizna_intervalo: float = 0.2
+@export_range(0, 400, 5, "suffix:px") var boomerang_llovizna_altura_min: float = 80.0
+@export_range(0, 10000, 10, "suffix:px/s²") var boomerang_llovizna_gravedad: float = 1800.0
+@export var boomerang_llovizna_dano: int = 1
 @export_subgroup("Rayo")
 @export var boomerang_rayo_saltos: int = 0
 @export_range(0, 30, 0.5, "suffix:s") var boomerang_rayo_recarga: float = 5.0
 @export_range(0, 1000, 10, "suffix:px") var boomerang_rayo_alcance: float = 220.0
 @export var boomerang_rayo_dano: int = 1
+
+@export_group("Gran calibre")
+@export_range(0.5, 3, 0.05) var escala_proyectiles: float = 1.0
 
 @export_group("Diamantes")
 @export var diamantes_cantidad: int = 0
@@ -140,3 +154,19 @@ class_name PlayerParams
 @export var diamantes_dano: int = 1
 @export_range(0.05, 2, 0.05, "suffix:s") var diamantes_intervalo: float = 0.8
 @export_range(0, 2000, 10, "suffix:px/s") var diamantes_empuje: float = 450.0
+
+@export_group("Rechazo")
+@export_range(0, 1000, 10, "suffix:px") var rechazo_radio: float = 300.0
+@export_range(0, 3000, 10, "suffix:px/s") var rechazo_empuje: float = 850.0
+@export_range(0, 1, 0.05) var rechazo_velocidad: float = 0.5
+@export_range(0, 10, 0.25, "suffix:s") var rechazo_duracion: float = 2.0
+@export_range(0, 30, 0.5, "suffix:s") var rechazo_recarga: float = 5.0
+
+@export_group("Tiara")
+@export_range(0, 60, 0.5, "suffix:s") var tiara_recarga: float = 15.0
+
+@export_group("Rompe pisos")
+@export_range(0, 10, 0.25, "suffix:s") var rompe_pisos_duracion: float = 2.0
+@export_range(0, 1, 0.05) var rompe_pisos_velocidad: float = 0.5
+@export_range(0, 2, 0.05, "suffix:s") var rompe_pisos_rastro: float = 0.25
+@export_range(0, 3, 0.05) var rompe_pisos_escala: float = 1.0

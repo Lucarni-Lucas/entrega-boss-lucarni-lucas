@@ -3,21 +3,21 @@
 [ext_resource type="Script" uid="uid://cioisylynclp1" path="res://scenes/ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Script" uid="uid://xs56t7tk0pv" path="res://scenes/ui/barra_vida.gd" id="3_barra"]
 [ext_resource type="Texture2D" uid="uid://dd3hflny45wy1" path="res://assets/ui/hud/energia_gp.svg" id="4_energia"]
+[ext_resource type="Texture2D" uid="uid://cksg1popy7llf" path="res://assets/ui/hud/moneda.svg" id="5_moneda"]
+[ext_resource type="PackedScene" path="res://scenes/ui/contador_combo.tscn" id="6_combo"]
 
-[ext_resource type="Texture2D" path="res://assets/ui/hud/moneda.svg" id="5_moneda"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plata"]
-content_margin_left = 8.0
-content_margin_top = 6.0
-content_margin_right = 8.0
-content_margin_bottom = 6.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_numero"]
 bg_color = Color(0.08, 0.08, 0.094, 0.85)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_numero"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plata"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
 bg_color = Color(0.08, 0.08, 0.094, 0.85)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -66,7 +66,7 @@ text = "20"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Plata" type="PanelContainer" parent="."]
+[node name="Plata" type="PanelContainer" parent="." unique_id=1527669858]
 custom_minimum_size = Vector2(90, 0)
 offset_left = 24.0
 offset_top = 116.0
@@ -75,12 +75,12 @@ offset_bottom = 170.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_plata")
 
-[node name="Fila" type="HBoxContainer" parent="Plata"]
+[node name="Fila" type="HBoxContainer" parent="Plata" unique_id=1074651335]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 3
 
-[node name="Icono" type="TextureRect" parent="Plata/Fila"]
+[node name="Icono" type="TextureRect" parent="Plata/Fila" unique_id=1770350848]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_vertical = 4
@@ -89,7 +89,7 @@ texture = ExtResource("5_moneda")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Texto" type="Label" parent="Plata/Fila"]
+[node name="Texto" type="Label" parent="Plata/Fila" unique_id=1025961621]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"Destacado"
@@ -111,3 +111,7 @@ alto_barra = 42.0
 icono_energia = ExtResource("4_energia")
 alto_energia = 6.0
 separacion_energia = 20.0
+
+[node name="Combo" parent="." unique_id=1406116508 instance=ExtResource("6_combo")]
+offset_left = -227.0
+offset_right = -27.0

@@ -28,7 +28,7 @@ float azar(vec2 base, float variante) {
 
 void vertex() {
 	lugar = VERTEX;
-	semilla = MODEL_MATRIX[3].xy;
+	semilla = floor(COLOR.rg * 97.0);
 	escala = length(MODEL_MATRIX[0].xy);
 }
 

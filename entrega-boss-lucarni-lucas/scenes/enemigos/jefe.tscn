@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dpn6w1kl6agna"]
+
+[ext_resource type="PackedScene" uid="uid://cv777jrmhvrqr" path="res://scenes/enemigos/enemigo.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://b2fkpihxf0vna" path="res://scenes/enemigos/jefe.gd" id="2_script"]
+[ext_resource type="Resource" uid="uid://d0vabu3dg0l3c" path="res://resources/enemigos/jefe.tres" id="3_params"]
+[ext_resource type="Texture2D" uid="uid://hob8xynh4rkx" path="res://assets/enemigos/jefe/cuerpo_1.svg" id="4_cuerpo1"]
+[ext_resource type="Texture2D" uid="uid://bd2p6k2lynhoq" path="res://assets/enemigos/jefe/cuerpo_2.svg" id="5_cuerpo2"]
+[ext_resource type="Texture2D" uid="uid://b4fc33juabkaw" path="res://assets/enemigos/jefe/ojo.svg" id="6_ojo"]
+[ext_resource type="Texture2D" uid="uid://dkv8gl6xcpedk" path="res://assets/enemigos/jefe/pupila.svg" id="7_pupila"]
+[ext_resource type="Texture2D" uid="uid://db0vg4u0augkf" path="res://assets/enemigos/jefe/ceja.svg" id="8_ceja"]
+[ext_resource type="PackedScene" path="res://scenes/efectos/confeti_jefe.tscn" id="9_confeti"]
+[ext_resource type="Script" path="res://scenes/enemigos/barra_vida_jefe.gd" id="10_barra"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuerpo"]
+radius = 50.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jefe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cuerpo1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cuerpo2")
+}],
+"loop": 1,
+"name": &"flotar",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hurtbox"]
+radius = 42.0
+height = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hitbox"]
+radius = 60.0
+
+[node name="Jefe" unique_id=1224040209 instance=ExtResource("1_base")]
+script = ExtResource("2_script")
+escena_confeti = ExtResource("9_confeti")
+pupila_alcance = Vector2(44, 10)
+pupila_suavidad = 10.0
+pupila_suavidad_aviso = 30.0
+pupila_mareo = 14.0
+pupila_huida = 70.0
+altura_ojo = 109.0
+muerte_inflado = 0.4
+muerte_estallidos = 6
+params = ExtResource("3_params")
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=658689249]
+shape = SubResource("CircleShape2D_cuerpo")
+
+[node name="Sombra" parent="." index="1" unique_id=1825432861]
+scale = Vector2(2.2, 2.2)
+
+[node name="Visual" parent="Sprite" parent_id_path=PackedInt32Array(466197661) index="0" unique_id=1769203076]
+scale = Vector2(0.48, 0.48)
+sprite_frames = SubResource("SpriteFrames_jefe")
+animation = &"flotar"
+autoplay = "flotar"
+offset = Vector2(0, -220)
+
+[node name="Ojo" type="Sprite2D" parent="Sprite/Visual" index="0" unique_id=387000143]
+clip_children = 2
+texture_filter = 4
+use_parent_material = true
+texture = ExtResource("6_ojo")
+offset = Vector2(0, -220)
+
+[node name="Pupila" type="Sprite2D" parent="Sprite/Visual/Ojo" index="0" unique_id=1233513715]
+texture_filter = 4
+use_parent_material = true
+texture = ExtResource("7_pupila")
+offset = Vector2(0, -220)
+
+[node name="Ceja" type="Sprite2D" parent="Sprite/Visual" index="1" unique_id=574986150]
+texture_filter = 4
+use_parent_material = true
+texture = ExtResource("8_ceja")
+offset = Vector2(0, -220)
+
+[node name="CollisionShape2D" parent="Hurtbox" parent_id_path=PackedInt32Array(1222409529) index="0" unique_id=1220264362]
+shape = SubResource("CapsuleShape2D_hurtbox")
+
+[node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(1321716141) index="0" unique_id=2026929855]
+shape = SubResource("CircleShape2D_hitbox")
+
+[node name="BarraVida" type="Node2D" parent="."]
+z_index = 60
+position = Vector2(0, -235)
+script = ExtResource("10_barra")

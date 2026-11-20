@@ -16,7 +16,11 @@ signal anticipo_gp
 signal dive
 signal lanzo_boomerang
 signal atrapo_boomerang
+signal boomie_electrizado(activo: bool)
 signal golpeado
+signal golpe_de_enemigo
+signal golpe_bloqueado
+signal escudo_cambio(activo: bool)
 signal curado
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
@@ -33,11 +37,13 @@ var z := 0.0
 ## Positiva sube, negativa baja.
 var velocidad_z := 0.0
 var tiene_boomerang := true
+var boomie_cargado_de_electricidad := false
 var tiempo_en_aire := 0.0
 var multiplicador_dano := 1.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
+var escudo := false
 var energia_gp: float:
 	set(valor):
 		if valor == energia_gp:
@@ -50,6 +56,7 @@ var _gracia_aerea := 0.0
 var _posicion_inicial: Vector2
 var _vueltas_al_inicio := 0
 var _pool_impactos: Pool
+var _empuje := Vector2.ZERO
 
 @onready var _walk := $Walk
 @onready var _sprite := $Sprite
@@ -92,6 +99,8 @@ func _physics_process(delta: float) -> void:
 	_ground_pound.procesar_fisica(self, delta)
 	_dive.procesar_fisica(self, delta)
 	_boomerang.procesar_fisica(self, delta)
+	velocity += _empuje
+	_empuje = _empuje.move_toward(Vector2.ZERO, params.empuje_frenado * delta)
 	move_and_slide()
 
 	_actualizar_altura(delta)
@@ -121,6 +130,10 @@ func mantener_aereo(segundos: float) -> void:
 	_gracia_aerea = maxf(_gracia_aerea, segundos)
 
 
+func en_gracia_aerea() -> bool:
+	return _gracia_aerea > 0.0
+
+
 func dano_de(base: int) -> int:
 	return roundi(base * multiplicador_dano)
 
@@ -133,8 +146,14 @@ func slash_circular() -> void:
 	_slash.circular(self)
 
 
+func slash_es_circular() -> bool:
+	return _slash.circular_activo
+
+
 func electrizar_boomie(activo: bool) -> void:
 	_boomerang.electrizar(activo)
+	boomie_cargado_de_electricidad = activo
+	boomie_electrizado.emit(activo)
 
 
 ## x es el punto más alto (el blob), y el más bajo (la sombra).
@@ -173,6 +192,16 @@ func rebotar(fuerza: float) -> void:
 		recargar_energia_gp(params.gp_recarga_rebote)
 		rebote_aereo.emit(global_position, z)
 	aplicar_impulso_vertical(fuerza)
+	reboto.emit()
+
+
+func rebotar_de_costado(fuerza: float, empuje: Vector2) -> void:
+	if verbo_activo != null:
+		verbo_activo.cancelar(self)
+		verbo_activo = null
+	escala_gravedad = 1.0
+	aplicar_impulso_vertical(fuerza)
+	_empuje = empuje
 	reboto.emit()
 
 
@@ -278,6 +307,11 @@ func _on_fuerza_gp_recuperada() -> void:
 func recibir_dano(cantidad: int) -> void:
 	if es_invulnerable():
 		return
+	if escudo:
+		poner_escudo(false)
+		_tiempo_invulnerable = params.invulnerabilidad
+		golpe_bloqueado.emit()
+		return
 	if vida > params.piedad_vida:
 		vida = maxi(vida - cantidad, params.piedad_vida)
 	else:
@@ -290,6 +324,13 @@ func recibir_dano(cantidad: int) -> void:
 	_tiempo_invulnerable = params.invulnerabilidad
 	_colorear(Color.RED)
 	golpeado.emit()
+
+
+func poner_escudo(activo: bool) -> void:
+	if escudo == activo:
+		return
+	escudo = activo
+	escudo_cambio.emit.call_deferred(activo)
 
 
 func curar(cantidad: int) -> void:
@@ -320,7 +361,10 @@ func _actualizar_invulnerabilidad(delta: float) -> void:
 
 
 func _on_golpeado(hitbox: Hitbox) -> void:
+	var de_enemigo := not es_invulnerable() and hitbox.get_parent() is Enemigo
 	recibir_dano(hitbox.dano)
+	if de_enemigo and vida > 0:
+		golpe_de_enemigo.emit()
 
 
 func proteger(segundos: float) -> void:
@@ -352,6 +396,7 @@ func volver_al_inicio() -> void:
 		verbo_activo = null
 	global_position = _posicion_inicial
 	velocity = Vector2.ZERO
+	_empuje = Vector2.ZERO
 	z = 0.0
 	velocidad_z = 0.0
 	escala_gravedad = 1.0

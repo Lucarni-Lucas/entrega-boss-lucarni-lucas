@@ -10,12 +10,19 @@ var velocidad := Vector2.ZERO
 var velocidad_z := 0.0
 var gravedad := 0.0
 var _restante := 0.0
+var _escala := 1.0
 
 @onready var _visual: Node2D = $Visual
 @onready var _sombra: Sombra = $Sombra
+@onready var _forma: CollisionShape2D = $CollisionShape2D
+@onready var _escala_visual: Vector2 = _visual.scale
 
 
-func lanzar(posicion: Vector2, altura: float, nueva_velocidad: Vector2, nueva_velocidad_z: float, nueva_gravedad: float, duracion: float, nuevo_dano: int) -> void:
+func lanzar(posicion: Vector2, altura: float, nueva_velocidad: Vector2, nueva_velocidad_z: float, nueva_gravedad: float, duracion: float, nuevo_dano: int, escala := 1.0) -> void:
+	_escala = escala
+	_forma.scale = Vector2.ONE * escala
+	_visual.scale = _escala_visual * escala
+	_sombra.agrandar(escala)
 	global_position = posicion
 	z = altura
 	velocidad = nueva_velocidad
@@ -49,7 +56,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _actualizar_altura() -> void:
-	z_min = z - radio
-	z_max = z + radio
+	z_min = z - radio * _escala
+	z_max = z + radio * _escala
 	_visual.position.y = -z
 	_sombra.actualizar(z)
