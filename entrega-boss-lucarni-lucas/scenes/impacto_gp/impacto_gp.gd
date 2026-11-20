@@ -9,10 +9,10 @@ var _restante := 0.0
 @onready var _poligono: CollisionPolygon2D = $CollisionPolygon2D
 
 
-func golpear(jugador: Player, posicion: Vector2, altura: float, fuerza: float) -> void:
+func golpear(jugador: Player, posicion: Vector2, altura: float, fuerza: float, radio_extra := 0.0) -> void:
 	var params := jugador.params
 	global_position = posicion
-	var nuevo_radio := (params.gp_radio_impacto + params.gp_radio_explosion) * lerpf(params.gp_radio_min, 1.0, fuerza)
+	var nuevo_radio := (params.gp_radio_impacto + params.gp_radio_explosion + radio_extra) * lerpf(params.gp_radio_min, 1.0, fuerza)
 	if nuevo_radio != radio:
 		radio = nuevo_radio
 		_poligono.polygon = Formas.elipse(radio, params.anim_perspectiva)

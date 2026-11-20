@@ -65,6 +65,7 @@ class_name PlayerParams
 @export var gp_dano: int = 2
 @export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 100.0
 @export var gp_radio_explosion: float = 0.0
+@export_range(0, 200, 5, "suffix:px") var gp_radio_por_dive: float = 0.0
 @export_range(0, 0.5, 0.01, "suffix:s") var gp_salto_ventana: float = 0.0
 @export_range(0, 500, 1) var gp_salto_recarga: float = 0.0
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09

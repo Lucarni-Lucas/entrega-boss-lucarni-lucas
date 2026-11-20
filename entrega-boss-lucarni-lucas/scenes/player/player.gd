@@ -40,6 +40,7 @@ var tiene_boomerang := true
 var boomie_cargado_de_electricidad := false
 var tiempo_en_aire := 0.0
 var multiplicador_dano := 1.0
+var radio_extra_gp := 0.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
@@ -234,30 +235,30 @@ func agregar_al_mundo(nodo: Node) -> void:
 	get_parent().add_child(nodo)
 
 
-func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true) -> void:
+func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true, radio_extra := 0.0) -> void:
 	if not is_inside_tree():
 		return
 	var impacto: ImpactoGp = _pool_impactos.tomar()
-	impacto.golpear(self, posicion, altura, fuerza)
+	impacto.golpear(self, posicion, altura, fuerza, radio_extra)
 	impacto_gp.emit(posicion, altura, impacto.radio, fuerza, primario)
 	if primario:
-		_replicar_gp(posicion, altura, fuerza, impacto.radio)
+		_replicar_gp(posicion, altura, fuerza, impacto.radio, radio_extra)
 
 
-func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float) -> void:
+func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float, radio_extra: float) -> void:
 	for i in params.gp_replicas:
 		var angulo := TAU * i / params.gp_replicas
 		var desvio := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * radio * params.gp_replica_distancia
-		var replica := _replicar.bind(_vueltas_al_inicio, posicion + desvio, altura, fuerza)
+		var replica := _replicar.bind(_vueltas_al_inicio, posicion + desvio, altura, fuerza, radio_extra)
 		if params.gp_replica_retraso > 0.0:
 			get_tree().create_timer(params.gp_replica_retraso, false, true).timeout.connect(replica)
 		else:
 			replica.call()
 
 
-func _replicar(vuelta: int, posicion: Vector2, altura: float, fuerza: float) -> void:
+func _replicar(vuelta: int, posicion: Vector2, altura: float, fuerza: float, radio_extra: float) -> void:
 	if vuelta == _vueltas_al_inicio:
-		impactar_gp(posicion, altura, fuerza, false)
+		impactar_gp(posicion, altura, fuerza, false, radio_extra)
 
 
 func _velocidad_en_pantalla() -> Vector2:
@@ -283,6 +284,8 @@ func _actualizar_tiempo_en_aire(delta: float) -> void:
 
 
 func _on_aterrizo() -> void:
+	if estado_actual() != Estado.GROUND_POUND:
+		radio_extra_gp = 0.0
 	_sprite.deformar(params.anim_aterrizaje_escala, params.anim_aterrizaje_ida, params.anim_aterrizaje_vuelta)
 
 
@@ -400,6 +403,7 @@ func volver_al_inicio() -> void:
 	z = 0.0
 	velocidad_z = 0.0
 	escala_gravedad = 1.0
+	radio_extra_gp = 0.0
 	_tiempo_invulnerable = 0.0
 	_tiempo_protegido = 0.0
 	_sprite.visible = true
