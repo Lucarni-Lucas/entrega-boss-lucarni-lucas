@@ -172,6 +172,16 @@ class_name PlayerParams
 
 @export_group("Rompe pisos")
 @export_range(0, 10, 0.25, "suffix:s") var rompe_pisos_duracion: float = 2.0
-@export_range(0, 1, 0.05) var rompe_pisos_velocidad: float = 0.5
+@export_range(0, 1, 0.05) var rompe_pisos_velocidad: float = 0.7
 @export_range(0, 2, 0.05, "suffix:s") var rompe_pisos_rastro: float = 0.25
 @export_range(0, 3, 0.05) var rompe_pisos_escala: float = 1.0
+
+@export_group("Tiempo muerto")
+@export var freno_combo_min: int = 5
+@export var freno_combo_max: int = 50
+@export_range(0, 1, 0.01) var freno_min: float = 0.15
+@export_range(0, 1, 0.01) var freno_max: float = 0.6
+@export_range(0, 0.1, 0.001) var freno_paso_inicial: float = 0.005
+@export_range(0, 0.1, 0.001) var freno_paso_final: float = 0.02
+@export_range(0, 10, 0.25, "suffix:s") var freno_duracion: float = 3.0
+@export_range(0, 1, 0.01) var freno_jefe: float = 1.0 / 3.0

@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/tiempo_muerto.gd" id="1_efecto"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/onda_freno.tscn" id="2_onda"]
+
+[node name="TiempoMuerto" type="Node"]
+script = ExtResource("1_efecto")
+escena_onda = ExtResource("2_onda")

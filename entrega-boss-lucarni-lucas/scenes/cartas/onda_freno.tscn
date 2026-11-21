@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/onda_freno.gd" id="1_onda"]
+
+[node name="OndaFreno" type="Node2D"]
+top_level = true
+z_index = -1
+script = ExtResource("1_onda")

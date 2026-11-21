@@ -18,7 +18,7 @@ var punto := Vector2.ZERO
 var _capa: int
 var _tween_muerte: Tween
 var _tween_destello: Tween
-var _lento := 0.0
+var _lentitudes: Array[Dictionary] = []
 var _factor_lento := 1.0
 var _agitacion := 0.0
 
@@ -82,10 +82,8 @@ func desactivar() -> void:
 
 func _physics_process(delta: float) -> void:
 	_empuje = _empuje.move_toward(Vector2.ZERO, params.frenado_empuje * delta)
-	if _lento > 0.0:
-		_lento -= delta
-		if _lento <= 0.0:
-			_quitar_lentitud()
+	if not _lentitudes.is_empty():
+		_pasar_lentitud(delta)
 	if _agitacion > 0.0:
 		_visual.position = _posicion_visual + Vector2(randf_range(-_agitacion, _agitacion), randf_range(-_agitacion, _agitacion))
 	_mirar_al_jugador()
@@ -150,20 +148,41 @@ func empujar(desde: Vector2, fuerza: float) -> void:
 
 
 func ralentizar(factor: float, segundos: float, tinte := Color.WHITE) -> void:
-	_factor_lento = minf(_factor_lento, factor) if esta_lento() else factor
-	_lento = maxf(_lento, segundos)
-	if tinte != Color.WHITE:
-		_sprite.modulate = tinte
+	for lentitud in _lentitudes:
+		if is_equal_approx(lentitud.factor, factor) and lentitud.tinte == tinte:
+			lentitud.tiempo = maxf(lentitud.tiempo, segundos)
+			return
+	_lentitudes.append({factor = factor, tiempo = segundos, tinte = tinte})
+	_aplicar_lentitud()
 
 
 func esta_lento() -> bool:
-	return _lento > 0.0
+	return not _lentitudes.is_empty()
+
+
+func _pasar_lentitud(delta: float) -> void:
+	for i in range(_lentitudes.size() - 1, -1, -1):
+		_lentitudes[i].tiempo -= delta
+		if _lentitudes[i].tiempo <= 0.0:
+			_lentitudes.remove_at(i)
+	_aplicar_lentitud()
+
+
+func _aplicar_lentitud() -> void:
+	_factor_lento = 1.0
+	var tinte := Color.WHITE
+	var factor_tinte := INF
+	for lentitud in _lentitudes:
+		_factor_lento = minf(_factor_lento, lentitud.factor)
+		if lentitud.tinte != Color.WHITE and lentitud.factor < factor_tinte:
+			tinte = lentitud.tinte
+			factor_tinte = lentitud.factor
+	_sprite.modulate = tinte
 
 
 func _quitar_lentitud() -> void:
-	_lento = 0.0
-	_factor_lento = 1.0
-	_sprite.modulate = Color.WHITE
+	_lentitudes.clear()
+	_aplicar_lentitud()
 
 
 func _direccion_desde(desde: Vector2) -> Vector2:
