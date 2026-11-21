@@ -18,7 +18,11 @@ var punto := Vector2.ZERO
 var _capa: int
 var _tween_muerte: Tween
 var _tween_destello: Tween
-var _lentitudes: Array[Dictionary] = []
+var _factores := PackedFloat32Array()
+var _fines := PackedFloat32Array()
+var _tintes := PackedColorArray()
+var _reloj_lento := 0.0
+var _proximo_fin := INF
 var _factor_lento := 1.0
 var _agitacion := 0.0
 
@@ -82,7 +86,7 @@ func desactivar() -> void:
 
 func _physics_process(delta: float) -> void:
 	_empuje = _empuje.move_toward(Vector2.ZERO, params.frenado_empuje * delta)
-	if not _lentitudes.is_empty():
+	if not _fines.is_empty():
 		_pasar_lentitud(delta)
 	if _agitacion > 0.0:
 		_visual.position = _posicion_visual + Vector2(randf_range(-_agitacion, _agitacion), randf_range(-_agitacion, _agitacion))
@@ -148,23 +152,34 @@ func empujar(desde: Vector2, fuerza: float) -> void:
 
 
 func ralentizar(factor: float, segundos: float, tinte := Color.WHITE) -> void:
-	for lentitud in _lentitudes:
-		if is_equal_approx(lentitud.factor, factor) and lentitud.tinte == tinte:
-			lentitud.tiempo = maxf(lentitud.tiempo, segundos)
+	var fin := _reloj_lento + segundos
+	for i in _factores.size():
+		if is_equal_approx(_factores[i], factor) and _tintes[i] == tinte:
+			_fines[i] = maxf(_fines[i], fin)
 			return
-	_lentitudes.append({factor = factor, tiempo = segundos, tinte = tinte})
+	_factores.append(factor)
+	_fines.append(fin)
+	_tintes.append(tinte)
+	_proximo_fin = minf(_proximo_fin, fin)
 	_aplicar_lentitud()
 
 
 func esta_lento() -> bool:
-	return not _lentitudes.is_empty()
+	return not _fines.is_empty()
 
 
 func _pasar_lentitud(delta: float) -> void:
-	for i in range(_lentitudes.size() - 1, -1, -1):
-		_lentitudes[i].tiempo -= delta
-		if _lentitudes[i].tiempo <= 0.0:
-			_lentitudes.remove_at(i)
+	_reloj_lento += delta
+	if _reloj_lento < _proximo_fin:
+		return
+	_proximo_fin = INF
+	for i in range(_fines.size() - 1, -1, -1):
+		if _fines[i] <= _reloj_lento:
+			_factores.remove_at(i)
+			_fines.remove_at(i)
+			_tintes.remove_at(i)
+		else:
+			_proximo_fin = minf(_proximo_fin, _fines[i])
 	_aplicar_lentitud()
 
 
@@ -172,16 +187,20 @@ func _aplicar_lentitud() -> void:
 	_factor_lento = 1.0
 	var tinte := Color.WHITE
 	var factor_tinte := INF
-	for lentitud in _lentitudes:
-		_factor_lento = minf(_factor_lento, lentitud.factor)
-		if lentitud.tinte != Color.WHITE and lentitud.factor < factor_tinte:
-			tinte = lentitud.tinte
-			factor_tinte = lentitud.factor
+	for i in _factores.size():
+		_factor_lento = minf(_factor_lento, _factores[i])
+		if _tintes[i] != Color.WHITE and _factores[i] < factor_tinte:
+			tinte = _tintes[i]
+			factor_tinte = _factores[i]
 	_sprite.modulate = tinte
 
 
 func _quitar_lentitud() -> void:
-	_lentitudes.clear()
+	_factores.clear()
+	_fines.clear()
+	_tintes.clear()
+	_reloj_lento = 0.0
+	_proximo_fin = INF
 	_aplicar_lentitud()
 
 

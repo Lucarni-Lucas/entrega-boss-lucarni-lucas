@@ -185,3 +185,14 @@ class_name PlayerParams
 @export_range(0, 0.1, 0.001) var freno_paso_final: float = 0.02
 @export_range(0, 10, 0.25, "suffix:s") var freno_duracion: float = 3.0
 @export_range(0, 1, 0.01) var freno_jefe: float = 1.0 / 3.0
+
+@export_group("Santas manzanas")
+@export_range(0, 60, 0.5, "suffix:s") var manzanas_cada_min: float = 6.0
+@export_range(0, 60, 0.5, "suffix:s") var manzanas_cada_max: float = 10.0
+@export_range(0, 1, 0.01) var manzanas_chance_verde: float = 0.58
+@export var manzanas_curacion: int = 2
+@export var manzanas_dano: int = 2
+@export_range(0, 2000, 1, "suffix:px/s") var manzanas_velocidad: float = 342.0
+@export_range(0, 200, 1, "suffix:px") var manzanas_altura: float = 28.0
+@export_range(0, 200, 1, "suffix:px") var manzanas_alto: float = 50.0
+@export_range(0, 200, 1, "suffix:px") var manzanas_radio: float = 26.0

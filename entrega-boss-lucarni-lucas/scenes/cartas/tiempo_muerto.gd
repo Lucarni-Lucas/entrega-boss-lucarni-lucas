@@ -15,6 +15,7 @@ func _ready() -> void:
 		add_child(onda)
 		_ondas.append(onda)
 	_spawner = get_tree().get_first_node_in_group(Spawner.GRUPO) as Spawner
+	_ondas[0].precalentar(jugador.global_position)
 	jugador.combo_termino.connect(_on_combo_termino)
 	jugador.volvio_al_inicio.connect(_apagar_ondas)
 
