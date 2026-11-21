@@ -21,6 +21,10 @@ class_name PlayerParams
 @export var curacion_cantidad: int = 5
 @export_range(0, 1, 0.05) var curacion_umbral_vida_baja: float = 0.5
 @export var curacion_multiplicador_vida_baja: int = 2
+@export_subgroup("Blindaje")
+@export var blindaje_cada_combo: int = 5
+@export var blindaje_por_racha: int = 0
+@export var blindaje_max: int = 0
 @export_subgroup("Tamaño")
 @export_range(0, 200, 1, "suffix:px") var alto_cuerpo: float = 64.0
 @export_subgroup("Deformación")

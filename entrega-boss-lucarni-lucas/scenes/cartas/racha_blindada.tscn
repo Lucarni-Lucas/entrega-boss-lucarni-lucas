@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/racha_blindada.gd" id="1_efecto"]
+
+[node name="RachaBlindada" type="Node"]
+script = ExtResource("1_efecto")
