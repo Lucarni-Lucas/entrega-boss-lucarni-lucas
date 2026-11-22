@@ -196,3 +196,18 @@ class_name PlayerParams
 @export_range(0, 200, 1, "suffix:px") var manzanas_altura: float = 28.0
 @export_range(0, 200, 1, "suffix:px") var manzanas_alto: float = 50.0
 @export_range(0, 200, 1, "suffix:px") var manzanas_radio: float = 26.0
+
+@export_group("Wombo combo")
+@export var wombo_cada_combo: int = 5
+@export var wombo_combo_max: int = 250
+@export var wombo_dano: int = 2
+@export_range(0, 400, 1, "suffix:px") var wombo_radio: float = 85.0
+@export_range(0, 1000, 5, "suffix:px") var wombo_dispersion: float = 200.0
+@export var wombo_precisas: int = 1
+@export_range(0, 600, 5, "suffix:px") var wombo_distancia_minima: float = 170.0
+@export var wombo_tandas: int = 3
+@export_range(0, 1, 0.01, "suffix:s") var wombo_entre_tandas: float = 0.1
+@export_range(0, 2, 0.05, "suffix:s") var wombo_caida: float = 0.45
+@export_range(0, 3, 0.05, "suffix:s") var wombo_mecha: float = 0.6
+@export_range(0, 1, 0.01, "suffix:s") var wombo_variacion_mecha: float = 0.1
+@export_range(0, 2000, 10, "suffix:px/s") var wombo_empuje: float = 300.0

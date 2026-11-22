@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Carta" format=3]
+
+[ext_resource type="Script" uid="uid://c0i3wa17ttus" path="res://scripts/params/cartas/carta.gd" id="1_carta"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/wombo_combo.tscn" id="2_efecto"]
+[ext_resource type="Texture2D" uid="uid://bev5awy1tkdi2" path="res://assets/ui/cartas/iconos/wombo_combo.svg" id="3_icono"]
+
+[resource]
+script = ExtResource("1_carta")
+nombre = "Wombo combo"
+icono = ExtResource("3_icono")
+descripcion = "Al cerrar un combo, cae una bomba sobre los enemigos por cada 5 de combo"
+verbo = 4
+efecto = ExtResource("2_efecto")

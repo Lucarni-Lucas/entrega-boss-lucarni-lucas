@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/wombo_combo.gd" id="1_efecto"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/bomba_wombo.tscn" id="2_bomba"]
+[ext_resource type="PackedScene" uid="uid://m5ls6jgrsf7j" path="res://scenes/cartas/estallido.tscn" id="3_estallido"]
+[ext_resource type="PackedScene" uid="uid://3nh4upuwnbrk" path="res://scenes/componentes/hitbox.tscn" id="4_hitbox"]
+
+[node name="WomboCombo" type="Node"]
+script = ExtResource("1_efecto")
+escena_bomba = ExtResource("2_bomba")
+escena_estallido = ExtResource("3_estallido")
+
+[node name="Golpe" parent="." instance=ExtResource("4_hitbox")]
+monitoring = false
+monitorable = false
