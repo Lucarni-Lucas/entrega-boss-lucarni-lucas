@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyParams" format=3]
+
+[ext_resource type="Script" uid="uid://bogkc7efq10ps" path="res://scripts/params/enemigos/enemy_params.gd" id="1_params"]
+
+[resource]
+script = ExtResource("1_params")
+vida_max = 4
+alto = 80.0
+color = Color(0.9098039, 0.27058825, 0.23529412, 1)
+escala = 1.25
+velocidad = 175.0

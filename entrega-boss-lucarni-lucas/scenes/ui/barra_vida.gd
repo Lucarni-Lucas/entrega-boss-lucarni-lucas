@@ -22,6 +22,15 @@ const SUAVIZADO := 0.6
 @export var color_brillo_escudo := Color(0.88, 0.97, 1, 0.65)
 @export_range(0, 1, 0.05, "suffix:s") var duracion_destello_escudo := 0.25
 
+@export_group("Blindaje")
+@export var color_blindaje := Color("d9dfe8")
+@export var color_blindaje_escudo := Color("d4ecff")
+@export var color_borde_blindaje := Color("141416")
+@export var tamano_marca := Vector2(9, 12)
+@export_range(0, 6, 0.5, "suffix:px") var grosor_marca := 2.5
+@export_range(1, 3, 0.05) var escala_marca_animada := 1.6
+@export_range(0, 1, 0.05, "suffix:s") var duracion_marca := 0.25
+
 @export_group("Energía")
 @export var icono_energia: Texture2D
 @export_range(0, 40, 1, "suffix:px") var alto_energia := 8.0
@@ -44,6 +53,7 @@ var maximo := 1
 var energia := 0.0
 var marca_energia := 1.0
 var escudo := false
+var blindaje := 0
 var resaltar_energia := false:
 	set(valor):
 		resaltar_energia = valor
@@ -54,6 +64,8 @@ var _rastro := 0.0
 var _espera := 0.0
 var _tiempo_resaltado := 0.0
 var _destello_escudo := 0.0
+var _blindaje_previo := 0
+var _animacion_blindaje := 0.0
 var _relleno := Node2D.new()
 var _marco := Node2D.new()
 var _puntos := PackedVector2Array()
@@ -90,6 +102,15 @@ func mostrar_escudo(activo: bool) -> void:
 	queue_redraw()
 
 
+func mostrar_blindaje(nuevo: int) -> void:
+	if nuevo == blindaje:
+		return
+	_blindaje_previo = blindaje
+	blindaje = nuevo
+	_animacion_blindaje = 1.0
+	queue_redraw()
+
+
 func mostrar_energia(nueva: float, marca: float) -> void:
 	var estaba_lista := energia >= marca_energia
 	var marca_cambio := marca != marca_energia
@@ -106,6 +127,9 @@ func _process(delta: float) -> void:
 		_marco.queue_redraw()
 	if _destello_escudo > 0.0:
 		_destello_escudo = maxf(_destello_escudo - delta / duracion_destello_escudo, 0.0)
+		queue_redraw()
+	if _animacion_blindaje > 0.0:
+		_animacion_blindaje = maxf(_animacion_blindaje - delta / duracion_marca, 0.0)
 		queue_redraw()
 	if _rastro <= vida:
 		return
@@ -139,8 +163,37 @@ func _draw() -> void:
 		for punto in range(1, capacidad):
 			var arriba := origen + Vector2(ancho_punto * punto, 0)
 			_linea(arriba, arriba + Vector2(-inclinacion, alto_barra), color_fondo, grosor_division)
+	_dibujar_blindaje(ancho_tramo)
 	_cuadro(_esquinas(_origen_energia(), _ancho_energia(), alto_energia), color_fondo, 0.0)
 	_volcar(get_canvas_item())
+
+
+func _dibujar_blindaje(ancho_tramo: float) -> void:
+	var ancho_punto := ancho_tramo / puntos_por_tramo
+	var color := color_blindaje_escudo if escudo else color_blindaje
+	var estables := mini(blindaje, _blindaje_previo)
+	var t := _animacion_blindaje
+	for i in mini(maxi(blindaje, _blindaje_previo if t > 0.0 else 0), maximo):
+		var escala := 1.0
+		var relleno := color
+		var borde := color_borde_blindaje
+		if i >= estables and i < blindaje:
+			escala = lerpf(1.0, escala_marca_animada, t)
+			relleno = color.lerp(Color.WHITE, t)
+		elif i >= estables:
+			escala = lerpf(escala_marca_animada, 1.0, t)
+			relleno = Color(Color.WHITE, t)
+			borde = Color(borde, t)
+		var tramo := floori(float(i) / puntos_por_tramo)
+		var punto := i - tramo * puntos_por_tramo
+		var capacidad := mini(puntos_por_tramo, maximo - tramo * puntos_por_tramo)
+		var izquierda := ancho_punto * punto + (grosor_division * 0.5 if punto > 0 else -0.5)
+		var derecha := ancho_punto * (punto + 1) + (-grosor_division * 0.5 if punto < capacidad - 1 else 0.5)
+		var centro := Vector2(inclinacion * 0.5 + tramo * (ancho_tramo + separacion) + (izquierda + derecha) * 0.5, alto_barra * 0.5)
+		var mitad := tamano_marca * 0.5 * escala
+		var rombo := PackedVector2Array([centro + Vector2(0, -mitad.y), centro + Vector2(mitad.x, 0), centro + Vector2(0, mitad.y), centro + Vector2(-mitad.x, 0)])
+		_cuadro(_expandir(rombo, grosor_marca), borde, 0.0)
+		_cuadro(rombo, relleno, 0.0)
 
 
 func _dibujar_relleno() -> void:

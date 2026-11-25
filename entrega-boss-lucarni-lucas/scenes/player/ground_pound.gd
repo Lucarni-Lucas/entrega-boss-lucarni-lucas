@@ -69,6 +69,7 @@ func _impactar_en_cabeza(player: Player, jefe: Jefe) -> void:
 	if _invulnerable:
 		player.proteger(player.params.gp_proteccion)
 	player.z = jefe.altura_cabeza()
+	player.radio_extra_gp = 0.0
 	player.gastar_energia_gp()
 	jefe.recibir_pisoton(player)
 	impacto.emit(player.global_position, _altura_inicial)
@@ -79,7 +80,8 @@ func _impactar(player: Player) -> void:
 	var fuerza := player.fuerza_gp()
 	if _invulnerable:
 		player.proteger(player.params.gp_proteccion)
-	player.impactar_gp(player.global_position, player.z, fuerza)
+	player.impactar_gp(player.global_position, player.z, fuerza, true, player.radio_extra_gp)
+	player.radio_extra_gp = 0.0
 	player.gastar_energia_gp()
 	player.mantener_aereo(player.params.gp_salto_ventana)
 	impacto.emit(player.global_position, _altura_inicial)

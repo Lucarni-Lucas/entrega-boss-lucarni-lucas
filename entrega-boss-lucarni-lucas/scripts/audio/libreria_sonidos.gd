@@ -51,3 +51,6 @@ class_name LibreriaSonidos
 @export var tiara_lista: Sonido
 @export var rompe_pisos: Sonido
 @export var impacto_elastico: Sonido
+@export var blindaje_ganado: Sonido
+@export var blindaje_gastado: Sonido
+@export var tiempo_muerto: Sonido

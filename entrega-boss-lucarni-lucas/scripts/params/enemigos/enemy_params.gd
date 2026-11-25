@@ -6,6 +6,7 @@ class_name EnemyParams
 @export_range(0, 500, 5, "suffix:px") var alto: float = 40.0
 @export_range(0, 500, 5, "suffix:px") var altura_vuelo: float = 0.0
 @export var color := Color.WHITE
+@export_range(0.3, 3, 0.05) var escala: float = 1.0
 
 @export_group("Movimiento")
 @export_range(0, 1000, 5, "suffix:px/s") var velocidad: float = 250.0
@@ -15,6 +16,7 @@ class_name EnemyParams
 
 @export_group("Contacto")
 @export var dano_contacto: int = 5
+@export_range(0, 2, 0.05) var factor_dano: float = 1.0
 @export_range(0.05, 2, 0.05, "suffix:s") var intervalo_contacto: float = 0.4
 
 @export_group("Animación")

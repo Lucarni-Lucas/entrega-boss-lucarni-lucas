@@ -45,17 +45,9 @@ func _conectar() -> void:
 	_jugador = get_tree().get_first_node_in_group(Player.GRUPO) as Player
 	if _jugador == null:
 		return
-	_jugador.lanzo_boomerang.connect(_sumar)
-	_jugador.slasheo.connect(_on_slasheo)
-	_jugador.dive.connect(_sumar)
-	_jugador.anticipo_gp.connect(_sumar)
-	_jugador.rebote_aereo.connect(_sumar.unbind(2))
+	_jugador.combo_subio.connect(_on_combo_subio)
+	_jugador.combo_termino.connect(_terminar.unbind(1))
 	_jugador.volvio_al_inicio.connect(reiniciar)
-
-
-func _physics_process(_delta: float) -> void:
-	if combo > 0 and _jugador and not _jugador.cuenta_como_aereo():
-		_terminar()
 
 
 func _process(delta: float) -> void:
@@ -66,15 +58,8 @@ func _process(delta: float) -> void:
 	_llama.scale = Vector2(1.0 - onda * 0.5, 1.0 + onda) * _escala_llama * _golpe_llama
 
 
-func _on_slasheo() -> void:
-	if not _jugador.slash_es_circular():
-		_sumar()
-
-
-func _sumar() -> void:
-	if _jugador.esta_en_suelo():
-		return
-	combo = mini(combo + 1, maximo)
+func _on_combo_subio(valor: int) -> void:
+	combo = mini(valor, maximo)
 	if combo < niveles[0]:
 		return
 	if combo == niveles[0]:

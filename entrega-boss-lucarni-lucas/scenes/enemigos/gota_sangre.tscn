@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://wum2jpm7ni8g" path="res://scenes/cartas/gota.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://2tmctqshlmek" path="res://assets/efectos/gota_sangre.svg" id="2_textura"]
+
+[node name="GotaSangre" instance=ExtResource("1_base")]
+collision_mask = 2
+origen = 0
+
+[node name="Visual" parent="." index="2"]
+texture = ExtResource("2_textura")

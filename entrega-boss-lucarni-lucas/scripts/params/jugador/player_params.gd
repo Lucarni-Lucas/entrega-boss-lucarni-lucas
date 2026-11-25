@@ -21,6 +21,10 @@ class_name PlayerParams
 @export var curacion_cantidad: int = 5
 @export_range(0, 1, 0.05) var curacion_umbral_vida_baja: float = 0.5
 @export var curacion_multiplicador_vida_baja: int = 2
+@export_subgroup("Blindaje")
+@export var blindaje_cada_combo: int = 5
+@export var blindaje_por_racha: int = 0
+@export var blindaje_max: int = 0
 @export_subgroup("Tamaño")
 @export_range(0, 200, 1, "suffix:px") var alto_cuerpo: float = 64.0
 @export_subgroup("Deformación")
@@ -65,6 +69,7 @@ class_name PlayerParams
 @export var gp_dano: int = 2
 @export_range(0, 300, 5, "suffix:px") var gp_radio_impacto: float = 100.0
 @export var gp_radio_explosion: float = 0.0
+@export_range(0, 200, 5, "suffix:px") var gp_radio_por_dive: float = 0.0
 @export_range(0, 0.5, 0.01, "suffix:s") var gp_salto_ventana: float = 0.0
 @export_range(0, 500, 1) var gp_salto_recarga: float = 0.0
 @export_range(0.03, 0.3, 0.01, "suffix:s") var gp_impacto_duracion: float = 0.09
@@ -167,6 +172,42 @@ class_name PlayerParams
 
 @export_group("Rompe pisos")
 @export_range(0, 10, 0.25, "suffix:s") var rompe_pisos_duracion: float = 2.0
-@export_range(0, 1, 0.05) var rompe_pisos_velocidad: float = 0.5
+@export_range(0, 1, 0.05) var rompe_pisos_velocidad: float = 0.7
 @export_range(0, 2, 0.05, "suffix:s") var rompe_pisos_rastro: float = 0.25
 @export_range(0, 3, 0.05) var rompe_pisos_escala: float = 1.0
+
+@export_group("Tiempo muerto")
+@export var freno_combo_min: int = 5
+@export var freno_combo_max: int = 50
+@export_range(0, 1, 0.01) var freno_min: float = 0.15
+@export_range(0, 1, 0.01) var freno_max: float = 0.6
+@export_range(0, 0.1, 0.001) var freno_paso_inicial: float = 0.005
+@export_range(0, 0.1, 0.001) var freno_paso_final: float = 0.02
+@export_range(0, 10, 0.25, "suffix:s") var freno_duracion: float = 3.0
+@export_range(0, 1, 0.01) var freno_jefe: float = 1.0 / 3.0
+
+@export_group("Santas manzanas")
+@export_range(0, 60, 0.5, "suffix:s") var manzanas_cada_min: float = 6.0
+@export_range(0, 60, 0.5, "suffix:s") var manzanas_cada_max: float = 10.0
+@export_range(0, 1, 0.01) var manzanas_chance_verde: float = 0.58
+@export var manzanas_curacion: int = 2
+@export var manzanas_dano: int = 2
+@export_range(0, 2000, 1, "suffix:px/s") var manzanas_velocidad: float = 342.0
+@export_range(0, 200, 1, "suffix:px") var manzanas_altura: float = 28.0
+@export_range(0, 200, 1, "suffix:px") var manzanas_alto: float = 50.0
+@export_range(0, 200, 1, "suffix:px") var manzanas_radio: float = 26.0
+
+@export_group("Wombo combo")
+@export var wombo_cada_combo: int = 5
+@export var wombo_combo_max: int = 250
+@export var wombo_dano: int = 2
+@export_range(0, 400, 1, "suffix:px") var wombo_radio: float = 85.0
+@export_range(0, 1000, 5, "suffix:px") var wombo_dispersion: float = 200.0
+@export var wombo_precisas: int = 1
+@export_range(0, 600, 5, "suffix:px") var wombo_distancia_minima: float = 170.0
+@export var wombo_tandas: int = 3
+@export_range(0, 1, 0.01, "suffix:s") var wombo_entre_tandas: float = 0.1
+@export_range(0, 2, 0.05, "suffix:s") var wombo_caida: float = 0.45
+@export_range(0, 3, 0.05, "suffix:s") var wombo_mecha: float = 0.6
+@export_range(0, 1, 0.01, "suffix:s") var wombo_variacion_mecha: float = 0.1
+@export_range(0, 2000, 10, "suffix:px/s") var wombo_empuje: float = 300.0

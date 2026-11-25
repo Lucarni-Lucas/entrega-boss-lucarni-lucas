@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cu8hlym231w5o" path="res://scenes/enemigos/volador.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scenes/enemigos/fantasma_que_se_parte.gd" id="2_script"]
+[ext_resource type="Resource" path="res://resources/enemigos/fantasma_amarillo.tres" id="3_params"]
+[ext_resource type="PackedScene" path="res://scenes/enemigos/fantasmita_amarillo.tscn" id="4_hijo"]
+
+[node name="FantasmaAmarillo" instance=ExtResource("1_base")]
+script = ExtResource("2_script")
+params = ExtResource("3_params")
+escena_hijo = ExtResource("4_hijo")

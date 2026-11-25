@@ -39,6 +39,9 @@
 [ext_resource type="AudioStream" uid="uid://i1wi03tptwb4" path="res://assets/audio/efectos/13_Ice_explosion_01.wav" id="93_tiara_lista"]
 [ext_resource type="AudioStream" uid="uid://btewrwd1vlsoo" path="res://assets/audio/efectos/rompe_pisos.wav" id="94_rompe_pisos"]
 [ext_resource type="AudioStream" uid="uid://de2eciai0xaea" path="res://assets/audio/efectos/39_Absorb_04.wav" id="95_impacto_elastico"]
+[ext_resource type="AudioStream" uid="uid://cs1s0kpl8ok6r" path="res://assets/audio/efectos/070_Equip_10.wav" id="96_blindaje_ganado"]
+[ext_resource type="AudioStream" uid="uid://ck1nkr6oj13dv" path="res://assets/audio/efectos/39_Block_03.wav" id="97_blindaje_gastado"]
+[ext_resource type="AudioStream" uid="uid://coa6v02f6l8j" path="res://assets/audio/efectos/21_Debuff_01.wav" id="98_tiempo_muerto"]
 
 [sub_resource type="Resource" id="Resource_x57t8"]
 script = ExtResource("2_ko7ua")
@@ -46,6 +49,17 @@ audio = ExtResource("1_x57t8")
 volumen = -6.0
 tono = 1.3
 metadata/_custom_type_script = "uid://dker4vqy5cjik"
+
+[sub_resource type="Resource" id="Resource_blindaje_ganado"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("96_blindaje_ganado")
+volumen = -12.0
+copias = 1
+
+[sub_resource type="Resource" id="Resource_blindaje_gastado"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("97_blindaje_gastado")
+copias = 1
 
 [sub_resource type="Resource" id="Resource_iymcj"]
 script = ExtResource("2_ko7ua")
@@ -243,7 +257,7 @@ metadata/_custom_type_script = "uid://dker4vqy5cjik"
 [sub_resource type="Resource" id="Resource_rompe_pisos"]
 script = ExtResource("2_ko7ua")
 audio = ExtResource("94_rompe_pisos")
-volumen = -21.0
+volumen = -24.0
 copias = 1
 
 [sub_resource type="Resource" id="Resource_salpicadura"]
@@ -295,6 +309,13 @@ script = ExtResource("2_ko7ua")
 audio = ExtResource("92_tiara_rota")
 volumen = -9.0
 tono = 1.5
+copias = 1
+
+[sub_resource type="Resource" id="Resource_tiempo_muerto"]
+script = ExtResource("2_ko7ua")
+audio = ExtResource("98_tiempo_muerto")
+volumen = -6.0
+tono = 1.3
 copias = 1
 
 [sub_resource type="Resource" id="Resource_a6m5r"]
@@ -368,4 +389,7 @@ tiara_rota = SubResource("Resource_tiara_rota")
 tiara_lista = SubResource("Resource_tiara_lista")
 rompe_pisos = SubResource("Resource_rompe_pisos")
 impacto_elastico = SubResource("Resource_impacto_elastico")
+blindaje_ganado = SubResource("Resource_blindaje_ganado")
+blindaje_gastado = SubResource("Resource_blindaje_gastado")
+tiempo_muerto = SubResource("Resource_tiempo_muerto")
 metadata/_custom_type_script = "uid://djv6hk6rc47r"

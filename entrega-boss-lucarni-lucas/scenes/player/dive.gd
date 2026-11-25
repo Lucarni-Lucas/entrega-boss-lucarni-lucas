@@ -52,6 +52,7 @@ func activar(player: Player) -> void:
 	player.escala_gravedad = player.params.dive_escala_gravedad
 	player.aplicar_impulso_vertical(player.params.dive_impulso_vertical)
 	player.recargar_energia_gp(player.params.gp_recarga_dive)
+	player.radio_extra_gp += player.params.gp_radio_por_dive
 	empezo.emit()
 
 

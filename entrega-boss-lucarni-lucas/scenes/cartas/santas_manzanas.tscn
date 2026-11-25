@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/santas_manzanas.gd" id="1_efecto"]
+[ext_resource type="PackedScene" path="res://scenes/cartas/manzana.tscn" id="2_manzana"]
+
+[node name="SantasManzanas" type="Node"]
+script = ExtResource("1_efecto")
+escena_manzana = ExtResource("2_manzana")

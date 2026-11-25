@@ -14,7 +14,9 @@
 [ext_resource type="Resource" uid="uid://dtjwu2qo5am47" path="res://resources/cartas/ground_pound_explosivo.tres" id="5_gp_explosivo"]
 [ext_resource type="Resource" uid="uid://bbhtp7syen27t" path="res://resources/cartas/gran_calibre.tres" id="5_gran_calibre"]
 [ext_resource type="Resource" path="res://resources/cartas/impacto_elastico.tres" id="5_impacto_elastico"]
+[ext_resource type="Resource" path="res://resources/cartas/impulso_acumulado.tres" id="5_impulso_acumulado"]
 [ext_resource type="Resource" uid="uid://bttesj5dbwbml" path="res://resources/cartas/llovizna.tres" id="5_llovizna"]
+[ext_resource type="Resource" uid="uid://d2el7ayntayu6" path="res://resources/cartas/racha_blindada.tres" id="5_racha_blindada"]
 [ext_resource type="Resource" path="res://resources/cartas/rareza_protectora.tres" id="5_rareza_protectora"]
 [ext_resource type="Resource" uid="uid://dtgw5b84wrkko" path="res://resources/cartas/rebote_electrico.tres" id="5_rebote_electrico"]
 [ext_resource type="Resource" uid="uid://dcgicvev5c1ha" path="res://resources/cartas/rebote_sismico.tres" id="5_rebote_sismico"]
@@ -37,6 +39,9 @@
 [ext_resource type="PackedScene" uid="uid://b3wbsb5qhp3h1" path="res://scenes/fondo/fondo.tscn" id="15_fondo"]
 [ext_resource type="PackedScene" uid="uid://c11j5b45pgp8t" path="res://scenes/sonidos/sonidos.tscn" id="18_6joey"]
 [ext_resource type="PackedScene" uid="uid://bqy5ik5om3lwq" path="res://scenes/efectos/efectos.tscn" id="30_efectos"]
+[ext_resource type="Resource" uid="uid://bhf4cnxqrf55p" path="res://resources/cartas/tiempo_muerto.tres" id="35_hn1ds"]
+[ext_resource type="Resource" uid="uid://b26oecek55x3d" path="res://resources/cartas/santas_manzanas.tres" id="36_femlh"]
+[ext_resource type="Resource" path="res://resources/cartas/wombo_combo.tres" id="37_wombo_combo"]
 [ext_resource type="AudioStream" uid="uid://84evnvjfcvpf" path="res://assets/audio/musica/Nowhere_160 BPM_Full_Loop.ogg" id="41_nowhere"]
 [ext_resource type="AudioStream" uid="uid://bsmpjhwjrf4s" path="res://assets/audio/musica/Sectors_120 BPM_Full_Loop.ogg" id="42_sectors"]
 [ext_resource type="PackedScene" path="res://scenes/ui/festejo_victoria.tscn" id="43_festejo"]
@@ -123,7 +128,7 @@ jugador = NodePath("../Entidades/Player")
 [node name="Cartas" type="Node" parent="." unique_id=753983594 node_paths=PackedStringArray("jugador")]
 script = ExtResource("5_cartas")
 jugador = NodePath("../Entidades/Player")
-pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo"), ExtResource("5_rareza_protectora"), ExtResource("5_rebote_electrico"), ExtResource("5_rechazo_pegajoso"), ExtResource("5_tiara_de_diamante"), ExtResource("5_rompe_pisos"), ExtResource("5_espejismo_aereo"), ExtResource("5_llovizna"), ExtResource("5_gran_calibre"), ExtResource("5_impacto_elastico")])
+pozo = Array[ExtResource("5_carta")]([ExtResource("5_gp_explosivo"), ExtResource("5_replica"), ExtResource("5_rebote_sismico"), ExtResource("5_geiser"), ExtResource("5_salpicadura"), ExtResource("5_boomie_persistente"), ExtResource("5_boomie_afilado"), ExtResource("5_doble_filo"), ExtResource("5_rareza_protectora"), ExtResource("5_rebote_electrico"), ExtResource("5_rechazo_pegajoso"), ExtResource("5_tiara_de_diamante"), ExtResource("5_rompe_pisos"), ExtResource("5_espejismo_aereo"), ExtResource("5_llovizna"), ExtResource("5_gran_calibre"), ExtResource("5_impacto_elastico"), ExtResource("5_impulso_acumulado"), ExtResource("5_racha_blindada"), ExtResource("35_hn1ds"), ExtResource("36_femlh"), ExtResource("37_wombo_combo")])
 
 [node name="Partida" type="Node" parent="." unique_id=400762550]
 script = ExtResource("6_oexds")
@@ -155,6 +160,7 @@ jugador = NodePath("../Entidades/Player")
 [connection signal="anticipo_gp" from="Entidades/Player" to="Sonidos" method="_on_jugador_anticipo_gp"]
 [connection signal="aterrizo" from="Entidades/Player" to="Sonidos" method="_on_jugador_aterrizo"]
 [connection signal="atrapo_boomerang" from="Entidades/Player" to="Sonidos" method="_on_jugador_atrapo_boomerang"]
+[connection signal="blindaje_cambio" from="Entidades/Player" to="Hud" method="_on_player_blindaje_cambio"]
 [connection signal="curado" from="Entidades/Player" to="Sonidos" method="_on_jugador_curado"]
 [connection signal="dive" from="Entidades/Player" to="Sonidos" method="_on_jugador_dive"]
 [connection signal="energia_gp_cambio" from="Entidades/Player" to="Hud" method="_on_player_energia_gp_cambio"]

@@ -110,10 +110,24 @@ func _on_marca_lista(marca: MarcaSpawn) -> void:
 	var posicion := marca.global_position
 	var escena := marca.enemigo
 	_pool_marcas.devolver(marca)
+	aparecer(escena, posicion)
+
+
+func aparecer(escena: PackedScene, posicion: Vector2) -> Enemigo:
+	preparar_pool(escena, 0)
 	var enemigo := _elegir_enemigo(escena)
 	enemigo.activar_en(posicion)
-	enemigo.poner_dano_contacto(_guion.dano_contacto)
+	enemigo.poner_dano_contacto(_guion.dano_contacto if _guion else enemigo.params.dano_contacto)
 	enemigo_aparecio.emit(enemigo)
+	return enemigo
+
+
+func preparar_pool(escena: PackedScene, cantidad: int) -> void:
+	if _pools.has(escena.resource_path):
+		return
+	var pool := Pool.new(escena, contenedor, _preparar_enemigo)
+	pool.precalentar.call_deferred(cantidad)
+	_pools[escena.resource_path] = pool
 
 
 func _preparar_enemigo(enemigo: Enemigo) -> void:

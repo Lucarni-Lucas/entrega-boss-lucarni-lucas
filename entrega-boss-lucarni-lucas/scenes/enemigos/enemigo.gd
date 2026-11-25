@@ -18,7 +18,11 @@ var punto := Vector2.ZERO
 var _capa: int
 var _tween_muerte: Tween
 var _tween_destello: Tween
-var _lento := 0.0
+var _factores := PackedFloat32Array()
+var _fines := PackedFloat32Array()
+var _tintes := PackedColorArray()
+var _reloj_lento := 0.0
+var _proximo_fin := INF
 var _factor_lento := 1.0
 var _agitacion := 0.0
 
@@ -37,7 +41,11 @@ func _ready() -> void:
 	_hurtbox.z_min = z
 	_hurtbox.z_max = z + params.alto
 	_hurtbox.golpeado.connect(_on_golpeado)
-	_hitbox.dano = params.dano_contacto
+	poner_dano_contacto(params.dano_contacto)
+	_sprite.scale *= params.escala
+	_hurtbox.scale *= params.escala
+	_hitbox.scale *= params.escala
+	_sombra.agrandar(params.escala)
 	_hitbox.z_min = z
 	_hitbox.z_max = z + params.alto
 	_hitbox.continua = true
@@ -69,7 +77,7 @@ func activar_en(posicion: Vector2) -> void:
 
 
 func poner_dano_contacto(dano: int) -> void:
-	_hitbox.dano = dano
+	_hitbox.dano = maxi(ceili(dano * params.factor_dano), 1) if dano > 0 else 0
 
 
 func desactivar() -> void:
@@ -82,10 +90,8 @@ func desactivar() -> void:
 
 func _physics_process(delta: float) -> void:
 	_empuje = _empuje.move_toward(Vector2.ZERO, params.frenado_empuje * delta)
-	if _lento > 0.0:
-		_lento -= delta
-		if _lento <= 0.0:
-			_quitar_lentitud()
+	if not _fines.is_empty():
+		_pasar_lentitud(delta)
 	if _agitacion > 0.0:
 		_visual.position = _posicion_visual + Vector2(randf_range(-_agitacion, _agitacion), randf_range(-_agitacion, _agitacion))
 	_mirar_al_jugador()
@@ -150,20 +156,56 @@ func empujar(desde: Vector2, fuerza: float) -> void:
 
 
 func ralentizar(factor: float, segundos: float, tinte := Color.WHITE) -> void:
-	_factor_lento = minf(_factor_lento, factor) if esta_lento() else factor
-	_lento = maxf(_lento, segundos)
-	if tinte != Color.WHITE:
-		_sprite.modulate = tinte
+	var fin := _reloj_lento + segundos
+	for i in _factores.size():
+		if is_equal_approx(_factores[i], factor) and _tintes[i] == tinte:
+			_fines[i] = maxf(_fines[i], fin)
+			return
+	_factores.append(factor)
+	_fines.append(fin)
+	_tintes.append(tinte)
+	_proximo_fin = minf(_proximo_fin, fin)
+	_aplicar_lentitud()
 
 
 func esta_lento() -> bool:
-	return _lento > 0.0
+	return not _fines.is_empty()
+
+
+func _pasar_lentitud(delta: float) -> void:
+	_reloj_lento += delta
+	if _reloj_lento < _proximo_fin:
+		return
+	_proximo_fin = INF
+	for i in range(_fines.size() - 1, -1, -1):
+		if _fines[i] <= _reloj_lento:
+			_factores.remove_at(i)
+			_fines.remove_at(i)
+			_tintes.remove_at(i)
+		else:
+			_proximo_fin = minf(_proximo_fin, _fines[i])
+	_aplicar_lentitud()
+
+
+func _aplicar_lentitud() -> void:
+	_factor_lento = 1.0
+	var tinte := Color.WHITE
+	var factor_tinte := INF
+	for i in _factores.size():
+		_factor_lento = minf(_factor_lento, _factores[i])
+		if _tintes[i] != Color.WHITE and _factores[i] < factor_tinte:
+			tinte = _tintes[i]
+			factor_tinte = _factores[i]
+	_sprite.modulate = tinte
 
 
 func _quitar_lentitud() -> void:
-	_lento = 0.0
-	_factor_lento = 1.0
-	_sprite.modulate = Color.WHITE
+	_factores.clear()
+	_fines.clear()
+	_tintes.clear()
+	_reloj_lento = 0.0
+	_proximo_fin = INF
+	_aplicar_lentitud()
 
 
 func _direccion_desde(desde: Vector2) -> Vector2:

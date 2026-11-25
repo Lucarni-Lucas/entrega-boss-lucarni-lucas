@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/cartas/bomba_wombo.gd" id="1_bomba"]
+[ext_resource type="PackedScene" uid="uid://bfl3i6qt58bgu" path="res://scenes/componentes/sombra.tscn" id="2_sombra"]
+[ext_resource type="Texture2D" path="res://assets/efectos/bomba.svg" id="3_textura"]
+
+[node name="BombaWombo" type="Node2D"]
+script = ExtResource("1_bomba")
+
+[node name="Sombra" parent="." instance=ExtResource("2_sombra")]
+z_index = -1
+scale = Vector2(0.42, 0.42)
+
+[node name="Cuerpo" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Cuerpo"]
+position = Vector2(0, -26)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("3_textura")
+
+[node name="Chispa" type="Node2D" parent="Cuerpo"]
+position = Vector2(20.35, -46.9)

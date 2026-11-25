@@ -21,7 +21,11 @@ signal golpeado
 signal golpe_de_enemigo
 signal golpe_bloqueado
 signal escudo_cambio(activo: bool)
+signal blindaje_cambio(actual: int, maximo: int)
+signal golpe_blindado
 signal curado
+signal combo_subio(combo: int)
+signal combo_termino(combo: int)
 
 enum Estado { EN_SUELO, EN_AIRE, DIVE, GROUND_POUND, VAULT, THROW }
 
@@ -40,10 +44,13 @@ var tiene_boomerang := true
 var boomie_cargado_de_electricidad := false
 var tiempo_en_aire := 0.0
 var multiplicador_dano := 1.0
+var radio_extra_gp := 0.0
 var verbo_activo: VerboExclusivo = null
 var escala_gravedad := 1.0
 var vida: int
 var escudo := false
+var blindaje := 0
+var combo := 0
 var energia_gp: float:
 	set(valor):
 		if valor == energia_gp:
@@ -78,6 +85,11 @@ func _ready() -> void:
 	_boomerang.lanzo.connect(lanzo_boomerang.emit)
 	_boomerang.atrapado.connect(atrapo_boomerang.emit)
 	_slash.slasheo.connect(slasheo.emit)
+	lanzo_boomerang.connect(_sumar_combo)
+	slasheo.connect(_on_slasheo)
+	dive.connect(_sumar_combo)
+	anticipo_gp.connect(_sumar_combo)
+	rebote_aereo.connect(_sumar_combo.unbind(2))
 	vida = params.vida_max
 	_hurtbox.golpeado.connect(_on_golpeado)
 	energia_gp = params.gp_energia_max
@@ -105,6 +117,8 @@ func _physics_process(delta: float) -> void:
 
 	_actualizar_altura(delta)
 	_actualizar_tiempo_en_aire(delta)
+	if combo > 0 and not cuenta_como_aereo():
+		_terminar_combo()
 	if not esta_en_suelo() and estado_actual() != Estado.GROUND_POUND:
 		recargar_energia_gp(params.gp_recarga_aire * delta)
 	_hurtbox.z_min = z
@@ -148,6 +162,24 @@ func slash_circular() -> void:
 
 func slash_es_circular() -> bool:
 	return _slash.circular_activo
+
+
+func _on_slasheo() -> void:
+	if not slash_es_circular():
+		_sumar_combo()
+
+
+func _sumar_combo() -> void:
+	if esta_en_suelo():
+		return
+	combo += 1
+	combo_subio.emit(combo)
+
+
+func _terminar_combo() -> void:
+	var final := combo
+	combo = 0
+	combo_termino.emit(final)
 
 
 func electrizar_boomie(activo: bool) -> void:
@@ -234,30 +266,30 @@ func agregar_al_mundo(nodo: Node) -> void:
 	get_parent().add_child(nodo)
 
 
-func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true) -> void:
+func impactar_gp(posicion: Vector2, altura: float, fuerza: float, primario := true, radio_extra := 0.0) -> void:
 	if not is_inside_tree():
 		return
 	var impacto: ImpactoGp = _pool_impactos.tomar()
-	impacto.golpear(self, posicion, altura, fuerza)
+	impacto.golpear(self, posicion, altura, fuerza, radio_extra)
 	impacto_gp.emit(posicion, altura, impacto.radio, fuerza, primario)
 	if primario:
-		_replicar_gp(posicion, altura, fuerza, impacto.radio)
+		_replicar_gp(posicion, altura, fuerza, impacto.radio, radio_extra)
 
 
-func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float) -> void:
+func _replicar_gp(posicion: Vector2, altura: float, fuerza: float, radio: float, radio_extra: float) -> void:
 	for i in params.gp_replicas:
 		var angulo := TAU * i / params.gp_replicas
 		var desvio := Vector2(cos(angulo), sin(angulo) * params.anim_perspectiva) * radio * params.gp_replica_distancia
-		var replica := _replicar.bind(_vueltas_al_inicio, posicion + desvio, altura, fuerza)
+		var replica := _replicar.bind(_vueltas_al_inicio, posicion + desvio, altura, fuerza, radio_extra)
 		if params.gp_replica_retraso > 0.0:
 			get_tree().create_timer(params.gp_replica_retraso, false, true).timeout.connect(replica)
 		else:
 			replica.call()
 
 
-func _replicar(vuelta: int, posicion: Vector2, altura: float, fuerza: float) -> void:
+func _replicar(vuelta: int, posicion: Vector2, altura: float, fuerza: float, radio_extra: float) -> void:
 	if vuelta == _vueltas_al_inicio:
-		impactar_gp(posicion, altura, fuerza, false)
+		impactar_gp(posicion, altura, fuerza, false, radio_extra)
 
 
 func _velocidad_en_pantalla() -> Vector2:
@@ -283,6 +315,8 @@ func _actualizar_tiempo_en_aire(delta: float) -> void:
 
 
 func _on_aterrizo() -> void:
+	if estado_actual() != Estado.GROUND_POUND:
+		radio_extra_gp = 0.0
 	_sprite.deformar(params.anim_aterrizaje_escala, params.anim_aterrizaje_ida, params.anim_aterrizaje_vuelta)
 
 
@@ -312,6 +346,14 @@ func recibir_dano(cantidad: int) -> void:
 		_tiempo_invulnerable = params.invulnerabilidad
 		golpe_bloqueado.emit()
 		return
+	if blindaje > 0 and cantidad > 0:
+		var absorbido := mini(blindaje, cantidad)
+		_poner_blindaje(blindaje - absorbido)
+		cantidad -= absorbido
+		golpe_blindado.emit()
+		if cantidad == 0:
+			_tiempo_invulnerable = params.invulnerabilidad
+			return
 	if vida > params.piedad_vida:
 		vida = maxi(vida - cantidad, params.piedad_vida)
 	else:
@@ -331,6 +373,17 @@ func poner_escudo(activo: bool) -> void:
 		return
 	escudo = activo
 	escudo_cambio.emit.call_deferred(activo)
+
+
+func blindar(cantidad: int) -> void:
+	_poner_blindaje(mini(blindaje + cantidad, params.blindaje_max))
+
+
+func _poner_blindaje(valor: int) -> void:
+	if valor == blindaje:
+		return
+	blindaje = valor
+	blindaje_cambio.emit(blindaje, params.blindaje_max)
 
 
 func curar(cantidad: int) -> void:
@@ -400,6 +453,9 @@ func volver_al_inicio() -> void:
 	z = 0.0
 	velocidad_z = 0.0
 	escala_gravedad = 1.0
+	radio_extra_gp = 0.0
+	combo = 0
+	_poner_blindaje(0)
 	_tiempo_invulnerable = 0.0
 	_tiempo_protegido = 0.0
 	_sprite.visible = true
