@@ -41,7 +41,11 @@ func _ready() -> void:
 	_hurtbox.z_min = z
 	_hurtbox.z_max = z + params.alto
 	_hurtbox.golpeado.connect(_on_golpeado)
-	_hitbox.dano = params.dano_contacto
+	poner_dano_contacto(params.dano_contacto)
+	_sprite.scale *= params.escala
+	_hurtbox.scale *= params.escala
+	_hitbox.scale *= params.escala
+	_sombra.agrandar(params.escala)
 	_hitbox.z_min = z
 	_hitbox.z_max = z + params.alto
 	_hitbox.continua = true
@@ -73,7 +77,7 @@ func activar_en(posicion: Vector2) -> void:
 
 
 func poner_dano_contacto(dano: int) -> void:
-	_hitbox.dano = dano
+	_hitbox.dano = maxi(ceili(dano * params.factor_dano), 1) if dano > 0 else 0
 
 
 func desactivar() -> void:
